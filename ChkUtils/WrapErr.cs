@@ -1092,7 +1092,9 @@ namespace ChkUtils {
                 // Always needs to be called directly from one of the wrap objects to get the right number of the stack frame
                 // This will give us the class and method names in which the wrap method is used
                 //                return new ErrReport(code, new StackTrace().GetFrame(2).GetMethod(), msg, e);
-                return WrapErr.LogErr(new ErrReport(code, StackFrameTools.FirstNonWrappedMethod(typeof(WrapErr)), msg, e));
+                System.Reflection.MethodBase mb = StackFrameTools.FirstNonWrappedMethod(typeof(WrapErr));
+                ErrorLocation location = new ErrorLocation(mb.DeclaringType.Name, mb.Name);
+                return WrapErr.LogErr(new ErrReport(code, location, msg, e));
             }
             catch (Exception ex) {
                 Debug.WriteLine("{0} on call to WrapErr.GetErrReport:{1} - {2}", ex.GetType().Name, ex.Message, ex.StackTrace);
@@ -1103,7 +1105,9 @@ namespace ChkUtils {
 
         private static ErrReport GetErrReport(int code, string msg) {
             try {
-                ErrReport err = new ErrReport(code, StackFrameTools.FirstNonWrappedMethod(typeof(WrapErr)), msg);
+                System.Reflection.MethodBase mb = StackFrameTools.FirstNonWrappedMethod(typeof(WrapErr));
+                ErrorLocation location = new ErrorLocation(mb.DeclaringType.Name, mb.Name);
+                ErrReport err = new ErrReport(code, location, msg);
                 List<string> stackFrames = StackFrameTools.FirstNonWrappedTraceStack(typeof(WrapErr), new StackTrace(1, true));
 
                 StringBuilder sb = new StringBuilder(100);

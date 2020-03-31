@@ -25,6 +25,7 @@ namespace TestCases.LogUtilsTests.Net {
         [TearDown]
         public void TestTeardown() {
             this.logReader.StopLogging();
+            System.Threading.Thread.Sleep(500);
             this.logReader.Clear();
         }
 

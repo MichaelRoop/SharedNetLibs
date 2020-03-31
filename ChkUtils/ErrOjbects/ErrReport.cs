@@ -1,17 +1,14 @@
-﻿using System;
-using System.Reflection;
+﻿using ChkUtils.ExceptionFormating;
+using ChkUtils.ExceptionParsers;
+using System;
 using System.Runtime.Serialization;
 using System.Text;
-using ChkUtils.ExceptionFormating;
-using ChkUtils.ExceptionParsers;
 
 namespace ChkUtils.ErrObjects {
 
-    /// <summary>
-    /// Object to hold error information
-    /// </summary>
+    /// <summary>Object to hold error information</summary>
     /// <author>Michael Roop</author>
-    /// <copyright>July 2012 Michael Roop Used by permission</copyright> 
+    /// <copyright>March 2020 Michael Roop Used by permission</copyright> 
     [DataContract]
     public class ErrReport {
 
@@ -27,14 +24,15 @@ namespace ChkUtils.ErrObjects {
 
         private StringBuilder stackTrace = new StringBuilder();
 
+        DateTime stamp = DateTime.Now;
+
         #endregion
 
         #region Properties
 
-        /// <summary>The error code</summary>
+        /// <summary>Error code</summary>
         [DataMember]
         public int Code { get { return this.code; } set { this.code = value; } }
-        
 
         /// <summary>The originating class for the error</summary>
         [DataMember]
@@ -46,7 +44,7 @@ namespace ChkUtils.ErrObjects {
                 this.atClass = value;
             }
         }
-        
+
 
         /// <summary>
         /// The originating class for the error
@@ -88,6 +86,19 @@ namespace ChkUtils.ErrObjects {
             }
         }
 
+        /// <summary>
+        /// The time stamp
+        /// </summary>
+        [DataMember]
+        public DateTime TimeStamp {
+            get {
+                return this.stamp;
+            }
+            set {
+                this.stamp = value;
+            }
+        }
+
         #endregion
 
         #region Constructors
@@ -112,10 +123,7 @@ namespace ChkUtils.ErrObjects {
             this.atClass = atClass;
             this.atMethod = atMethod;
             this.msg = msg;
-
-            // Translate any exception information to string but do not store the exception. This allows the 
-            // object to be serialized and passed to a FaultException that can used to traverse WCF boundries
-            ExceptionFormaterFactory.Get().FormatException(ExceptionParserFactory.Get(atException), stackTrace);
+            this.InitialiseStackTraceInfo(atException);
         }
 
 
@@ -126,8 +134,8 @@ namespace ChkUtils.ErrObjects {
         /// <param name="method">Originating stack frame method</param>
         /// <param name="msg">Error message</param>
         /// <param name="atException">Originating Exception</param>
-        public ErrReport(int code, MethodBase method, string msg, Exception atException)
-            : this(code, method.DeclaringType.Name, method.Name, msg, atException) {
+        public ErrReport(int code, ErrorLocation location, string msg, Exception atException)
+            : this(code, location.ClassName, location.MethodName, msg, atException) {
         }
 
 
@@ -149,8 +157,25 @@ namespace ChkUtils.ErrObjects {
         /// <param name="code">Error code</param>
         /// <param name="method">Originating stack frame method</param>
         /// <param name="msg">Error message</param>
-        public ErrReport(int code, MethodBase method, string msg)
-            : this(code, method.DeclaringType.Name, method.Name, msg, null) {
+        public ErrReport(int code, ErrorLocation location, string msg)
+            : this(code, location.ClassName, location.MethodName, msg, null) {
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        /// <summary>Parse Exception to stack trace string and store in report</summary>
+        /// <param name="e">The exception to parse</param>
+        private void InitialiseStackTraceInfo(Exception e) {
+            // Translate any exception information to string but do not store the exception. This allows the 
+            // object to be serialized and passed to a FaultException that can used to traverse WCF boundries
+            try {
+                ExceptionFormaterFactory.Get().FormatException(ExceptionParserFactory.Get(e), stackTrace);
+            }
+            catch (Exception ee) {
+                System.Diagnostics.Debug.WriteLine(string.Format("Exception caught from the exception formater - {0} - {1} {2}", e.Message, ee.Message, ee.StackTrace));
+            }
         }
 
         #endregion

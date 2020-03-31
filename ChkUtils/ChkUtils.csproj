@@ -48,6 +48,7 @@
     <Compile Include="ErrOjbects\ErrReport.cs" />
     <Compile Include="ErrOjbects\ErrReportException.cs" />
     <Compile Include="ErrOjbects\ExceptionType.cs" />
+    <Compile Include="ErrorLocation.cs" />
     <Compile Include="ExceptionFormating\ExceptionFormaterFactory.cs" />
     <Compile Include="ExceptionFormating\IExceptionOutputFormater.cs" />
     <Compile Include="ExceptionFormating\MultiLineExceptionFormater.cs" />
