@@ -70,7 +70,6 @@
     <Compile Include="ChkUtilsTests\SafeActionTests.cs" />
     <Compile Include="ChkUtilsTests\StackFrameToolsTests.cs" />
     <Compile Include="ChkUtilsTests\ToErrorReportExceptionTests.cs" />
-    <Compile Include="ChkUtilsTests\ToErrorReportFaultExceptionTests.cs" />
     <Compile Include="ChkUtilsTests\ToErrReportTests.cs" />
     <Compile Include="ChkUtilsTests\ValidatorTests.cs" />
     <Compile Include="SpStateMachineTests\SpTestHelpers.cs" />

@@ -47,7 +47,7 @@
   <ItemGroup>
     <Compile Include="ErrOjbects\ErrReport.cs" />
     <Compile Include="ErrOjbects\ErrReportException.cs" />
-    <Compile Include="ErrOjbects\ExceptionType.cs" />
+    <Compile Include="ErrOjbects\ErrReportExceptionFromChk.cs" />
     <Compile Include="ErrorLocation.cs" />
     <Compile Include="ExceptionFormating\ExceptionFormaterFactory.cs" />
     <Compile Include="ExceptionFormating\IExceptionOutputFormater.cs" />

@@ -631,39 +631,6 @@ namespace ChkUtils.Net {
         }
 
 
-        ///// <summary>
-        ///// Wrapper of try catch finally to consitently produce an FaultException ErrReport no matter what 
-        ///// the Exception. Information from previous FaultException ErrReport is just retthrown while 
-        ///// ErrReportException are converted to ExceptionFault ErrReport with embedded ErrReport info</summary>
-        ///// <param name="code">The unique error number</param>
-        ///// <param name="errMsgFunc">The error message formating method that is only invoked on exception</param>
-        ///// <param name="action">The action to execute</param>
-        ///// <param name="finallyAction">The finally action to execute</param>
-        //private static void WrapTryToErrorReportFaultException(int code, Func<string> errMsgFunc, Action action, Action finallyAction) {
-        //    try {
-        //        action.Invoke();
-        //    }
-        //    catch (FaultException<ErrReport>) {
-        //        throw;
-        //    }
-        //    catch (FaultException e) {
-        //        throw WrapErr.FaultExceptionToErrReportFaultException(code, WrapErr.SafeAction(errMsgFunc), e);
-        //    }
-        //    catch (ErrReportExceptionFromChk e) {
-        //        throw WrapErr.ExceptionToErrReportFaultException(e.Report.Code, e.Report.Msg + "** ZFF **", e);
-        //    }
-        //    catch (ErrReportException e) {
-        //        throw new FaultException<ErrReport>(e.Report, new FaultReason(e.Report.ToString()), new FaultCode(e.Report.ToString()), e.Report.ToString());
-        //    }
-        //    catch (Exception e) {
-        //        throw WrapErr.ExceptionToErrReportFaultException(code, WrapErr.SafeAction(errMsgFunc), e);
-        //    }
-        //    finally {
-        //        WrapErr.SafeAction(() => finallyAction.Invoke());
-        //    }
-        //}
-
-
         /// <summary>
         /// Wrapper of try catch finally to consitently produce an ErrReportException no matter what the
         /// Exception. Information from previous ErrReportExceptions is just retthrown while 
@@ -690,41 +657,6 @@ namespace ChkUtils.Net {
                 WrapErr.SafeAction(() => finallyAction.Invoke());
             }
         }
-
-
-        ///// <summary>
-        ///// Wrapper of try catch finally to consitently produce a FaultException ErrReport no matter what the
-        ///// Exception. Information from previous FaultException ErrReport is just retthrown while 
-        ///// ErrReportException are converted to FaultException ErrReport with embedded ErrReport info
-        ///// </summary>
-        ///// <param name="code">The unique error number</param>
-        ///// <param name="errMsgFunc">The error message formating method that is only invoked on exception</param>
-        ///// <param name="action">The action to execute</param>
-        ///// <param name="finallyAction">The finally action to execute</param>
-        //private static T WrapTryToErrorReportFaultException<T>(int code, Func<string> errMsgFunc, Func<T> func, Action finallyAction) {
-        //    try {
-        //        return func.Invoke();
-        //    }
-        //    catch (FaultException<ErrReport>) {
-        //        throw;
-        //    }
-        //    catch (FaultException e) {
-        //        throw WrapErr.FaultExceptionToErrReportFaultException(code, WrapErr.SafeAction(errMsgFunc), e);
-        //    }
-        //    catch (ErrReportExceptionFromChk e) {
-        //        throw WrapErr.ExceptionToErrReportFaultException(e.Report.Code, e.Report.Msg + "** RRR **", e);
-        //    }
-        //    catch (ErrReportException e) {
-        //        throw new FaultException<ErrReport>(e.Report, new FaultReason(e.Report.ToString()), new FaultCode(e.Report.ToString()), e.Report.ToString());
-
-        //    }
-        //    catch (Exception e) {
-        //        throw WrapErr.ExceptionToErrReportFaultException(code, WrapErr.SafeAction(errMsgFunc), e);
-        //    }
-        //    finally {
-        //        WrapErr.SafeAction(() => finallyAction.Invoke());
-        //    }
-        //}
 
 
         /// <summary>
@@ -866,30 +798,30 @@ namespace ChkUtils.Net {
             }
         }
 
-        /// <summary>
-        /// Helper to create an error report object with the class and method names of calling method that
-        /// had an exeption occur. Names are found by relection
-        /// </summary>
-        /// <param name="code">Unique error code</param>
-        /// <param name="msg">Error message</param>
-        /// <param name="e">Exception of origine</param>
-        /// <returns>And error report object</returns>
-        public static ErrReport GetErrReport(int code, Func<string> msgFunc, Exception e) {
-            string msg = "";
-            try {
-                msg = msgFunc.Invoke();
-                if (msg == REPLACE_WITH_EXCEPTION_MSG) {
-                    msg = e.Message;
-                }
+        ///// <summary>
+        ///// Helper to create an error report object with the class and method names of calling method that
+        ///// had an exeption occur. Names are found by relection
+        ///// </summary>
+        ///// <param name="code">Unique error code</param>
+        ///// <param name="msg">Error message</param>
+        ///// <param name="e">Exception of origine</param>
+        ///// <returns>And error report object</returns>
+        //public static ErrReport GetErrReport(int code, Func<string> msgFunc, Exception e) {
+        //    string msg = "";
+        //    try {
+        //        msg = msgFunc.Invoke();
+        //        if (msg == REPLACE_WITH_EXCEPTION_MSG) {
+        //            msg = e.Message;
+        //        }
 
-                return WrapErr.GetErrReport(code, msg, e);
-            }
-            catch (Exception ex) {
-                Debug.WriteLine("Failure {0} formating error msg {1} - {2}", ex.GetType().Name, ex.Message, ex.StackTrace);
-                return WrapErr.LogErr(new ErrReport(code, "UnknownClass", "UnknownMethod", "Failure formating error msg", e));
-            }
-        }
-        // TO-DO - NEED FUNCTIONALITY TO TAKE APART AND LOG A FaultException<>
+        //        return WrapErr.GetErrReport(code, msg, e);
+        //    }
+        //    catch (Exception ex) {
+        //        Debug.WriteLine("Failure {0} formating error msg {1} - {2}", ex.GetType().Name, ex.Message, ex.StackTrace);
+        //        return WrapErr.LogErr(new ErrReport(code, "UnknownClass", "UnknownMethod", "Failure formating error msg", e));
+        //    }
+        //}
+
 
         /// <summary>
         /// Log the ErrReport

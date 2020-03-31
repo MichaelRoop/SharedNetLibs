@@ -71,22 +71,6 @@ namespace TestCases.ChkUtilsTests {
         }
 
         [Test]
-        public void Action_Caught_FaultException() {
-            ErrReport err;
-            WrapErr.ToErrReport(out err, 1111, "Unexpected error", () => {
-                new ChkUtilsTestHelpers.OuterClass().DoNestedFaultException();
-            });
-            Assert.AreEqual(9191, err.Code);
-            Assert.AreEqual("OuterClass", err.AtClass);
-            Assert.AreEqual("DoNestedFaultException", err.AtMethod);
-            Assert.AreEqual("Unexpected error", err.Msg);
-            Assert.IsTrue(err.StackTrace.Contains("Throw from InnerClass.DoIt() with name:George")); 
-            //Assert.IsTrue(err.StackTrace.Contains("OuterClass"));
-            Assert.IsTrue(err.StackTrace.Contains("DoNestedFaultException"));
-            Assert.IsTrue(err.StackTrace.Contains("InnerClass.DoException"));
-        }
-
-        [Test]
         public void Action_Caught_ErrReportException() {
             ErrReport err;
             WrapErr.ToErrReport(out err, 1111, "Unexpected error", () => {
@@ -163,22 +147,6 @@ namespace TestCases.ChkUtilsTests {
                 return 1;
             });
             Validate(err, 1111, "Func_Caught_Exception_ErrorFormater", "The error formating has been invoked");
-        }
-
-        [Test]
-        public void Func_Caught_FaultException() {
-            ErrReport err;
-            int ret = WrapErr.ToErrReport(out err, 1111, "Unexpected error", () => {
-                return new ChkUtilsTestHelpers.OuterClass().RetDoNestedFaultException();
-            });
-            Assert.AreEqual(9191, err.Code);
-            Assert.AreEqual("OuterClass", err.AtClass);
-            Assert.AreEqual("RetDoNestedFaultException", err.AtMethod);
-            Assert.AreEqual("Unexpected error", err.Msg);
-            Assert.IsTrue(err.StackTrace.Contains("Throw from InnerClass.DoIt() with name:George"));
-            //Assert.IsTrue(err.StackTrace.Contains("OuterClass"));
-            Assert.IsTrue(err.StackTrace.Contains("RetDoNestedFaultException"));
-            Assert.IsTrue(err.StackTrace.Contains("InnerClass.DoException"));
         }
 
         [Test]

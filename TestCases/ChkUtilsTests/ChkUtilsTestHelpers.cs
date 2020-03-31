@@ -79,17 +79,8 @@ namespace TestCases.ChkUtilsTests {
                 throw new Exception("Throw from OuterClass.DoIt() with name:" + name);
             }
 
-            public void DoNestedFaultException() {
-                WrapErr.ToErrorReportFaultException(9191, "Unexpected error", () => new InnerClass().DoException("George"));
-            }
-
             public void DoNestedErrReportException() {
                 WrapErr.ToErrorReportException(9292, "Unexpected error", () => new InnerClass().DoException("Ziffle"));
-            }
-
-            public int RetDoNestedFaultException() {
-                WrapErr.ToErrorReportFaultException(9191, "Unexpected error", () => new InnerClass().DoException("George"));
-                return 1;
             }
 
             public int RetDoNestedErrReportException() {

@@ -1,4 +1,6 @@
-﻿namespace ChkUtils.Net.ErrObjects {
+﻿using ChkUtils.ErrObjects;
+
+namespace ChkUtils.ErrOjbects {
 
     /// <summary>Used internally in the WrapErr class to throw exceptions from Chk methods to preserve stack</summary>
     public class ErrReportExceptionFromChk : ErrReportException {
@@ -10,4 +12,3 @@
         }
     }
 }
-

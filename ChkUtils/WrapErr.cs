@@ -1,10 +1,9 @@
-﻿using System;
-using System.Diagnostics;
-using System.ServiceModel;
-using ChkUtils.ErrObjects;
+﻿using ChkUtils.ErrObjects;
 using ChkUtils.ErrOjbects;
 using ChkUtils.ExceptionFormating;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace ChkUtils {
@@ -36,10 +35,16 @@ namespace ChkUtils {
         /// </summary>
         static object onExceptionLogLock = new object();
 
+        /// <summary>Internal token string used to flag that the ErrReport MSG should be replaced with exception message</summary>
+        private readonly static string REPLACE_WITH_EXCEPTION_MSG = "#_$$_#_REPLACE_#_MSG_#_TOKEN_#_$$_#";
+
+        /// <summary>Tools to manipulate the stack based on OS</summary>
+        //private static IStackTools stackTools = null;
+
         #endregion
 
         #region Public Initialisation Methods
-        
+
         /// <summary>
         /// Initialise the method which will post a log entry on all wrappers the ToErrFaultException wrappers
         /// where the original transformation of Exception to ExceptionFault occurs
@@ -60,9 +65,15 @@ namespace ChkUtils {
             ExceptionFormaterFactory.SetFormater(formater);
         }
 
-
+        //// TODO - set the IStackTools here
+        /*
+        public static void SetStackTools(IStackTools stackTools) {
+            WrapErr.stackTools = stackTools;
+            ExceptionParserBase.SetStackTools(stackTools);
+        }
+        */
         #endregion
-        
+
         #region Safe Action Methods
 
         /// <summary>
@@ -110,7 +121,7 @@ namespace ChkUtils {
         /// <param name="msg">The error message</param>
         /// <param name="action">The action to invoke</param>
         public static void ToErrorReportException(int code, Action action) {
-            WrapErr.WrapTryToErrorReportException(code, () => { return "Unexpected Error Occured"; }, action, () => { ;});
+            WrapErr.WrapTryToErrorReportException(code, () => { return REPLACE_WITH_EXCEPTION_MSG; }, action, () => { ;});
         }
 
 
@@ -148,7 +159,7 @@ namespace ChkUtils {
         /// <param name="action">The action to invoke</param>
         /// <param name="finallyAction">The finally action to invoke</param>
         public static void ToErrorReportException(int code, Action action, Action finallyAction) {
-            WrapErr.WrapTryToErrorReportException(code, () => { return "Unexpected Error Occured"; }, action, finallyAction);
+            WrapErr.WrapTryToErrorReportException(code, () => { return REPLACE_WITH_EXCEPTION_MSG; }, action, finallyAction);
         }
 
 
@@ -180,63 +191,6 @@ namespace ChkUtils {
 
         #endregion
 
-        #region Wrap Action to FaultException<ErrReport>
-
-        /// <summary>
-        /// Wrap an action to catch and convert exceptions not previously caught and 
-        /// converted to FaultException<ErrReport> to traverse WCF boundries.
-        /// </summary>
-        /// <param name="code">The error code</param>
-        /// <param name="msg">The error message</param>
-        /// <param name="action">The action to invoke</param>
-        public static void ToErrorReportFaultException(int code, string msg, Action action) {
-            WrapErr.WrapTryToErrorReportFaultException(code, () => { return msg; }, action, () => { ; });
-        }
-
-
-        /// <summary>
-        /// Wrap an action to catch and convert exceptions not previously caught and 
-        /// converted to FaultException<ErrReport> to traverse WCF boundries. Efficient 
-        /// form where error message formating Func is not invoked unless there is an error
-        /// </summary>
-        /// <param name="code">The error code</param>
-        /// <param name="errMsgFunc">The error message on error function</param>
-        /// <param name="action">The action to invoke</param>
-        public static void ToErrorReportFaultException(int code, Func<string> errMsgFunc, Action action) {
-            WrapErr.WrapTryToErrorReportFaultException(code, errMsgFunc, action, () => { ; });
-        }
-
-
-        /// <summary>
-        /// Wrap an action to catch and convert exceptions not previously caught and 
-        /// converted to FaultException<ErrReport> to traverse WCF boundries. Has a 
-        /// finally action also 
-        /// </summary>
-        /// <param name="code">The error code</param>
-        /// <param name="msg">The error message</param>
-        /// <param name="action">The action to invoke</param>
-        /// <param name="finallyAction">The finally action</param>
-        public static void ToErrorReportFaultException(int code, string msg, Action action, Action finallyAction) {
-            WrapErr.WrapTryToErrorReportFaultException(code, () => { return msg; }, action, finallyAction);
-        }
-
-
-        /// <summary>
-        /// Wrap an action to catch and convert exceptions not previously caught and 
-        /// converted to FaultException<ErrReport> to traverse WCF boundries. Has a 
-        /// finally action also. Efficient form where error message formating Func is 
-        /// not invoked unless there is an error
-        /// </summary>
-        /// <param name="code">The error code</param>
-        /// <param name="errMsgFunc">The error message on error function</param>
-        /// <param name="action">The action to invoke</param>
-        /// <param name="finallyAction">The finally action to invoke</param>
-        public static void ToErrorReportFaultException(int code, Func<string> errMsgFunc, Action action, Action finallyAction) {
-            WrapErr.WrapTryToErrorReportFaultException(code, errMsgFunc, action, finallyAction);
-        }
-
-        #endregion
-
         #region Wrap Function to ErrReportException
 
         /// <summary>
@@ -247,7 +201,7 @@ namespace ChkUtils {
         /// <param name="msg">The error message</param>
         /// <param name="action">The action to invoke</param>
         public static T ToErrorReportException<T>(int code, Func<T> func) {
-            return WrapErr.WrapTryToErrorReportException(code, () => { return "Unexpected Error Occured"; }, func, () => { ;});
+            return WrapErr.WrapTryToErrorReportException(code, () => { return REPLACE_WITH_EXCEPTION_MSG; }, func, () => { ;});
         }
 
 
@@ -310,69 +264,6 @@ namespace ChkUtils {
 
         #endregion
 
-        #region Wrap Function to FaultException<ErrReport>
-
-        /// <summary>
-        /// Wrap a function returning T to catch and convert exceptions not previously caught and 
-        /// converted to FaultException<ErrReport> to traverse WCF boundries.
-        /// </summary>
-        /// <typeparam name="T">The return type of the function</typeparam>
-        /// <param name="code">The error code</param>
-        /// <param name="msg">The error message</param>
-        /// <param name="action">The action to invoke</param>
-        /// <returns>A T value</returns>
-        public static T ToErrorReportFaultException<T>(int code, string msg, Func<T> func) {
-            return WrapErr.WrapTryToErrorReportFaultException(code, () => { return msg; }, func, () => { ; });
-        }
-
-
-        /// <summary>
-        /// Wrap a function to catch and convert exceptions not previously caught and 
-        /// converted to FaultException<ErrReport> to traverse WCF boundries. Efficient 
-        /// form where error message formating Func is not invoked unless there is an error
-        /// </summary>
-        /// <typeparam name="T">The return type of the function</typeparam>
-        /// <param name="code">The error code</param>
-        /// <param name="errMsgFunc">The error message on error function</param>
-        /// <param name="func">The function to invoke</param>
-        /// <returns>A T value</returns>
-        public static T ToErrorReportFaultException<T>(int code, Func<string> errMsgFunc, Func<T> func) {
-            return WrapErr.WrapTryToErrorReportFaultException(code, errMsgFunc, func, () => { ; });
-        }
-
-
-        /// <summary>
-        /// Wrap a function to catch and convert exceptions not previously caught and 
-        /// converted to FaultException<ErrReport> to traverse WCF boundries. Has a 
-        /// finally action also 
-        /// </summary>
-        /// <typeparam name="T">The return type of the function</typeparam>
-        /// <param name="code">The error code</param>
-        /// <param name="msg">The error message</param>
-        /// <param name="func">The function to invoke</param>
-        /// <param name="finallyAction">The finally action</param>
-        public static T ToErrorReportFaultException<T>(int code, string msg, Func<T> func, Action finallyAction) {
-            return WrapErr.WrapTryToErrorReportFaultException(code, () => { return msg; }, func, finallyAction);
-        }
-
-
-        /// <summary>
-        /// Wrap a function to catch and convert exceptions not previously caught and 
-        /// converted to FaultException<ErrReport> to traverse WCF boundries. Has a 
-        /// finally action also. Efficient form where error message formating Func is 
-        /// not invoked unless there is an error
-        /// </summary>
-        /// <typeparam name="T">The return type of the function</typeparam>
-        /// <param name="code">The error code</param>
-        /// <param name="errMsgFunc">The error message on error function</param>
-        /// <param name="func">The function to invoke</param>
-        /// <param name="finallyAction">The finally action to invoke</param>
-        public static T ToErrorReportFaultException<T>(int code, Func<string> errMsgFunc, Func<T> func, Action finallyAction) {
-            return WrapErr.WrapTryToErrorReportFaultException(code, errMsgFunc, func, finallyAction);
-        }
-        
-        #endregion
-
         #region Wrap Action To ErrReport
 
         /// <summary>
@@ -383,7 +274,19 @@ namespace ChkUtils {
         /// <param name="action">The action to invoke</param>
         /// <param name="code"></param>
         public static void ToErrReport(int code, Action action) {
-            ErrReport err = WrapErr.WrapTryToErrReport(code, () => { return "Unexpected Error"; }, action, () => { ; });
+            ErrReport err = WrapErr.WrapTryToErrReport(code, () => { return REPLACE_WITH_EXCEPTION_MSG; }, action, () => { ; });
+        }
+
+
+        /// <summary>
+        /// Wrap to an ErrReport that is not accessible by user. The results will
+        /// be logged if the delegate is assigned to the Wrap architecture
+        /// </summary>
+        /// <param name="code">The error code on error</param>
+        /// <param name="action">The action to invoke</param>
+        /// <param name="finallyAction">The action on the finally</param>
+        public static void ToErrReport(int code, Action action, Action finallyAction) {
+            ErrReport err = WrapErr.WrapTryToErrReport(code, () => { return REPLACE_WITH_EXCEPTION_MSG; }, action, finallyAction);
         }
 
 
@@ -420,7 +323,7 @@ namespace ChkUtils {
         /// <param name="code">The error code on error</param>
         /// <param name="action">The action to invoke</param>
         public static void ToErrReport(out ErrReport report, int code, Action action) {
-            report = WrapErr.WrapTryToErrReport(code, () => { return "Unexpected Error"; }, action, () => { ; });
+            report = WrapErr.WrapTryToErrReport(code, () => { return REPLACE_WITH_EXCEPTION_MSG; }, action, () => { ; });
         }
 
 
@@ -558,20 +461,7 @@ namespace ChkUtils {
         /// <param name="code">The error code if false</param>
         /// <param name="msg">The error message</param>
         public static void ChkDisposed(bool disposed, int code) {
-            WrapErr.ChkDisposed(ExceptionType.Regular, disposed, code);
-        }
-
-
-        /// <summary>
-        /// Validates a condition to be true, otherwise throw the 
-        /// defined exception type
-        /// </summary>
-        /// <param name="type">The exception type on failure</param>
-        /// <param name="condition">The condition to evaluate</param>
-        /// <param name="code">The error code if false</param>
-        /// <param name="msg">The error message</param>
-        public static void ChkDisposed(ExceptionType type, bool disposed, int code) {
-            WrapErr.ChkFalse(type, disposed, code, "Attempting to use Disposed Object");
+            WrapErr.ChkFalse(disposed, code, "Attempting to use Disposed Object");
         }
 
         #endregion
@@ -585,26 +475,9 @@ namespace ChkUtils {
         /// <param name="code">The error code if null</param>
         /// <param name="name">The name of the object</param>
         public static void ChkParam(object obj, string name, int code) {
-            WrapErr.ChkParam(ExceptionType.Regular, obj, name, code);
-        }
-
-
-        /// <summary>
-        /// Validates a parameter for null with a standard message and defined Exception type
-        /// </summary>
-        /// <param name="type">Exception type</param>
-        /// <param name="obj">The object to evaluate</param>
-        /// <param name="code">The error code if null</param>
-        /// <param name="name">The name of the object</param>
-        public static void ChkParam(ExceptionType type, object obj, string name, int code) {
             if (obj == null) {
                 ErrReport err = WrapErr.GetErrReport(code, String.Format("Null {0} Argument", name));
-                if (type == ExceptionType.Regular) {
-                    throw new ErrReportException(err);
-                }
-                else {
-                    throw new FaultException<ErrReport>(err);
-                }
+                throw new ErrReportExceptionFromChk(err);
             }
         }
 
@@ -619,25 +492,9 @@ namespace ChkUtils {
         /// <param name="code">The error code if null</param>
         /// <param name="msg">The error message</param>
         public static void ChkVar(object obj, int code, string msg) {
-            WrapErr.ChkVar(ExceptionType.Regular, obj, code, msg);
-        }
-
-
-        /// <summary>
-        /// Validates an object for null with a standard message and defined Exception type
-        /// </summary>
-        /// <param name="type">Exception type to throw</param>
-        /// <param name="obj">The object to evaluate</param>
-        /// <param name="code">The error code if null</param>
-        /// <param name="msg">The error message</param>
-        public static void ChkVar(ExceptionType type, object obj, int code, string msg) {
-            if (obj == null) { 
-                if (type == ExceptionType.Regular) {
-                    throw new ErrReportException(WrapErr.GetErrReport(code, msg)); 
-                }
-                else {
-                    throw new FaultException<ErrReport>(WrapErr.GetErrReport(code, msg));
-                }
+            if (obj == null) {
+                ErrReport err = WrapErr.GetErrReport(code, msg);
+                throw new ErrReportExceptionFromChk(err);
             }
         }
 
@@ -651,22 +508,7 @@ namespace ChkUtils {
         /// <param name="msg">The error message function</param>
         public static void ChkVar(object obj, int code, Func<string> msgFunc) {
             if (obj == null) {
-                WrapErr.ChkVar(ExceptionType.Regular, obj, code, WrapErr.SafeAction(msgFunc));
-            }
-        }
-
-
-        /// <summary>
-        /// Validates an object for null with defered excecution of error message 
-        /// and defined Exception type
-        /// </summary>
-        /// <param name="type">Exception type to throw</param>
-        /// <param name="obj">The object to evaluate</param>
-        /// <param name="code">The error code if null</param>
-        /// <param name="msg">The error message</param>
-        public static void ChkVar(ExceptionType type, object obj, int code, Func<string> msgFunc) {
-            if (obj == null) {
-                WrapErr.ChkVar(type, obj, code, WrapErr.SafeAction(msgFunc));
+                WrapErr.ChkVar(obj, code, WrapErr.SafeAction(msgFunc));
             }
         }
 
@@ -681,27 +523,9 @@ namespace ChkUtils {
         /// <param name="code">The error code if false</param>
         /// <param name="msg">The error message</param>
         public static void ChkTrue(bool condition, int code, string msg) {
-            WrapErr.ChkTrue(ExceptionType.Regular, condition, code, msg);
-        }
-
-
-        /// <summary>
-        /// Validates a condition to be true, otherwise throw the 
-        /// defined exception type
-        /// </summary>
-        /// <param name="type">The exception type on failure</param>
-        /// <param name="condition">The condition to evaluate</param>
-        /// <param name="code">The error code if false</param>
-        /// <param name="msg">The error message</param>
-        public static void ChkTrue(ExceptionType type, bool condition, int code, string msg) {
             if (!condition) {
                 ErrReport err = WrapErr.GetErrReport(code, msg);
-                if (type == ExceptionType.Regular) {
-                    throw new ErrReportException(err);
-                }
-                else {
-                    throw new FaultException<ErrReport>(err);
-                }
+                throw new ErrReportExceptionFromChk(err);
             }
         }
 
@@ -720,22 +544,6 @@ namespace ChkUtils {
             }
         }
 
-
-        /// <summary>
-        /// Validates a condition to be true with defered formating of error message
-        /// with defined exception type thrown on failure
-        /// </summary>
-        /// <param name="type">The exception type on failure</param>
-        /// <param name="condition">The condition to evaluate</param>
-        /// <param name="code">The error code if false</param>
-        /// <param name="msg">The error message function</param>
-        public static void ChkTrue(ExceptionType type, bool condition, int code, Func<string> msgFunc) {
-            if (!condition) {
-                // Format method only invoked on failure of condition
-                WrapErr.ChkTrue(type, condition, code, WrapErr.SafeAction(msgFunc));
-            }
-        }
-
         #endregion
 
         #region ChkFalse
@@ -747,27 +555,9 @@ namespace ChkUtils {
         /// <param name="code">The error code if true</param>
         /// <param name="msg">The error message</param>
         public static void ChkFalse(bool condition, int code, string msg) {
-            WrapErr.ChkFalse(ExceptionType.Regular, condition, code, msg);
-        }
-
-
-        /// <summary>
-        /// Validates a condition to be false, otherwise throw the 
-        /// defined exception type
-        /// </summary>
-        /// <param name="type">The exception type on failure</param>
-        /// <param name="condition">The condition to evaluate</param>
-        /// <param name="code">The error code if true</param>
-        /// <param name="msg">The error message</param>
-        public static void ChkFalse(ExceptionType type, bool condition, int code, string msg) {
             if (condition) {
                 ErrReport err = WrapErr.GetErrReport(code, msg);
-                if (type == ExceptionType.Regular) {
-                    throw new ErrReportException(err);
-                }
-                else {
-                    throw new FaultException<ErrReport>(err);
-                }
+                throw new ErrReportExceptionFromChk(err);
             }
         }
 
@@ -786,22 +576,6 @@ namespace ChkUtils {
             }
         }
 
-
-        /// <summary>
-        /// Validates a condition to be false with defered formating of error message
-        /// with defined exception type thrown on failure
-        /// </summary>
-        /// <param name="type">The exception type on failure</param>
-        /// <param name="condition">The condition to evaluate</param>
-        /// <param name="code">The error code if true</param>
-        /// <param name="msg">The error message function</param>
-        public static void ChkFalse(ExceptionType type, bool condition, int code, Func<string> msgFunc) {
-            if (condition) {
-                // Format method only invoked on failure of condition
-                WrapErr.ChkFalse(type, condition, code, WrapErr.SafeAction(msgFunc));
-            }
-        }
-
         #endregion
 
         #region ChkStr
@@ -815,23 +589,10 @@ namespace ChkUtils {
         /// <param name="name">The string variable name</param>
         /// <param name="value">The string value to evaluate</param>
         public static void ChkStr(int nullCode, int zeroLenCode, string name, string value) {
-            WrapErr.ChkStr(ExceptionType.Regular, nullCode, zeroLenCode, name, value);
-        }
-
-
-        /// <summary>
-        /// Validates a string not null and not empty with standard error message
-        /// and defined exception type on failure
-        /// </summary>
-        /// <param name="nullCode">Error code if string is null</param>
-        /// <param name="zeroLenCode">Error code if string is empty</param>
-        /// <param name="name">The string variable name</param>
-        /// <param name="value">The string value to evaluate</param>
-        public static void ChkStr(ExceptionType type, int nullCode, int zeroLenCode, string name, string value) {
-            WrapErr.ChkTrue(type, value != null, nullCode, () => {
+            WrapErr.ChkTrue(value != null, nullCode, () => {
                 return String.Format("String '{0}' is Null", name);
             });
-            WrapErr.ChkTrue(type, value.Length > 0, zeroLenCode, () => {
+            WrapErr.ChkTrue(value.Trim().Length > 0, zeroLenCode, () => {
                 return String.Format("String '{0}' is Empty", name);
             });
         }
@@ -855,72 +616,8 @@ namespace ChkUtils {
             try {
                 action.Invoke();
             }
-            catch (FaultException<ErrReport> e) {
-                throw new ErrReportException(e.Detail);
-            }
-            catch (FaultException e) {
-                throw WrapErr.FaultExceptionToErrReportException(code, WrapErr.SafeAction(errMsgFunc), e);
-            }
-            catch (ErrReportException) {
-                throw;
-            }
-            catch (Exception e) {
-                throw new ErrReportException(WrapErr.GetErrReport(code, WrapErr.SafeAction(errMsgFunc), e));
-            }
-            finally {
-                WrapErr.SafeAction(() => finallyAction.Invoke());
-            }
-        }
-
-
-        /// <summary>
-        /// Wrapper of try catch finally to consitently produce an FaultException ErrReport no matter what 
-        /// the Exception. Information from previous FaultException ErrReport is just retthrown while 
-        /// ErrReportException are converted to ExceptionFault ErrReport with embedded ErrReport info</summary>
-        /// <param name="code">The unique error number</param>
-        /// <param name="errMsgFunc">The error message formating method that is only invoked on exception</param>
-        /// <param name="action">The action to execute</param>
-        /// <param name="finallyAction">The finally action to execute</param>
-        private static void WrapTryToErrorReportFaultException(int code, Func<string> errMsgFunc, Action action, Action finallyAction) {
-            try {
-                action.Invoke();
-            }
-            catch (FaultException<ErrReport>) {
-                throw;
-            }
-            catch (FaultException e) {
-                throw WrapErr.FaultExceptionToErrReportFaultException(code, WrapErr.SafeAction(errMsgFunc), e);
-            }
-            catch (ErrReportException e) {
-                throw new FaultException<ErrReport>(e.Report);
-            }
-            catch (Exception e) {
-                throw new FaultException<ErrReport>(WrapErr.GetErrReport(code, WrapErr.SafeAction(errMsgFunc), e));
-            }
-            finally {
-                WrapErr.SafeAction(() => finallyAction.Invoke());
-            }
-        }
-
-
-        /// <summary>
-        /// Wrapper of try catch finally to consitently produce an ErrReportException no matter what the
-        /// Exception. Information from previous ErrReportExceptions is just retthrown while 
-        /// FaultException ErrReport are converted to ErrReportException with embedded ErrReport info
-        /// </summary>
-        /// <param name="code">The unique error number</param>
-        /// <param name="errMsgFunc">The error message formating method that is only invoked on exception</param>
-        /// <param name="action">The action to execute</param>
-        /// <param name="finallyAction">The finally action to execute</param>
-        private static T WrapTryToErrorReportException<T>(int code, Func<string> errMsgFunc, Func<T> func, Action finallyAction) {
-            try {
-                return func.Invoke();
-            }
-            catch (FaultException<ErrReport> e) {
-                throw new ErrReportException(e.Detail);
-            }
-            catch (FaultException e) {
-                throw WrapErr.FaultExceptionToErrReportException(code, WrapErr.SafeAction(errMsgFunc), e);
+            catch (ErrReportExceptionFromChk e) {
+                throw new ErrReportException(WrapErr.GetErrReport(e));
             }
             catch (ErrReportException) {
                 throw;
@@ -943,21 +640,18 @@ namespace ChkUtils {
         /// <param name="errMsgFunc">The error message formating method that is only invoked on exception</param>
         /// <param name="action">The action to execute</param>
         /// <param name="finallyAction">The finally action to execute</param>
-        private static T WrapTryToErrorReportFaultException<T>(int code, Func<string> errMsgFunc, Func<T> func, Action finallyAction) {
+        private static T WrapTryToErrorReportException<T>(int code, Func<string> errMsgFunc, Func<T> func, Action finallyAction) {
             try {
                 return func.Invoke();
             }
-            catch (FaultException<ErrReport>) {
+            catch (ErrReportExceptionFromChk e) {
+                throw new ErrReportException(WrapErr.GetErrReport(e));
+            }
+            catch (ErrReportException) {
                 throw;
             }
-            catch (FaultException e) {
-                throw WrapErr.FaultExceptionToErrReportFaultException(code, WrapErr.SafeAction(errMsgFunc), e);
-            }
-            catch (ErrReportException e) {
-                throw new FaultException<ErrReport>(e.Report);
-            }
             catch (Exception e) {
-                throw new FaultException<ErrReport>(WrapErr.GetErrReport(code, WrapErr.SafeAction(errMsgFunc), e));
+                throw new ErrReportException(WrapErr.GetErrReport(code, WrapErr.SafeAction(errMsgFunc), e));
             }
             finally {
                 WrapErr.SafeAction(() => finallyAction.Invoke());
@@ -980,11 +674,11 @@ namespace ChkUtils {
                 action.Invoke();
                 return new ErrReport();
             }
+            catch (ErrReportExceptionFromChk e) {
+                return WrapErr.GetErrReport(e);
+            }
             catch (ErrReportException e) {
                 return e.Report;
-            }
-            catch (FaultException<ErrReport> e) {
-                return e.Detail;
             }
             catch (Exception e) {
                 return WrapErr.GetErrReport(code, WrapErr.SafeAction(errMsgFunc), e);
@@ -1006,17 +700,16 @@ namespace ChkUtils {
         /// <param name="func">The function to invoke</param>
         /// <param name="finallyAction">The finally action to invoke</param>
         public static T WrapTryToErrReport<T>(out ErrReport report, int code, Func<string> errMsgFunc, Func<T> func, Action finallyAction) {
-            // TODO change to ref
             try {
                 T ret = func.Invoke();
                 report = new ErrReport();
                 return ret;
             }
+            catch (ErrReportExceptionFromChk e) {
+                report = WrapErr.GetErrReport(e);
+            }
             catch (ErrReportException e) {
                 report = e.Report;
-            }
-            catch (FaultException<ErrReport> e) {
-                report = e.Detail;
             }
             catch (Exception e) {
                 report = WrapErr.GetErrReport(code, WrapErr.SafeAction(errMsgFunc), e);
@@ -1029,55 +722,19 @@ namespace ChkUtils {
 
         #endregion
 
-        #region Private Error Type Conversions
-
-        /// <summary>
-        /// Convert a FaultException to a FautException Err Report
-        /// </summary>
-        /// <param name="code">The unique error code</param>
-        /// <param name="msg">The error message</param>
-        /// <param name="e">The FaultException to convert</param>
-        /// <returns>A FaultException ErrReport</returns>
-        private static FaultException<ErrReport> FaultExceptionToErrReportFaultException(int code, string msg, FaultException e) {
-            // TODO - may need to move up some code here to tansfer the Action and other info into the FaultException proper
-            return new FaultException<ErrReport>(FaultExceptionToErrReport(code, msg, e));
-        }
-
-
-        /// <summary>
-        /// Convert a FaultException to an ErrReportException
-        /// </summary>
-        /// <param name="code">The unique error code</param>
-        /// <param name="msg">The error message</param>
-        /// <param name="e">The FaultException to convert</param>
-        /// <returns>An ErrReportException</returns>
-        private static ErrReportException FaultExceptionToErrReportException(int code, string msg, FaultException e) {
-            // TODO - may need to move up some code here to tansfer the Action and other info into the FaultException proper
-            return new ErrReportException(FaultExceptionToErrReport(code, msg, e));
-        }
-
-
-        /// <summary>
-        /// Convert a non ErrReport FaultException to an ErrReport object 
-        /// </summary>
-        /// <param name="code"></param>
-        /// <param name="msg"></param>
-        /// <param name="e"></param>
-        /// <returns></returns>
-        private static ErrReport FaultExceptionToErrReport(int code, string msg, FaultException e) {
-            // TODO - get the info and pass it to a new FaultException<ErrReport>
-            // Need to figure out the Action string SOAP and other Properties and what can be passed and how
-            if (e.InnerException != null) {
-                return WrapErr.GetErrReport(code, msg, e);
-            }
-            else {
-                return WrapErr.GetErrReport(code, msg);
-            }
-        }
-
-        #endregion
-        
         #region Private ErrReport Helper Methods
+
+        /// <summary>Used when catching an exception thrown by a check function so that the stack from throw can be logged</summary>
+        /// <param name="chkException">The check exception object. Not written when check throws</param>
+        /// <returns>The err report</returns>
+        /// <remarks>
+        /// The information such as class and method of origine are preserved from the check but the stack from the base class
+        /// exception that was thrown on the Chkxxx method is what is processed for log.
+        /// </remarks>
+        private static ErrReport GetErrReport(ErrReportExceptionFromChk exp) {
+            return WrapErr.LogErr(new ErrReport(exp.Report.Code, exp.Report.AtClass, exp.Report.AtMethod, exp.Report.Msg, exp));
+        }
+
 
         /// <summary>
         /// Helper to create an error report object with the class and method names of calling method that
@@ -1089,12 +746,17 @@ namespace ChkUtils {
         /// <returns>And error report object</returns>
         private static ErrReport GetErrReport(int code, string msg, Exception e) {
             try {
+                //------------------------------------------------------
+                // TODO - See the Standard version which uses the interface IStackTools to process the stack frame
+                //------------------------------------------------------
+
+                if (msg == REPLACE_WITH_EXCEPTION_MSG) {
+                    msg = e.Message;
+                }
+
                 // Always needs to be called directly from one of the wrap objects to get the right number of the stack frame
                 // This will give us the class and method names in which the wrap method is used
-                //                return new ErrReport(code, new StackTrace().GetFrame(2).GetMethod(), msg, e);
-                System.Reflection.MethodBase mb = StackFrameTools.FirstNonWrappedMethod(typeof(WrapErr));
-                ErrorLocation location = new ErrorLocation(mb.DeclaringType.Name, mb.Name);
-                return WrapErr.LogErr(new ErrReport(code, location, msg, e));
+                return WrapErr.LogErr(new ErrReport(code, StackFrameTools.FirstNonWrappedMethod2(typeof(WrapErr)), msg, e));
             }
             catch (Exception ex) {
                 Debug.WriteLine("{0} on call to WrapErr.GetErrReport:{1} - {2}", ex.GetType().Name, ex.Message, ex.StackTrace);
@@ -1105,10 +767,18 @@ namespace ChkUtils {
 
         private static ErrReport GetErrReport(int code, string msg) {
             try {
-                System.Reflection.MethodBase mb = StackFrameTools.FirstNonWrappedMethod(typeof(WrapErr));
-                ErrorLocation location = new ErrorLocation(mb.DeclaringType.Name, mb.Name);
-                ErrReport err = new ErrReport(code, location, msg);
-                List<string> stackFrames = StackFrameTools.FirstNonWrappedTraceStack(typeof(WrapErr), new StackTrace(1, true));
+                ErrReport err;
+                List<string> stackFrames;
+
+                //------------------------------------------------------
+                // TODO - See the Standard version which uses the interface IStackTools to process the stack frame
+                //------------------------------------------------------
+
+                err = new ErrReport(code, StackFrameTools.FirstNonWrappedMethod2(typeof(WrapErr)), msg);
+
+
+                stackFrames = StackFrameTools.FirstNonWrappedTraceStack(typeof(WrapErr), 2);
+                //stackFrames = StackFrameTools.FirstNonWrappedTraceStack(typeof(WrapErr), new StackTrace(0,true));
 
                 StringBuilder sb = new StringBuilder(100);
                 stackFrames.ForEach((item) => sb.AppendLine(item));

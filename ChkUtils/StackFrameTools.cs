@@ -103,8 +103,10 @@ namespace ChkUtils {
 
             MethodBase mb = st.GetFrame(index).GetMethod();
             while (true) {
-
-                if ((typeToIgnore == null) || mb.DeclaringType.Name != typeToIgnore.Name && !mb.Name.Contains("<")) {
+                if ((typeToIgnore == null) || 
+                        mb.DeclaringType.Name != typeToIgnore.Name && 
+                        !mb.Name.Contains("<") &&
+                        mb.DeclaringType.Name != typeof(StackFrameTools).Name ) {
                     return mb;
                 }
 
@@ -120,6 +122,11 @@ namespace ChkUtils {
                 }
                 mb = tmp;
             }
+        }
+
+        public static ErrorLocation FirstNonWrappedMethod2(Type typeToIgnore) {
+            MethodBase mb = FirstNonWrappedMethod(typeToIgnore);
+            return new ErrorLocation(mb.DeclaringType.Name, mb.Name);
         }
 
 
@@ -152,6 +159,36 @@ namespace ChkUtils {
             }
             return stackFrames;
         }
+
+
+        // Method like the Net standard interface for eventual replacement
+        public static List<string> FirstNonWrappedTraceStack(Type typeToIgnore, int fromLevel) {
+            bool firstNonWrapErr = false;
+            string name = typeToIgnore.Name;
+
+
+            StackTrace trace = new StackTrace(fromLevel, true);
+
+            List<string> stackFrames = new List<string>();
+            for (int i = 0; i < trace.FrameCount; i++) {
+                StackFrame sf = trace.GetFrame(i);
+
+                // Skip over all entries until you hit the first not to ignore
+                if (!firstNonWrapErr) {
+                    if (StackFrameTools.ClassName(sf) != name) {
+                        firstNonWrapErr = true;
+                    }
+                    else {
+                        continue;
+                    }
+                }
+
+                stackFrames.Add(
+                    String.Format("\t{0} : Line:{1} - {2}.{3}", StackFrameTools.FileName(sf), StackFrameTools.Line(sf), StackFrameTools.ClassName(sf), StackFrameTools.MethodName(sf)));
+            }
+            return stackFrames;
+        }
+
 
 
     }
