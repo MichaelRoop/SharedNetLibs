@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\NUnit3TestAdapter.3.15.1\build\net35\NUnit3TestAdapter.props" Condition="Exists('..\packages\NUnit3TestAdapter.3.15.1\build\net35\NUnit3TestAdapter.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7DD2FEF1-CAC1-46AC-8CF6-A27ECEB43A6F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SpStateMachine</RootNamespace>
+    <AssemblyName>SpStateMachine</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Behaviors\SpPeriodicWakeupOnly.cs" />
+    <Compile Include="Converters\SpIntToInt.cs" />
+    <Compile Include="Converters\SpIntToEnum.cs" />
+    <Compile Include="Converters\SpEnumToInt.cs" />
+    <Compile Include="Converters\SpIntToIntConverter.cs" />
+    <Compile Include="Core\BehaviorResponseEventType.cs" />
+    <Compile Include="Core\SpEventPriority.cs" />
+    <Compile Include="Core\SpMsgFactory.cs" />
+    <Compile Include="Core\SpStateMachineEngine.cs" />
+    <Compile Include="Core\SpStateTransition.cs" />
+    <Compile Include="Core\SpStateTransitionType.cs" />
+    <Compile Include="Core\SpTools.cs" />
+    <Compile Include="EventListners\SimpleEventListner.cs" />
+    <Compile Include="EventStores\BaseEventStore.cs" />
+    <Compile Include="EventStores\PriorityEventStore.cs" />
+    <Compile Include="EventStores\SimpleDequeEventStore.cs" />
+    <Compile Include="Interfaces\ISpIdConverter.cs" />
+    <Compile Include="Interfaces\ISpMsgFactory.cs" />
+    <Compile Include="Interfaces\ISpMsgProvider.cs" />
+    <Compile Include="Interfaces\ISpToEnum.cs" />
+    <Compile Include="Interfaces\ISpToInt.cs" />
+    <Compile Include="Interfaces\ISpBehaviorOnEvent.cs" />
+    <Compile Include="Interfaces\ISpEventMessage.cs" />
+    <Compile Include="Interfaces\ISpEventListner.cs" />
+    <Compile Include="Interfaces\ISpEventStore.cs" />
+    <Compile Include="Interfaces\ISpPeriodicTimer.cs" />
+    <Compile Include="Interfaces\ISpState.cs" />
+    <Compile Include="Interfaces\ISpStateMachine.cs" />
+    <Compile Include="Interfaces\ISpStateTransition.cs" />
+    <Compile Include="Messages\SpBaseEventMsg.cs" />
+    <Compile Include="Messages\SpBaseEventResponse.cs" />
+    <Compile Include="PeriodicTimers\WinSimpleTimer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="States\SpState.cs" />
+    <Compile Include="Core\SpMachine.cs" />
+    <Compile Include="States\SpStateBase.cs" />
+    <Compile Include="States\SpSuperState.cs" />
+    <Compile Include="Converters\SpConverter.cs" />
+    <Compile Include="Converters\SpEnumConverterExtensions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ChkUtils\ChkUtils.csproj">
+      <Project>{8af7dd7e-394e-4816-b738-0764e1e60dd8}</Project>
+      <Name>ChkUtils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LogUtils\LogUtils.csproj">
+      <Project>{cd5df2dd-aa37-41f7-a585-2f2a1f44a7f5}</Project>
+      <Name>LogUtils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\NUnit3TestAdapter.3.15.1\build\net35\NUnit3TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NUnit3TestAdapter.3.15.1\build\net35\NUnit3TestAdapter.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
