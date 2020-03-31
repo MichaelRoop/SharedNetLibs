@@ -10,7 +10,7 @@ namespace ChkUtils.Net {
 
     /// <summary>Common Methods to work through an exception stack frame</summary>
     /// <author>Michael Roop</author>
-    /// <copyright>July 2012 Michael Roop Used by permission</copyright>
+    /// <copyright>July 2020 Michael Roop Used by permission</copyright>
     /// <remarks>Not compiled in PCL, only OS specific</remarks>
     public class StackTools : IStackTools {
 

@@ -1,7 +1,6 @@
 ﻿using ChkUtils.Net;
 using ChkUtils.Net.ErrObjects;
 using ChkUtils.Net.Interfaces;
-using LogUtils.Net;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -77,6 +76,44 @@ namespace LogUtils.Net {
         /// </summary>
         static Log() {
             Log.pushThread.Start();
+        }
+
+        #endregion
+
+        #region Public Static Helpers
+
+        /// <summary>Standard output format for logs</summary>
+        /// <remarks>
+        /// Output a message with tab limited format
+        /// Date time    level errCode  Class.Method   Message
+        /// 19:16:39 569	W	15664	App..ctor	My message
+        /// The log entries from exceptions have the stack on
+        /// following lines and are indented
+        /// </remarks>
+        /// <param name="level">The message verbosity level</param>
+        /// <param name="err">The object that contains log information for output</param>
+        /// <returns>A formated string</returns>
+        public static string GetMsgFormat1(MsgLevel level, ErrReport err) {
+            if (err.StackTrace.Length > 0) {
+                return String.Format(
+                    "{0}\t{1}\t{2}\t{3}.{4}\t{5}{6}{7}",
+                    err.TimeStamp.ToString("hh:mm:ss fff"), 
+                    LogLevelShort(level), 
+                    err.Code.ToString().PadLeft(6, ' '), 
+                    err.AtClass, 
+                    err.AtMethod, 
+                    err.Msg, 
+                    Environment.NewLine, 
+                    err.StackTrace);
+            }
+            return String.Format(
+                "{0}\t{1}\t{2}\t{3}.{4}\t{5}",
+                err.TimeStamp.ToString("HH:mm:ss fff"), 
+                LogLevelShort(level), 
+                err.Code.ToString().PadLeft(6, ' '), 
+                err.AtClass, 
+                err.AtMethod, 
+                err.Msg);
         }
 
         #endregion
@@ -606,6 +643,21 @@ namespace LogUtils.Net {
             }
             else {
                 System.Diagnostics.Debug.WriteLine("No subscribers to log message event");
+            }
+        }
+
+
+        /// <summary>Translate log level to single char</summary>
+        /// <param name="level">The log level</param>
+        /// <returns>One char level or 'U' is not found</returns>
+        private static string LogLevelShort(MsgLevel level) {
+            switch (level) {
+                case MsgLevel.Info: return "I";
+                case MsgLevel.Debug: return "D";
+                case MsgLevel.Warning: return "W";
+                case MsgLevel.Error: return "E";
+                case MsgLevel.Exception: return "X";
+                default: return "U";
             }
         }
 
