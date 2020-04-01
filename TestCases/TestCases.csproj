@@ -72,6 +72,7 @@
     <Compile Include="ChkUtilsTests\ToErrorReportExceptionTests.cs" />
     <Compile Include="ChkUtilsTests\ToErrReportTests.cs" />
     <Compile Include="ChkUtilsTests\ValidatorTests.cs" />
+    <Compile Include="LanguageTests.Net\LanguageModulesTestCases.cs" />
     <Compile Include="SpStateMachineTests\SpTestHelpers.cs" />
     <Compile Include="SpStateMachineTests\TestImplementations\MyDummyDI.cs" />
     <Compile Include="SpStateMachineTests\TestImplementations\SuperStates\ExitSS\MyDoneMsg.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="SpStateMachineTests\TestImplementations\SuperStates\ExitSS\S_A1.cs" />
     <Compile Include="SpStateMachineTests\TestImplementations\SuperStates\ExitSS\S_B1.cs" />
     <Compile Include="SpStateMachineTests\TestImplementations\SuperStates\ExitSS\S_ExitDoneOnEntry.cs" />
+    <Compile Include="TestCaseBase.cs" />
     <Compile Include="TestHelpersNet.cs" />
     <Compile Include="TestToolSet\HelperLogReaderNet.cs" />
     <Compile Include="LogUtilsTests.Net\LogPerformanceTests.cs" />
@@ -141,6 +143,10 @@
     <ProjectReference Include="..\ChkUtils\ChkUtils.csproj">
       <Project>{8af7dd7e-394e-4816-b738-0764e1e60dd8}</Project>
       <Name>ChkUtils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LanguageFactory\LanguageFactory.Net.csproj">
+      <Project>{BE475B1D-0ECB-4A6B-BE96-B823484F0D13}</Project>
+      <Name>LanguageFactory.Net</Name>
     </ProjectReference>
     <ProjectReference Include="..\LogUtils.Net\LogUtils.Net.csproj">
       <Project>{f5d8a3a1-ad3b-4029-b83e-35bc124f8cfe}</Project>
