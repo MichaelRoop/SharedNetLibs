@@ -7,6 +7,14 @@ namespace LanguageFactory.Languages.cn {
             this.SetLanguage(LangCode.Chinese, "汉语");
 
             // Common messages
+            this.AddMsg(MsgCode.save, "保存");
+            this.AddMsg(MsgCode.login, "登录");
+            this.AddMsg(MsgCode.logoff, "注销");
+            this.AddMsg(MsgCode.copy, "复制");
+            this.AddMsg(MsgCode.no, "否");
+            this.AddMsg(MsgCode.yes, "是");
+            this.AddMsg(MsgCode.New, "新");
+            this.AddMsg(MsgCode.Ok, "确认");
             this.AddMsg(MsgCode.exit, "退出");
             this.AddMsg(MsgCode.start, "开始");
             this.AddMsg(MsgCode.stop, "停止");
@@ -20,6 +28,8 @@ namespace LanguageFactory.Languages.cn {
             this.AddMsg(MsgCode.cancel, "取消");
             this.AddMsg(MsgCode.info, "信息");
             //this.AddMsg(MsgCode., "");
+
+
         }
 
     }

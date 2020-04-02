@@ -8,6 +8,14 @@ namespace LanguageFactory.Languages.es {
             this.SetLanguage(LangCode.Spanish, "Español");
 
             // Common messages
+            this.AddMsg(MsgCode.save, "Guardar");
+            this.AddMsg(MsgCode.login, "Iniciar sesión");
+            this.AddMsg(MsgCode.logoff, "Cerrar sesión");
+            this.AddMsg(MsgCode.copy, "Copiar");
+            this.AddMsg(MsgCode.no, "No");
+            this.AddMsg(MsgCode.yes, "Si");
+            this.AddMsg(MsgCode.New, "Nuevo");
+            this.AddMsg(MsgCode.Ok, "Aceptar");
             this.AddMsg(MsgCode.exit, "Salir");
             this.AddMsg(MsgCode.start, "Iniciar");
             this.AddMsg(MsgCode.stop, "Detener");

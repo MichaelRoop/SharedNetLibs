@@ -20,6 +20,11 @@ namespace LanguageFactory.interfaces {
         void SetCurrentLanguage(LangCode code);
 
 
+        /// <summary>Get the code for currently selected language</summary>
+        /// <returns>Current language code</returns>
+        LangCode GetCurrentLanguage();
+
+
         /// <summary>Get the display for message corresponding to code</summary>
         /// <param name="code">Message code</param>
         /// <returns>The display string</returns>

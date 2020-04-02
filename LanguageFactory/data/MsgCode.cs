@@ -8,13 +8,20 @@
     /// </remarks>
     public enum MsgCode {
         undefined,
+        save,
+        login,
+        logoff,
+        copy,
+        no,
+        yes,
+        New,
+        Ok,
         exit,
         stop,
         start,
         language,
         send,
         command,
-
         response,
         select,
         discover,

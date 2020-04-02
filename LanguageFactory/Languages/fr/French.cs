@@ -7,6 +7,14 @@ namespace LanguageFactory.Languages.fr {
             this.SetLanguage(LangCode.French, "Français");
 
             // Common messages
+            this.AddMsg(MsgCode.save, "Enregistrer");
+            this.AddMsg(MsgCode.login, "Ouvrir une session");
+            this.AddMsg(MsgCode.logoff, "Fermer la session");
+            this.AddMsg(MsgCode.copy, "Copier");
+            this.AddMsg(MsgCode.no, "Non");
+            this.AddMsg(MsgCode.yes, "Oui");
+            this.AddMsg(MsgCode.New, "Nouveau");
+            this.AddMsg(MsgCode.Ok, "OK");
             this.AddMsg(MsgCode.exit, "Quitter");
             this.AddMsg(MsgCode.start, "Démarrer");
             this.AddMsg(MsgCode.stop, "Arrêter");

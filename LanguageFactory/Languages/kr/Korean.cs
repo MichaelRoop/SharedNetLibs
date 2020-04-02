@@ -7,6 +7,14 @@ namespace LanguageFactory.Languages.kr {
             this.SetLanguage(LangCode.Korean, "한국어");
 
             // Common messages
+            this.AddMsg(MsgCode.save, "저장");
+            this.AddMsg(MsgCode.login, "로그인");
+            this.AddMsg(MsgCode.logoff, "로그오프하다");
+            this.AddMsg(MsgCode.copy, "복사하다");
+            this.AddMsg(MsgCode.no, "아니");
+            this.AddMsg(MsgCode.yes, "예");
+            this.AddMsg(MsgCode.New, "신규");
+            this.AddMsg(MsgCode.Ok, "OK");
             this.AddMsg(MsgCode.exit, "종료");
             this.AddMsg(MsgCode.start, "시작");
             this.AddMsg(MsgCode.stop, "중지");

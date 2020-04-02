@@ -7,6 +7,14 @@ namespace LanguageFactory.Languages.ja {
             this.SetLanguage(LangCode.Japanese, "日本語");
 
             // Common messages
+            this.AddMsg(MsgCode.save, "保存");
+            this.AddMsg(MsgCode.login, "ログオンする");
+            this.AddMsg(MsgCode.logoff, "ログオフする");
+            this.AddMsg(MsgCode.copy, "コピー");
+            this.AddMsg(MsgCode.no, "ノー");
+            this.AddMsg(MsgCode.yes, "はい");
+            this.AddMsg(MsgCode.New, "新");
+            this.AddMsg(MsgCode.Ok, "OK");
             this.AddMsg(MsgCode.exit, "終了");
             this.AddMsg(MsgCode.start, "スタート");
             this.AddMsg(MsgCode.stop, "停止");
@@ -19,8 +27,6 @@ namespace LanguageFactory.Languages.ja {
             this.AddMsg(MsgCode.connect, "接続");
             this.AddMsg(MsgCode.cancel, "キャンセル");
             this.AddMsg(MsgCode.info, "情報");
-
-
 
             //this.AddMsg(MsgCode., "");
         }

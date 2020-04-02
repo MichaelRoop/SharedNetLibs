@@ -87,6 +87,14 @@ namespace LanguageFactory.Messaging {
             }
         }
 
+        /// <summary>Get the code for currently selected language</summary>
+        /// <returns>Current language code</returns>
+        public LangCode GetCurrentLanguage() {
+            return this.current.Language.Code;
+        }
+
+
+
         #endregion
 
         #region Private
