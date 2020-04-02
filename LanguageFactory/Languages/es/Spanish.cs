@@ -1,8 +1,5 @@
 ﻿using LanguageFactory.data;
 using LanguageFactory.Messaging;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace LanguageFactory.Languages.es {
     class Spanish : SupportedLanguage {
@@ -15,6 +12,16 @@ namespace LanguageFactory.Languages.es {
             this.AddMsg(MsgCode.start, "Iniciar");
             this.AddMsg(MsgCode.stop, "Detener");
             this.AddMsg(MsgCode.language, "Idiomas");
+            this.AddMsg(MsgCode.send, "Enviar");
+            this.AddMsg(MsgCode.command, "Comando");
+            this.AddMsg(MsgCode.response, "Respuesta");
+            this.AddMsg(MsgCode.select, "Seleccionar");
+            this.AddMsg(MsgCode.discover, "Descubrir");
+            this.AddMsg(MsgCode.connect, "Conectar");
+            this.AddMsg(MsgCode.cancel, "Cancelar");
+            this.AddMsg(MsgCode.info, "Información");
+
+
             //this.AddMsg(MsgCode., "");
         }
 

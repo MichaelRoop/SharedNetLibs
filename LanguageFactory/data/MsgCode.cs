@@ -12,6 +12,15 @@
         stop,
         start,
         language,
+        send,
+        command,
+
+        response,
+        select,
+        discover,
+        connect,
+        cancel,
+        info,
 
     }
 }

@@ -1,8 +1,5 @@
 ﻿using LanguageFactory.data;
 using LanguageFactory.Messaging;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace LanguageFactory.Languages.fr {
     public class French : SupportedLanguage {
@@ -14,8 +11,17 @@ namespace LanguageFactory.Languages.fr {
             this.AddMsg(MsgCode.start, "Démarrer");
             this.AddMsg(MsgCode.stop, "Arrêter");
             this.AddMsg(MsgCode.language, "Langues");
-            //this.AddMsg(MsgCode., "");
+            this.AddMsg(MsgCode.send, "Envoyer");
+            this.AddMsg(MsgCode.command, "Commande");
+            this.AddMsg(MsgCode.response, "Réponse");
+            this.AddMsg(MsgCode.select, "Sélectionner");
+            this.AddMsg(MsgCode.discover, "Découvrir");
+            this.AddMsg(MsgCode.connect, "Connecter");
+            this.AddMsg(MsgCode.cancel, "Annuler");
+            this.AddMsg(MsgCode.info, "Info");
 
+
+            //this.AddMsg(MsgCode., "");
         }
 
     }

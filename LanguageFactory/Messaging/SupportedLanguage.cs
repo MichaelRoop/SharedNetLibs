@@ -26,7 +26,12 @@ namespace LanguageFactory.Messaging {
                 return this.Messages[code];
             }
             this.log.Error(9999, () => string.Format("Language:{0} does not have msg:{1}", this.Language.Code, code));
-            return new MessageDataModel();
+            return new MessageDataModel(code, "** Not defined **");
+        }
+
+
+        public string GetText(MsgCode code) {
+            return this.GetMsg(code).Display;
         }
 
 

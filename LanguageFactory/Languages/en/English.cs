@@ -1,8 +1,5 @@
 ﻿using LanguageFactory.data;
 using LanguageFactory.Messaging;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace LanguageFactory.Languages.en {
     public class English : SupportedLanguage {
@@ -15,6 +12,15 @@ namespace LanguageFactory.Languages.en {
             this.AddMsg(MsgCode.start, "Start");
             this.AddMsg(MsgCode.stop, "Stop");
             this.AddMsg(MsgCode.language, "Language");
+            this.AddMsg(MsgCode.send, "Send");
+            this.AddMsg(MsgCode.command, "Command");
+            this.AddMsg(MsgCode.response, "Response");
+            this.AddMsg(MsgCode.select, "Select");
+            this.AddMsg(MsgCode.discover, "Discover");
+            this.AddMsg(MsgCode.connect, "Connect");
+            this.AddMsg(MsgCode.cancel, "Cancel");
+            this.AddMsg(MsgCode.info, "Info");
+
             //this.AddMsg(MsgCode., "");
         }
 
