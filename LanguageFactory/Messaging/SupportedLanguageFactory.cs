@@ -28,6 +28,7 @@ namespace LanguageFactory.Messaging {
         #endregion
 
         #region Data
+
         /// <summary>Set of supported language modules</summary>
         private Dictionary<LangCode, SupportedLanguage> languages = new Dictionary<LangCode, SupportedLanguage>();
         /// <summary>Currently selected language module</summary>
@@ -35,11 +36,21 @@ namespace LanguageFactory.Messaging {
         /// <summary>Default language module (English)</summary>
         private SupportedLanguage defaultLang = new English();
         private ClassLog log = new ClassLog("SupportedLanguageFactory");
+
         #endregion
 
         #region Properties
 
         public List<LanguageDataModel> AvailableLanguages { get; } = new List<LanguageDataModel>();
+
+
+        /// <summary>Get the currently selected language</summary>
+        /// <returns>Current language module</returns>
+        public SupportedLanguage CurrentLanguage { get { return this.current; } }
+
+        /// <summary>Get the code for currently selected language</summary>
+        /// <returns>Current language code</returns>
+        public LangCode CurrentLanguageCode { get { return this.current.Language.Code; } }
 
         #endregion
 
@@ -86,14 +97,6 @@ namespace LanguageFactory.Messaging {
                 this.log.Error(9999, () => string.Format("Could not fine language {0}", code));
             }
         }
-
-        /// <summary>Get the code for currently selected language</summary>
-        /// <returns>Current language code</returns>
-        public LangCode GetCurrentLanguage() {
-            return this.current.Language.Code;
-        }
-
-
 
         #endregion
 
