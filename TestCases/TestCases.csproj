@@ -72,6 +72,7 @@
     <Compile Include="ChkUtilsTests\ToErrorReportExceptionTests.cs" />
     <Compile Include="ChkUtilsTests\ToErrReportTests.cs" />
     <Compile Include="ChkUtilsTests\ValidatorTests.cs" />
+    <Compile Include="DependencyInjectorTests\DITests.cs" />
     <Compile Include="LanguageTests.Net\LanguageModulesTestCases.cs" />
     <Compile Include="SpStateMachineTests\SpTestHelpers.cs" />
     <Compile Include="SpStateMachineTests\TestImplementations\MyDummyDI.cs" />
@@ -143,6 +144,10 @@
     <ProjectReference Include="..\ChkUtils\ChkUtils.csproj">
       <Project>{8af7dd7e-394e-4816-b738-0764e1e60dd8}</Project>
       <Name>ChkUtils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DependencyInjectorFactory\DependencyInjectorFactory.csproj">
+      <Project>{8B09C94B-2D09-4D5B-AEF2-1E732BAF2164}</Project>
+      <Name>DependencyInjectorFactory</Name>
     </ProjectReference>
     <ProjectReference Include="..\LanguageFactory\LanguageFactory.Net.csproj">
       <Project>{BE475B1D-0ECB-4A6B-BE96-B823484F0D13}</Project>
