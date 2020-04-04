@@ -27,8 +27,9 @@ namespace LanguageFactory.Languages.cn {
             this.AddMsg(MsgCode.connect, "连接");
             this.AddMsg(MsgCode.cancel, "取消");
             this.AddMsg(MsgCode.info, "信息");
-            //this.AddMsg(MsgCode., "");
+            this.AddMsg(MsgCode.Settings, "设置");
 
+            //this.AddMsg(MsgCode., "");
 
         }
 

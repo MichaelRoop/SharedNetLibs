@@ -28,6 +28,7 @@ namespace LanguageFactory.Languages.es {
             this.AddMsg(MsgCode.connect, "Conectar");
             this.AddMsg(MsgCode.cancel, "Cancelar");
             this.AddMsg(MsgCode.info, "Información");
+            this.AddMsg(MsgCode.Settings, "Configuración");
 
 
             //this.AddMsg(MsgCode., "");

@@ -27,6 +27,8 @@ namespace LanguageFactory.Languages.ja {
             this.AddMsg(MsgCode.connect, "接続");
             this.AddMsg(MsgCode.cancel, "キャンセル");
             this.AddMsg(MsgCode.info, "情報");
+            this.AddMsg(MsgCode.Settings, "設定");
+
 
             //this.AddMsg(MsgCode., "");
         }

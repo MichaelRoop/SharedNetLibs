@@ -27,6 +27,7 @@ namespace LanguageFactory.Languages.kr {
             this.AddMsg(MsgCode.connect, "연결하다");
             this.AddMsg(MsgCode.cancel, "취소");
             this.AddMsg(MsgCode.info, "정보");
+            this.AddMsg(MsgCode.Settings, "설정");
 
 
             //this.AddMsg(MsgCode., "");

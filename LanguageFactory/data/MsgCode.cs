@@ -28,6 +28,7 @@
         connect,
         cancel,
         info,
+        Settings,
 
     }
 }
