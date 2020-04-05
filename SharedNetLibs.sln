@@ -25,7 +25,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LanguageFactory.Net", "Lang
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IconFactory", "IconFactory\IconFactory.csproj", "{78B2A4A0-D576-444D-8D72-3CBE836603A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DependencyInjectorFactory", "DependencyInjectorFactory\DependencyInjectorFactory.csproj", "{8B09C94B-2D09-4D5B-AEF2-1E732BAF2164}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DependencyInjectorFactory", "DependencyInjectorFactory\DependencyInjectorFactory.csproj", "{8B09C94B-2D09-4D5B-AEF2-1E732BAF2164}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorageFactory.Net", "StorageFactory.Net\StorageFactory.Net.csproj", "{CEC86966-5271-43E2-9650-69179F162502}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +83,10 @@ Global
 		{8B09C94B-2D09-4D5B-AEF2-1E732BAF2164}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B09C94B-2D09-4D5B-AEF2-1E732BAF2164}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B09C94B-2D09-4D5B-AEF2-1E732BAF2164}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEC86966-5271-43E2-9650-69179F162502}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEC86966-5271-43E2-9650-69179F162502}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEC86966-5271-43E2-9650-69179F162502}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEC86966-5271-43E2-9650-69179F162502}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
