@@ -232,8 +232,9 @@ namespace StorageFactory.Net.StorageManagers {
         private string ConvertBackSlashes(string pathString) {
             return WrapErr.ToErrorReportException(9999, "Failed to flip backslashes", () => {
                 // Cover all the bases by converting either slashes to OS specific
-                string tmp = pathString.Replace('\\', Path.PathSeparator);
-                return tmp.Replace('/', Path.PathSeparator);
+                //Log.Error(9999, () => string.Format("Path.PathSeparator '{0}'", Path.DirectorySeparatorChar));
+                string tmp = pathString.Replace('\\', Path.DirectorySeparatorChar);
+                return tmp.Replace('/', Path.DirectorySeparatorChar);
             });
         }
 

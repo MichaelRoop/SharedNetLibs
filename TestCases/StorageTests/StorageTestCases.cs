@@ -17,9 +17,23 @@ namespace TestCases.StorageTests {
 
         #region Setup
 
+        private tstData data = null;
+        private tstData data2 = null;
+        private string subDir = "MR_TestCases/Cases";
+
         [OneTimeSetUp]
         public void TestSetSetup() {
             this.OneTimeSetup();
+
+            this.data = new tstData() {
+                MyInt = 98214,
+                MyString = "blah blah woof woof and then some",
+            };
+
+            this.data2 = new tstData() {
+                MyInt = 111,
+                MyString = "second object to secondary file, same directory",
+            };
         }
 
 
@@ -42,7 +56,7 @@ namespace TestCases.StorageTests {
 
 
         [Test]
-        public void FirstTest() {
+        public void JSON_ReadWriteTest() {
             TestHelpersNet.CatchUnexpected(() => {
 
                 #region Data 
@@ -58,15 +72,6 @@ namespace TestCases.StorageTests {
                 string filePath1 = this.FilePath(storage, fileName1);
                 string filePath2 = this.FilePath(storage, fileName2);
 
-                tstData data = new tstData() {
-                    MyInt = 98214,
-                    MyString = "blah blah woof woof and then some",
-                };
-
-                tstData data2 = new tstData() {
-                    MyInt = 111,
-                    MyString = "second object to secondary file, same directory",
-                };
 
                 #endregion
 
@@ -112,10 +117,38 @@ namespace TestCases.StorageTests {
 
                 //Assert.AreEqual("开始", msg);
             });
-
-
-
         }
+
+
+        [Test]
+        public void Encrypted_ReadWriteTest() {
+            TestHelpersNet.CatchUnexpected(() => {
+
+                #region Data 
+
+                IReadWriteSerializer<tstData> serializer = new EncryptingDataSerializer<tstData>();
+                IStorageManager<tstData> storage = new SimpleStorageManger<tstData>(serializer);
+                string fileName1 = "EcryptedFile1.txt";
+                storage.StorageSubDir = this.subDir;
+                storage.DefaultFileName = fileName1;
+                string filePath1 = this.FilePath(storage, fileName1);
+
+                #endregion
+
+                // Make sure all are gone
+                storage.DeleteAllFiles();
+                Assert.False(File.Exists(filePath1), "File should not be there: {0}", filePath1);
+
+                storage.WriteObjectToDefaultFile(this.data);
+                Assert.True(File.Exists(filePath1), "File not there: {0}", filePath1);
+                tstData tmp = storage.ReadObjectFromDefaultFile();
+                Assert.AreEqual(this.data.MyInt, tmp.MyInt);
+                Assert.AreEqual(this.data.MyString, tmp.MyString);
+            });
+        }
+
+
+
 
 
         private string FilePath(IStorageManager<tstData> storage, string fileName) {
