@@ -1,4 +1,6 @@
-﻿namespace StorageFactory.Net.interfaces {
+﻿using System.Collections.Generic;
+
+namespace StorageFactory.Net.interfaces {
 
     public interface IStorageManager<T> where T :class {
 
@@ -63,6 +65,9 @@
         /// <param name="filename">The file to verify</param>
         /// <returns>true on success, otherwise false</returns>
         bool FileExists(string filename);
+
+
+        List<string> GetFileList(bool includePath = false);
 
 
         /// <summary>Load in the file defined DefaultFileName property</summary>

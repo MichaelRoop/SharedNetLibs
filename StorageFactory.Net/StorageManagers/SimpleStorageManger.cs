@@ -3,6 +3,7 @@ using ChkUtils.Net.ErrObjects;
 using LogUtils.Net;
 using StorageFactory.Net.interfaces;
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace StorageFactory.Net.StorageManagers {
@@ -128,8 +129,6 @@ namespace StorageFactory.Net.StorageManagers {
                     });
                 return report.Code == 0;
             }
-
-            throw new NotImplementedException();
         }
 
 
@@ -153,6 +152,29 @@ namespace StorageFactory.Net.StorageManagers {
         public bool FileExists(string filename) {
             string name = this.FullFileName(filename);
             return File.Exists(name);
+        }
+
+
+        public List<string> GetFileList(bool includePath = false) {
+            lock (this) {
+                List<string> results = new List<string>();
+                string dir = this.GetStoragePath();
+                ErrReport report;
+                WrapErr.ToErrReport(out report, 9999, "Failed to get file list", () => {
+                    if (Directory.Exists(dir)) {
+                        foreach (string file in Directory.GetFiles(dir)) {
+                            if (includePath) {
+                                results.Add(file);
+                            }
+                            else {
+                                results.Add(Path.GetFileName(file));
+                            }
+                        }
+                    }
+                });
+                return results;
+            }
+
         }
 
 

@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using LogUtils;
+using LogUtils.Net;
+using NUnit.Framework;
 using StorageFactory.Net.interfaces;
 using StorageFactory.Net.Serializers;
 using StorageFactory.Net.StorageManagers;
@@ -20,6 +22,7 @@ namespace TestCases.StorageTests {
         private tstData data = null;
         private tstData data2 = null;
         private string subDir = "MR_TestCases/Cases";
+        private ClassLog log = new ClassLog("StorageTestCases");
 
         [OneTimeSetUp]
         public void TestSetSetup() {
@@ -147,6 +150,81 @@ namespace TestCases.StorageTests {
             });
         }
 
+
+        [Test]
+        public void GetFileListTest() {
+            TestHelpersNet.CatchUnexpected(() => {
+
+                #region Data 
+
+                IReadWriteSerializer<tstData> serializer = new JsonReadWriteSerializer<tstData>();
+                IStorageManager<tstData> storage = new SimpleStorageManger<tstData>(serializer);
+                string fileName1 = "JsonFile1.txt";
+                string fileName2 = "JsonFile2.txt";
+
+                storage.StorageSubDir = this.subDir;
+                storage.DefaultFileName = fileName1;
+
+                #endregion
+
+                // Make sure all are gone and create 2 files
+                storage.DeleteAllFiles();
+                storage.WriteObjectToDefaultFile(data);
+                storage.WriteObjectToFile(data2, fileName2);
+
+                List<string> files = storage.GetFileList();
+                files.Sort();
+                Assert.AreEqual(2, files.Count);
+                foreach(string name in files) {
+                    this.log.Info("GetFileListTest", () => string.Format("File name: {0}", name));
+                }
+                Assert.AreEqual(fileName1, files[0]);
+                Assert.AreEqual(fileName2, files[1]);
+
+                files = storage.GetFileList(true);
+                foreach (string name in files) {
+                    this.log.Info("GetFileListTest", () => string.Format("File name: {0}", name));
+                }
+
+
+            });
+        }
+
+
+        [Test]
+        public void XML_ReadWriteTest() {
+            TestHelpersNet.CatchUnexpected(() => {
+
+                #region Data 
+
+                IReadWriteSerializer<tstData> serializer = new XmlReadWriteSerializer<tstData>();
+                IStorageManager<tstData> storage = new SimpleStorageManger<tstData>(serializer);
+                string fileName1 = "MyTestFile.txt";
+                string fileName2 = "secondaryFile.txt";
+
+                storage.StorageSubDir = "MR_TestCases/Cases";
+                storage.DefaultFileName = fileName1;
+
+                string filePath1 = this.FilePath(storage, fileName1);
+                string filePath2 = this.FilePath(storage, fileName2);
+
+                #endregion
+
+                // Make sure all are gone
+                storage.DeleteAllFiles();
+                storage.WriteObjectToDefaultFile(data);
+                Assert.True(File.Exists(filePath1), "File not there: {0}", filePath1);
+                tstData tmp = storage.ReadObjectFromDefaultFile();
+                Assert.AreEqual(data.MyInt, tmp.MyInt);
+                Assert.AreEqual(data.MyString, tmp.MyString);
+
+                storage.WriteObjectToFile(data2, fileName2);
+                Assert.True(File.Exists(filePath2), "File not there: {0}", filePath2);
+                tmp = storage.ReadObjectFromFile(fileName2);
+                Assert.AreEqual(data2.MyInt, tmp.MyInt);
+                Assert.AreEqual(data2.MyString, tmp.MyString);
+            });
+        }
 
 
 
