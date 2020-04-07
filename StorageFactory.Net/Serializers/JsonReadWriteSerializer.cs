@@ -13,6 +13,14 @@ namespace StorageFactory.Net.Serializers {
 
         JsonSerializer serializer = new JsonSerializer();
 
+        public JsonReadWriteSerializer(bool indented = false) {
+            if (indented) {
+                this.serializer.Formatting = Formatting.Indented;
+            }
+        }
+
+
+
         /// <summary>Deserialize a class from JSON in stream to a class</summary>
         /// <param name="stream">The input stream with the stored JSON</param>
         /// <returns>The class deserialized from the JSON</returns>

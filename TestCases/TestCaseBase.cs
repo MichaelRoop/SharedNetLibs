@@ -20,9 +20,9 @@ namespace TestCases {
         }
 
         public void OneTimeTeardown() {
-            System.Threading.Thread.Sleep(1000);
-            this.logReader.StopLogging();
-            this.logReader.Clear();
+//            System.Threading.Thread.Sleep(1000);
+//            this.logReader.StopLogging();
+//            this.logReader.Clear();
         }
 
 

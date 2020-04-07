@@ -9,7 +9,7 @@ namespace StorageFactory.Net.Serializers {
 
     /// <summary>Read and write a class to and from Stream in encrypted format</summary>
     /// <typeparam name="T">The type of class to stream</typeparam>
-    public class EncryptingDataSerializer<T> : IReadWriteSerializer<T> where T : class {
+    public class EncryptingReadWriteSerializer<T> : IReadWriteSerializer<T> where T : class {
 
         #region Data
 
@@ -24,7 +24,7 @@ namespace StorageFactory.Net.Serializers {
         #region Constructors
 
         /// <summary>Default constructor which sets up the encryption</summary>
-        public EncryptingDataSerializer() {
+        public EncryptingReadWriteSerializer() {
             DESCryptoServiceProvider service = new DESCryptoServiceProvider();
             byte[] key = Encoding.ASCII.GetBytes("64bitPas");
             byte[] IV = Encoding.ASCII.GetBytes("xytT26**D0k87jIJ5*s8S");
@@ -37,7 +37,7 @@ namespace StorageFactory.Net.Serializers {
         /// <param name="primarySerializer">
         /// Handles converting the decrypted data to the type and vice versa 
         /// </param>
-        public EncryptingDataSerializer(IReadWriteSerializer<T> primarySerializer) : this() {
+        public EncryptingReadWriteSerializer(IReadWriteSerializer<T> primarySerializer) : this() {
             this.primarySerializer = primarySerializer;
         }
 

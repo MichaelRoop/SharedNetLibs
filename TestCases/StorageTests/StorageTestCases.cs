@@ -64,17 +64,16 @@ namespace TestCases.StorageTests {
 
                 #region Data 
 
-                IReadWriteSerializer<tstData> serializer = new JsonReadWriteSerializer<tstData>();
+                JsonReadWriteSerializer<tstData> serializer = new JsonReadWriteSerializer<tstData>();
                 IStorageManager<tstData> storage = new SimpleStorageManger<tstData>(serializer);
-                string fileName1 = "MyTestFile.txt";
-                string fileName2 = "secondaryFile.txt";
+                string fileName1 = "MyTestJsonFile.txt";
+                string fileName2 = "secondaryJsonFile.txt";
 
                 storage.StorageSubDir = "MR_TestCases/Cases";
                 storage.DefaultFileName = fileName1;
 
                 string filePath1 = this.FilePath(storage, fileName1);
                 string filePath2 = this.FilePath(storage, fileName2);
-
 
                 #endregion
 
@@ -129,7 +128,7 @@ namespace TestCases.StorageTests {
 
                 #region Data 
 
-                IReadWriteSerializer<tstData> serializer = new EncryptingDataSerializer<tstData>();
+                IReadWriteSerializer<tstData> serializer = new EncryptingReadWriteSerializer<tstData>();
                 IStorageManager<tstData> storage = new SimpleStorageManger<tstData>(serializer);
                 string fileName1 = "EcryptedFile1.txt";
                 storage.StorageSubDir = this.subDir;
@@ -199,8 +198,8 @@ namespace TestCases.StorageTests {
 
                 IReadWriteSerializer<tstData> serializer = new XmlReadWriteSerializer<tstData>();
                 IStorageManager<tstData> storage = new SimpleStorageManger<tstData>(serializer);
-                string fileName1 = "MyTestFile.txt";
-                string fileName2 = "secondaryFile.txt";
+                string fileName1 = "MyTestFileXML.txt";
+                string fileName2 = "secondaryXMLFile.txt";
 
                 storage.StorageSubDir = "MR_TestCases/Cases";
                 storage.DefaultFileName = fileName1;
@@ -226,6 +225,52 @@ namespace TestCases.StorageTests {
             });
         }
 
+
+        [Test]
+        public void MemoryStream_ReadWriteTest() {
+            TestHelpersNet.CatchUnexpected(() => {
+
+                #region Data 
+
+                IReadWriteSerializer<MemoryStream> serializer = new MemoryStreamReadWriteSerializer();
+                IStorageManager<MemoryStream> storage = new SimpleStorageManger<MemoryStream>(serializer);
+                string fileName1 = "MyTestFileMemoryManager.txt";
+                string fileName2 = "secondaryMemoryManager.txt";
+                storage.StorageSubDir = "MR_TestCases/Cases";
+                storage.DefaultFileName = fileName1;
+                string filePath1 = Path.Combine(storage.StorageRootDir, storage.StorageSubDir, fileName1);
+                string filePath2 = Path.Combine(storage.StorageRootDir, storage.StorageSubDir, fileName2);
+
+
+                #endregion
+
+                //byte[] buff = new byte[] { 0, 1, 2, 3, 4, 5 };
+                double[] dBuff = new double[] { 32.445, 12121213443.44234234, 33.45, 1.3465, 234234.45345345435};
+                byte[] buff = dBuff.SelectMany(x => BitConverter.GetBytes(x)).ToArray();
+
+                MemoryStream memStream = new MemoryStream((int)buff.Length);
+                memStream.Write(buff, 0, buff.Count());
+
+                // Make sure all are gone
+                storage.DeleteAllFiles();
+                storage.WriteObjectToDefaultFile(memStream);
+                Assert.True(File.Exists(filePath1), "File not there: {0}", filePath1);
+                MemoryStream readStream = storage.ReadObjectFromDefaultFile();
+                Assert.AreEqual(memStream.GetBuffer(), readStream.GetBuffer());
+
+
+                byte[] buff2 = new byte[] { 0, 1, 2, 3, 4, 5 };
+                MemoryStream memStream2 = new MemoryStream((int)buff2.Length);
+                memStream2.Write(buff2, 0, buff2.Count());
+                storage.WriteObjectToFile(memStream2, fileName2);
+                Assert.True(File.Exists(filePath2), "File not there: {0}", filePath2);
+                readStream.Dispose();
+                readStream = storage.ReadObjectFromFile(fileName2);
+                Assert.AreEqual(memStream2.GetBuffer(), readStream.GetBuffer());
+
+
+            });
+        }
 
 
 
