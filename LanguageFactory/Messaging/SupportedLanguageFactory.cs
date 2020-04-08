@@ -117,7 +117,7 @@ namespace LanguageFactory.Messaging {
         /// <summary>Safely load a language module or flag error</summary>
         /// <param name="language">The language module to load</param>
         private void LoadLanguage(SupportedLanguage language) {
-            this.log.Info("LoadLanguage", () => string.Format("Loading language: {0}", language.Language.Code));
+            //this.log.Info("LoadLanguage", () => string.Format("Loading language: {0}", language.Language.Code));
             if (!this.languages.ContainsKey(language.Language.Code)) {
                 this.languages.Add(language.Language.Code, language);
                 this.AvailableLanguages.Add(language.Language);
