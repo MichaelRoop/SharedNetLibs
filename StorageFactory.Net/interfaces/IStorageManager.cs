@@ -13,7 +13,6 @@ namespace StorageFactory.Net.interfaces {
         /// </summary>
         string StorageRootDir { get; set; }
 
-
         /// <summary>File storage sub diretory off root. Default "DEFAULT_SUB_DIR"</summary>
         /// <remarks>
         /// Back slashes will be converted to '/' for cross platform compatibility. No leading or 
@@ -22,9 +21,12 @@ namespace StorageFactory.Net.interfaces {
         string StorageSubDir { get; set; }
 
 
+        /// <summary>The storage path combined root and sub directory</summary>
+        string StoragePath { get; }
+
+
         /// <summary>File name used for Default File methods. Set if required</summary>
         string DefaultFileName { get; set; }
-
 
         #endregion
 

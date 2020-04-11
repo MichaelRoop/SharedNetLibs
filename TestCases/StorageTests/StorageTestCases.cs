@@ -111,15 +111,128 @@ namespace TestCases.StorageTests {
                 Assert.True(File.Exists(filePath2), "File not there: {0}", filePath2);
 
 
-                storage.DeleteFiles("*.txt");
-                Assert.False(File.Exists(filePath1), "File should not be there: {0}", filePath1);
-                Assert.False(File.Exists(filePath2), "File should not be there: {0}", filePath2);
+                //storage.DeleteFiles("*.txt");
+                //Assert.False(File.Exists(filePath1), "File should not be there: {0}", filePath1);
+                //Assert.False(File.Exists(filePath2), "File should not be there: {0}", filePath2);
 
 
 
                 //Assert.AreEqual("开始", msg);
             });
         }
+
+
+        [Test]
+        public void JSON_ReadWriteTestFormatted() {
+            TestHelpersNet.CatchUnexpected(() => {
+
+                #region Data 
+
+                JsonReadWriteSerializer<tstData> serializer = new JsonReadWriteSerializerIndented<tstData>();
+                IStorageManager<tstData> storage = new SimpleStorageManger<tstData>(serializer);
+                string fileName1 = "MyTestJsonFileIndented.txt";
+                string fileName2 = "secondaryJsonFileIndented.txt";
+
+                storage.StorageSubDir = "MR_TestCases/Cases";
+                storage.DefaultFileName = fileName1;
+
+                string filePath1 = this.FilePath(storage, fileName1);
+                string filePath2 = this.FilePath(storage, fileName2);
+
+                #endregion
+
+                // Make sure all are gone
+                storage.DeleteAllFiles();
+                Assert.False(File.Exists(filePath1), "File should not be there: {0}", filePath1);
+                Assert.False(File.Exists(filePath2), "File should not be there: {0}", filePath2);
+
+                storage.WriteObjectToDefaultFile(data);
+                Assert.True(File.Exists(filePath1), "File not there: {0}", filePath1);
+                tstData tmp = storage.ReadObjectFromDefaultFile();
+                Assert.AreEqual(data.MyInt, tmp.MyInt);
+                Assert.AreEqual(data.MyString, tmp.MyString);
+
+
+                storage.WriteObjectToFile(data2, fileName2);
+                Assert.True(File.Exists(filePath2), "File not there: {0}", filePath2);
+                tmp = storage.ReadObjectFromFile(fileName2);
+                Assert.AreEqual(data2.MyInt, tmp.MyInt);
+                Assert.AreEqual(data2.MyString, tmp.MyString);
+
+                storage.DeleteDefaultFile();
+                Assert.False(File.Exists(filePath1), "File should not be there: {0}", filePath1);
+
+                storage.DeleteFile(fileName2);
+                Assert.False(File.Exists(filePath2), "File should not be there: {0}", filePath2);
+
+                storage.WriteObjectToDefaultFile(data);
+                storage.WriteObjectToFile(data2, fileName2);
+                Assert.True(File.Exists(filePath1), "File not there: {0}", filePath1);
+                Assert.True(File.Exists(filePath2), "File not there: {0}", filePath2);
+            });
+        }
+
+
+        [Test]
+        public void DeleteAllFilesPattern() {
+            #region Data 
+
+            JsonReadWriteSerializer<tstData> serializer = new JsonReadWriteSerializer<tstData>();
+            IStorageManager<tstData> storage = new SimpleStorageManger<tstData>(serializer);
+            string fileName1 = "MyTestJsonFile.txt";
+            string fileName2 = "secondaryJsonFile.txt";
+            storage.StorageSubDir = "MR_TestCases/Cases";
+            storage.DefaultFileName = fileName1;
+            string filePath1 = this.FilePath(storage, fileName1);
+            string filePath2 = this.FilePath(storage, fileName2);
+
+            #endregion
+
+            // Make sure all are gone
+            storage.DeleteAllFiles();
+            Assert.False(File.Exists(filePath1), "File should not be there: {0}", filePath1);
+            Assert.False(File.Exists(filePath2), "File should not be there: {0}", filePath2);
+
+            storage.WriteObjectToDefaultFile(data);
+            Assert.True(File.Exists(filePath1), "File not there: {0}", filePath1);
+            storage.WriteObjectToFile(data2, fileName2);
+            Assert.True(File.Exists(filePath2), "File not there: {0}", filePath2);
+
+            storage.DeleteFiles("*.txt");
+            Assert.False(File.Exists(filePath1), "File should not be there: {0}", filePath1);
+            Assert.False(File.Exists(filePath2), "File should not be there: {0}", filePath2);
+        }
+
+        [Test]
+        public void DeleteAllFiles() {
+            #region Data 
+
+            JsonReadWriteSerializer<tstData> serializer = new JsonReadWriteSerializer<tstData>();
+            IStorageManager<tstData> storage = new SimpleStorageManger<tstData>(serializer);
+            string fileName1 = "MyTestJsonFile.txt";
+            string fileName2 = "secondaryJsonFile.txt";
+            storage.StorageSubDir = "MR_TestCases/Cases";
+            storage.DefaultFileName = fileName1;
+            string filePath1 = this.FilePath(storage, fileName1);
+            string filePath2 = this.FilePath(storage, fileName2);
+
+            #endregion
+
+            // Make sure all are gone
+            storage.DeleteAllFiles();
+            Assert.False(File.Exists(filePath1), "File should not be there: {0}", filePath1);
+            Assert.False(File.Exists(filePath2), "File should not be there: {0}", filePath2);
+
+            storage.WriteObjectToDefaultFile(data);
+            Assert.True(File.Exists(filePath1), "File not there: {0}", filePath1);
+            storage.WriteObjectToFile(data2, fileName2);
+            Assert.True(File.Exists(filePath2), "File not there: {0}", filePath2);
+
+            storage.DeleteAllFiles();
+            Assert.False(File.Exists(filePath1), "File should not be there: {0}", filePath1);
+            Assert.False(File.Exists(filePath2), "File should not be there: {0}", filePath2);
+        }
+
 
 
         [Test]

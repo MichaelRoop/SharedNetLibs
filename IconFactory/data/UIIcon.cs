@@ -3,6 +3,11 @@
         Save,
         Cancel,
         Exit,
+        Delete,
+        Edit,
+        View,
+        Add,
+        Search,
 
         // Menu
         Settings,
