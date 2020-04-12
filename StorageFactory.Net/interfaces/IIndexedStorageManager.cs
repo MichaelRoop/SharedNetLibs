@@ -35,6 +35,9 @@ namespace StorageFactory.Net.interfaces {
         string StoragePath { get; }
 
 
+        string IndexFileName { get; set; }
+
+
         /// <summary>Get the list of info on objects currently stored</summary>
         List<IIndexedStorageInfo<TExtraInfo>> IndexedItems { get; }
 

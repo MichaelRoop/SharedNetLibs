@@ -5,7 +5,9 @@ using System.Text;
 namespace StorageFactory.Net.interfaces {
     public interface IIndexedRetrievalInfo<T,TExtraInfo> where T : class where TExtraInfo : class {
 
-        // TODO A retrieval property with information on success, etc?
+        // A retrieval property with information on success, etc?
+        bool RetrievedOk { get; set; }
+
 
         /// <summary>The retrieved class or default(T) class"</summary>
         T StoredObject { get; set; }

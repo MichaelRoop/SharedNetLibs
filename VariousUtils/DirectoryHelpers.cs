@@ -37,6 +37,7 @@ namespace VariousUtils {
             WrapErr.ToErrReport(out report, 9999,
                 () => string.Format("Failed to delete directory '{0}'", dir), () => {
                     if (Directory.Exists(dir)) {
+                        FileHelpers.DeleteFiles(dir, "*.*");
                         Directory.Delete(dir);
                     }
                 });

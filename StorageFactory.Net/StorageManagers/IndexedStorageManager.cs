@@ -5,7 +5,6 @@ using StorageFactory.Net.interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using VariousUtils;
 
 namespace StorageFactory.Net.StorageManagers {
@@ -15,9 +14,9 @@ namespace StorageFactory.Net.StorageManagers {
 
         #region Data
 
+        private bool isIndexRead = false;
         private string root = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         private string subDir = "DEFAULT_SUB_DIR";
-        private string fileName = "DEFAULT_FILE_NAME.TXT";
         private string indexName = "DEFAULT_INDEX_FILE_NAME.TXT";
         private IReadWriteSerializer<TData> dataSerializer = null;
         private IReadWriteSerializer<IIndexStorageDataModel<TExtraInfo>> indexSerializer = null;
@@ -63,6 +62,12 @@ namespace StorageFactory.Net.StorageManagers {
             }
         }
 
+
+        public string IndexFileName {
+            get { lock (this) { return this.indexName; } }
+            set { lock (this) { this.indexName = value; } }
+        }
+
         #endregion
 
         #region Constructors
@@ -70,7 +75,6 @@ namespace StorageFactory.Net.StorageManagers {
         public IndexedStorageManager(
             IReadWriteSerializer<TData> dataSerializer,
             IReadWriteSerializer<IIndexStorageDataModel<TExtraInfo>> indexSerializer) {
-         
             this.dataSerializer = dataSerializer;
             this.indexSerializer = indexSerializer;
         }
@@ -93,10 +97,10 @@ namespace StorageFactory.Net.StorageManagers {
                         // At this point index is changed but not saved
                         if (!FileHelpers.DeleteFile(this.FullFileName(fileInfo))) {
                             // Restore index item to this copy of index
-                            this.indexItems.Items.Add(fileInfo);
+                            this.GetIndex().Items.Add(fileInfo);
                             return false;
                         }
-                        return this.WriteIndexToFile(this.indexItems);
+                        return this.WriteIndexToFile(this.GetIndex());
                     }
                     else {
                         this.log.Error(9999, () => string.Format("'{0}' ({1}) not found in index", fileInfo.Display, fileInfo.UId));
@@ -112,6 +116,9 @@ namespace StorageFactory.Net.StorageManagers {
         public bool DeleteStorageDirectory() {
             lock (this) {
                 if (DirectoryHelpers.DeleteDirectory(this.StoragePath)) {
+                    // Storage directory delete also deleted index to we can clear the 
+                    // local index object directly and set the flag to not loaded
+                    this.isIndexRead = false;
                     this.indexItems.Items.Clear();
                 }
                 return false;
@@ -125,13 +132,38 @@ namespace StorageFactory.Net.StorageManagers {
         }
 
         public IIndexedRetrievalInfo<TData, TExtraInfo> Retrieve(
-            IIndexedRetrievalInfo<TData, TExtraInfo> outPut, 
+            IIndexedRetrievalInfo<TData, TExtraInfo> outPut,
             IIndexedStorageInfo<TExtraInfo> fileInfo) {
+            // read in from file
 
+            // TODO - more robust recovery in case of failure. Likely abort at this one place
+            lock (this) {
+                outPut.RetrievedOk = false;
 
+                ErrReport report;
+                string name = FileHelpers.GetFullFileName(this.StoragePath, fileInfo.UId);
+                TData ret = WrapErr.ToErrReport(out report, 9999,
+                    () => string.Format("Failed to read index '{0}'", name),
+                    () => {
+                        DirectoryHelpers.CreateStorageDir(this.StoragePath);
 
+                        // TODO - check if exists in the index
 
-            return outPut;
+                        if (File.Exists(name)) {
+                            using (FileStream fs = File.OpenRead(name)) {
+                                outPut.RetrievedOk = true;
+                                outPut.Info = fileInfo;
+                                return this.dataSerializer.Deserialize(fs);
+                            }
+                        }
+                        else {
+                            this.log.Error(9999, () => string.Format("File does not exist ({0})", name));
+                        }
+                        return outPut.StoredObject;
+                    });
+                outPut.StoredObject = report.Code == 0 ? ret : outPut.StoredObject;
+                return outPut;
+            }
         }
 
 
@@ -155,8 +187,8 @@ namespace StorageFactory.Net.StorageManagers {
                     // TODO - what happens if remove is false?
                     this.RemoveFromIndex(indexItem);
                     // Call the copy directly to prevent loading from file if we removed last item localy
-                    this.indexItems.Items.Add(indexItem);
-                    return this.WriteIndexToFile(this.indexItems);
+                    this.GetIndex().Items.Add(indexItem);
+                    return this.WriteIndexToFile(this.GetIndex());
                 }
                 return true;
             }
@@ -187,14 +219,19 @@ namespace StorageFactory.Net.StorageManagers {
         /// <returns>true on success, otherwise false</returns>
         private bool WriteIndexToFile(IIndexStorageDataModel<TExtraInfo> index) {
             ErrReport report;
-            string name = FileHelpers.GetFullFileName(this.StoragePath, this.indexName);
+            string name = FileHelpers.GetFullFileName(this.StoragePath, this.IndexFileName);
             bool ret = WrapErr.ToErrReport(out report, 9999,
                 () => string.Format("Failed to write index '{0}'", name),
                 () => {
                     this.log.Info("WriteIndexToFile", () => string.Format("Write Index:{0}", name));
                     DirectoryHelpers.CreateStorageDir(this.StoragePath);
                     using (FileStream fs = File.Create(name)) {
-                        return this.indexSerializer.Serialize(index, fs);
+                        bool tmp = this.indexSerializer.Serialize(index, fs);
+                        if (!tmp) {
+                            this.log.Info("WriteIndexToFile", "Failed to serialize index to file");
+                        }
+                        //fs.Flush();
+                        return tmp;
                     }
                 });
             return report.Code == 0 ? ret : false;
@@ -202,9 +239,10 @@ namespace StorageFactory.Net.StorageManagers {
 
 
         private IIndexStorageDataModel<TExtraInfo> ReadIndexFromFile() {
+            // TODO - more robust recovery in case of failure. Likely abort at this one place
             lock (this) {
                 ErrReport report;
-                string name = FileHelpers.GetFullFileName(this.StoragePath, this.indexName);
+                string name = FileHelpers.GetFullFileName(this.StoragePath, this.IndexFileName);
                 IIndexStorageDataModel<TExtraInfo> ret = WrapErr.ToErrReport(out report, 9999,
                     () => string.Format("Failed to read index '{0}'", name),
                     () => {
@@ -214,17 +252,22 @@ namespace StorageFactory.Net.StorageManagers {
                                 return this.indexSerializer.Deserialize(fs);
                             }
                         }
-                        return default(IIndexStorageDataModel<TExtraInfo>);
+                        else {
+                            // The index does not exist. Create it from existing 
+                            this.WriteIndexToFile(this.indexItems);
+                            return this.indexItems;
+                        }
                     });
                 return report.Code == 0 ? ret : default(IIndexStorageDataModel<TExtraInfo>);
             }
         }
 
 
-        /// <summary>Get the index copy or load from file if empty</summary>
+        /// <summary>Get the index copy or load from file if not yet loaded</summary>
         /// <returns>The index copy</returns>
         private IIndexStorageDataModel<TExtraInfo> GetIndex() {
-            if (this.indexItems.Items.Count > 0) {
+            if (!this.isIndexRead) {
+                isIndexRead = true;
                 this.indexItems = this.ReadIndexFromFile();
             }
             return this.indexItems;
@@ -246,7 +289,7 @@ namespace StorageFactory.Net.StorageManagers {
 
         private bool RemoveFromIndex(IIndexedStorageInfo<TExtraInfo> indexItem) {
             if (this.IsInIndex(indexItem)) {
-                if (this.indexItems.Items.Remove(indexItem)) {
+                if (this.GetIndex().Items.Remove(indexItem)) {
                     return true;
                 }
                 this.log.Error(9999, () => string.Format("Failed to remove '{0}' ({1}) from index", indexItem.Display, indexItem.UId));

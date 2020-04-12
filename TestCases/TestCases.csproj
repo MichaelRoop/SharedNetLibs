@@ -88,6 +88,7 @@
     <Compile Include="SpStateMachineTests\TestImplementations\SuperStates\ExitSS\S_A1.cs" />
     <Compile Include="SpStateMachineTests\TestImplementations\SuperStates\ExitSS\S_B1.cs" />
     <Compile Include="SpStateMachineTests\TestImplementations\SuperStates\ExitSS\S_ExitDoneOnEntry.cs" />
+    <Compile Include="StorageTests\IndexedStorageTestCases.cs" />
     <Compile Include="StorageTests\StorageTestCases.cs" />
     <Compile Include="TestCaseBase.cs" />
     <Compile Include="TestHelpersNet.cs" />
