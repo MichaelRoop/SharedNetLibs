@@ -11,7 +11,7 @@ namespace StorageFactory.Net.interfaces {
     /// open all the larger files
     /// </remarks>
     /// <typeparam name="T"></typeparam>
-    public interface IIndexedStorageManager<T> where T : class {
+    public interface IIndexedStorageManager<TData,TExtraInfo> where TData : class where TExtraInfo : class {
 
         #region Properties
 
@@ -31,8 +31,12 @@ namespace StorageFactory.Net.interfaces {
         string StorageSubDir { get; set; }
 
 
-        /// <summary>Get the list of info objects of currently stored files</summary>
-        List<IIndexedStorageInfo> FileInfoList { get; }
+        /// <summary>The storage path combined root and sub directory</summary>
+        string StoragePath { get; }
+
+
+        /// <summary>Get the list of info on objects currently stored</summary>
+        List<IIndexedStorageInfo<TExtraInfo>> IndexedItems { get; }
 
 
 
@@ -42,7 +46,7 @@ namespace StorageFactory.Net.interfaces {
         /// <summary>Does the file exist</summary>
         /// <param name="fileInfo">The info on the file to verify</param>
         /// <returns>true on success, otherwise false</returns>
-        bool FileExists(IIndexedStorageInfo fileInfo);
+        bool FileExists(IIndexedStorageInfo<TExtraInfo> fileInfo);
 
 
         /// <summary>Retrieve the stored T object based on its info</summary>
@@ -51,20 +55,20 @@ namespace StorageFactory.Net.interfaces {
         /// A retrieval info class which contains the stored object and its indexer 
         /// object required for next store
         /// </returns>
-        IIndexedRetrievalInfo<T> Retrieve(IIndexedStorageInfo fileInfo);
+        IIndexedRetrievalInfo<TData,TExtraInfo> Retrieve(IIndexedRetrievalInfo<TData, TExtraInfo> outPut, IIndexedStorageInfo<TExtraInfo> fileInfo);
 
 
         /// <summary>Store previously retrieved object with its related indexing</summary>
         /// <param name="retrievedData">Contains the object as well as its indexing info</param>
         /// <returns>true on success, otherwise false</returns>
-        bool Store(IIndexedRetrievalInfo<T> retrievedData);
+        bool Store(IIndexedRetrievalInfo<TData, TExtraInfo> retrievedData);
 
 
         /// <summary>Store object with its related indexing</summary>
         /// <remarks>See IIndexedStorageInfo for details</remarks>
         /// <param name="info">Contains the indexing info</param>
         /// <returns>true on success, otherwise false</returns>
-        bool Store(T obj, IIndexedStorageInfo info);
+        bool Store(TData obj, IIndexedStorageInfo<TExtraInfo> info);
 
 
         /// <summary>Delete the sub directory tree and all files that it contains</summary>
@@ -75,7 +79,7 @@ namespace StorageFactory.Net.interfaces {
         /// <summary>Delete file based on the info and remove from index</summary>
         /// <param name="fileInfo">The info on the file to delete</param>
         /// <returns>true on success, otherwise false</returns>
-        bool DeleteFile(IIndexedStorageInfo fileInfo);
+        bool DeleteFile(IIndexedStorageInfo<TExtraInfo> fileInfo);
 
 
 
