@@ -73,21 +73,28 @@ namespace TestCases.StorageTests {
         private ClassLog log = new ClassLog("IndexedStorageTestCases");
         private IReadWriteSerializer<TstData> dataSerializer = 
             new JsonReadWriteSerializerIndented<TstData>();
-
         private IReadWriteSerializer<IIndexStorageDataModel<TstExtraInfo>> indexSerializer =
             new JsonReadWriteSerializerIndented<IIndexStorageDataModel<TstExtraInfo>>();
-
+        IIndexedStorageManager<TstData, TstExtraInfo> storage = null;
 
         #endregion
 
         #region Setup
 
-        [OneTimeSetUp]
+                [OneTimeSetUp]
         public void TestSetSetup() {
             this.OneTimeSetup();
             this.data1 = new TstData("Blah");
             this.data2 = new TstData("blip", 7777, 2121);
             this.data3 = new TstData("blop", 11, 987654321);
+            // setup the indexed storage manager
+            this.storage = new
+                    IndexedStorageManager<TstData, TstExtraInfo>(
+                    this.dataSerializer,
+                    this.indexSerializer);
+            this.storage.StorageSubDir = this.subDir;
+            this.storage.IndexFileName = "Index1.txt";
+
         }
 
         [OneTimeTearDown]
@@ -98,6 +105,7 @@ namespace TestCases.StorageTests {
         [SetUp]
         public void SetupEachTest() {
             // Clean up the directories I think
+            this.storage.DeleteStorageDirectory();
         }
 
         #endregion
@@ -159,58 +167,65 @@ namespace TestCases.StorageTests {
         }
 
 
+        private Tuple<List<TstData>, List<IIndexedStorageInfo<TstExtraInfo>>> CreateTestData(int count) {
+            List<IIndexedStorageInfo<TstExtraInfo>> info = new List<IIndexedStorageInfo<TstExtraInfo>>();
+            List<TstData> data = new List<TstData>();
+
+            for (int i = 0; i < count; i++) {
+                // Create data data model
+                data.Add(new TstData(string.Format("Mine{0}", i), (321 + i), (333356 + i)));
+
+                // create the storage index 
+                info.Add(new IndexedStorageInfo<TstExtraInfo>(
+                        new TstExtraInfo() {
+                            Address = string.Format("Address:{0}", i),
+                            ConnectType = i
+                        }) {
+                    Display = string.Format("Display:{0}", i)
+                });
+                Assert.AreEqual(data.Count, info.Count, "Data count vs ndx items");
+            }
+            return new Tuple<List<TstData>, List<IIndexedStorageInfo<TstExtraInfo>>>(data, info);
+        }
+
+
         [Test]
         public void TestStoreRetrieveObj() {
             TestHelpersNet.CatchUnexpected(() => {
-                IIndexedStorageManager<TstData, TstExtraInfo> manager = new
-                    IndexedStorageManager<TstData, TstExtraInfo>(
-                    this.dataSerializer,
-                    this.indexSerializer);
-
-                manager.StorageSubDir = this.subDir;
-                manager.IndexFileName = "Index1.txt";
-
-                manager.DeleteStorageDirectory();
-                //// On next call to IndexedItems it will recreate directory with an empty index
-                //Assert.False(Directory.Exists(manager.StoragePath), "Directory should be gone");
-                //Assert.AreEqual(0, manager.IndexedItems.Count, "should be 0 after directory deleted");
-                //Assert.True(Directory.Exists(manager.StoragePath), "Directory should be gone");
-                //Assert.True(Directory.GetFiles(manager.StoragePath).Count() == 1, "Should only have index file");
-
                 int count = 10;
-                List<IIndexedStorageInfo<TstExtraInfo>> info = new List<IIndexedStorageInfo<TstExtraInfo>>();
-                List<TstData> data = new List<TstData>();
+                var results = this.CreateTestData(count);
                 for (int i = 0; i < count; i++) {
-                    // Create data data model
-                    data.Add(new TstData(string.Format("Mine{0}", i), (321 + i), (333356 + i)));
+                    this.storage.Store(results.Item1[i], results.Item2[i]);
+                }
 
-                    // create the storage info for the data model
-                    IIndexedStorageInfo<TstExtraInfo> item =
-                        new IndexedStorageInfo<TstExtraInfo>(new TstExtraInfo());
-                    item.Display = string.Format("Display:{0}", i);
-                    item.ExtraInfoObj.Address = string.Format("Address:{0}", i);
-                    item.ExtraInfoObj.ConnectType = i;
-                    info.Add(item);
+                var ndxList = this.storage.IndexedItems;
+                Assert.AreEqual(count, ndxList.Count, "Mismatch data in number and retrieved number");
+                // Confirm that all the input data is in the index
+                foreach (var ndx in ndxList) {
+                    Assert.NotNull(results.Item2.First((x) => x.UId == ndx.UId), "Did not find in data {0} in storage index", ndx.UId.ToString());
+                }
+                for (int i = 0; i < count; i++) {
+                    var ndx = results.Item2[i];
+                    Assert.True(this.storage.FileExists(ndx), "index list file does not exists ({0})", ndx.UId);
+                    TstData outObj = this.storage.Retrieve(ndx);
+                    TstData inObj = results.Item1[i];
+                    Assert.NotNull(outObj, "Failure to retrieve - null");
+                    Assert.AreEqual(inObj.MyInt, outObj.MyInt, "MyInt");
+                    Assert.AreEqual(inObj.MyPrivateInt, outObj.MyPrivateInt, "MyPrivateInt");
+                    Assert.AreEqual(inObj.MyPrivateString, outObj.MyPrivateString, "private string");
+                    Assert.AreEqual(inObj.MyString, outObj.MyString, "MyString");
                 }
 
 
-                for (int i = 0; i < count; i++) {
-                    manager.Store(data[i], info[i]);
-                }
 
-                var ndxList = manager.IndexedItems;
-                Assert.AreEqual(data.Count, ndxList.Count, "Data count vs retrieve ndx items");
-
-                foreach (var ndx in manager.IndexedItems) {
-                    Assert.True(manager.FileExists(ndx), "index list file not exists ({0})", ndx.UId);
-
-                    TstData ret = manager.Retrieve(ndx);
+                foreach (var ndx in ndxList) {
+                    Assert.True(this.storage.FileExists(ndx), "index list file not exists ({0})", ndx.UId);
+                    TstData ret = this.storage.Retrieve(ndx);
                     Assert.NotNull(ret, "Failure to retrieve - null");
-
+                    // Test the values against the in data
                 }
             });
         }
-
 
 
 
