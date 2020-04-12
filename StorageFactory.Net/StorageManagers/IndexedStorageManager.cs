@@ -138,31 +138,46 @@ namespace StorageFactory.Net.StorageManagers {
 
             // TODO - more robust recovery in case of failure. Likely abort at this one place
             lock (this) {
-                outPut.RetrievedOk = false;
-
                 ErrReport report;
                 string name = FileHelpers.GetFullFileName(this.StoragePath, fileInfo.UId);
-                TData ret = WrapErr.ToErrReport(out report, 9999,
+                TData ret = default(TData);
+                ret = WrapErr.ToErrReport(out report, 9999,
                     () => string.Format("Failed to read index '{0}'", name),
+                    () => { return this.Retrieve(fileInfo); });
+                if (report.Code != 0) {
+                    ret = default(TData);
+                }
+                outPut.RetrievedOk = (ret != default(TData));
+                outPut.Info = fileInfo;
+                outPut.StoredObject = ret;
+                return outPut;
+            }
+        }
+
+
+        /// <summary>Retrieve the object with information from the index item</summary>
+        /// <param name="indexItem">The index item with file info</param>
+        /// <returns>The object or null if not found</returns>
+        public TData Retrieve(IIndexedStorageInfo<TExtraInfo> indexItem) {
+            lock (this) {
+                ErrReport report;
+                string name = FileHelpers.GetFullFileName(this.StoragePath, indexItem.UId);
+                TData ret = WrapErr.ToErrReport(out report, 9999,
+                    () => string.Format("Failed to retrieve object '{0}'", name),
                     () => {
                         DirectoryHelpers.CreateStorageDir(this.StoragePath);
-
                         // TODO - check if exists in the index
-
                         if (File.Exists(name)) {
                             using (FileStream fs = File.OpenRead(name)) {
-                                outPut.RetrievedOk = true;
-                                outPut.Info = fileInfo;
                                 return this.dataSerializer.Deserialize(fs);
                             }
                         }
                         else {
                             this.log.Error(9999, () => string.Format("File does not exist ({0})", name));
                         }
-                        return outPut.StoredObject;
+                        return default(TData);
                     });
-                outPut.StoredObject = report.Code == 0 ? ret : outPut.StoredObject;
-                return outPut;
+                return report.Code == 0 ? ret : default(TData);
             }
         }
 

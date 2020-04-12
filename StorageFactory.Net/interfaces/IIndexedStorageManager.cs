@@ -61,6 +61,12 @@ namespace StorageFactory.Net.interfaces {
         IIndexedRetrievalInfo<TData,TExtraInfo> Retrieve(IIndexedRetrievalInfo<TData, TExtraInfo> outPut, IIndexedStorageInfo<TExtraInfo> fileInfo);
 
 
+        /// <summary>Retrieve the object with information from the index item</summary>
+        /// <param name="indexItem">The index item with file info</param>
+        /// <returns>The object or null if not found</returns>
+        TData Retrieve(IIndexedStorageInfo<TExtraInfo> indexItem);
+
+
         /// <summary>Store previously retrieved object with its related indexing</summary>
         /// <param name="retrievedData">Contains the object as well as its indexing info</param>
         /// <returns>true on success, otherwise false</returns>

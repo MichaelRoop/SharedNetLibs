@@ -103,7 +103,7 @@ namespace TestCases.StorageTests {
         #endregion
 
         [Test]
-        public void TestStoreRetrieve() {
+        public void TestStoreRetrieveWithRetrivalObj() {
             TestHelpersNet.CatchUnexpected(() => {
                 IIndexedStorageManager<TstData, TstExtraInfo> manager = new
                     IndexedStorageManager<TstData, TstExtraInfo>(
@@ -155,38 +155,62 @@ namespace TestCases.StorageTests {
 
 
                 }
-
-
-                //for (int i = 0; i < ndxList.Count; i++) {
-                //    var x = ndxList[i];
-                //    //x.UId
-
-                //}
-
-
-
-
-
-                //for (int i = 0; i < 10; i++) {
-                //    IIndexedStorageInfo<TstExtraInfo> idx =
-                //        new IndexedStorageInfo<TstExtraInfo>(new TstExtraInfo());
-
-                //    idx.Display = string.Format("Display:{0}", i);
-                //    idx.ExtraInfoObj.Address = string.Format("Address:{0}", i);
-                //    idx.ExtraInfoObj.ConnectType = i;
-
-                //    manager.Store(
-                //        new TstData(string.Format("Mine{0}", i), (321 + i), (333356 + i)),
-                //        idx);
-                //}
-
-
-
-
-
-
             });
         }
+
+
+        [Test]
+        public void TestStoreRetrieveObj() {
+            TestHelpersNet.CatchUnexpected(() => {
+                IIndexedStorageManager<TstData, TstExtraInfo> manager = new
+                    IndexedStorageManager<TstData, TstExtraInfo>(
+                    this.dataSerializer,
+                    this.indexSerializer);
+
+                manager.StorageSubDir = this.subDir;
+                manager.IndexFileName = "Index1.txt";
+
+                manager.DeleteStorageDirectory();
+                //// On next call to IndexedItems it will recreate directory with an empty index
+                //Assert.False(Directory.Exists(manager.StoragePath), "Directory should be gone");
+                //Assert.AreEqual(0, manager.IndexedItems.Count, "should be 0 after directory deleted");
+                //Assert.True(Directory.Exists(manager.StoragePath), "Directory should be gone");
+                //Assert.True(Directory.GetFiles(manager.StoragePath).Count() == 1, "Should only have index file");
+
+                int count = 10;
+                List<IIndexedStorageInfo<TstExtraInfo>> info = new List<IIndexedStorageInfo<TstExtraInfo>>();
+                List<TstData> data = new List<TstData>();
+                for (int i = 0; i < count; i++) {
+                    // Create data data model
+                    data.Add(new TstData(string.Format("Mine{0}", i), (321 + i), (333356 + i)));
+
+                    // create the storage info for the data model
+                    IIndexedStorageInfo<TstExtraInfo> item =
+                        new IndexedStorageInfo<TstExtraInfo>(new TstExtraInfo());
+                    item.Display = string.Format("Display:{0}", i);
+                    item.ExtraInfoObj.Address = string.Format("Address:{0}", i);
+                    item.ExtraInfoObj.ConnectType = i;
+                    info.Add(item);
+                }
+
+
+                for (int i = 0; i < count; i++) {
+                    manager.Store(data[i], info[i]);
+                }
+
+                var ndxList = manager.IndexedItems;
+                Assert.AreEqual(data.Count, ndxList.Count, "Data count vs retrieve ndx items");
+
+                foreach (var ndx in manager.IndexedItems) {
+                    Assert.True(manager.FileExists(ndx), "index list file not exists ({0})", ndx.UId);
+
+                    TstData ret = manager.Retrieve(ndx);
+                    Assert.NotNull(ret, "Failure to retrieve - null");
+
+                }
+            });
+        }
+
 
 
 
