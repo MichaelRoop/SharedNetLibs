@@ -14,6 +14,7 @@ namespace StorageFactory.Net.Serializers {
         JsonSerializer serializer = new JsonSerializer();
 
         public JsonReadWriteSerializer(bool indented = false) {
+            this.serializer.ContractResolver = new JsonPrivateResolver();
             if (indented) {
                 this.serializer.Formatting = Formatting.Indented;
             }

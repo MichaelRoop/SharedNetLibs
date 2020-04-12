@@ -28,15 +28,20 @@ namespace TestCases.StorageTests {
         public void TestSetSetup() {
             this.OneTimeSetup();
 
-            this.data = new tstData() {
-                MyInt = 98214,
-                MyString = "blah blah woof woof and then some",
-            };
+            //this.data = new tstData() {
+            //    MyInt = 98214,
+            //    MyString = "blah blah woof woof and then some",
+            //};
+
+            this.data = new tstData("Blah");
+
 
             this.data2 = new tstData() {
                 MyInt = 111,
                 MyString = "second object to secondary file, same directory",
             };
+
+
         }
 
 
@@ -55,6 +60,19 @@ namespace TestCases.StorageTests {
         public class tstData {
             public int MyInt { get; set; } = 23;
             public string MyString { get; set; } = "this is a string";
+            public int MyPrivateInt { get; private set; } = 9999;
+            public string MyPrivateString { get; set; } = "this is a string";
+
+            public tstData() {
+                this.MyPrivateInt = 1234;
+                this.MyPrivateString = "blipo";
+            }
+            public tstData(string str) {
+                this.MyPrivateInt = 34;
+                this.MyString = str;
+                this.MyPrivateString = Guid.NewGuid().ToString();
+            }
+
         }
 
 
@@ -88,12 +106,19 @@ namespace TestCases.StorageTests {
                 Assert.AreEqual(data.MyInt, tmp.MyInt);
                 Assert.AreEqual(data.MyString, tmp.MyString);
 
+                Assert.AreEqual(data.MyPrivateInt, tmp.MyPrivateInt);
+                Assert.AreEqual(data.MyPrivateString, tmp.MyPrivateString);
+
 
                 storage.WriteObjectToFile(data2, fileName2);
                 Assert.True(File.Exists(filePath2), "File not there: {0}", filePath2);
                 tmp = storage.ReadObjectFromFile(fileName2);
                 Assert.AreEqual(data2.MyInt, tmp.MyInt);
                 Assert.AreEqual(data2.MyString, tmp.MyString);
+
+                Assert.AreEqual(data2.MyPrivateInt, tmp.MyPrivateInt);
+                Assert.AreEqual(data2.MyPrivateString, tmp.MyPrivateString);
+
 
                 //string secFilePath = Path.Combine(storage.StorageRootDir, storage.StorageSubDir, fileName2);
                 //string secFilePath = this.FilePath(storage, fileName2);
@@ -151,6 +176,8 @@ namespace TestCases.StorageTests {
                 tstData tmp = storage.ReadObjectFromDefaultFile();
                 Assert.AreEqual(data.MyInt, tmp.MyInt);
                 Assert.AreEqual(data.MyString, tmp.MyString);
+                Assert.AreEqual(data.MyPrivateInt, tmp.MyPrivateInt);
+
 
 
                 storage.WriteObjectToFile(data2, fileName2);
@@ -158,6 +185,7 @@ namespace TestCases.StorageTests {
                 tmp = storage.ReadObjectFromFile(fileName2);
                 Assert.AreEqual(data2.MyInt, tmp.MyInt);
                 Assert.AreEqual(data2.MyString, tmp.MyString);
+                Assert.AreEqual(data2.MyPrivateInt, tmp.MyPrivateInt);
 
                 storage.DeleteDefaultFile();
                 Assert.False(File.Exists(filePath1), "File should not be there: {0}", filePath1);
