@@ -112,7 +112,7 @@ namespace StorageFactory.Net.StorageManagers {
                         return this.WriteIndexToFile(this.GetIndex());
                     }
                     else {
-                        this.log.Error(9999, () => string.Format("'{0}' ({1}) not found in index", fileInfo.Display, fileInfo.UId));
+                        this.log.Error(9999, () => string.Format("'{0}' ({1}) not found in index", fileInfo.Display, fileInfo.UIdFileName));
                         // Still try to delete the file in case orphaned from index
                         return FileHelpers.DeleteFile(this.FullFileName(fileInfo));
                     }
@@ -136,7 +136,7 @@ namespace StorageFactory.Net.StorageManagers {
 
         public bool FileExists(IIndexedStorageInfo<TExtraInfo> indexItem) {
             lock (this) {
-                return File.Exists(FileHelpers.GetFullFileName(this.StoragePath, indexItem.UId));
+                return File.Exists(FileHelpers.GetFullFileName(this.StoragePath, indexItem.UIdFileName));
             }
         }
 
@@ -148,7 +148,7 @@ namespace StorageFactory.Net.StorageManagers {
             // TODO - more robust recovery in case of failure. Likely abort at this one place
             lock (this) {
                 ErrReport report;
-                string name = FileHelpers.GetFullFileName(this.StoragePath, fileInfo.UId);
+                string name = FileHelpers.GetFullFileName(this.StoragePath, fileInfo.UIdFileName);
                 TData ret = default(TData);
                 ret = WrapErr.ToErrReport(out report, 9999,
                     () => string.Format("Failed to read index '{0}'", name),
@@ -170,7 +170,7 @@ namespace StorageFactory.Net.StorageManagers {
         public TData Retrieve(IIndexedStorageInfo<TExtraInfo> indexItem) {
             lock (this) {
                 ErrReport report;
-                string name = FileHelpers.GetFullFileName(this.StoragePath, indexItem.UId);
+                string name = FileHelpers.GetFullFileName(this.StoragePath, indexItem.UIdFileName);
                 TData ret = WrapErr.ToErrReport(out report, 9999,
                     () => string.Format("Failed to retrieve object '{0}'", name),
                     () => {
@@ -223,7 +223,7 @@ namespace StorageFactory.Net.StorageManagers {
 
         private bool WriteDataToFile(TData obj, IIndexedStorageInfo<TExtraInfo> info) {
             ErrReport report;
-            string name = FileHelpers.GetFullFileName(this.StoragePath, info.UId);
+            string name = FileHelpers.GetFullFileName(this.StoragePath, info.UIdFileName);
             bool ret = WrapErr.ToErrReport(out report, 9999,
                 () => string.Format("Failed to write file '{0}'", name),
                 () => {
@@ -302,21 +302,21 @@ namespace StorageFactory.Net.StorageManagers {
 
 
         private string FullFileName(IIndexedStorageInfo<TExtraInfo> fileInfo) {
-            return FileHelpers.GetFullFileName(this.StoragePath, fileInfo.UId);
+            return FileHelpers.GetFullFileName(this.StoragePath, fileInfo.UIdFileName);
         }
 
 
         private bool IsInIndex(IIndexedStorageInfo<TExtraInfo> fileInfo) {
-            return this.GetIndex().Items.Find((x) => x.UId == fileInfo.UId) != null;
+            return this.GetIndex().Items.Find((x) => x.UIdFileName == fileInfo.UIdFileName) != null;
         }
 
 
         private bool RemoveFromIndex(IIndexedStorageInfo<TExtraInfo> indexItem) {
             if (this.IsInIndex(indexItem)) {
-                if (this.GetIndex().Items.RemoveAll(x => x.UId == indexItem.UId) > 0) {
+                if (this.GetIndex().Items.RemoveAll(x => x.UIdFileName == indexItem.UIdFileName) > 0) {
                     return true;
                 }
-                this.log.Error(9999, () => string.Format("Failed to remove '{0}' ({1}) from index", indexItem.Display, indexItem.UId));
+                this.log.Error(9999, () => string.Format("Failed to remove '{0}' ({1}) from index", indexItem.Display, indexItem.UIdFileName));
                 return false;
             }
             return true;

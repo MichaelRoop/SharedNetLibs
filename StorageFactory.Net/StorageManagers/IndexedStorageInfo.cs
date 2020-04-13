@@ -14,7 +14,7 @@ namespace StorageFactory.Net.StorageManagers {
         /// Unique file identifier generated on create. Can be deserialized by Newtonsoft JSON
         /// </summary>
         [JsonProperty]
-        public string UId { get; private set; }
+        public string UIdFileName { get; private set; }
 
 
         /// <summary>Extra information about the stored object to return with index info</summary>
@@ -24,7 +24,7 @@ namespace StorageFactory.Net.StorageManagers {
 
         public IndexedStorageInfo() {
             this.ExtraInfoObj = default(T);
-            this.UId = string.Format("{0}.txt", Guid.NewGuid().ToString());
+            this.UIdFileName = string.Format("{0}.txt", Guid.NewGuid().ToString());
         }
 
 
