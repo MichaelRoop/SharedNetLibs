@@ -18,17 +18,20 @@ namespace TestCases.StorageTests {
         #region Test classes
 
         public class TstData {
+            public string UId { get; set; }
             public int MyInt { get; set; } = 23;
             public string MyString { get; set; } = "this is a string";
             public int MyPrivateInt { get; private set; } = 9999;
             public string MyPrivateString { get; set; } = "this is a string";
 
             public TstData() {
+                this.UId = Guid.NewGuid().ToString();
                 this.MyPrivateInt = 1234;
                 this.MyPrivateString = "blipo";
             }
 
             public TstData(string str) {
+                this.UId = Guid.NewGuid().ToString();
                 this.MyInt = 3226;
                 this.MyPrivateInt = 1234;
                 this.MyString = str;
@@ -37,6 +40,7 @@ namespace TestCases.StorageTests {
 
 
             public TstData(string str, int pub, int priv) {
+                this.UId = Guid.NewGuid().ToString();
                 this.MyInt = pub;
                 this.MyPrivateInt = priv;
                 this.MyString = str;
@@ -47,6 +51,10 @@ namespace TestCases.StorageTests {
         public class TstExtraInfo {
             public string Address { get; set; }
             public int ConnectType { get; set; }
+            public TstExtraInfo(string address, int connectType) {
+                this.Address = address;
+                this.ConnectType = connectType;
+            }
         }
 
         public class MyIndexedRetrievalInfo : IIndexedRetrievalInfo<TstData, TstExtraInfo> {
@@ -57,7 +65,7 @@ namespace TestCases.StorageTests {
             public MyIndexedRetrievalInfo() {
                 this.RetrievedOk = false;
                 this.StoredObject = new TstData();
-                this.Info = new IndexedStorageInfo<TstExtraInfo>();
+                this.Info = new IndexedStorageInfo<TstExtraInfo>(this.StoredObject.UId);
             }
 
             ///// <summary>Constructor</summary>
@@ -243,6 +251,8 @@ namespace TestCases.StorageTests {
                     Assert.AreEqual(inObj.MyPrivateInt, outObj.MyPrivateInt, "MyPrivateInt");
                     Assert.AreEqual(inObj.MyPrivateString, outObj.MyPrivateString, "private string");
                     Assert.AreEqual(inObj.MyString, outObj.MyString, "MyString");
+                    // UID between the object and index item
+                    Assert.AreEqual(inObj.UId, ndx.ObjUId, "Object ID not in sync with ndx ID");
                 }
 
                 foreach (var ndx in ndxList) {
@@ -326,17 +336,14 @@ namespace TestCases.StorageTests {
             List<TstData> data = new List<TstData>();
 
             for (int i = 0; i < count; i++) {
-                // Create data data model
-                data.Add(new TstData(string.Format("Mine{0}", i), (321 + i), (333356 + i)));
-
-                // create the storage index 
-                info.Add(new IndexedStorageInfo<TstExtraInfo>(
-                        new TstExtraInfo() {
-                            Address = string.Format("Address:{0}", i),
-                            ConnectType = i
-                        }) {
-                    Display = string.Format("Display:{0}", i)
-                });
+                TstData obj = new TstData(string.Format("Mine{0}", i), (321 + i), (333356 + i));
+                TstExtraInfo extra = new TstExtraInfo(string.Format("Address:{0}", i), i);
+                IndexedStorageInfo<TstExtraInfo> ndx =
+                    new IndexedStorageInfo<TstExtraInfo>(obj.UId, extra) {
+                        Display = string.Format("Display:{0}", i)
+                    };
+                data.Add(obj);
+                info.Add(ndx);
                 Assert.AreEqual(data.Count, info.Count, "Data count vs ndx items");
             }
             return new Tuple<List<TstData>, List<IIndexedStorageInfo<TstExtraInfo>>>(data, info);

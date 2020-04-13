@@ -18,6 +18,10 @@ namespace StorageFactory.Net.interfaces {
         string UIdFileName { get; }
 
 
+        /// <summary>Unique identifier from the stored object itself</summary>
+        string ObjUId { get; }
+
+
         /// <summary>Extra info stored with the index item for the stored object</summary>
         T ExtraInfoObj { get; }
 
