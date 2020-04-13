@@ -19,7 +19,6 @@ namespace VariousUtils {
             WrapErr.ToErrReport(out report, 9999,
                 () => string.Format("Failed to create directory '{0}'", dir),
                 () => {
-                    log.Info("CreateStorageDir", () => string.Format("Checking to create:{0}", dir));
                     WrapErr.ChkTrue(dir.Length > 0, 9999, "0 length directory path");
                     if (!Directory.Exists(dir)) {
                         Directory.CreateDirectory(dir);

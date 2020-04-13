@@ -83,6 +83,15 @@ namespace StorageFactory.Net.StorageManagers {
 
         #region IIndexedStorageManger Methods
 
+        /// <summary>Force a fresh reload of index from file</summary>
+        /// <returns>The index list freshly loaded</returns>
+        public List<IIndexedStorageInfo<TExtraInfo>> ReloadIndex() {
+            // Setting the flag will force reload from file
+            this.isIndexRead = false;
+            return this.IndexedItems;
+        }
+
+
         public bool DeleteFile(IIndexedStorageInfo<TExtraInfo> fileInfo) {
             lock (this) {
                 ErrReport report;
@@ -298,13 +307,13 @@ namespace StorageFactory.Net.StorageManagers {
 
 
         private bool IsInIndex(IIndexedStorageInfo<TExtraInfo> fileInfo) {
-            return this.GetIndex().Items.Find((x) => x == fileInfo) != null;
+            return this.GetIndex().Items.Find((x) => x.UId == fileInfo.UId) != null;
         }
 
 
         private bool RemoveFromIndex(IIndexedStorageInfo<TExtraInfo> indexItem) {
             if (this.IsInIndex(indexItem)) {
-                if (this.GetIndex().Items.Remove(indexItem)) {
+                if (this.GetIndex().Items.RemoveAll(x => x.UId == indexItem.UId) > 0) {
                     return true;
                 }
                 this.log.Error(9999, () => string.Format("Failed to remove '{0}' ({1}) from index", indexItem.Display, indexItem.UId));

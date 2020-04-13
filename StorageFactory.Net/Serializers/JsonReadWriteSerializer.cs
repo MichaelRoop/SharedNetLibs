@@ -11,13 +11,20 @@ namespace StorageFactory.Net.Serializers {
     /// <typeparam name="T">The type of class to stream</typeparam>
     public class JsonReadWriteSerializer<T> : IReadWriteSerializer<T> where T : class {
 
-        JsonSerializer serializer = new JsonSerializer();
+        JsonSerializer serializer = null;
 
         public JsonReadWriteSerializer(bool indented = false) {
-            this.serializer.ContractResolver = new JsonPrivateResolver();
-            if (indented) {
-                this.serializer.Formatting = Formatting.Indented;
-            }
+
+            this.serializer = new JsonSerializer() {
+                // Allows handling of classes with Property { private set; } 
+                ContractResolver = new JsonPrivateResolver(),
+                // Allows interface with concrete Type in derived Type parameters
+                // https://stackoverflow.com/questions/5780888/casting-interfaces-for-deserialization-in-json-net
+                // They said to set it to Auto but it only seems to work on All
+                TypeNameHandling = TypeNameHandling.All,
+                // indenting with multi lines or one line
+                Formatting = indented ? Formatting.Indented:Formatting.None,
+            };
         }
 
 

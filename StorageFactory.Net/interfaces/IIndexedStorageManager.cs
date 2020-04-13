@@ -46,6 +46,11 @@ namespace StorageFactory.Net.interfaces {
         #endregion
 
 
+        /// <summary>Force a fresh reload of index from file</summary>
+        /// <returns>The index list freshly loaded</returns>
+        List<IIndexedStorageInfo<TExtraInfo>> ReloadIndex();
+
+
         /// <summary>Does the file exist</summary>
         /// <param name="fileInfo">The info on the file to verify</param>
         /// <returns>true on success, otherwise false</returns>
