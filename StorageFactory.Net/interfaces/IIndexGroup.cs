@@ -5,9 +5,9 @@ namespace StorageFactory.Net.interfaces {
 
     /// <summary>An object to encapsulate the index file</summary>
     /// <typeparam name="TExtraInfo">The ExtraInfo</typeparam>
-    public interface IIndexStorageDataModel<TExtraInfo> where TExtraInfo : class {
+    public interface IIndexGroup<TExtraInfo> where TExtraInfo : class {
 
-        List<IIndexedStorageInfo<TExtraInfo>> Items { get; set; }
+        List<IIndexItem<TExtraInfo>> Items { get; set; }
 
     }
 

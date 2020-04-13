@@ -60,12 +60,12 @@ namespace TestCases.StorageTests {
         public class MyIndexedRetrievalInfo : IIndexedRetrievalInfo<TstData, TstExtraInfo> {
             public bool RetrievedOk { get; set; } = false;
             public TstData StoredObject { get; set; }
-            public IIndexedStorageInfo<TstExtraInfo> Info { get; set; }
+            public IIndexItem<TstExtraInfo> Info { get; set; }
 
             public MyIndexedRetrievalInfo() {
                 this.RetrievedOk = false;
                 this.StoredObject = new TstData();
-                this.Info = new IndexedStorageInfo<TstExtraInfo>(this.StoredObject.UId);
+                this.Info = new IndexItem<TstExtraInfo>(this.StoredObject.UId);
             }
 
             ///// <summary>Constructor</summary>
@@ -97,8 +97,8 @@ namespace TestCases.StorageTests {
         private ClassLog log = new ClassLog("IndexedStorageTestCases");
         private IReadWriteSerializer<TstData> dataSerializer = 
             new JsonReadWriteSerializerIndented<TstData>();
-        private IReadWriteSerializer<IIndexStorageDataModel<TstExtraInfo>> indexSerializer =
-            new JsonReadWriteSerializerIndented<IIndexStorageDataModel<TstExtraInfo>>();
+        private IReadWriteSerializer<IIndexGroup<TstExtraInfo>> indexSerializer =
+            new JsonReadWriteSerializerIndented<IIndexGroup<TstExtraInfo>>();
         IIndexedStorageManager<TstData, TstExtraInfo> storage = null;
 
         #endregion
@@ -194,15 +194,15 @@ namespace TestCases.StorageTests {
                 Assert.AreEqual(count, ndxList.Count, "Mismatch data in number and retrieved number");
                 // Confirm that all the input data is in the index
                 foreach (var ndx in ndxList) {
-                    Assert.NotNull(testData.Item2.First((x) => x.UIdFileName == ndx.UIdFileName), "Did not find in data {0} in storage index", ndx.UIdFileName.ToString());
+                    Assert.NotNull(testData.Item2.First((x) => x.UId_FileName == ndx.UId_FileName), "Did not find in data {0} in storage index", ndx.UId_FileName.ToString());
                 }
                 for (int i = 0; i < count; i++) {
                     IIndexedRetrievalInfo<TstData, TstExtraInfo> retrieved = new MyIndexedRetrievalInfo();
                     retrieved = this.storage.Retrieve(retrieved, testData.Item2[i]);
-                    Assert.True(this.storage.FileExists(testData.Item2[i]), "index list file does not exists ({0})", testData.Item2[i].UIdFileName);
-                    this.log.Info("TestStoreRetrieve", () => string.Format("UId:{0}", retrieved.Info.UIdFileName));
+                    Assert.True(this.storage.FileExists(testData.Item2[i]), "index list file does not exists ({0})", testData.Item2[i].UId_FileName);
+                    this.log.Info("TestStoreRetrieve", () => string.Format("UId:{0}", retrieved.Info.UId_FileName));
                     Assert.True(retrieved.RetrievedOk, "Failure to retrieve");
-                    Assert.AreEqual(testData.Item2[i].UIdFileName, retrieved.Info.UIdFileName);
+                    Assert.AreEqual(testData.Item2[i].UId_FileName, retrieved.Info.UId_FileName);
 
                     TstData outObj = retrieved.StoredObject;
                     TstData inObj = testData.Item1[i];
@@ -216,7 +216,7 @@ namespace TestCases.StorageTests {
 
 
                 foreach (var ndx in ndxList) {
-                    Assert.True(this.storage.FileExists(ndx), "index list file not exists ({0})", ndx.UIdFileName);
+                    Assert.True(this.storage.FileExists(ndx), "index list file not exists ({0})", ndx.UId_FileName);
                     TstData ret = this.storage.Retrieve(ndx);
                     Assert.NotNull(ret, "Failure to retrieve - null");
                     // Test the values against the in data
@@ -239,11 +239,11 @@ namespace TestCases.StorageTests {
                 Assert.AreEqual(count, ndxList.Count, "Mismatch data in number and retrieved number");
                 // Confirm that all the input data is in the index
                 foreach (var ndx in ndxList) {
-                    Assert.NotNull(results.Item2.First((x) => x.UIdFileName == ndx.UIdFileName), "Did not find in data {0} in storage index", ndx.UIdFileName.ToString());
+                    Assert.NotNull(results.Item2.First((x) => x.UId_FileName == ndx.UId_FileName), "Did not find in data {0} in storage index", ndx.UId_FileName.ToString());
                 }
                 for (int i = 0; i < count; i++) {
                     var ndx = results.Item2[i];
-                    Assert.True(this.storage.FileExists(ndx), "index list file does not exists ({0})", ndx.UIdFileName);
+                    Assert.True(this.storage.FileExists(ndx), "index list file does not exists ({0})", ndx.UId_FileName);
                     TstData outObj = this.storage.Retrieve(ndx);
                     TstData inObj = results.Item1[i];
                     Assert.NotNull(outObj, "Failure to retrieve - null");
@@ -252,11 +252,11 @@ namespace TestCases.StorageTests {
                     Assert.AreEqual(inObj.MyPrivateString, outObj.MyPrivateString, "private string");
                     Assert.AreEqual(inObj.MyString, outObj.MyString, "MyString");
                     // UID between the object and index item
-                    Assert.AreEqual(inObj.UId, ndx.ObjUId, "Object ID not in sync with ndx ID");
+                    Assert.AreEqual(inObj.UId, ndx.UId_Object, "Object ID not in sync with ndx ID");
                 }
 
                 foreach (var ndx in ndxList) {
-                    Assert.True(this.storage.FileExists(ndx), "index list file not exists ({0})", ndx.UIdFileName);
+                    Assert.True(this.storage.FileExists(ndx), "index list file not exists ({0})", ndx.UId_FileName);
                     TstData ret = this.storage.Retrieve(ndx);
                     Assert.NotNull(ret, "Failure to retrieve - null");
                     // Test the values against the in data
@@ -280,11 +280,11 @@ namespace TestCases.StorageTests {
                 Assert.AreEqual(count, ndxList.Count, "Mismatch data in number and retrieved number");
                 // Confirm that all the input data is in the index
                 foreach (var ndx in ndxList) {
-                    Assert.NotNull(results.Item2.First((x) => x.UIdFileName == ndx.UIdFileName), "Did not find in data {0} in storage index", ndx.UIdFileName.ToString());
+                    Assert.NotNull(results.Item2.First((x) => x.UId_FileName == ndx.UId_FileName), "Did not find in data {0} in storage index", ndx.UId_FileName.ToString());
                 }
                 for (int i = 0; i < count; i++) {
                     var ndx = results.Item2[i];
-                    Assert.True(this.storage.FileExists(ndx), "index list file does not exists ({0})", ndx.UIdFileName);
+                    Assert.True(this.storage.FileExists(ndx), "index list file does not exists ({0})", ndx.UId_FileName);
                     TstData outObj = this.storage.Retrieve(ndx);
                     TstData inObj = results.Item1[i];
                     Assert.NotNull(outObj, "Failure to retrieve - null");
@@ -295,7 +295,7 @@ namespace TestCases.StorageTests {
                 }
 
                 foreach (var ndx in ndxList) {
-                    Assert.True(this.storage.FileExists(ndx), "index list file not exists ({0})", ndx.UIdFileName);
+                    Assert.True(this.storage.FileExists(ndx), "index list file not exists ({0})", ndx.UId_FileName);
                     TstData ret = this.storage.Retrieve(ndx);
                     Assert.NotNull(ret, "Failure to retrieve - null");
                     // Test the values against the in data
@@ -331,22 +331,22 @@ namespace TestCases.StorageTests {
 
         #region Private
 
-        private Tuple<List<TstData>, List<IIndexedStorageInfo<TstExtraInfo>>> CreateTestData(int count) {
-            List<IIndexedStorageInfo<TstExtraInfo>> info = new List<IIndexedStorageInfo<TstExtraInfo>>();
+        private Tuple<List<TstData>, List<IIndexItem<TstExtraInfo>>> CreateTestData(int count) {
+            List<IIndexItem<TstExtraInfo>> info = new List<IIndexItem<TstExtraInfo>>();
             List<TstData> data = new List<TstData>();
 
             for (int i = 0; i < count; i++) {
                 TstData obj = new TstData(string.Format("Mine{0}", i), (321 + i), (333356 + i));
                 TstExtraInfo extra = new TstExtraInfo(string.Format("Address:{0}", i), i);
-                IndexedStorageInfo<TstExtraInfo> ndx =
-                    new IndexedStorageInfo<TstExtraInfo>(obj.UId, extra) {
+                IndexItem<TstExtraInfo> ndx =
+                    new IndexItem<TstExtraInfo>(obj.UId, extra) {
                         Display = string.Format("Display:{0}", i)
                     };
                 data.Add(obj);
                 info.Add(ndx);
                 Assert.AreEqual(data.Count, info.Count, "Data count vs ndx items");
             }
-            return new Tuple<List<TstData>, List<IIndexedStorageInfo<TstExtraInfo>>>(data, info);
+            return new Tuple<List<TstData>, List<IIndexItem<TstExtraInfo>>>(data, info);
         }
 
 
@@ -368,7 +368,7 @@ namespace TestCases.StorageTests {
 
 
                 this.log.Info("+++++++++++++",
-                    () => string.Format("Deleting:{0} - {1}", results.Item2[i].Display, results.Item2[i].UIdFileName));
+                    () => string.Format("Deleting:{0} - {1}", results.Item2[i].Display, results.Item2[i].UId_FileName));
 
                 bool ok = this.storage.DeleteFile(results.Item2[i]);
                 if (forceReload) {
@@ -387,7 +387,7 @@ namespace TestCases.StorageTests {
                 else {
                     Assert.AreEqual(remaining, this.storage.IndexedItems.Count, "Wrong local index count");
                 }
-                Assert.False(this.storage.FileExists(results.Item2[i]), "File should be gone ({0})", results.Item2[i].UIdFileName);
+                Assert.False(this.storage.FileExists(results.Item2[i]), "File should be gone ({0})", results.Item2[i].UId_FileName);
             }
         }
 

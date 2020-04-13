@@ -39,7 +39,7 @@ namespace StorageFactory.Net.interfaces {
 
 
         /// <summary>Get the list of info on objects currently stored</summary>
-        List<IIndexedStorageInfo<TExtraInfo>> IndexedItems { get; }
+        List<IIndexItem<TExtraInfo>> IndexedItems { get; }
 
 
 
@@ -48,13 +48,13 @@ namespace StorageFactory.Net.interfaces {
 
         /// <summary>Force a fresh reload of index from file</summary>
         /// <returns>The index list freshly loaded</returns>
-        List<IIndexedStorageInfo<TExtraInfo>> ReloadIndex();
+        List<IIndexItem<TExtraInfo>> ReloadIndex();
 
 
         /// <summary>Does the file exist</summary>
         /// <param name="fileInfo">The info on the file to verify</param>
         /// <returns>true on success, otherwise false</returns>
-        bool FileExists(IIndexedStorageInfo<TExtraInfo> fileInfo);
+        bool FileExists(IIndexItem<TExtraInfo> fileInfo);
 
 
         /// <summary>Retrieve the stored T object based on its info</summary>
@@ -63,13 +63,13 @@ namespace StorageFactory.Net.interfaces {
         /// A retrieval info class which contains the stored object and its indexer 
         /// object required for next store
         /// </returns>
-        IIndexedRetrievalInfo<TData,TExtraInfo> Retrieve(IIndexedRetrievalInfo<TData, TExtraInfo> outPut, IIndexedStorageInfo<TExtraInfo> fileInfo);
+        IIndexedRetrievalInfo<TData,TExtraInfo> Retrieve(IIndexedRetrievalInfo<TData, TExtraInfo> outPut, IIndexItem<TExtraInfo> fileInfo);
 
 
         /// <summary>Retrieve the object with information from the index item</summary>
         /// <param name="indexItem">The index item with file info</param>
         /// <returns>The object or null if not found</returns>
-        TData Retrieve(IIndexedStorageInfo<TExtraInfo> indexItem);
+        TData Retrieve(IIndexItem<TExtraInfo> indexItem);
 
 
         /// <summary>Store previously retrieved object with its related indexing</summary>
@@ -82,7 +82,7 @@ namespace StorageFactory.Net.interfaces {
         /// <remarks>See IIndexedStorageInfo for details</remarks>
         /// <param name="info">Contains the indexing info</param>
         /// <returns>true on success, otherwise false</returns>
-        bool Store(TData obj, IIndexedStorageInfo<TExtraInfo> info);
+        bool Store(TData obj, IIndexItem<TExtraInfo> info);
 
 
         /// <summary>Delete the sub directory tree and all files that it contains</summary>
@@ -93,7 +93,7 @@ namespace StorageFactory.Net.interfaces {
         /// <summary>Delete file based on the info and remove from index</summary>
         /// <param name="fileInfo">The info on the file to delete</param>
         /// <returns>true on success, otherwise false</returns>
-        bool DeleteFile(IIndexedStorageInfo<TExtraInfo> fileInfo);
+        bool DeleteFile(IIndexItem<TExtraInfo> fileInfo);
 
 
 

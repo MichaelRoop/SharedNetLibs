@@ -3,7 +3,7 @@ using StorageFactory.Net.interfaces;
 
 namespace StorageFactory.Net.StorageManagers {
 
-    public class IndexedStorageInfo<T> : IIndexedStorageInfo<T> where T : class {
+    public class IndexItem<T> : IIndexItem<T> where T : class {
 
         #region Properties
 
@@ -15,12 +15,12 @@ namespace StorageFactory.Net.StorageManagers {
         /// Unique file identifier generated on create. Can be deserialized by Newtonsoft JSON
         /// </summary>
         [JsonProperty]
-        public string UIdFileName { get; private set; } = "** NA **";
+        public string UId_FileName { get; private set; } = "** NA **";
 
 
         /// <summary>Unique identifier from the stored object itself</summary>
         [JsonProperty]
-        public string ObjUId { get; private set; } = "** NA **";
+        public string UId_Object { get; private set; } = "** NA **";
 
 
         /// <summary>Extra information about the stored object to return with index info</summary>
@@ -32,18 +32,18 @@ namespace StorageFactory.Net.StorageManagers {
         #region Constructors
 
         /// <summary>Requires default constructor for JSON serialization</summary>
-        public IndexedStorageInfo() {
+        public IndexItem() {
         }
 
 
-        public IndexedStorageInfo(string objUId) {
+        public IndexItem(string objUId) {
             this.ExtraInfoObj = default(T);
-            this.ObjUId = objUId;
-            this.UIdFileName = string.Format("{0}.txt", this.ObjUId);
+            this.UId_Object = objUId;
+            this.UId_FileName = string.Format("{0}.txt", this.UId_Object);
         }
 
 
-        public IndexedStorageInfo(string objUId, T extraInfo) : this(objUId) {
+        public IndexItem(string objUId, T extraInfo) : this(objUId) {
             this.ExtraInfoObj = extraInfo;
         }
 
