@@ -29,7 +29,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DependencyInjectorFactory",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StorageFactory.Net", "StorageFactory.Net\StorageFactory.Net.csproj", "{CEC86966-5271-43E2-9650-69179F162502}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VariousUtils", "VariousUtils\VariousUtils.csproj", "{0F6891D3-1A64-41B1-B991-11873FC79FBB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VariousUtils", "VariousUtils\VariousUtils.csproj", "{0F6891D3-1A64-41B1-B991-11873FC79FBB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommunicationStack.Net", "CommunicationStack.Net\CommunicationStack.Net.csproj", "{506D9E9A-3128-44DC-B733-069B05EA6586}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,6 +95,10 @@ Global
 		{0F6891D3-1A64-41B1-B991-11873FC79FBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F6891D3-1A64-41B1-B991-11873FC79FBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F6891D3-1A64-41B1-B991-11873FC79FBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{506D9E9A-3128-44DC-B733-069B05EA6586}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{506D9E9A-3128-44DC-B733-069B05EA6586}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{506D9E9A-3128-44DC-B733-069B05EA6586}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{506D9E9A-3128-44DC-B733-069B05EA6586}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

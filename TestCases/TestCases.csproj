@@ -140,6 +140,7 @@
     <Compile Include="TestHelpers.cs" />
     <Compile Include="TestHelperTests.cs" />
     <Compile Include="TestToolSet\HelperLogReader.cs" />
+    <Compile Include="VariousUtilsTests.Net\ByteHelpersTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ChkUtils.Net\ChkUtils.Net.csproj">
@@ -173,6 +174,10 @@
     <ProjectReference Include="..\StorageFactory.Net\StorageFactory.Net.csproj">
       <Project>{CEC86966-5271-43E2-9650-69179F162502}</Project>
       <Name>StorageFactory.Net</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VariousUtils\VariousUtils.csproj">
+      <Project>{0F6891D3-1A64-41B1-B991-11873FC79FBB}</Project>
+      <Name>VariousUtils</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
