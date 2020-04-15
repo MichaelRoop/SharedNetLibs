@@ -1,6 +1,8 @@
 ﻿using ChkUtils.Net;
 using CommunicationStack.Net.interfaces;
+using LogUtils.Net;
 using System;
+using System.Text;
 using System.Threading.Tasks;
 using VariousUtils;
 
@@ -12,10 +14,12 @@ namespace CommunicationStack.Net.Stacks {
         #region Data
 
         /// <summary>The  comm channel</summary>
-        ICommStackChannel commChannel = null;
+        private ICommStackChannel commChannel = null;
 
         /// <summary>Input queue which defragments the incoming bytes into messages</summary>
-        CommCharInByteQueue queue = new CommCharInByteQueue("\n".ToAsciiByteArray());
+        private CommCharInByteQueue queue = new CommCharInByteQueue("\n".ToAsciiByteArray());
+
+        private ClassLog log = new ClassLog("CommStackLevel0");
 
         #endregion
 
@@ -32,7 +36,7 @@ namespace CommunicationStack.Net.Stacks {
         /// <summary>Terminator used to recognize incoming msgs. Default '\n'</summary>
         public byte[] InTerminators {
             get { return this.queue.Terminator; }
-            set { this.queue.Terminator = value; } 
+            set { this.queue.Terminator = value; }
         }
 
         /// <summary>Terminator added to outgoing messages. Default '\n'</summary>
@@ -49,6 +53,7 @@ namespace CommunicationStack.Net.Stacks {
             this.commChannel = commChannel;
             this.commChannel.MsgReceivedEvent += this.CommChannel_MsgReceivedEvent;
             this.queue.Terminator = inTerminator;
+            this.OutTerminators = inTerminator;
             this.queue.MsgReceived += this.Queue_MsgReceived;
         }
 
@@ -62,8 +67,18 @@ namespace CommunicationStack.Net.Stacks {
         public bool SendToComm(byte[] msg) {
             byte[] outBuff = new byte[msg.Length + this.OutTerminators.Length];
             Array.Copy(msg, outBuff, msg.Length);
-            Array.Copy(this.OutTerminators, 0, outBuff, msg.Length,this.OutTerminators.Length);
+            Array.Copy(this.OutTerminators, 0, outBuff, msg.Length, this.OutTerminators.Length);
+            this.log.Info("SendToComm", () => string.Format("Data: {0}", msg.ToAsciiString()));
+            this.log.Info("SendToComm", () => string.Format("Data: {0}", msg.ToFormatedByteString()));
             return this.commChannel.SendOutMsg(outBuff);
+        }
+
+
+        /// <summary>Sends message through comm channel after adding terminators</summary>
+        /// <param name="msg">The message to send</param>
+        /// <returns>true on success, otherwise false</returns>
+        public bool SendToComm(string msg) {
+            return this.SendToComm(Encoding.ASCII.GetBytes(msg));
         }
 
         #endregion

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LogUtils.Net;
+using System;
 using VariousUtils;
 
 namespace CommunicationStack.Net.Stacks {
@@ -21,6 +22,7 @@ namespace CommunicationStack.Net.Stacks {
         // Next pos is also length of data contained
         private int nextPos = 0;
         private byte[] terminator = "\n".ToAsciiByteArray();
+        private ClassLog log = new ClassLog("CommCharInByteQueue");
 
         #endregion
 
@@ -76,11 +78,16 @@ namespace CommunicationStack.Net.Stacks {
         /// <returns>true on success, false if buffer already full</returns>
         public bool AddBytes(byte[] data) {
             lock (this) {
-                bool result = this.buff.FifoPush(data, ref this.nextPos);
-                byte[] msg = this.buff.FifoPop(this.Terminator, ref this.nextPos);
-                if (msg.Length > 0) {
-                    if (this.MsgReceived != null) {
-                        this.MsgReceived(this, msg);
+                bool result = true;
+                if (data.Length > 0) {
+                    this.log.Info("AddBytes", () => string.Format("Data: {0}", data.ToAsciiString()));
+                    this.log.Info("AddBytes", () => string.Format("Data: {0}", data.ToFormatedByteString()));
+                    result = this.buff.FifoPush(data, ref this.nextPos);
+                    byte[] msg = this.buff.FifoPop(this.Terminator, ref this.nextPos);
+                    if (msg.Length > 0) {
+                        if (this.MsgReceived != null) {
+                            this.MsgReceived(this, msg);
+                        }
                     }
                 }
                 return result;

@@ -33,9 +33,12 @@ namespace CommunicationStack.Net.interfaces {
         bool SendToComm(byte[] msg);
 
 
-        ///// <summary>Comm channel pushes incoming bytes here for processing</summary>
-        ///// <param name="inData">The raw bytes comming from the comm channel</param>
-        //void ProcessInBytes(byte[] inData);
+        /// <summary>Sends message through comm channel after adding terminators</summary>
+        /// <param name="msg">The message to send</param>
+        /// <returns>true on success, otherwise false</returns>
+        bool SendToComm(string msg);
+
+
 
     }
 }

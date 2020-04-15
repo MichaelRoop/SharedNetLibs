@@ -10,6 +10,11 @@ namespace VariousUtils {
         }
 
 
+        public static string ToFormatedByteString(this byte[] data) {
+            return string.Format("0x{0}", BitConverter.ToString(data).Replace("-", ",0x"));
+        }
+
+
         public static int FindFirstBytePatternPos(this byte[] buff, byte[] terminator, int dataLen) {
             if (terminator.Length == 0) {
                 return -1;
