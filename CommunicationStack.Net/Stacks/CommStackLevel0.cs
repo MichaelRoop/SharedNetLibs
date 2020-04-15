@@ -7,7 +7,7 @@ using VariousUtils;
 namespace CommunicationStack.Net.Stacks {
 
     /// <summary>Manage level 0 of the incoming data stack next to comm channel</summary>
-    public class CommStackBase : ICommStackLevel0 {
+    public class CommStackLevel0 : ICommStackLevel0 {
 
         #region Data
 
@@ -45,7 +45,7 @@ namespace CommunicationStack.Net.Stacks {
         /// <summary>Constructor</summary>
         /// <param name="commChannel">Communication channel</param>
         /// <param name="inTerminator">Terminator for input messages</param>
-        public CommStackBase(ICommStackChannel commChannel, byte[] inTerminator) {
+        public CommStackLevel0(ICommStackChannel commChannel, byte[] inTerminator) {
             this.commChannel = commChannel;
             this.commChannel.MsgReceivedEvent += this.CommChannel_MsgReceivedEvent;
             this.queue.Terminator = inTerminator;
