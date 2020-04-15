@@ -77,7 +77,7 @@ namespace CommunicationStack.Net.Stacks {
         public bool AddBytes(byte[] data) {
             lock (this) {
                 bool result = this.buff.FifoPush(data, ref this.nextPos);
-                byte[] msg = this.buff.FifoPop(this.Terminator, this.nextPos, ref this.nextPos);
+                byte[] msg = this.buff.FifoPop(this.Terminator, ref this.nextPos);
                 if (msg.Length > 0) {
                     if (this.MsgReceived != null) {
                         this.MsgReceived(this, msg);

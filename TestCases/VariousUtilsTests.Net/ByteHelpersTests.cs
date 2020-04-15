@@ -121,7 +121,7 @@ namespace TestCases.VariousUtilsTests.Net {
 
                 // First
                 byte[] expected = "This is a new message".ToAsciiByteArray();
-                byte[] actual = buff.FifoPop(crln, inPos, ref inPos);
+                byte[] actual = buff.FifoPop(crln, ref inPos);
                 string e = expected.ToAsciiString();
                 string a = actual.ToAsciiString();
                 Log.Error(9999, () => string.Format("Expected: {0}", expected.ToAsciiString()));
@@ -130,7 +130,7 @@ namespace TestCases.VariousUtilsTests.Net {
 
                 // Second
                 expected = "Another thing".ToAsciiByteArray();
-                actual = buff.FifoPop(crln, inPos, ref inPos);
+                actual = buff.FifoPop(crln, ref inPos);
                 e = expected.ToAsciiString();
                 a = actual.ToAsciiString();
                 Log.Error(9999, "blipo.....");
@@ -140,7 +140,7 @@ namespace TestCases.VariousUtilsTests.Net {
 
                 // third
                 expected = "A third way".ToAsciiByteArray();
-                actual = buff.FifoPop(crln, inPos, ref inPos);
+                actual = buff.FifoPop(crln, ref inPos);
                 e = expected.ToAsciiString();
                 a = actual.ToAsciiString();
                 Log.Error(9999, "blipo.....");
@@ -149,7 +149,7 @@ namespace TestCases.VariousUtilsTests.Net {
                 Assert.AreEqual(expected, actual);
 
 
-                actual = buff.FifoPop(crln, inPos + 1, ref inPos);
+                actual = buff.FifoPop(crln, ref inPos);
                 Assert.AreEqual(0, actual.Length);
                 Assert.AreEqual(0, inPos);
 

@@ -44,8 +44,8 @@ namespace VariousUtils {
         }
 
 
-        public static byte[] FifoPop(this byte[] buff, byte[] terminator, int dataLen, ref int nextPos) {
-            int terminatorPos = buff.FindFirstBytePatternPos(terminator, dataLen);
+        public static byte[] FifoPop(this byte[] buff, byte[] terminator, ref int nextPos) {
+            int terminatorPos = buff.FindFirstBytePatternPos(terminator, nextPos);
             //nextPos = dataLen;
             if (terminatorPos == -1) {
                 return new byte[0];
@@ -56,7 +56,7 @@ namespace VariousUtils {
             string s = result.ToAsciiString();
 
 
-            int remaining = (dataLen - (msgLen + terminator.Length));
+            int remaining = (nextPos - (msgLen + terminator.Length));
             // The Array Copy will move the data over much more efficiently than even a for loop
             // https://stackoverflow.com/questions/2381245/c-sharp-quickest-way-to-shift-array
             Array.Copy(buff, msgLen + terminator.Length, buff, 0, remaining);
