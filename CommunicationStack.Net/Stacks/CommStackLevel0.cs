@@ -48,12 +48,22 @@ namespace CommunicationStack.Net.Stacks {
 
         /// <summary>Constructor</summary>
         /// <param name="commChannel">Communication channel</param>
-        /// <param name="inTerminator">Terminator for input messages</param>
-        public CommStackLevel0(ICommStackChannel commChannel, byte[] inTerminator) {
+        public CommStackLevel0() {
+            // Need to set inTerminator default since cannot be done on Property init
+            this.InTerminators = CharHelpers.ToByteArray('\n');
+        }
+
+
+        /// <summary>
+        /// Allow defered initialisation of comm channel so DI can deliver multiple
+        /// instances of channel for different comm channel object. 
+        /// </summary>
+        /// <param name="commChannel"></param>
+        public void SetCommChannel(ICommStackChannel commChannel) {
             this.commChannel = commChannel;
+            // intercept comm channel bytes received, push it to the queue for assembly
+            // when assembled the queue will push out our message received with that data
             this.commChannel.MsgReceivedEvent += this.CommChannel_MsgReceivedEvent;
-            this.queue.Terminator = inTerminator;
-            this.OutTerminators = inTerminator;
             this.queue.MsgReceived += this.Queue_MsgReceived;
         }
 

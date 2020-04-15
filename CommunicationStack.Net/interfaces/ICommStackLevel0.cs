@@ -8,37 +8,42 @@ namespace CommunicationStack.Net.interfaces {
     /// </summary>
     public interface ICommStackLevel0 {
 
-        /// <summary>Event fired with the message stripped of termnators</summary>
-        /// <remarks>
-        /// An example of simple wrapper information is '\n\r' terminators. A sample stack
-        /// with simple terminators are included in this projecct. Other, more complex
-        /// wrappers will have to be coded for other applications
-        /// </remarks>
+        #region Properties
+
+        /// <summary>Event fired with message stripped of termnators defined in InTerminators</summary>
         event EventHandler<byte[]> MsgReceived;
 
-
-        /// <summary>Terminator used to recognize incoming msgs. Default '\n'</summary>
+        /// <summary>Terminator used to recognize incoming msgs</summary>
         byte[] InTerminators { get; set; }
 
-        /// <summary>Terminator added to outgoing messages. Default '\n'</summary>
+        /// <summary>Terminator added to outgoing messages</summary>
         byte[] OutTerminators { get; set; }
 
-        ///// <summary>The outgoing comm channel</summary>
-        //ICommStackChannel OutChannel { get; set; }
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Allows defered initialisation with comm channel so DI can deliver 
+        /// instances of these stacks for different communication channel objects. 
+        /// </summary>
+        /// <param name="commChannel">Communication channel satisfying the ICommStackChannel interface</param>
+        void SetCommChannel(ICommStackChannel commChannel);
 
 
-        /// <summary>Sends message through comm channel after adding terminators</summary>
+        /// <summary>Sends message to comm channel after adding terminators</summary>
         /// <param name="msg">The message to send</param>
         /// <returns>true on success, otherwise false</returns>
         bool SendToComm(byte[] msg);
 
 
-        /// <summary>Sends message through comm channel after adding terminators</summary>
+        /// <summary>Sends message to comm channel after adding terminators</summary>
         /// <param name="msg">The message to send</param>
         /// <returns>true on success, otherwise false</returns>
         bool SendToComm(string msg);
 
-
+        #endregion
 
     }
+
 }
