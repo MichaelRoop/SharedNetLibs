@@ -57,23 +57,16 @@ namespace VariousUtils {
 
 
             int remaining = (dataLen - (msgLen + terminator.Length));
+            // The Array Copy will move the data over much more efficiently than even a for loop
+            // https://stackoverflow.com/questions/2381245/c-sharp-quickest-way-to-shift-array
             Array.Copy(buff, msgLen + terminator.Length, buff, 0, remaining);
-            //nextPos = remaining;
-            //nextPos = buff.FindFirstBytePatternPos(terminator, remaining);
             nextPos = remaining;
 
-            // Wipe out the end of the buffer
-            //Buffer.et.SetByte(buff, nextPos, 0);
+            // Wipe part of the buffer past new reduced length 
             int endReset = nextPos + (msgLen + terminator.Length);
             for (int i = nextPos; i < endReset; i++) {
                 buff[i] = 0;
             }
-
-
-            //nextPos = dataLen - (result.Length + terminator.Length);
-            // The Array Copy will move the data over much more efficiently than even a for loop
-            // https://stackoverflow.com/questions/2381245/c-sharp-quickest-way-to-shift-array
-            //Array.Copy(buff, nextPos, buff, 0, dataLen);
             return result;
         }
 

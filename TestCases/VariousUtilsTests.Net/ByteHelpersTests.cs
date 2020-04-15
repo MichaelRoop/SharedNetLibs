@@ -1,4 +1,5 @@
-﻿using LogUtils;
+﻿using CommunicationStack.Net.Stacks;
+using LogUtils;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -120,7 +121,7 @@ namespace TestCases.VariousUtilsTests.Net {
 
                 // First
                 byte[] expected = "This is a new message".ToAsciiByteArray();
-                byte[] actual = buff.FifoPop(crln, inPos + 1, ref inPos);
+                byte[] actual = buff.FifoPop(crln, inPos, ref inPos);
                 string e = expected.ToAsciiString();
                 string a = actual.ToAsciiString();
                 Log.Error(9999, () => string.Format("Expected: {0}", expected.ToAsciiString()));
@@ -129,7 +130,7 @@ namespace TestCases.VariousUtilsTests.Net {
 
                 // Second
                 expected = "Another thing".ToAsciiByteArray();
-                actual = buff.FifoPop(crln, inPos + 1, ref inPos);
+                actual = buff.FifoPop(crln, inPos, ref inPos);
                 e = expected.ToAsciiString();
                 a = actual.ToAsciiString();
                 Log.Error(9999, "blipo.....");
@@ -139,7 +140,7 @@ namespace TestCases.VariousUtilsTests.Net {
 
                 // third
                 expected = "A third way".ToAsciiByteArray();
-                actual = buff.FifoPop(crln, inPos + 1, ref inPos);
+                actual = buff.FifoPop(crln, inPos, ref inPos);
                 e = expected.ToAsciiString();
                 a = actual.ToAsciiString();
                 Log.Error(9999, "blipo.....");
@@ -150,7 +151,7 @@ namespace TestCases.VariousUtilsTests.Net {
 
                 actual = buff.FifoPop(crln, inPos + 1, ref inPos);
                 Assert.AreEqual(0, actual.Length);
-
+                Assert.AreEqual(0, inPos);
 
 
 
@@ -202,6 +203,41 @@ namespace TestCases.VariousUtilsTests.Net {
             });
         }
 
+
+        [Test]
+        public void ByteQueueTests() {
+            CommCharInByteQueue q = new CommCharInByteQueue(crln);
+            int count = 0;
+            byte[] msg = new byte[0];
+            q.MsgReceived += (sender, data) => {
+                Log.Info("***", "***", () => string.Format("data:{0}", data));
+                count++;
+                msg = data;
+            };
+
+            q.AddBytes("This".ToAsciiByteArray());
+            Assert.AreEqual(0, count, "1");
+            q.AddBytes(" is ".ToAsciiByteArray());
+            Assert.AreEqual(0, count, "2");
+            q.AddBytes("a new mes".ToAsciiByteArray());
+            Assert.AreEqual(0, count, "3");
+            q.AddBytes("sage".ToAsciiByteArray());
+            Assert.AreEqual(0, count, "4");
+            q.AddBytes(crln);
+            Assert.AreEqual(1, count, "1");
+            Assert.AreEqual(21, msg.Length);
+            byte[] expected = "This is a new message".ToAsciiByteArray();
+            Assert.AreEqual(expected, msg, "Message contents");
+            count = 0;
+            msg = new byte[0];
+
+            q.AddBytes(crln);
+            Assert.AreEqual(0, count, "Should not have msg with only terminator pushed");
+
+
+
+
+        }
 
 
 

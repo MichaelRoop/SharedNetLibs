@@ -1,11 +1,12 @@
-﻿using CommunicationStack.Net.interfaces;
+﻿using ChkUtils.Net;
+using CommunicationStack.Net.interfaces;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 using VariousUtils;
 
 namespace CommunicationStack.Net.Stacks {
 
+    /// <summary>Manage level 0 of the incoming data stack next to comm channel</summary>
     public class CommStackBase : ICommStackLevel0 {
 
         #region Data
@@ -13,18 +14,15 @@ namespace CommunicationStack.Net.Stacks {
         /// <summary>The  comm channel</summary>
         ICommStackChannel commChannel = null;
 
-        /// <summary>Holds incoming bytes until they can be reassembled into messages</summary>
-        private byte[] inBuffer = new byte[1000];
-
-        /// <summary>Position to insert incoming bytes</summary>
-        private int currentInPos = 0;
+        /// <summary>Input queue which defragments the incoming bytes into messages</summary>
+        CommCharInByteQueue queue = new CommCharInByteQueue("\n".ToAsciiByteArray());
 
         #endregion
 
         #region ICommStackLevel0 Events
 
         /// <summary>Event fired with the message stripped of terminators</summary>
-        /// <remarks>Example of simple wrapper terminator is '\n\r'</remarks>
+        /// <remarks>Example of simple terminator is '\n\r'</remarks>
         public event EventHandler<byte[]> MsgReceived;
 
         #endregion
@@ -32,20 +30,35 @@ namespace CommunicationStack.Net.Stacks {
         #region ICommStackLevel0 Properties
 
         /// <summary>Terminator used to recognize incoming msgs. Default '\n'</summary>
-        public byte[] InTerminators { get; set; } = CharHelpers.ToByteArray('\n');
+        public byte[] InTerminators {
+            get { return this.queue.Terminator; }
+            set { this.queue.Terminator = value; } 
+        }
 
         /// <summary>Terminator added to outgoing messages. Default '\n'</summary>
         public byte[] OutTerminators { get; set; } = CharHelpers.ToByteArray('\n');
 
         #endregion
 
+        #region Constructors
 
-        public CommStackBase(ICommStackChannel commChannel) {
+        /// <summary>Constructor</summary>
+        /// <param name="commChannel">Communication channel</param>
+        /// <param name="inTerminator">Terminator for input messages</param>
+        public CommStackBase(ICommStackChannel commChannel, byte[] inTerminator) {
             this.commChannel = commChannel;
             this.commChannel.MsgReceivedEvent += this.CommChannel_MsgReceivedEvent;
+            this.queue.Terminator = inTerminator;
+            this.queue.MsgReceived += this.Queue_MsgReceived;
         }
 
+        #endregion
 
+        #region Public
+
+        /// <summary>Send a message to the comm channel. The terminator will be added</summary>
+        /// <param name="msg">The message to send</param>
+        /// <returns>true on success, otherwise false</returns>
         public bool SendToComm(byte[] msg) {
             byte[] outBuff = new byte[msg.Length + this.OutTerminators.Length];
             Array.Copy(msg, outBuff, msg.Length);
@@ -53,72 +66,33 @@ namespace CommunicationStack.Net.Stacks {
             return this.commChannel.SendOutMsg(outBuff);
         }
 
+        #endregion
 
-        private void RaiseMsgReceived() {
+        #region Private
 
+        /// <summary>Handle the comm channel bytes received event</summary>
+        /// <param name="sender">Sender of the message</param>
+        /// <param name="data">The incoming bytes from comm channel</param>
+        private void CommChannel_MsgReceivedEvent(object sender, byte[] data) {
+            this.queue.AddBytes(data);
         }
 
 
-        private void CommChannel_MsgReceivedEvent(object sender, byte[] msg) {
-            // Copy to in buffer
-            Array.Copy(msg, 0, this.inBuffer, this.currentInPos, msg.Length);
-            // move pointer to next
-            this.currentInPos += msg.Length;
-            // Look through buffer from start to see if there is a message
+        /// <summary>Handle the defragmented message from the queue</summary>
+        /// <param name="sender">Sender of the message</param>
+        /// <param name="msg">The incoming assembled message</param>
+        private void Queue_MsgReceived(object sender, byte[] msg) {
+            if (this.MsgReceived != null) {
+                Task.Run(() => {
+                    // Feed to thread pool to free up the comm channel
+                    WrapErr.ToErrReport(9999, () => this.MsgReceived(this, msg));
+                });
 
-            //Array.FindIndex(this.inBuffer, 0, 5,  (b) => b.)
-
-
-
-
-
+            }
         }
 
-        private void ProcessInBytes(byte[] inData) {
-            throw new NotImplementedException();
-
-        }
-
+        #endregion
 
     }
-
-
-    public static class X {
-
-        public static int FindFirstBytePatternPos(this byte[] buff, int searchLen, byte[] pattern) {
-            if (pattern.Length == 0) {
-                return -1;
-            }
-            if (pattern.Length == 1) {
-                return Array.FindIndex(buff, 0, searchLen, (b) => b == pattern[0]);
-            }
-
-            int pos = -1;
-            for (int i = 0; i < searchLen; i++) {
-                // Found first byte of pattern
-                if (buff[i]  == pattern[0]) {
-                    // Now step through the remaining bytes for remainder of pattern
-                    int matches = 0;
-                    for (int j = 0; j < pattern.Length && ((i + j) < searchLen); j++) {
-                        if (buff[i+j] == pattern[j]) {
-                            matches++;
-                        }
-                        else {
-                            // mismatch, keep looking
-                            break;
-                        }
-                    }
-                    if (matches == pattern.Length) {
-                        pos = i;
-                        // Break out of outer loop
-                        break;
-                    }
-                }
-            }
-            return pos;
-        }
-
-    }
-
 
 }

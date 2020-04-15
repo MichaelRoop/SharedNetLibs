@@ -151,6 +151,10 @@
       <Project>{8af7dd7e-394e-4816-b738-0764e1e60dd8}</Project>
       <Name>ChkUtils</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CommunicationStack.Net\CommunicationStack.Net.csproj">
+      <Project>{506D9E9A-3128-44DC-B733-069B05EA6586}</Project>
+      <Name>CommunicationStack.Net</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DependencyInjectorFactory\DependencyInjectorFactory.csproj">
       <Project>{8B09C94B-2D09-4D5B-AEF2-1E732BAF2164}</Project>
       <Name>DependencyInjectorFactory</Name>
