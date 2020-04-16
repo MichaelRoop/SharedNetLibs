@@ -14,5 +14,11 @@
         Language,
         LanguageWhite,
 
+        // communications
+        Wifi,
+        BluetoothClassic,
+        BluetoothLE,
+        Ethernet,
+
     }
 }
