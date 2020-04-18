@@ -241,6 +241,24 @@ namespace TestCases.VariousUtilsTests.Net {
 
 
 
+        [Test]
+        public void PrintBytes() {
+            TestHelpersNet.CatchUnexpected(() => {
+
+                foreach(Terminator t in EnumHelpers.GetEnumList<Terminator>()) {
+                    Debug.WriteLine("({0})Name: {1}   Hex:{2}   StrView:{3}   char:{4}",
+                        ((byte)t).ToString("D2"), t.ToString().PadLeft(3, ' '), t.ToHexString(), t.ToStringCharDisplay(), t.ToStringChar().PadLeft(3,' '));
+
+                    //Log.Info("***", "***", () => string.Format("({0})Name: {1} Hex:{2} Str:{3}",
+                    //    ((byte)t).ToString("D2"), t.ToString(), t.ToHexString().PadLeft(3, ' '), t.ToStringChar()));
+                }
+
+
+            });
+        }
+
+
+
         //TestHelpersNet.CatchUnexpected(() => {
         //    });
 

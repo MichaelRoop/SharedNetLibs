@@ -19,6 +19,10 @@
         BluetoothClassic,
         BluetoothLE,
         Ethernet,
+        Connect,
+        Command,
+        CommandWhite,
+        Run,
 
     }
 }
