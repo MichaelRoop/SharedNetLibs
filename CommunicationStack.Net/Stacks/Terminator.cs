@@ -78,7 +78,7 @@ namespace CommunicationStack.Net.Stacks {
                 case Terminator.VT: return @"\v";
                 case Terminator.FF: return @"\f";
                 case Terminator.CR: return @"\r";
-                default: return "*";
+                default: return code.ToString();
             }
         }
 
