@@ -23,6 +23,8 @@
         Command,
         CommandWhite,
         Run,
+        Terminator,
+        TerminatorWhite,
 
     }
 }

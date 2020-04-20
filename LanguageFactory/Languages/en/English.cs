@@ -30,6 +30,7 @@ namespace LanguageFactory.Languages.en {
             this.AddMsg(MsgCode.cancel, "Cancel");
             this.AddMsg(MsgCode.info, "Info");
             this.AddMsg(MsgCode.Settings, "Settings");
+            this.AddMsg(MsgCode.Terminators, "Terminators");
 
             //this.AddMsg(MsgCode., "");
         }

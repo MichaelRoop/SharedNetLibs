@@ -28,6 +28,7 @@ namespace LanguageFactory.Languages.fr {
             this.AddMsg(MsgCode.cancel, "Annuler");
             this.AddMsg(MsgCode.info, "Info");
             this.AddMsg(MsgCode.Settings, "Paramètres");
+            this.AddMsg(MsgCode.Terminators, "Terminateurs");
 
 
             //this.AddMsg(MsgCode., "");

@@ -28,6 +28,7 @@ namespace LanguageFactory.Languages.ja {
             this.AddMsg(MsgCode.cancel, "キャンセル");
             this.AddMsg(MsgCode.info, "情報");
             this.AddMsg(MsgCode.Settings, "設定");
+            this.AddMsg(MsgCode.Terminators, "終端文字");
 
 
             //this.AddMsg(MsgCode., "");

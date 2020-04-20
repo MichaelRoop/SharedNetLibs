@@ -28,6 +28,7 @@ namespace LanguageFactory.Languages.cn {
             this.AddMsg(MsgCode.cancel, "取消");
             this.AddMsg(MsgCode.info, "信息");
             this.AddMsg(MsgCode.Settings, "设置");
+            this.AddMsg(MsgCode.Terminators, "终止符");
 
             //this.AddMsg(MsgCode., "");
 

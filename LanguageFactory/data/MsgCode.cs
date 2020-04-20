@@ -29,6 +29,7 @@
         cancel,
         info,
         Settings,
+        Terminators,
 
     }
 }
