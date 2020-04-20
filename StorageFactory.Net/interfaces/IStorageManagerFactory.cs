@@ -43,5 +43,41 @@
         IStorageManager<T> GetManager<T>(string subDirectory, string defaultFileName) where T : class;
 
 
+        /// <summary>
+        /// Retrieved the storage manager for a class TData object which has an 
+        /// index that contains a TIndexExtraInfo in the index object 
+        /// </summary>
+        /// <typeparam name="TData">The type to store and retrieve</typeparam>
+        /// <typeparam name="TIndexExtraInfo">The extra info in the index</typeparam>
+        /// <remarks>   
+        /// A sample implementation could be as follows
+        /// 
+        /// if (typeof(TData).Name == typeof(UserDataClass1)) {
+        ///     // You can be more specific if you want to also determine which indexed manager
+        ///     return new IndexedStorageManager<TData,TIndexedExtraInfo>(new JsonReadWriteSerializer<T>());
+        /// }
+        /// else {
+        ///     .....
+        /// 
+        /// You can return and instance of the same type of storage manager/serializer 
+        /// combination to manage storage of different classes
+        /// 
+        /// </remarks>
+        /// <returns>The indexed storage manager for the type TData class with TIndexExtraInfo index extra info</returns>
+        IIndexedStorageManager<TData, TIndexExtraInfo> GetIndexedManager<TData, TIndexExtraInfo>() where TData : class where TIndexExtraInfo : class;
+
+
+        /// <summary>
+        /// Retrieved the storage manager for a class TData object which has an 
+        /// index that contains a TIndexExtraInfo in the index object 
+        /// </summary>
+        /// <typeparam name="TData">The type to store and retrieve</typeparam>
+        /// <typeparam name="TIndexExtraInfo">The extra info in the index</typeparam>
+        /// <param name="subDirectory">The subdirectory off the root</param>
+        /// <returns>The indexed storage manager for the type TData class with TIndexExtraInfo index extra info</returns>
+        IIndexedStorageManager<TData, TIndexExtraInfo> GetIndexedManager<TData, TIndexExtraInfo>(string subDirectory)
+            where TData : class where TIndexExtraInfo : class;
+
+
     }
 }
