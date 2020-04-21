@@ -30,6 +30,11 @@ namespace LanguageFactory.Languages.ja {
             this.AddMsg(MsgCode.Settings, "設定");
             this.AddMsg(MsgCode.Terminators, "終端文字");
             this.AddMsg(MsgCode.Name, "名前");
+            this.AddMsg(MsgCode.Error, "エラー");
+            this.AddMsg(MsgCode.CannotDeleteLast, "凡例には最低 1 つの凡例文字列が含まれていなければなりません");
+            this.AddMsg(MsgCode.EmptyName, "名前を空にすることはできません");
+            this.AddMsg(MsgCode.LoadFailed, "読み込めませんでした");
+            this.AddMsg(MsgCode.SaveFailed, "保存に失敗しました");
 
 
             //this.AddMsg(MsgCode., "");

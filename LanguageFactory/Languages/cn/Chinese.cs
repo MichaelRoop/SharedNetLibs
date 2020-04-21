@@ -30,6 +30,12 @@ namespace LanguageFactory.Languages.cn {
             this.AddMsg(MsgCode.Settings, "设置");
             this.AddMsg(MsgCode.Terminators, "终止符");
             this.AddMsg(MsgCode.Name, "名称");
+            this.AddMsg(MsgCode.Error, "错误");
+            this.AddMsg(MsgCode.CannotDeleteLast, "不能删除最后一个");
+            this.AddMsg(MsgCode.EmptyName, "名称不能为空");
+            this.AddMsg(MsgCode.LoadFailed, "加载失败");
+            this.AddMsg(MsgCode.SaveFailed, "未能保存");
+
 
             //this.AddMsg(MsgCode., "");
 

@@ -31,6 +31,11 @@
         Settings,
         Terminators,
         Name,
+        Error,
+        CannotDeleteLast,
+        EmptyName,
+        LoadFailed,
+        SaveFailed,
 
     }
 }

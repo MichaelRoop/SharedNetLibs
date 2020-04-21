@@ -32,6 +32,11 @@ namespace LanguageFactory.Languages.en {
             this.AddMsg(MsgCode.Settings, "Settings");
             this.AddMsg(MsgCode.Terminators, "Terminators");
             this.AddMsg(MsgCode.Name, "Name");
+            this.AddMsg(MsgCode.Error, "Error");
+            this.AddMsg(MsgCode.CannotDeleteLast, "Cannot delete last entry");
+            this.AddMsg(MsgCode.EmptyName, "Name cannot be empty");
+            this.AddMsg(MsgCode.LoadFailed, "Failed to load");
+            this.AddMsg(MsgCode.SaveFailed, "Failed to save");
 
             //this.AddMsg(MsgCode., "");
         }

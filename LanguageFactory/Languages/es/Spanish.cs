@@ -31,6 +31,11 @@ namespace LanguageFactory.Languages.es {
             this.AddMsg(MsgCode.Settings, "Configuración");
             this.AddMsg(MsgCode.Terminators, "Terminadores");
             this.AddMsg(MsgCode.Name, "Nombre");
+            this.AddMsg(MsgCode.Error, "Error");
+            this.AddMsg(MsgCode.CannotDeleteLast, "No se puede eliminar la última entrada");
+            this.AddMsg(MsgCode.EmptyName, "El nombre no puede estar en blanco");
+            this.AddMsg(MsgCode.LoadFailed, "No se pueden cargar");
+            this.AddMsg(MsgCode.SaveFailed, "Error al guardar");
 
 
             //this.AddMsg(MsgCode., "");
