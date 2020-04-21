@@ -79,5 +79,19 @@
             where TData : class where TIndexExtraInfo : class;
 
 
+
+        /// <summary>
+        /// Retrieved the storage manager for a class TData object which has an 
+        /// index that contains a TIndexExtraInfo in the index object 
+        /// </summary>
+        /// <typeparam name="TData">The type to store and retrieve</typeparam>
+        /// <typeparam name="TIndexExtraInfo">The extra info in the index</typeparam>
+        /// <param name="subDirectory">The subdirectory off the root</param>
+        /// <param name="indexName">Name of the index file</param>
+        /// <returns>The indexed storage manager for the type TData class with TIndexExtraInfo index extra info</returns>
+        IIndexedStorageManager<TData, TIndexExtraInfo> GetIndexedManager<TData, TIndexExtraInfo>(string subDirectory, string indexName)
+            where TData : class where TIndexExtraInfo : class;
+
+
     }
 }
