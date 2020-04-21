@@ -30,6 +30,7 @@
         info,
         Settings,
         Terminators,
+        Name,
 
     }
 }

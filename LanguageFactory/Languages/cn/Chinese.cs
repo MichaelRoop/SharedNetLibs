@@ -29,6 +29,7 @@ namespace LanguageFactory.Languages.cn {
             this.AddMsg(MsgCode.info, "信息");
             this.AddMsg(MsgCode.Settings, "设置");
             this.AddMsg(MsgCode.Terminators, "终止符");
+            this.AddMsg(MsgCode.Name, "名称");
 
             //this.AddMsg(MsgCode., "");
 

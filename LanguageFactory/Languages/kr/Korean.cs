@@ -29,6 +29,7 @@ namespace LanguageFactory.Languages.kr {
             this.AddMsg(MsgCode.info, "정보");
             this.AddMsg(MsgCode.Settings, "설정");
             this.AddMsg(MsgCode.Terminators, "종결자");
+            this.AddMsg(MsgCode.Name, "이름");
 
 
             //this.AddMsg(MsgCode., "");
