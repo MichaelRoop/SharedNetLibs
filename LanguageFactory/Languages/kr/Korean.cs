@@ -35,6 +35,7 @@ namespace LanguageFactory.Languages.kr {
             this.AddMsg(MsgCode.EmptyName, "이름은 비워 둘 수 없습니다");
             this.AddMsg(MsgCode.LoadFailed, "로드하지 못함");
             this.AddMsg(MsgCode.SaveFailed, "저장하지 못했습니다.");
+            this.AddMsg(MsgCode.EnterName, "이름 입력");
 
 
             //this.AddMsg(MsgCode., "");

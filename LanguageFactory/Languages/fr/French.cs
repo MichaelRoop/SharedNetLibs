@@ -35,6 +35,7 @@ namespace LanguageFactory.Languages.fr {
             this.AddMsg(MsgCode.EmptyName, "Le nom ne peut être vide");
             this.AddMsg(MsgCode.LoadFailed, "Échec de chargement");
             this.AddMsg(MsgCode.SaveFailed, "Impossible d’enregistrer");
+            this.AddMsg(MsgCode.EnterName, "Entrer un nom");
 
 
             //this.AddMsg(MsgCode., "");

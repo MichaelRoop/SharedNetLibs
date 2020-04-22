@@ -35,6 +35,7 @@ namespace LanguageFactory.Languages.cn {
             this.AddMsg(MsgCode.EmptyName, "名称不能为空");
             this.AddMsg(MsgCode.LoadFailed, "加载失败");
             this.AddMsg(MsgCode.SaveFailed, "未能保存");
+            this.AddMsg(MsgCode.EnterName, "输入名称");
 
 
             //this.AddMsg(MsgCode., "");

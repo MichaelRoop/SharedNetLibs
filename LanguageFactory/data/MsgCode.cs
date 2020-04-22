@@ -36,6 +36,7 @@
         EmptyName,
         LoadFailed,
         SaveFailed,
+        EnterName,
 
     }
 }

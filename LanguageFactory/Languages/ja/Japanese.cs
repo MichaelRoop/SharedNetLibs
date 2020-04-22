@@ -35,6 +35,7 @@ namespace LanguageFactory.Languages.ja {
             this.AddMsg(MsgCode.EmptyName, "名前を空にすることはできません");
             this.AddMsg(MsgCode.LoadFailed, "読み込めませんでした");
             this.AddMsg(MsgCode.SaveFailed, "保存に失敗しました");
+            this.AddMsg(MsgCode.EnterName, "名前の入力");
 
 
             //this.AddMsg(MsgCode., "");

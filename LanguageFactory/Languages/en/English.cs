@@ -37,6 +37,7 @@ namespace LanguageFactory.Languages.en {
             this.AddMsg(MsgCode.EmptyName, "Name cannot be empty");
             this.AddMsg(MsgCode.LoadFailed, "Failed to load");
             this.AddMsg(MsgCode.SaveFailed, "Failed to save");
+            this.AddMsg(MsgCode.EnterName, "Enter name");
 
             //this.AddMsg(MsgCode., "");
         }
