@@ -25,6 +25,7 @@
         Run,
         Terminator,
         TerminatorWhite,
+        SpinIcon,
 
     }
 }
