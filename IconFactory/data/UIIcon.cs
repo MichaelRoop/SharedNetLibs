@@ -10,6 +10,7 @@
         Search,
 
         // Menu
+        HamburgerMenuWhite,
         Settings,
         Language,
         LanguageWhite,
@@ -17,7 +18,9 @@
         // communications
         Wifi,
         BluetoothClassic,
+        BluetoothClassicWhite,
         BluetoothLE,
+        BluetoothLEWhite,
         Ethernet,
         Connect,
         Command,
@@ -26,6 +29,7 @@
         Terminator,
         TerminatorWhite,
         SpinIcon,
+        SerialPortWhite,
 
     }
 }

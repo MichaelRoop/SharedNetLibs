@@ -36,6 +36,7 @@ namespace LanguageFactory.Languages.kr {
             this.AddMsg(MsgCode.LoadFailed, "로드하지 못함");
             this.AddMsg(MsgCode.SaveFailed, "저장하지 못했습니다.");
             this.AddMsg(MsgCode.EnterName, "이름 입력");
+            this.AddMsg(MsgCode.Continue, "계속?");
 
 
             //this.AddMsg(MsgCode., "");

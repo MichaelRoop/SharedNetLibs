@@ -37,6 +37,7 @@
         LoadFailed,
         SaveFailed,
         EnterName,
+        Continue,
 
     }
 }
