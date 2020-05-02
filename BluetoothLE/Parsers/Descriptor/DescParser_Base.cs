@@ -106,7 +106,6 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
         protected bool CopyToRawData(byte[] data, int length) {
             try {
                 if (data != null) {
-                    this.baseLog.Info("CopyToRawData", () => string.Format("Data:{0}", data.ToFormatedByteString()));
                     if (data.Length >= length) {
                         this.RawData = new byte[length];
                         Array.Copy(data, this.RawData, this.RawData.Length);
@@ -116,7 +115,7 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
                     else {
                         this.baseLog.Error(13315, "CopyToRawData", 
                             () => string.Format("Data length:{0} smaller than requested:{1} Data '{2}'", 
-                            data.Length, length, data.ToFormatedByteString()));
+                            data.Length, length, data.ToHexByteString()));
                     }
                 }
                 else {

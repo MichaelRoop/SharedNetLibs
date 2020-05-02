@@ -30,7 +30,7 @@ namespace VariousUtils {
         public static string ToHexByteString(this byte[] data) {
             StringBuilder sb = new StringBuilder(data.Length + 10);
             for (int i = 0; i < data.Length; i++) {
-                sb.Append(string.Format("{0}{1:X2}", (i > 0 ? "," : ""), data[i]));
+                sb.Append(string.Format("{0}0x{1:X2}", (i > 0 ? "," : ""), data[i]));
             }
             return sb.ToString();
         }

@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLE_DescParsers\Test02_MultibleParsersValidData.cs" />
     <Compile Include="BLE_DescParsers\Test07_DescFormatParser.cs" />
     <Compile Include="BLE_DescParsers\Test01_DescParserBase.cs" />
     <Compile Include="ChkUtilsTests.Net\ChkUtilsTestHelpers.cs" />
