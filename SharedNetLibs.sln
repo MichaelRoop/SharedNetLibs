@@ -31,7 +31,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StorageFactory.Net", "Stora
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VariousUtils", "VariousUtils\VariousUtils.csproj", "{0F6891D3-1A64-41B1-B991-11873FC79FBB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommunicationStack.Net", "CommunicationStack.Net\CommunicationStack.Net.csproj", "{506D9E9A-3128-44DC-B733-069B05EA6586}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommunicationStack.Net", "CommunicationStack.Net\CommunicationStack.Net.csproj", "{506D9E9A-3128-44DC-B733-069B05EA6586}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BluetoothCommon.Net", "BluetoothCommon.Net\BluetoothCommon.Net.csproj", "{280EDA60-8AE5-4EF6-9080-F832918E03C2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BluetoothLE.Net", "BluetoothLE\BluetoothLE.Net.csproj", "{D19EA824-10D3-4BB0-A904-B69C84200524}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,6 +103,14 @@ Global
 		{506D9E9A-3128-44DC-B733-069B05EA6586}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{506D9E9A-3128-44DC-B733-069B05EA6586}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{506D9E9A-3128-44DC-B733-069B05EA6586}.Release|Any CPU.Build.0 = Release|Any CPU
+		{280EDA60-8AE5-4EF6-9080-F832918E03C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{280EDA60-8AE5-4EF6-9080-F832918E03C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{280EDA60-8AE5-4EF6-9080-F832918E03C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{280EDA60-8AE5-4EF6-9080-F832918E03C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D19EA824-10D3-4BB0-A904-B69C84200524}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D19EA824-10D3-4BB0-A904-B69C84200524}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D19EA824-10D3-4BB0-A904-B69C84200524}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D19EA824-10D3-4BB0-A904-B69C84200524}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
