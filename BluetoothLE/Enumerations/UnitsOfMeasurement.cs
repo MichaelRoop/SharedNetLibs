@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace BluetoothLE.Net.Enumerations {
 
     /// <summary>
@@ -133,5 +135,14 @@ namespace BluetoothLE.Net.Enumerations {
         // My enum
         NOT_HANDLED = 0xFFFF,
     }
+
+
+    public static class UnitsOfMeasurementExtensions {
+        public static UInt16 ToUint16(this UnitsOfMeasurement value) {
+            return (UInt16)value;
+        }
+    }
+
+
 
 }

@@ -4,14 +4,10 @@ using BluetoothLE.Net.Parsers.Descriptor;
 using LogUtils.Net;
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using VariousUtils;
 
 namespace TestCases.BLE_DescParsers {
-    
+
     [TestFixture]
     public class Test07_DescFormatParser : TestCaseBase {
 
@@ -40,14 +36,16 @@ namespace TestCases.BLE_DescParsers {
             TestHelpersNet.CatchUnexpected(() => {
                 IDescParser parser = new DescParser_PresentationFormat();
                 byte[] data = new byte[7];
-                data[0] = 8;  // Format  DataFormatEnum.unsigned_32bit_integer
-                data[1] = 33; // Exponent
-                // TODO - look at how the data comes in from BLE
-                data[2] = 0x01; // 0x2701 UnitsOfMeasurement.LengthMetre - least significant byte then most significant
-                data[3] = 0x27;
-                data[4] = 1;    // Namespace
-                data[5] = 0x1A; // Uint16 Description
-                data[6] = 0x22;
+                byte format = DataFormatEnum.unsigned_32bit_integer.ToByte();
+                byte exponent = 33;
+                byte nameSpace = 1;
+                ushort description = 0x221A;
+                int pos = 0;
+                format.WriteToBuffer(data, ref pos);
+                exponent.WriteToBuffer(data, ref pos);
+                UnitsOfMeasurement.LengthMetre.ToUint16().WriteToBuffer(data, ref pos);
+                nameSpace.WriteToBuffer(data, ref pos);
+                description.WriteToBuffer(data, ref pos);
 
                 string result = parser.Parse(data);
                 this.log.Info("FormatValuesChecked", () => string.Format("Display:{0}", result));
@@ -55,11 +53,29 @@ namespace TestCases.BLE_DescParsers {
                 DescParser_PresentationFormat impl = parser as DescParser_PresentationFormat;
                 Assert.IsNotNull(impl, "Is null on cast");
                 Assert.AreEqual(DataFormatEnum.unsigned_32bit_integer, impl.Format);
+                Assert.AreEqual(exponent, impl.Exponent);
                 Assert.AreEqual(UnitsOfMeasurement.LengthMetre, impl.MeasurementUnitsEnum);
-                Assert.AreEqual(0x2701, impl.MeasurementUnitUShort);
-                Assert.AreEqual(1, impl.Namespace);
-                Assert.AreEqual(0x221A, impl.Description);
+                Assert.AreEqual(UnitsOfMeasurement.LengthMetre.ToUint16(), impl.MeasurementUnitUShort);
+                Assert.AreEqual(nameSpace, impl.Namespace);
+                Assert.AreEqual(description, impl.Description);
             });
+        }
+
+
+        byte[] GetBlock() {
+            byte[] data = new byte[7];
+            byte format = DataFormatEnum.unsigned_32bit_integer.ToByte();
+            byte exponent = 33;
+            byte nameSpace = 1;
+            ushort description = 0x221A;
+
+            int pos = 0;
+            format.WriteToBuffer(data, ref pos);
+            exponent.WriteToBuffer(data, ref pos);
+            UnitsOfMeasurement.LengthMetre.ToUint16().WriteToBuffer(data, ref pos);
+            nameSpace.WriteToBuffer(data, ref pos);
+            description.WriteToBuffer(data, ref pos);
+            return data;
         }
 
 
@@ -67,19 +83,11 @@ namespace TestCases.BLE_DescParsers {
         public void Err13340_FormatParseDataBadFormat() {
             TestHelpersNet.CatchUnexpected(() => {
                 IDescParser parser = new DescParser_PresentationFormat();
-                byte[] data = new byte[7];
+                byte[] data = this.GetBlock();
                 // Bogus format
-                data[0] = 245;  // Bogus
-                data[1] = 33; // Exponent
-                // TODO - look at how the data comes in from BLE
-                data[2] = 0x01; // 0x2701 UnitsOfMeasurement.LengthMetre - least significant byte then most significant
-                data[3] = 0x27;
-                data[4] = 1;    // Namespace
-                data[5] = 0x1A; // Uint16 Description
-                data[6] = 0x22;
-
+                data[0] = 245;  // Bogus Format at position 0
                 string result = parser.Parse(data);
-                this.logReader.Validate(13340, 
+                this.logReader.Validate(13340,
                     "DescParser_PresentationFormat", "GetFormat", "Format:245 not handled");
             });
         }
@@ -89,16 +97,9 @@ namespace TestCases.BLE_DescParsers {
         public void Err13341_FormatParseDataBadUnit() {
             TestHelpersNet.CatchUnexpected(() => {
                 IDescParser parser = new DescParser_PresentationFormat();
-                byte[] data = new byte[7];
-                data[0] = 8;  // Format  DataFormatEnum.unsigned_32bit_integer
-                data[1] = 33; // Exponent
-                // TODO - look at how the data comes in from BLE
-                data[2] = 0xF0; // 0x2701 UnitsOfMeasurement.LengthMetre - least significant byte then most significant
-                data[3] = 0xFF;
-                data[4] = 1;    // Namespace
-                data[5] = 0x1A; // Uint16 Description
-                data[6] = 0x22;
-
+                byte[] data = this.GetBlock();
+                int pos = 2;
+                ((ushort)0xFFF0).WriteToBuffer(data, ref pos); // Bogus measurement unit at pos 2,3
                 string result = parser.Parse(data);
                 this.logReader.Validate(13341,
                     "DescParser_PresentationFormat", "GetUnitOfMeasurement", "value 0xFFF0 not found in enums");

@@ -1,4 +1,5 @@
 ﻿using BluetoothLE.Net.interfaces;
+using ChkUtils.Net;
 using LogUtils.Net;
 using System;
 using VariousUtils;
@@ -79,14 +80,18 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
         #region Constructors
 
         public DescParser_Base() {
-            this.ImplementationType = this.GetDerivedType();
-            this.RawData = new byte[0];
-            this.ResetMembers();
+            WrapErr.ToErrorReportException(13325, "Failed on construction", () => {
+                this.ImplementationType = this.GetDerivedType();
+                this.RawData = new byte[0];
+                this.ResetMembers();
+            });
         }
 
         public DescParser_Base(byte[] data) {
-            this.ImplementationType = this.GetDerivedType();
-            this.Parse(data);
+            WrapErr.ToErrorReportException(13326, "Failed on construction", () => {
+                this.ImplementationType = this.GetDerivedType();
+                this.Parse(data);
+            });
         }
 
         #endregion

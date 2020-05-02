@@ -26,8 +26,12 @@
             <Err no="13317" msg="Failed on CopyToRaw"/>
             <Err no="13318" msg=""/>
           </CopyToRawData>
-          <DescParser_Base type="Constructor" />
-          <DescParser_Base type="Constructor with param" />
+          <ConstrutorDefault range="13,325">
+            <Err no="13325" msg=""/>
+          </ConstrutorDefault>
+          <ConstructorParams range="13,326">
+            <Err no="13326" msg=""/>
+          </ConstructorParams>
         </DescParser_Base>
         <DescParser_PresentationFormat>
           <GetFormat range="1330-13339">

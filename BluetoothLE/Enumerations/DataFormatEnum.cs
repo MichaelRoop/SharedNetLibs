@@ -41,4 +41,12 @@ namespace BluetoothLE.Net.Enumerations {
         // My own enum to 
         Unhandled = 255,
     }
+
+
+    public static class DataFormatEnumExtensions {
+        public static byte ToByte(this DataFormatEnum value) {
+            return (byte)value;
+        }
+    }
+
 }
