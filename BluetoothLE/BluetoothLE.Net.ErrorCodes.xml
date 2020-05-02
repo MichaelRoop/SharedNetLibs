@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<BluetoothLE.Net range="13,000 - 14,999">
+  <Namespaces>
+    <DataModels Range="13,000 - 13,199" >
+      <ClassName Range="0000-0000"/>
+    </DataModels>
+    <Parsers >
+      <BLEParHelpers range="13,200-13,299" >
+        <methodName err="0000"/>
+      </BLEParHelpers>
+      <Descriptors range="13,300 - ">
+        <DescParser_Base range="13,300-13,349">
+          <DisplayString range="13,300-13,304">
+            <Err no="13300" msg="Failed on DoDisplayString"/>
+          </DisplayString>
+          <Parse range="13,305 = 13,314">
+            <Err no="13305" msg="byte[] is zero length"/>
+            <Err no="13306" msg="Raw byte[] is null"/>
+            <Err no="13307" msg="Failure on Parse"/>
+            <Err no="13308" msg=""/>
+          </Parse>
+          <CopyToRawData range="13,315 - 13,324">
+            <Err no="13315" msg="Data length:{0} smaller than requested:{1}"/>
+            <Err no="13316" msg="Raw byte[] is null"/>
+            <Err no="13317" msg="Failed on CopyToRaw"/>
+            <Err no="13318" msg=""/>
+          </CopyToRawData>
+          <DescParser_Base type="Constructor" />
+          <DescParser_Base type="Constructor with param" />
+        </DescParser_Base>
+        <DescParser_PresentationFormat>
+          <GetFormat range="1330-13339">
+            <Err no="13330" msg="Format:{0} not handled"/>
+
+          </GetFormat>
+          <GetUnitOfMeasurement range="13340-13349">
+            <Err no="13340" msg="value 0x{0:X4} not found in enums"/>
+
+          </GetUnitOfMeasurement>
+          
+        </DescParser_PresentationFormat>
+        
+
+      </Descriptors>
+      
+    </Parsers>
+    
+  </Namespaces>
+</BluetoothLE.Net>  

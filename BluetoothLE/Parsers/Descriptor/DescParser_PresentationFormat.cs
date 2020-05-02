@@ -123,7 +123,7 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
 
         private DataFormatEnum GetFormat(byte value) {
             if (value > (byte)DataFormatEnum.OpaqueStructure) {
-                this.log.Error(9999, "GetFormat", () => string.Format("Format:{0} not handled", value));
+                this.log.Error(13340, "GetFormat", () => string.Format("Format:{0} not handled", value));
                 return DataFormatEnum.Unhandled;
             }
             return (DataFormatEnum)this.RawData[0];
@@ -136,7 +136,7 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
                     return m;
                 }
             }
-            this.log.Error(9999, "GetUnitsOfMeasurement", () => string.Format("value 0x{0:X4} not found in enums", value));
+            this.log.Error(13341, "GetUnitOfMeasurement", () => string.Format("value 0x{0:X4} not found in enums", value));
             return UnitsOfMeasurement.NOT_HANDLED;
         }
 

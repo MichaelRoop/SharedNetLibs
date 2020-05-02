@@ -59,6 +59,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLE_DescParsers\Test07_DescFormatParser.cs" />
+    <Compile Include="BLE_DescParsers\Test01_DescParserBase.cs" />
     <Compile Include="ChkUtilsTests.Net\ChkUtilsTestHelpers.cs" />
     <Compile Include="ChkUtilsTests.Net\ExceptionParserFactoryTests.cs" />
     <Compile Include="ChkUtilsTests.Net\ExceptionParserTests.cs" />
@@ -143,6 +145,10 @@
     <Compile Include="VariousUtilsTests.Net\ByteHelpersTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BluetoothLE\BluetoothLE.Net.csproj">
+      <Project>{D19EA824-10D3-4BB0-A904-B69C84200524}</Project>
+      <Name>BluetoothLE.Net</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ChkUtils.Net\ChkUtils.Net.csproj">
       <Project>{0b214b89-c1d6-42bd-bb1a-f6f42de5a240}</Project>
       <Name>ChkUtils.Net</Name>

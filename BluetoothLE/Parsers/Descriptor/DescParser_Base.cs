@@ -1,8 +1,6 @@
 ﻿using BluetoothLE.Net.interfaces;
 using LogUtils.Net;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using VariousUtils;
 
 namespace BluetoothLE.Net.Parsers.Descriptor {
@@ -40,7 +38,7 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
                 return this.DoDisplayString();
             }
             catch(Exception e) {
-                this.baseLog.Exception(9999, "", "", e);
+                this.baseLog.Exception(13300, "DisplayString", "Failed On DoDisplayString", e);
                 return "* FAILED *";
             }
         }
@@ -57,21 +55,21 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
                 // Do not need to reset type. Done on construction
                 this.ResetMembers();
                 if (data != null) {
-                    if (data.Length >= 0) {
+                    if (data.Length > 0) {
                         if (this.DoParse(data)) {
                             return this.DisplayString();
                         }
                     }
                     else {
-                        this.baseLog.Error(9999, "Parse", "byte[] is zero length");
+                        this.baseLog.Error(13305, "Parse", "byte[] is zero length");
                     }
                 }
                 else {
-                    this.baseLog.Error(9999, "Parse", "Raw byte[] is null");
+                    this.baseLog.Error(13306, "Parse", "Raw byte[] is null");
                 }
             }
             catch (Exception e) {
-                this.baseLog.Exception(9999, "Parse", "", e);
+                this.baseLog.Exception(13307, "Parse", "Failure on Parse", e);
             }
             return "* N/A *";
         }
@@ -103,19 +101,25 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
         protected bool CopyToRawData(byte[] data, int length) {
             try {
                 if (data != null) {
+                    this.baseLog.Info("CopyToRawData", () => string.Format("Data:{0}", data.ToFormatedByteString()));
                     if (data.Length >= length) {
                         this.RawData = new byte[length];
                         Array.Copy(data, this.RawData, this.RawData.Length);
                         this.baseLog.Info("CopyToRawData", () => string.Format("Data:{0}", this.RawData.ToHexByteString()));
                         return true;
                     }
+                    else {
+                        this.baseLog.Error(13315, "CopyToRawData", 
+                            () => string.Format("Data length:{0} smaller than requested:{1} Data '{2}'", 
+                            data.Length, length, data.ToFormatedByteString()));
+                    }
                 }
                 else {
-                    this.baseLog.Error(9999, "CopyToRawData", "Raw byte[] is null");
+                    this.baseLog.Error(13316, "CopyToRawData", "Raw byte[] is null");
                 }
             }
             catch (Exception e) {
-                this.baseLog.Exception(9999, "CopyToRawData", "", e);
+                this.baseLog.Exception(13317, "CopyToRawData", "Failed on CopyToRaw", e);
             }
             return false;
         }
