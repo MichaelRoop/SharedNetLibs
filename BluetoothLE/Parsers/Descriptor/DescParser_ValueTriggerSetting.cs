@@ -1,5 +1,6 @@
 ﻿
 using BluetoothLE.Net.Enumerations;
+using System;
 
 namespace BluetoothLE.Net.Parsers.Descriptor {
 
@@ -30,17 +31,56 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
     ///     
     /// 
     /// </remarks>
-    public class DescParser_ValueTriggerSetting {
+    public class DescParser_ValueTriggerSetting : DescParser_Base {
 
 
         #region Properties
 
         public ValueTriggerCondition Condition { get; set; }
 
+        #endregion
 
+        #region Constructors
 
+        public DescParser_ValueTriggerSetting() : base() { }
+        public DescParser_ValueTriggerSetting(byte[] data) : base(data) { }
 
         #endregion
+
+
+        protected override string DoDisplayString() {
+            return "";
+        }
+
+        protected override bool DoParse(byte[] data) {
+            if (this.CopyToRawData(data, 1)) {
+                byte condition = this.RawData[0];
+                if (condition.IsValueTriggerEnum()) {
+                    this.Condition = this.RawData[0].AsValueTriggerEnum();
+                    switch (this.Condition) {
+                    
+                    
+                    
+                    
+                    }
+
+
+                }
+            }
+            return false;
+        }
+
+        protected override Type GetDerivedType() {
+            return this.GetType();
+        }
+
+        protected override void ResetMembers() {
+            throw new NotImplementedException();
+        }
+
+
+
+
 
 
 

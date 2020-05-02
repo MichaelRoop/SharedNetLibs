@@ -3,7 +3,7 @@ namespace BluetoothLE.Net.Enumerations {
 
     /// <summary>Used for the Value Trigger Descriptor first field for condition</summary>
     /// <remarks>TODO Need to study each one more</remarks>
-    public enum ValueTriggerCondition {
+    public enum ValueTriggerCondition : byte {
 
         /// <summary>
         /// The state is changed if the characteristic value is changed.
@@ -62,4 +62,23 @@ namespace BluetoothLE.Net.Enumerations {
 
 
     }
+
+
+    public static class ValueTriggerConditionExtensions {
+       
+        public static byte ToByte(this ValueTriggerCondition value) {
+            return (byte)value;
+        }
+
+        public static bool IsValueTriggerEnum(this byte value) {
+            return value >= 0 && value <= 7;
+        }
+
+        public static ValueTriggerCondition AsValueTriggerEnum(this byte value) {
+            return (ValueTriggerCondition)value;
+        }
+
+
+    }
+
 }
