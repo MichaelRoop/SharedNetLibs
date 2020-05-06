@@ -30,6 +30,10 @@
         TerminatorWhite,
         SpinIcon,
         SerialPortWhite,
+        Phone,
+        PhoneEmitting,
+        Board,
+        BoardEmitting,
 
     }
 }

@@ -6,7 +6,6 @@ using System.Collections.Generic;
 
 namespace BluetoothLE.Net.DataModels {
 
-
     public class StringProperyUpdate {
         public string Key { get; set; } = "";
         public string Value { get; set; } = "";
@@ -113,6 +112,11 @@ namespace BluetoothLE.Net.DataModels {
         /// </summary>
         public object OSSpecificObj { get; set; }  
 
+
+        /// <summary>To satisfy XAML</summary>
+        public BluetoothLEDeviceInfo() {
+
+        }
 
         public BluetoothLEDeviceInfo(IPropertyKeys propertyKeys) {
             this.propertyKeys = propertyKeys;
