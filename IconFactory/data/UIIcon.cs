@@ -8,6 +8,9 @@
         View,
         Add,
         Search,
+        Configure,
+        Help,
+        HelpWhite,
 
         // Menu
         HamburgerMenuWhite,
@@ -22,6 +25,7 @@
         BluetoothLE,
         BluetoothLEWhite,
         Ethernet,
+        Usb,
         Connect,
         Command,
         CommandWhite,
@@ -34,6 +38,7 @@
         PhoneEmitting,
         Board,
         BoardEmitting,
+        ArduinoIcon,
 
     }
 }
