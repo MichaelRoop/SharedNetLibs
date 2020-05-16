@@ -37,7 +37,7 @@ namespace LanguageFactory.Languages.cn {
             this.AddMsg(MsgCode.SaveFailed, "未能保存");
             this.AddMsg(MsgCode.EnterName, "输入名称");
             this.AddMsg(MsgCode.Continue, "繼續?");
-
+            this.AddMsg(MsgCode.Configure, "配置");
 
             //this.AddMsg(MsgCode., "");
 

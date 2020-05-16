@@ -37,7 +37,7 @@ namespace LanguageFactory.Languages.fr {
             this.AddMsg(MsgCode.SaveFailed, "Impossible d’enregistrer");
             this.AddMsg(MsgCode.EnterName, "Entrer un nom");
             this.AddMsg(MsgCode.Continue, "Continuer?");
-
+            this.AddMsg(MsgCode.Configure, "Configurer");
 
             //this.AddMsg(MsgCode., "");
         }

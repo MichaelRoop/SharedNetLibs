@@ -38,7 +38,7 @@ namespace LanguageFactory.Languages.es {
             this.AddMsg(MsgCode.SaveFailed, "Error al guardar");
             this.AddMsg(MsgCode.EnterName, "Escribir nombre");
             this.AddMsg(MsgCode.Continue, "¿Continuar?");
-
+            this.AddMsg(MsgCode.Configure, "Configurar");
 
             //this.AddMsg(MsgCode., "");
         }

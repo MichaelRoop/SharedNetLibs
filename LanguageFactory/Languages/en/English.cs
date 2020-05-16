@@ -39,6 +39,7 @@ namespace LanguageFactory.Languages.en {
             this.AddMsg(MsgCode.SaveFailed, "Failed to save");
             this.AddMsg(MsgCode.EnterName, "Enter name");
             this.AddMsg(MsgCode.Continue, "Continue?");
+            this.AddMsg(MsgCode.Configure, "Configure");
 
             //this.AddMsg(MsgCode., "");
         }

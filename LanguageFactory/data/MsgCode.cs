@@ -38,6 +38,7 @@
         SaveFailed,
         EnterName,
         Continue,
+        Configure,
 
     }
 }
