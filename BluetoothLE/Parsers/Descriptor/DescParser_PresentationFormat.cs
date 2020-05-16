@@ -55,7 +55,7 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
         public byte Namespace { get; set; }
 
         /// <summary>
-        /// The BLE SIG description enumeration
+        /// The BLE SIG description enumeration. Value from the orginization
         /// https://www.bluetooth.com/specifications/assigned-numbers/gatt-namespace-descriptors/
         /// </summary>
         public ushort Description { get; set; }

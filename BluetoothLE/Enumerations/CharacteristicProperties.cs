@@ -8,7 +8,7 @@ namespace BluetoothLE.Net.Enumerations {
     /// 
     /// </summary>
     [Flags]
-    public enum CharacteristicProperties {
+    public enum CharacteristicProperties : uint {
 
         /// <summary>No properties that apply</summary>
         None = 0,

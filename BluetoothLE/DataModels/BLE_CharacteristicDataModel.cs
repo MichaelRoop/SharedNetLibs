@@ -12,10 +12,12 @@ namespace BluetoothLE.Net.DataModels {
         public ushort AttributeHandle { get; set; }
 
         /// <summary>Determines what this characteristic can do</summary>
-        public List<CharacteristicProperties> Flags { get; set; } = new List<CharacteristicProperties>();
+        public CharacteristicProperties PropertiesFlags { get; set; } = CharacteristicProperties.None; 
 
         /// <summary>Unique identifier</summary>
         public Guid Uuid { get; set; }
+
+        public BLE_ProtectionLevel ProtectionLevel { get; set; }
 
         public string CharName { get; set; } = "xxxx";
 
@@ -24,6 +26,8 @@ namespace BluetoothLE.Net.DataModels {
 
         public Dictionary<string, BLE_DescriptorDataModel> Descriptors { get; set; } = new Dictionary<string, BLE_DescriptorDataModel>();
 
+        public List<BLE_PresentationFormat> PresentationFormats { get; set; } = new List<BLE_PresentationFormat>();
+
 
         /// <summary>The service that holds this characteristic</summary>
         public BLE_ServiceDataModel Service { get; set; }
@@ -31,31 +35,17 @@ namespace BluetoothLE.Net.DataModels {
 
         public bool IsReadable {
             get {
-                foreach(CharacteristicProperties p in GetEnumList<CharacteristicProperties>()) {
-                    if (p == CharacteristicProperties.Read) {
-                        return true;
-                    }
-                }
-                return false;
+                return this.PropertiesFlags.HasFlag(CharacteristicProperties.Read);
             }
         }
 
 
         public bool IsWritable {
             get {
-                foreach (CharacteristicProperties p in GetEnumList<CharacteristicProperties>()) {
-                    if (p == CharacteristicProperties.Write) {
-                        return true;
-                    }
-                }
-                return false;
+                return this.PropertiesFlags.HasFlag(CharacteristicProperties.Write);
             }
         }
 
-
-        private IEnumerable<object> GetEnumList<T>() {
-            throw new NotImplementedException();
-        }
 
         public BLE_CharacteristicDataModel() {
             //this.Descriptors = new Dictionary<string, BLE_DescriptorDataModel>();
