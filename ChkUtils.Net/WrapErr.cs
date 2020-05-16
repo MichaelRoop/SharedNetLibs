@@ -763,7 +763,7 @@ namespace ChkUtils.Net {
             }
             catch (Exception ex) {
                 Debug.WriteLine("{0} on call to WrapErr.GetErrReport:{1} - {2}", ex.GetType().Name, ex.Message, ex.StackTrace);
-                return WrapErr.LogErr(new ErrReport(code, "UnknownClass", "UnknownMethod", msg, e));
+                return WrapErr.LogErr(new ErrReport(code, "UnknownClass", "UnknownMethod", msg, ex));
             }
         }
 
