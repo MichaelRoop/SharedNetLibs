@@ -144,6 +144,7 @@
     <Compile Include="TestHelperTests.cs" />
     <Compile Include="TestToolSet\HelperLogReader.cs" />
     <Compile Include="VariousUtilsTests.Net\ByteHelpersTests.cs" />
+    <Compile Include="VariousUtilsTests.Net\EnumHelpersTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BluetoothLE\BluetoothLE.Net.csproj">

@@ -7,6 +7,7 @@ namespace BluetoothLE.Net.Enumerations {
     /// <summary>From BLE specs
     /// 
     /// </summary>
+    [Flags]
     public enum CharacteristicProperties {
 
         /// <summary>No properties that apply</summary>
