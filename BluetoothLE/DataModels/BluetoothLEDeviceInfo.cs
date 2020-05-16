@@ -70,6 +70,9 @@ namespace BluetoothLE.Net.DataModels {
 
         public Dictionary<string, BLE_PropertyDataModel> ServiceProperties { get; set; } = new Dictionary<string, BLE_PropertyDataModel>();
 
+        public Dictionary<string, BLE_ServiceDataModel> Services { get; set; } = new Dictionary<string, BLE_ServiceDataModel>();
+
+
         #region MS extra stuff - OS specific
 
         // MS example
