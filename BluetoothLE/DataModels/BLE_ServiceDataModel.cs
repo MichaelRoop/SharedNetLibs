@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BluetoothLE.Net.Enumerations;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -23,8 +24,11 @@ namespace BluetoothLE.Net.DataModels {
         /// <summary>List of Gatt characteristics which include read/write sources</summary>
         public Dictionary<string, BLE_CharacteristicDataModel> Characteristics { get; set; } = new Dictionary<string, BLE_CharacteristicDataModel>();
 
-        //public List<BLE_CharacteristicDataModel> tstListChar { get; set; } = new List<BLE_CharacteristicDataModel>();
+        public BLE_DeviceAccessStatus DeviceAccess { get; set; } = BLE_DeviceAccessStatus.Unspecified;
 
+        public BLE_SharingMode SharingMode { get; set; } = BLE_SharingMode.Unspecified;
+
+        public BLE_GattSession Session { get; set; } = new BLE_GattSession();
 
         /// <summary>Gatt Service UUID</summary>
         public Guid Uuid { get; set; } = Guid.Empty;
