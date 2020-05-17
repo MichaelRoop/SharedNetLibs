@@ -1,4 +1,5 @@
-﻿using BluetoothLE.Net.interfaces;
+﻿using BluetoothLE.Net.Enumerations;
+using BluetoothLE.Net.interfaces;
 using ChkUtils.Net;
 using LogUtils.Net;
 using System;
@@ -50,8 +51,16 @@ namespace BluetoothLE.Net.DataModels {
         /// <summary>Name</summary>
         public string Name { get; set; }
 
-        /// <summary>Id or Address</summary>
+        /// <summary>Id which as info and BT Address</summary>
+        /// <example>BluetoothLE#BluetoothLE10:08:b1:8a:b0:02-84:0d:8e:1e:d3:d6</example>
         public string Id { get; set; }
+
+        /// <summary>Get the Bluetooth type info only on connection</summary>
+        public BluetoothType TypeBluetooth { get; set; } = BluetoothType.Unknown;
+
+        public BLE_AddressType AddressType { get; set; } = BLE_AddressType.Unspecified;
+
+        public ulong AddressAsULong { get; set; } = 0;
 
         public bool IsDefault { get; set; } // not in Ms example
 
@@ -59,18 +68,25 @@ namespace BluetoothLE.Net.DataModels {
 
         public bool CanPair { get; set; } // not in Ms example
 
-        public bool IsPaired { get; set; }
+        public bool IsPaired { get; set; } = false;
 
-        public string Kind { get; set; }
+        public BLE_DeviceInfoKind Kind { get; set; } = BLE_DeviceInfoKind.Unknown;
 
+        public bool IsConnected { get; set; } = false;
 
-        public bool IsConnected { get; set; }
-        public bool IsConnectable { get; set; }
+        public bool IsConnectable { get; set; } = false;
 
+        public BLE_ProtectionLevel ProtectionLevel { get; set; } = BLE_ProtectionLevel.DefaultPlain;
+
+        public BLE_EnclosureLocation EnclosureLocation { get; set; } = new BLE_EnclosureLocation();
+
+        public BLE_DeviceAccessStatus AccessStatus { get; set; } = BLE_DeviceAccessStatus.Unspecified;
 
         public Dictionary<string, BLE_PropertyDataModel> ServiceProperties { get; set; } = new Dictionary<string, BLE_PropertyDataModel>();
 
         public Dictionary<string, BLE_ServiceDataModel> Services { get; set; } = new Dictionary<string, BLE_ServiceDataModel>();
+
+        public bool WasPairedUsingSecureConnection { get; set; } = false;
 
 
         #region MS extra stuff - OS specific
