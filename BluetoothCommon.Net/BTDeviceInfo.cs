@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BluetoothCommon.Net.Enumerations;
+using System;
 
 namespace BluetoothCommon.Net {
 
@@ -6,11 +7,20 @@ namespace BluetoothCommon.Net {
     public class BTDeviceInfo {
 
         /// <summary>Authenticated state</summary>
-        public bool Authenticated { get; set; }
-
+        public bool Authenticated { get; set; } = false;
 
         /// <summary>Connected state</summary>
-        public bool Connected { get; set; }
+        public bool Connected { get; set; } = false;
+
+        public bool IsPaired { get; set; } = false;
+
+        public bool CanPair { get; set; } = false;
+
+        /// <summary>We will only try to get one service type, Serial Port</summary>
+        public BT_ServiceType ServiceType { get; set; } = BT_ServiceType.None;
+
+        public string RemoteHostName { get; set; } = "";
+        public string RemoteServiceName { get; set; } = "";
 
         // Remembered
         // Installed services List<Guid>
@@ -41,8 +51,6 @@ namespace BluetoothCommon.Net {
 
 
         public BTDeviceInfo() {
-            this.Authenticated = false;
-            this.Connected = false;
             this.DeviceClassInt = 0;
             this.DeviceClassName = "Unknown";
             this.Address = "Unknown";
