@@ -142,7 +142,12 @@ namespace ChkUtils.Net.ExceptionParsers {
                     if (e.Data != null) {
                         foreach (DictionaryEntry item in e.Data) {
                             // Note. we use the ToString to dump a representation of the User Data Key and Value
-                            this.extraInfo.Add(new ExceptionExtraInfo(item.Key.ToString(), item.Value.ToString()));
+                            if (item.Key != null) {
+                                this.extraInfo.Add(new ExceptionExtraInfo(item.Key.ToString(), item.Value == null ? "NULL" : item.Value.ToString()));
+                            }
+                            else {
+                                Debug.WriteLine(String.Format("ExceptionParserBase.BuildExtraInfoItems : DictionaryEntry Item Key is null"));
+                            }
                         }
                     }
                 }
