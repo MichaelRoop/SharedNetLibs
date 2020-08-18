@@ -39,6 +39,7 @@ namespace LanguageFactory.Languages.es {
             this.AddMsg(MsgCode.EnterName, "Escribir nombre");
             this.AddMsg(MsgCode.Continue, "¿Continuar?");
             this.AddMsg(MsgCode.Configure, "Configurar");
+            this.AddMsg(MsgCode.NoServices, "Ningún servicio encontrado");
 
             //this.AddMsg(MsgCode., "");
         }

@@ -38,6 +38,7 @@ namespace LanguageFactory.Languages.cn {
             this.AddMsg(MsgCode.EnterName, "输入名称");
             this.AddMsg(MsgCode.Continue, "繼續?");
             this.AddMsg(MsgCode.Configure, "配置");
+            this.AddMsg(MsgCode.NoServices, "未检测到服务");
 
             //this.AddMsg(MsgCode., "");
 

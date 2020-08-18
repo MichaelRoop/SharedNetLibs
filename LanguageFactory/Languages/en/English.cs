@@ -40,6 +40,7 @@ namespace LanguageFactory.Languages.en {
             this.AddMsg(MsgCode.EnterName, "Enter name");
             this.AddMsg(MsgCode.Continue, "Continue?");
             this.AddMsg(MsgCode.Configure, "Configure");
+            this.AddMsg(MsgCode.NoServices, "No services");
 
             //this.AddMsg(MsgCode., "");
         }

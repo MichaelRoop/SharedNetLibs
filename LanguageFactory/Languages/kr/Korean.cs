@@ -38,6 +38,7 @@ namespace LanguageFactory.Languages.kr {
             this.AddMsg(MsgCode.EnterName, "이름 입력");
             this.AddMsg(MsgCode.Continue, "계속?");
             this.AddMsg(MsgCode.Configure, "구성");
+            this.AddMsg(MsgCode.NoServices, "서비스를 찾을 수 없습니다");
 
             //this.AddMsg(MsgCode., "");
         }

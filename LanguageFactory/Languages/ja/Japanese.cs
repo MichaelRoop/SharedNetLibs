@@ -38,6 +38,7 @@ namespace LanguageFactory.Languages.ja {
             this.AddMsg(MsgCode.EnterName, "名前の入力");
             this.AddMsg(MsgCode.Continue, "続行");
             this.AddMsg(MsgCode.Configure, "設定");
+            this.AddMsg(MsgCode.NoServices, "サービスが見つかりません");
 
             //this.AddMsg(MsgCode., "");
         }
