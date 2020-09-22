@@ -4,6 +4,7 @@ using BluetoothLE.Net.Parsers.Descriptor;
 using LogUtils.Net;
 using NUnit.Framework;
 using System;
+using TestCases.Core;
 using VariousUtils.Net;
 
 namespace TestCases.BLE_DescParsers {
