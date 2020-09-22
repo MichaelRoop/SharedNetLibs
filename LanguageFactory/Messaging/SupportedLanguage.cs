@@ -1,8 +1,8 @@
-﻿using LanguageFactory.data;
+﻿using LanguageFactory.Net.data;
 using LogUtils.Net;
 using System.Collections.Generic;
 
-namespace LanguageFactory.Messaging {
+namespace LanguageFactory.Net.Messaging {
 
     /// <summary>Base class that holds information for all messages of one language</summary>
     public class SupportedLanguage {

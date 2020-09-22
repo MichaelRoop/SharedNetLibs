@@ -1,9 +1,9 @@
-﻿using LanguageFactory.data;
-using LanguageFactory.Messaging;
+﻿using LanguageFactory.Net.data;
+using LanguageFactory.Net.Messaging;
 using System;
 using System.Collections.Generic;
 
-namespace LanguageFactory.interfaces {
+namespace LanguageFactory.Net.interfaces {
 
     public interface ILangFactory {
 

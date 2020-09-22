@@ -1,4 +1,4 @@
-﻿namespace LanguageFactory.data {
+﻿namespace LanguageFactory.Net.data {
 
     /// <summary>Holds information for one message</summary>
     public class MessageDataModel {

@@ -1,6 +1,6 @@
-﻿using LanguageFactory.data;
-using LanguageFactory.interfaces;
-using LanguageFactory.Messaging;
+﻿using LanguageFactory.Net.data;
+using LanguageFactory.Net.interfaces;
+using LanguageFactory.Net.Messaging;
 using NUnit.Framework;
 
 namespace TestCases.LanguageTests.Net {

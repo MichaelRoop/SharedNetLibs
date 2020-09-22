@@ -1,7 +1,7 @@
-﻿using LanguageFactory.data;
-using LanguageFactory.Messaging;
+﻿using LanguageFactory.Net.data;
+using LanguageFactory.Net.Messaging;
 
-namespace LanguageFactory.Languages.en {
+namespace LanguageFactory.Net.Languages.en {
     public class English : SupportedLanguage {
 
         public English() : base() {

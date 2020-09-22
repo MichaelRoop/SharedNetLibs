@@ -1,7 +1,7 @@
-﻿using LanguageFactory.data;
-using LanguageFactory.Messaging;
+﻿using LanguageFactory.Net.data;
+using LanguageFactory.Net.Messaging;
 
-namespace LanguageFactory.Languages.fr {
+namespace LanguageFactory.Net.Languages.fr {
     public class French : SupportedLanguage {
         public French() : base() {
             this.SetLanguage(LangCode.French, "Français");

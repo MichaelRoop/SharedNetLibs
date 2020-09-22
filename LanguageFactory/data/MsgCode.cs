@@ -1,4 +1,4 @@
-﻿namespace LanguageFactory.data {
+﻿namespace LanguageFactory.Net.data {
 
     /// <summary>Supported messages</summary>
     /// <remarks>

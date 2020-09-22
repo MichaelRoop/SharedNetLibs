@@ -1,7 +1,7 @@
-﻿using LanguageFactory.data;
-using LanguageFactory.Messaging;
+﻿using LanguageFactory.Net.data;
+using LanguageFactory.Net.Messaging;
 
-namespace LanguageFactory.Languages.kr {
+namespace LanguageFactory.Net.Languages.kr {
     class Korean : SupportedLanguage {
         public Korean() : base() {
             this.SetLanguage(LangCode.Korean, "한국어");

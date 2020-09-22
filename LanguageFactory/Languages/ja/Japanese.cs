@@ -1,7 +1,7 @@
-﻿using LanguageFactory.data;
-using LanguageFactory.Messaging;
+﻿using LanguageFactory.Net.data;
+using LanguageFactory.Net.Messaging;
 
-namespace LanguageFactory.Languages.ja {
+namespace LanguageFactory.Net.Languages.ja {
     class Japanese : SupportedLanguage {
         public Japanese() : base() {
             this.SetLanguage(LangCode.Japanese, "日本語");

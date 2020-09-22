@@ -1,4 +1,4 @@
-﻿namespace LanguageFactory.data {
+﻿namespace LanguageFactory.Net.data {
 
     /// <summary>Enumeration of supported languages</summary>
     public enum LangCode {

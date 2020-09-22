@@ -1,4 +1,4 @@
-﻿namespace LanguageFactory.data {
+﻿namespace LanguageFactory.Net.data {
 
     public class LanguageDataModel {
         public LangCode Code { get; set; } = LangCode.English;

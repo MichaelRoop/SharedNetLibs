@@ -1,7 +1,7 @@
-﻿using LanguageFactory.data;
-using LanguageFactory.Messaging;
+﻿using LanguageFactory.Net.data;
+using LanguageFactory.Net.Messaging;
 
-namespace LanguageFactory.Languages.es {
+namespace LanguageFactory.Net.Languages.es {
     class Spanish : SupportedLanguage {
         public Spanish() : base() {
 

@@ -1,7 +1,7 @@
-﻿using LanguageFactory.data;
-using LanguageFactory.Messaging;
+﻿using LanguageFactory.Net.data;
+using LanguageFactory.Net.Messaging;
 
-namespace LanguageFactory.Languages.cn {
+namespace LanguageFactory.Net.Languages.cn {
     class Chinese : SupportedLanguage {
         public Chinese() : base() {
             this.SetLanguage(LangCode.Chinese, "汉语");

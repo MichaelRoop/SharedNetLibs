@@ -1,18 +1,18 @@
 ﻿using ChkUtils.Net;
 using ChkUtils.Net.ErrObjects;
-using LanguageFactory.data;
-using LanguageFactory.interfaces;
-using LanguageFactory.Languages.cn;
-using LanguageFactory.Languages.en;
-using LanguageFactory.Languages.es;
-using LanguageFactory.Languages.fr;
-using LanguageFactory.Languages.ja;
-using LanguageFactory.Languages.kr;
+using LanguageFactory.Net.data;
+using LanguageFactory.Net.interfaces;
+using LanguageFactory.Net.Languages.cn;
+using LanguageFactory.Net.Languages.en;
+using LanguageFactory.Net.Languages.es;
+using LanguageFactory.Net.Languages.fr;
+using LanguageFactory.Net.Languages.ja;
+using LanguageFactory.Net.Languages.kr;
 using LogUtils.Net;
 using System;
 using System.Collections.Generic;
 
-namespace LanguageFactory.Messaging {
+namespace LanguageFactory.Net.Messaging {
 
     /// <summary>
     /// Implementation of factory that will deliver text based on 
