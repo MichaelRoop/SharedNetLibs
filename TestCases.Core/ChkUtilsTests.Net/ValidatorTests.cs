@@ -7,6 +7,7 @@ using ChkUtils.Net.ErrObjects;
 using ChkUtils.Net;
 using ChkUtils.Net.ExceptionFormating;
 using System.ServiceModel;
+using TestCases.Core;
 
 namespace TestCases.ChkUtilsTests.Net {
 

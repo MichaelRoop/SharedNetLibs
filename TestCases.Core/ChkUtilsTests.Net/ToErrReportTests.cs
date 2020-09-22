@@ -1,5 +1,6 @@
 ﻿using ChkUtils.Net;
 using ChkUtils.Net.ErrObjects;
+using TestCases.Core;
 using NUnit.Framework;
 using System;
 
@@ -28,7 +29,7 @@ namespace TestCases.ChkUtilsTests.Net {
             // Confirms that the error message formating section is not invoked unless there is actually an error
             ErrReport err;
             WrapErr.ToErrReport(out err, 1111, () => { return "The error formating has been invoked"; }, () => {
-                TestHelpers.NonExceptionAction();
+                TestHelpersNet.NonExceptionAction();
             });
             Assert.AreEqual(0, err.Code, String.Format("Encountered error '{0}'", err.Msg));
         }
@@ -39,7 +40,7 @@ namespace TestCases.ChkUtilsTests.Net {
             ErrReport err;
             WrapErr.ToErrReport(out err, 1111, () => { return "The error formating has been invoked"; },
                 delegate {
-                    TestHelpers.NonExceptionAction();
+                    TestHelpersNet.NonExceptionAction();
                 },
                 delegate {
                     throw new Exception("This should be ignored");
@@ -56,7 +57,7 @@ namespace TestCases.ChkUtilsTests.Net {
                     Assert.Fail("The error formating should not have been invoked");
                     return "this error";
                 },
-                () => { TestHelpers.NonExceptionAction(); });
+                () => { TestHelpersNet.NonExceptionAction(); });
         }
 
         [Test]
@@ -106,7 +107,7 @@ namespace TestCases.ChkUtilsTests.Net {
             // Confirms that the error message formating section is not invoked unless there is actually an error
             ErrReport err;
             int ret = WrapErr.ToErrReport(out err, 1111, () => { return "The error formating has been invoked"; }, () => {
-                return TestHelpers.NonExceptionFunc();
+                return TestHelpersNet.NonExceptionFunc();
             });
             Assert.AreEqual(0, err.Code, String.Format("Encountered error '{0}'", err.Msg));
         }
@@ -117,7 +118,7 @@ namespace TestCases.ChkUtilsTests.Net {
             ErrReport err;
             int ret = WrapErr.ToErrReport(out err, 1111, () => { return "The error formating has been invoked"; },
                 delegate {
-                return TestHelpers.NonExceptionFunc();
+                return TestHelpersNet.NonExceptionFunc();
                 },
                 delegate {
                     throw new Exception("This should be ignored");
@@ -134,7 +135,7 @@ namespace TestCases.ChkUtilsTests.Net {
                     Assert.Fail("The error formating should not have been invoked");
                     return "this error";
                 },
-                () => { return TestHelpers.NonExceptionFunc(); });
+                () => { return TestHelpersNet.NonExceptionFunc(); });
         }
 
         [Test]

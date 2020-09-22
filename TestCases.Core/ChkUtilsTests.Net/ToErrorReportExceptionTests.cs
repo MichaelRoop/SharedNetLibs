@@ -5,6 +5,7 @@ using System.Text;
 using NUnit.Framework;
 using ChkUtils.Net;
 using ChkUtils.Net.ErrObjects;
+using TestCases.Core;
 
 namespace TestCases.ChkUtilsTests.Net {
 

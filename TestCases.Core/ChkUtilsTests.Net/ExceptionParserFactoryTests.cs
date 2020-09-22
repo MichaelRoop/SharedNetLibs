@@ -1,4 +1,4 @@
-﻿using ChkUtils.ExceptionParsers;
+﻿using ChkUtils.Net.ExceptionParsers;
 using NUnit.Framework;
 using System;
 using System.Xml;
