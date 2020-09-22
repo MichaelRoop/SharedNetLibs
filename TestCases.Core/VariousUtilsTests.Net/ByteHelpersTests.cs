@@ -1,24 +1,21 @@
 ﻿using CommunicationStack.Net.Stacks;
-using LogUtils;
+using LogUtils.Net;
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TestCases.Core;
 using VariousUtils.Net;
 
 namespace TestCases.VariousUtilsTests.Net {
 
     [TestFixture]
-    public class ByteHelpersTests :TestCaseBase {
+    public class ByteHelpersTests : TestCaseBase {
 
         byte[] newLine = "\n".ToAsciiByteArray();
         byte[] carReturn = "\r".ToAsciiByteArray();
         byte[] crln = "\r\n".ToAsciiByteArray();
         byte[] crlntab = "\r\n\t".ToAsciiByteArray();
-
+        ClassLog log = new ClassLog("ByteHelpersTests");
 
         #region Setup
 
@@ -42,6 +39,8 @@ namespace TestCases.VariousUtilsTests.Net {
         [Test]
         public void xBytePatternTests() {
             TestHelpersNet.CatchUnexpected(() => {
+                this.log.InfoEntry("xBytePatternTests");
+
                 byte[] buff = new byte[1000];
                 int inPos = 0;
                 // Single terminator pattern
@@ -81,14 +80,6 @@ namespace TestCases.VariousUtilsTests.Net {
                 // the buffer was not purged
                 //inPos = ByteHelpers.FindFirstBytePatternPos(buff, totalLen, crln);
                 //Assert.AreEqual(15, inPos);
-
-                double x = 0;
-                for (int i = 0; i< 100; i++) {
-                    Log.Info("DFDF", "sdfds", "Msg");
-                    x++;
-                }
-
-
 
             });
         }
@@ -245,9 +236,9 @@ namespace TestCases.VariousUtilsTests.Net {
         public void PrintBytes() {
             TestHelpersNet.CatchUnexpected(() => {
 
-                foreach(Terminator t in EnumHelpers.GetEnumList<Terminator>()) {
+                foreach (Terminator t in EnumHelpers.GetEnumList<Terminator>()) {
                     Debug.WriteLine("({0})Name: {1}   Hex:{2}   StrView:{3}   char:{4}",
-                        ((byte)t).ToString("D2"), t.ToString().PadLeft(3, ' '), t.ToHexString(), t.ToStringCharDisplay(), t.ToStringChar().PadLeft(3,' '));
+                        ((byte)t).ToString("D2"), t.ToString().PadLeft(3, ' '), t.ToHexString(), t.ToStringCharDisplay(), t.ToStringChar().PadLeft(3, ' '));
 
                     //Log.Info("***", "***", () => string.Format("({0})Name: {1} Hex:{2} Str:{3}",
                     //    ((byte)t).ToString("D2"), t.ToString(), t.ToHexString().PadLeft(3, ' '), t.ToStringChar()));
