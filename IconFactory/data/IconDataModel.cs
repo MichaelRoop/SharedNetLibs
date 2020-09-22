@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace IconFactory.data {
+﻿namespace IconFactory.Net.data {
 
     public class IconDataModel {
 

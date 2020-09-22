@@ -1,7 +1,7 @@
 ﻿using ChkUtils.Net;
 using System;
 
-namespace DependencyInjectorFactory {
+namespace DependencyInjectorFactory.Net {
 
 
     /// <summary>Returns a singleton of the object based on passed in constructor</summary>

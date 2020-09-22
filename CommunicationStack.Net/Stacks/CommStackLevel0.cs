@@ -4,7 +4,7 @@ using LogUtils.Net;
 using System;
 using System.Text;
 using System.Threading.Tasks;
-using VariousUtils;
+using VariousUtils.Net;
 
 namespace CommunicationStack.Net.Stacks {
 

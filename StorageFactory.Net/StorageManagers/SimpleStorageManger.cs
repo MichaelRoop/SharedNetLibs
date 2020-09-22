@@ -5,7 +5,7 @@ using StorageFactory.Net.interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using VariousUtils;
+using VariousUtils.Net;
 
 namespace StorageFactory.Net.StorageManagers {
 

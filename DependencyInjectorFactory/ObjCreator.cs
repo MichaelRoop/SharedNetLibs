@@ -2,7 +2,7 @@
 //using LogUtils.Net;
 using System;
 
-namespace DependencyInjectorFactory {
+namespace DependencyInjectorFactory.Net {
 
     /// <summary>Base class to create and object from its stored constructor</summary>
     public abstract class ObjCreator {

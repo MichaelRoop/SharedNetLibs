@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
-using VariousUtils;
+using VariousUtils.Net;
 
 namespace TestCases.VariousUtilsTests.Net {
 

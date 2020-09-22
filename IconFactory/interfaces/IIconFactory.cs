@@ -1,9 +1,6 @@
-﻿using IconFactory.data;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using IconFactory.Net.data;
 
-namespace IconFactory.interfaces {
+namespace IconFactory.Net.interfaces {
 
     public interface IIconFactory {
 

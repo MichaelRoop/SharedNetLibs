@@ -1,7 +1,7 @@
 ﻿using ChkUtils.Net;
 using System;
 
-namespace DependencyInjectorFactory {
+namespace DependencyInjectorFactory.Net {
 
     /// <summary>Uses the stored pointer to the constructor to build an object</summary>
     public class ObjInstanceCreator : ObjCreator {

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using VariousUtils;
+using VariousUtils.Net;
 
 namespace CommunicationStack.Net.Stacks {
 

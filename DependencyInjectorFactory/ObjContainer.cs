@@ -1,9 +1,9 @@
 ﻿using ChkUtils.Net;
-using DependencyInjectorFactory.interfaces;
+using DependencyInjectorFactory.Net.interfaces;
 using System;
 using System.Collections.Generic;
 
-namespace DependencyInjectorFactory {
+namespace DependencyInjectorFactory.Net {
 
     public abstract class ObjContainer : IObjContainer {
 

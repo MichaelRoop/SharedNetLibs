@@ -1,5 +1,5 @@
 ﻿
-namespace DependencyInjectorFactory.interfaces {
+namespace DependencyInjectorFactory.Net.interfaces {
 
     /// <summary>
     /// Interface for a simple multi-platform Dependency injector

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DependencyInjectorFactory.interfaces {
+namespace DependencyInjectorFactory.Net.interfaces {
 
     /// <summary>Holds extra creators with OS specific class implementations</summary>
     public interface IObjExtraCreators {

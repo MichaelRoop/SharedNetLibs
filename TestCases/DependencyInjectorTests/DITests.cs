@@ -1,5 +1,5 @@
-﻿using DependencyInjectorFactory;
-using DependencyInjectorFactory.interfaces;
+﻿using DependencyInjectorFactory.Net;
+using DependencyInjectorFactory.Net.interfaces;
 using LogUtils;
 using NUnit.Framework;
 using System;

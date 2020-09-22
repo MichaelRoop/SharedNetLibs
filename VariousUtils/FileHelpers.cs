@@ -4,7 +4,7 @@ using LogUtils.Net;
 using System.Collections.Generic;
 using System.IO;
 
-namespace VariousUtils {
+namespace VariousUtils.Net {
 
     public static class FileHelpers {
 

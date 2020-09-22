@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace VariousUtils {
+namespace VariousUtils.Net {
 
     /// <summary>Some helpers for enum usage</summary>
     public static class EnumHelpers {

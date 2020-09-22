@@ -2,7 +2,7 @@
 using BluetoothLE.Net.interfaces;
 using BluetoothLE.Net.Parsers.Descriptor;
 using System;
-using VariousUtils;
+using VariousUtils.Net;
 
 namespace BluetoothLE.Net.Parsers {
 

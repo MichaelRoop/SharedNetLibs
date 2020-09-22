@@ -1,4 +1,4 @@
-﻿namespace IconFactory.data {
+﻿namespace IconFactory.Net.data {
     public enum UIIcon {
         Save,
         Cancel,

@@ -3,7 +3,7 @@ using ChkUtils.Net.ErrObjects;
 using LogUtils.Net;
 using System.IO;
 
-namespace VariousUtils {
+namespace VariousUtils.Net {
 
     public static class DirectoryHelpers {
 

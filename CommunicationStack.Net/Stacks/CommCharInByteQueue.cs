@@ -1,6 +1,6 @@
 ﻿using LogUtils.Net;
 using System;
-using VariousUtils;
+using VariousUtils.Net;
 
 namespace CommunicationStack.Net.Stacks {
 

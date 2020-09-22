@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace VariousUtils {
+﻿namespace VariousUtils.Net {
     public static class BitTools {
 
         public static byte SetBit(byte data, int pos, bool on) {

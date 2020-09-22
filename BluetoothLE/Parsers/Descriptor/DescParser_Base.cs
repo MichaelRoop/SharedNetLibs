@@ -2,7 +2,7 @@
 using ChkUtils.Net;
 using LogUtils.Net;
 using System;
-using VariousUtils;
+using VariousUtils.Net;
 
 namespace BluetoothLE.Net.Parsers.Descriptor {
     public abstract class DescParser_Base : IDescParser {
