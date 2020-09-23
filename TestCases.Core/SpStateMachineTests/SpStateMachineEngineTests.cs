@@ -4,7 +4,6 @@ using SpStateMachine.Interfaces;
 using System;
 using System.Threading;
 using TestCases.Core.TestToolSet;
-using TestCases.Core.TestToolSet.Net;
 using FakeItEasy;
 
 namespace TestCases.SpStateMachineTests {

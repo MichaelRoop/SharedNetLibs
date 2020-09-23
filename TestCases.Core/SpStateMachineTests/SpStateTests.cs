@@ -4,7 +4,6 @@ using SpStateMachine.Interfaces;
 using SpStateMachine.States;
 using System;
 using TestCases.Core.TestToolSet;
-using TestCases.Core.TestToolSet.Net;
 using TestCases.SpStateMachineTests.TestImplementations;
 using TestCases.SpStateMachineTests.TestImplementations.Messages;
 

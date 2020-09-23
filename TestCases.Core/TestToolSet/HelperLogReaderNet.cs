@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 
-namespace TestCases.Core.TestToolSet.Net {
+namespace TestCases.Core.TestToolSet {
 
     /// <summary>
     /// Common functionality to access error information that may not propegate from
