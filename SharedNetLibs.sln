@@ -42,7 +42,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IconFactory.Net", "IconFact
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VariousUtils.Net", "VariousUtils\VariousUtils.Net.csproj", "{E205B8F3-992D-4C85-B164-B4B23369EA08}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCases.Core", "TestCases.Core\TestCases.Core.csproj", "{888DBB00-394C-4C9A-A330-889A57F72B4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestCases.Core", "TestCases.Core\TestCases.Core.csproj", "{888DBB00-394C-4C9A-A330-889A57F72B4B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpStateMachineDemo.Core.UI", "SpStateMachineDemo.Core.UI\SpStateMachineDemo.Core.UI.csproj", "{564511AF-DED4-4979-BC7A-6127CEF55218}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -122,6 +124,10 @@ Global
 		{888DBB00-394C-4C9A-A330-889A57F72B4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{888DBB00-394C-4C9A-A330-889A57F72B4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{888DBB00-394C-4C9A-A330-889A57F72B4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{564511AF-DED4-4979-BC7A-6127CEF55218}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{564511AF-DED4-4979-BC7A-6127CEF55218}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{564511AF-DED4-4979-BC7A-6127CEF55218}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{564511AF-DED4-4979-BC7A-6127CEF55218}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
