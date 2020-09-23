@@ -8,6 +8,7 @@ using SpStateMachine.Converters;
 using SpStateMachine.Core;
 using LogUtils;
 using TestCases.SpStateMachineTests.TestImplementations.Messages;
+using LogUtils.Net;
 
 namespace TestCases.SpStateMachineTests.TestImplementations.SuperStates.CascadeOnExit {
 

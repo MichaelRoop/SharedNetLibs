@@ -5,6 +5,7 @@ using System.Text;
 using SpStateMachine.Interfaces;
 using LogUtils;
 using TestCases.SpStateMachineTests.TestImplementations.Messages;
+using LogUtils.Net;
 
 namespace TestCases.SpStateMachineTests.TestImplementations.States {
 

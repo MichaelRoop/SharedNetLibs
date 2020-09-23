@@ -7,7 +7,9 @@ using TestCases.SpStateMachineTests.TestImplementations;
 using TestCases.SpStateMachineTests.TestImplementations.Messages;
 using TestCases.SpStateMachineTests.TestImplementations.SuperStates;
 using TestCases.SpStateMachineTests.TestImplementations.SuperStates.CascadeOnExit;
-using TestCases.TestToolSet.Net;
+using TestCases.Core.TestToolSet.Net;
+using TestCases.Core;
+using LogUtils.Net;
 
 namespace TestCases.SpStateMachineTests {
 

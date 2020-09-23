@@ -5,9 +5,10 @@ using SpStateMachine.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TestCases.Core;
+using TestCases.Core.TestToolSet.Net;
 using TestCases.SpStateMachineTests.TestImplementations;
 using TestCases.SpStateMachineTests.TestImplementations.Messages;
-using TestCases.TestToolSet.Net;
 
 namespace TestCases.SpStateMachineTests {
 

@@ -5,9 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FakeItEasy" Version="6.2.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
     <PackageReference Include="NUnit" Version="3.12.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
+    <PackageReference Include="RhinoMocks" Version="3.6.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,6 +19,8 @@
     <ProjectReference Include="..\DependencyInjectorFactory\DependencyInjectorFactory.Net.csproj" />
     <ProjectReference Include="..\LanguageFactory\LanguageFactory.Net.csproj" />
     <ProjectReference Include="..\LogUtils.Net\LogUtils.Net.csproj" />
+    <ProjectReference Include="..\SpStateMachine.Net\SpStateMachine.Net.csproj" />
+    <ProjectReference Include="..\SpStateMachineDemo.Net\SpStateMachineDemo.Net.csproj" />
     <ProjectReference Include="..\StorageFactory.Net\StorageFactory.Net.csproj" />
     <ProjectReference Include="..\VariousUtils\VariousUtils.Net.csproj" />
   </ItemGroup>

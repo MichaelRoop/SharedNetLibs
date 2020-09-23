@@ -4,14 +4,15 @@ using System.Linq;
 using System.Text;
 using SpStateMachine.Interfaces;
 using LogUtils;
+using LogUtils.Net;
 
 namespace TestCases.SpStateMachineTests.TestImplementations.States {
 
-    public class FailedSt : MyState {
+    public class WaitOnInput : MyState {
 
-        private string className = "FailedSt";
+        private string className = "WaitOnInput";
 
-        public FailedSt(ISpState<MyMsgId> parent, MyDataClass dataClass)
+        public WaitOnInput(ISpState<MyMsgId> parent, MyDataClass dataClass)
             : base(parent, MyStateID.Idle, dataClass) {
         }
 

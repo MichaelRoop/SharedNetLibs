@@ -4,7 +4,9 @@ using SpStateMachine.Core;
 using SpStateMachine.Interfaces;
 using System;
 using System.Threading;
-using TestCases.TestToolSet.Net;
+using TestCases.Core;
+using TestCases.Core.TestToolSet.Net;
+using FakeItEasy;
 
 namespace TestCases.SpStateMachineTests {
 
@@ -91,13 +93,24 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _0_Dispose_MultiDisposeSafe() {
-            ISpEventListner listner = MockRepository.GenerateMock<ISpEventListner>();
-            listner.Expect((o) => o.Dispose()).Throw(new Exception("Listner exception"));
+            //ISpEventListner listner = MockRepository.GenerateMock<ISpEventListner>();
+            //listner.Expect((o) => o.Dispose()).Throw(new Exception("Listner exception"));
+            ISpEventListner listner = A.Fake<ISpEventListner>();
+            A.CallTo(() => listner.Dispose()).Throws(new Exception("Listner exceptionXX"));
 
-            ISpEventStore st = MockRepository.GenerateMock<ISpEventStore>();
-            ISpBehaviorOnEvent be = MockRepository.GenerateMock<ISpBehaviorOnEvent>();
-            ISpStateMachine sm = MockRepository.GenerateMock<ISpStateMachine>();
-            ISpPeriodicTimer tm = MockRepository.GenerateMock<ISpPeriodicTimer>();
+
+            //            listner.Expect((o) => o.Dispose()).Throw(new Exception("Listner exception"));
+
+            //return;
+
+            //ISpEventStore st = MockRepository.GenerateMock<ISpEventStore>();
+            //ISpBehaviorOnEvent be = MockRepository.GenerateMock<ISpBehaviorOnEvent>();
+            //ISpStateMachine sm = MockRepository.GenerateMock<ISpStateMachine>();
+            //ISpPeriodicTimer tm = MockRepository.GenerateMock<ISpPeriodicTimer>();
+            ISpEventStore st = A.Fake<ISpEventStore>();
+            ISpBehaviorOnEvent be = A.Fake<ISpBehaviorOnEvent>();
+            ISpStateMachine sm = A.Fake<ISpStateMachine>();
+            ISpPeriodicTimer tm = A.Fake<ISpPeriodicTimer>();
 
             TestHelpersNet.CatchUnexpected(() => {
                 SpStateMachineEngine engine = new SpStateMachineEngine(listner, st, be, sm, tm);
@@ -142,11 +155,16 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _0_DisposeObject_Success() {
-            ISpEventListner listner = MockRepository.GenerateMock<ISpEventListner>();
-            ISpEventStore st = MockRepository.GenerateMock<ISpEventStore>();
-            ISpBehaviorOnEvent be = MockRepository.GenerateMock<ISpBehaviorOnEvent>();
-            ISpStateMachine sm = MockRepository.GenerateMock<ISpStateMachine>();
-            ISpPeriodicTimer tm = MockRepository.GenerateMock<ISpPeriodicTimer>();
+            //ISpEventListner listner = MockRepository.GenerateMock<ISpEventListner>();
+            //ISpEventStore st = MockRepository.GenerateMock<ISpEventStore>();
+            //ISpBehaviorOnEvent be = MockRepository.GenerateMock<ISpBehaviorOnEvent>();
+            //ISpStateMachine sm = MockRepository.GenerateMock<ISpStateMachine>();
+            //ISpPeriodicTimer tm = MockRepository.GenerateMock<ISpPeriodicTimer>();
+            ISpEventListner listner = A.Fake<ISpEventListner>();
+            ISpEventStore st = A.Fake<ISpEventStore>();
+            ISpBehaviorOnEvent be = A.Fake<ISpBehaviorOnEvent>();
+            ISpStateMachine sm = A.Fake<ISpStateMachine>();
+            ISpPeriodicTimer tm = A.Fake<ISpPeriodicTimer>();
 
             TestHelpersNet.CatchUnexpected(() => {
                 SpStateMachineEngine engine = new SpStateMachineEngine(listner, st, be, sm, tm);

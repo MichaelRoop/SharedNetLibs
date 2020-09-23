@@ -4,7 +4,8 @@ using SpStateMachine.EventStores;
 using SpStateMachine.Interfaces;
 using TestCases.SpStateMachineTests.TestImplementations;
 using TestCases.SpStateMachineTests.TestImplementations.Messages;
-using TestCases.TestToolSet.Net;
+using TestCases.Core.TestToolSet.Net;
+using TestCases.Core;
 
 namespace TestCases.SpStateMachineTests {
 
@@ -84,7 +85,7 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _0_SimpleDequeQueue_Add() {
-            TestHelpers.CatchUnexpected(() => {
+            TestHelpersNet.CatchUnexpected(() => {
                 ISpEventStore d = new SimpleDequeEventStore(new MyBaseMsg(MyMsgType.SimpleMsg, MyMsgId.Tick));
                 d.Add(new MyBaseMsg(MyMsgType.SimpleMsg, MyMsgId.Tick));
                 d.Add(new MyBaseMsg(MyMsgType.SimpleMsg, MyMsgId.Tick));
@@ -96,7 +97,7 @@ namespace TestCases.SpStateMachineTests {
         [Test]
         public void _0_SimpleDequeQueue_AddSequencing() {
             ISpEventStore d = null;
-            TestHelpers.CatchUnexpected(() => {
+            TestHelpersNet.CatchUnexpected(() => {
                 d = new SimpleDequeEventStore(new MyBaseMsg(MyMsgType.SimpleMsg, MyMsgId.Tick));
                 d.Add(new MyBaseMsg(MyMsgType.DataStrMsg, MyMsgId.Abort));
                 d.Add(new MyBaseMsg( MyMsgType.SimpleMsg,  MyMsgId.Start));
@@ -108,7 +109,7 @@ namespace TestCases.SpStateMachineTests {
             this.MsgEqual(new MyBaseMsg(MyMsgType.DataStrMsg, MyMsgId.Stop), d.Get());
             this.MsgEqual(new MyBaseMsg(MyMsgType.SimpleMsg, MyMsgId.Tick), d.Get());
 
-            TestHelpers.CatchUnexpected(() => {
+            TestHelpersNet.CatchUnexpected(() => {
                 d.Dispose();
             });
         }
