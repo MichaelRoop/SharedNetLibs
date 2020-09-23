@@ -1,5 +1,4 @@
-﻿using LogUtils;
-using LogUtils.Net;
+﻿using LogUtils.Net;
 using NUnit.Framework;
 using StorageFactory.Net.interfaces;
 using StorageFactory.Net.Serializers;
@@ -8,9 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TestCases.Core;
+using TestCases.Core.TestToolSet;
 
 namespace TestCases.StorageTests {
 

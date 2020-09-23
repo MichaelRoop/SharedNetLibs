@@ -7,7 +7,7 @@ using System.Threading;
 using TestCases.SpStateMachineTests.TestImplementations;
 using TestCases.SpStateMachineTests.TestImplementations.Messages;
 using TestCases.Core.TestToolSet.Net;
-using TestCases.Core;
+using TestCases.Core.TestToolSet;
 
 namespace TestCases.SpStateMachineTests {
 

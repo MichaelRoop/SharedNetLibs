@@ -69,7 +69,6 @@
     <Compile Include="ChkUtilsTests\ValidatorTests.cs" />
     <Compile Include="TestCaseBase.cs" />
     <Compile Include="TestHelpersNet.cs" />
-    <Compile Include="TestToolSet\HelperLogReaderNet.cs" />
     <Compile Include="LogUtilsTests\LogPerformanceTests.cs" />
     <Compile Include="LogUtilsTests\LogTests.cs" />
     <Compile Include="LogUtilsTests\MsgLevelTests.cs" />

@@ -4,7 +4,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TestCases.TestToolSet.Net;
+using TestCases.TestToolSet;
+//using TestCases.TestToolSet.Net;
 
 namespace TestCases {
     
@@ -12,7 +13,7 @@ namespace TestCases {
 
         #region Data
 
-        protected HelperLogReaderNet logReader = new HelperLogReaderNet();
+        protected HelperLogReader logReader = new HelperLogReader();
 
         #endregion
 

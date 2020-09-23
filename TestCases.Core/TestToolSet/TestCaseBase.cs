@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TestCases.Core.TestToolSet.Net;
-//using TestCases.TestToolSet.Net;
 
-namespace TestCases.Core {
-    
+namespace TestCases.Core.TestToolSet {
+
     public class TestCaseBase {
 
         #region Data

@@ -2,7 +2,7 @@
 using LanguageFactory.Net.interfaces;
 using LanguageFactory.Net.Messaging;
 using NUnit.Framework;
-using TestCases.Core;
+using TestCases.Core.TestToolSet;
 
 namespace TestCases.LanguageTests.Net {
 

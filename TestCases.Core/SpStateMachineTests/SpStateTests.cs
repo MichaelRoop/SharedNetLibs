@@ -1,14 +1,12 @@
-﻿using NUnit.Framework;
-using SpStateMachine.Converters;
+﻿using FakeItEasy;
+using NUnit.Framework;
 using SpStateMachine.Interfaces;
-using SpStateMachine.Messages;
 using SpStateMachine.States;
 using System;
+using TestCases.Core.TestToolSet;
+using TestCases.Core.TestToolSet.Net;
 using TestCases.SpStateMachineTests.TestImplementations;
 using TestCases.SpStateMachineTests.TestImplementations.Messages;
-using TestCases.Core.TestToolSet.Net;
-using TestCases.Core;
-using FakeItEasy;
 
 namespace TestCases.SpStateMachineTests {
 

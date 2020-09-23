@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 using SpStateMachine.Converters;
-using TestCases.Core;
+using TestCases.Core.TestToolSet;
 using TestCases.Core.TestToolSet.Net;
 
 namespace TestCases.SpStateMachineTests {

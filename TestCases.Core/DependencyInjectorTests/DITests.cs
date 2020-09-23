@@ -1,13 +1,9 @@
 ﻿using DependencyInjectorFactory.Net;
 using DependencyInjectorFactory.Net.interfaces;
-using LogUtils;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TestCases.Core;
+using TestCases.Core.TestToolSet;
 
 namespace TestCases.DependencyInjectorTests {
 

@@ -2,7 +2,7 @@
 using SpStateMachine.Behaviours;
 using SpStateMachine.Core;
 using System.Threading;
-using TestCases.Core;
+using TestCases.Core.TestToolSet;
 using TestCases.Core.TestToolSet.Net;
 
 namespace TestCases.SpStateMachineTests {

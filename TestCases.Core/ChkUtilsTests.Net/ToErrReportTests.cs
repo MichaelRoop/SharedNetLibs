@@ -1,6 +1,6 @@
 ﻿using ChkUtils.Net;
 using ChkUtils.Net.ErrObjects;
-using TestCases.Core;
+using TestCases.Core.TestToolSet;
 using NUnit.Framework;
 using System;
 

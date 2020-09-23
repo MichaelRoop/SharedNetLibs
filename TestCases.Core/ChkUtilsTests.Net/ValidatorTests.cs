@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NUnit.Framework;
+﻿using ChkUtils.Net;
 using ChkUtils.Net.ErrObjects;
-using ChkUtils.Net;
-using ChkUtils.Net.ExceptionFormating;
-using System.ServiceModel;
-using TestCases.Core;
+using NUnit.Framework;
+using TestCases.Core.TestToolSet;
 
 namespace TestCases.ChkUtilsTests.Net {
 

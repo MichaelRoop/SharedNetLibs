@@ -9,7 +9,7 @@ using SpStateMachine.Interfaces;
 using SpStateMachine.PeriodicTimers;
 using System;
 using System.Threading;
-using TestCases.Core;
+using TestCases.Core.TestToolSet;
 using TestCases.SpStateMachineTests.TestImplementations;
 using TestCases.SpStateMachineTests.TestImplementations.Messages;
 using TestCases.SpStateMachineTests.TestImplementations.SuperStates;

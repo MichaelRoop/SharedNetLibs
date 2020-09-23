@@ -3,7 +3,7 @@ using LogUtils.Net;
 using NUnit.Framework;
 using System;
 using System.Diagnostics;
-using TestCases.Core;
+using TestCases.Core.TestToolSet;
 using VariousUtils.Net;
 
 namespace TestCases.VariousUtilsTests.Net {

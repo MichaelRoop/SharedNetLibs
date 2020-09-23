@@ -3,7 +3,7 @@ using SpStateMachine.Core;
 using SpStateMachine.Interfaces;
 using System;
 using System.Threading;
-using TestCases.Core;
+using TestCases.Core.TestToolSet;
 using TestCases.Core.TestToolSet.Net;
 using FakeItEasy;
 
