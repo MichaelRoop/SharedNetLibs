@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using Rhino.Mocks;
 using SpStateMachine.Core;
 using SpStateMachine.Interfaces;
 using System;
@@ -7,6 +6,7 @@ using TestCases.SpStateMachineTests.TestImplementations;
 using TestCases.SpStateMachineTests.TestImplementations.Messages;
 using TestCases.Core.TestToolSet.Net;
 using TestCases.Core;
+using FakeItEasy;
 
 namespace TestCases.SpStateMachineTests {
 
@@ -39,6 +39,13 @@ namespace TestCases.SpStateMachineTests {
 
         HelperLogReaderNet logReader = new HelperLogReaderNet();
 
+        public class smParams {
+            public ISpState<MyMsgId> st { get; set; } = A.Fake<ISpState<MyMsgId>>();
+            public IDisposable wo { get; set; } = A.Fake<IDisposable>();
+        }
+
+        smParams p = new smParams();
+
         #endregion
 
         #region Setup
@@ -61,10 +68,8 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _0_Dispose_Multi() {
-            ISpState<MyMsgId> st = MockRepository.GenerateMock<ISpState<MyMsgId>>();
-            IDisposable wo = MockRepository.GenerateMock<IDisposable>();
             TestHelpersNet.CatchUnexpected(() => {
-                ISpStateMachine sm = new SpMachine<IDisposable, MyMsgId>(wo, st);
+                ISpStateMachine sm = new SpMachine<IDisposable, MyMsgId>(p.wo, p.st);
                 sm.Dispose();
                 sm.Dispose();
                 sm.Dispose();
@@ -73,32 +78,27 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _50173_Dispose_ChildManagedDisposeFail() {
-            ISpState<MyMsgId> st = MockRepository.GenerateMock<ISpState<MyMsgId>>();
-            IDisposable wo = MockRepository.GenerateMock<IDisposable>();
             TestHelpersNet.CatchExpected(50173, "SpMachine`2", "Dispose", "Managed Dispose Exception", () => {
-                ISpStateMachine sm = new smDerivedManagedFail(wo, st);
+                ISpStateMachine sm = new smDerivedManagedFail(p.wo, p.st);
                 sm.Dispose();
             });
         }
 
         [Test]
         public void _50174_Dispose_ChildManagedDisposeFail() {
-            ISpState<MyMsgId> st = MockRepository.GenerateMock<ISpState<MyMsgId>>();
-            IDisposable wo = MockRepository.GenerateMock<IDisposable>();
             TestHelpersNet.CatchExpected(50174, "SpMachine`2", "Dispose", "Native Dispose Exception", () => {
-                ISpStateMachine sm = new smDerivedNativeFail(wo, st);
+                ISpStateMachine sm = new smDerivedNativeFail(p.wo, p.st);
                 sm.Dispose();
             });
         }
         
         [Test]
         public void _50175_Dispose_ManagedResources_Error() {
-            ISpState<MyMsgId> st = MockRepository.GenerateMock<ISpState<MyMsgId>>();
-            IDisposable wo = MockRepository.GenerateMock<IDisposable>();
-            wo.Expect((o) => o.Dispose()).Throw(new Exception("Wrapped Object Threw Exception on Dispose"));
+            smParams sp = new smParams();
+            A.CallTo(() => sp.wo.Dispose()).Throws(() => new Exception("Wrapped Object Threw Exception on Dispose"));
 
             TestHelpersNet.CatchExpected(50175, "SpMachine`2", "DisposeManagedResources", "Wrapped Object Threw Exception on Dispose", () => {
-                ISpStateMachine sm = new SpMachine<IDisposable,MyMsgId>(wo, st);
+                ISpStateMachine sm = new SpMachine<IDisposable,MyMsgId>(sp.wo, sp.st);
                 sm.Dispose();
             });
         }
@@ -109,18 +109,16 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _50170_Ctor_WrappedObject() {
-            ISpState<MyMsgId> st = MockRepository.GenerateMock<ISpState<MyMsgId>>();
             TestHelpersNet.CatchExpected(50170, "SpMachine`2", ".ctor", "Null wrappedObject Argument", () => {
-                ISpStateMachine sm = new SpMachine<IDisposable,MyMsgId>(null, st);
+                ISpStateMachine sm = new SpMachine<IDisposable,MyMsgId>(null, p.st);
                 sm.Dispose();
             });
         }
 
         [Test]
         public void _50171_Ctor_NullState() {
-            IDisposable wo = MockRepository.GenerateMock<IDisposable>();
             TestHelpersNet.CatchExpected(50171, "SpMachine`2", ".ctor", "Null state Argument", () => {
-                ISpStateMachine sm = new SpMachine<IDisposable,MyMsgId>(wo, null);
+                ISpStateMachine sm = new SpMachine<IDisposable,MyMsgId>(p.wo, null);
                 sm.Dispose();
             });
         }
@@ -131,15 +129,14 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _0_Tick_Ok() {
-            ISpState<MyMsgId> st = MockRepository.GenerateMock<ISpState<MyMsgId>>();
-            st.Expect((o) => o.FullName).Return("Main.FirstState.Init");
-            IDisposable wo = MockRepository.GenerateMock<IDisposable>();
-            st.Expect((o) => o.OnEntry(null)).IgnoreArguments().Return(
-                new SpStateTransition<MyMsgId>(
-                    SpStateTransitionType.SameState, null, new MyBaseMsg(MyMsgType.SimpleMsg, MyMsgId.Start)));
+            smParams sp = new smParams();
+            A.CallTo(() => sp.st.FullName).Returns("Main.FirstState.Init");
+            A.CallTo(() => sp.st.OnEntry(null)).WithAnyArguments().Returns(
+                 new SpStateTransition<MyMsgId>(
+                     SpStateTransitionType.SameState, null, new MyBaseMsg(MyMsgType.SimpleMsg, MyMsgId.Start)));
 
             TestHelpersNet.CatchUnexpected(() => {
-                ISpStateMachine sm = new SpMachine<IDisposable,MyMsgId>(wo, st);
+                ISpStateMachine sm = new SpMachine<IDisposable,MyMsgId>(sp.wo, sp.st);
                 sm.Tick(new MyBaseMsg(MyMsgType.SimpleMsg, MyMsgId.Tick));
             });
         }
@@ -147,12 +144,11 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _50177_Tick_StateNullTransition() {
-            ISpState<MyMsgId> st = MockRepository.GenerateMock<ISpState<MyMsgId>>();
-            st.Expect((o) => o.FullName).Return("Main.FirstState.Init");
-            IDisposable wo = MockRepository.GenerateMock<IDisposable>();
-            st.Expect((o) => o.OnEntry(null)).IgnoreArguments().Return(null);
+            smParams sp = new smParams();
+            A.CallTo(() => sp.st.FullName).Returns("Main.FirstState.Init");
+            A.CallTo(() => sp.st.OnEntry(null)).WithAnyArguments().Returns(null);
             TestHelpersNet.CatchExpected(50177, "SpMachine`2", "Tick", "The State 'Main.FirstState.Init' OnEntry Returned a Null Transition", () => {
-                ISpStateMachine sm = new SpMachine<IDisposable,MyMsgId>(wo, st);
+                ISpStateMachine sm = new SpMachine<IDisposable, MyMsgId>(sp.wo, sp.st);
                 sm.Tick(new MyBaseMsg(MyMsgType.SimpleMsg, MyMsgId.Tick));
             });
         }
@@ -160,10 +156,8 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _50172_Tick_NullMsg() {
-            ISpState<MyMsgId> st = MockRepository.GenerateMock<ISpState<MyMsgId>>();
-            IDisposable wo = MockRepository.GenerateMock<IDisposable>();
             TestHelpersNet.CatchExpected(50172, "SpMachine`2", "Tick", "Null msg Argument", () => {
-                ISpStateMachine sm = new SpMachine<IDisposable,MyMsgId>(wo, st);
+                ISpStateMachine sm = new SpMachine<IDisposable,MyMsgId>(p.wo, p.st);
                 sm.Tick(null);
             });
         }
@@ -171,10 +165,8 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _50176_Tick_Disposed() {
-            ISpState<MyMsgId> st = MockRepository.GenerateMock<ISpState<MyMsgId>>();
-            IDisposable wo = MockRepository.GenerateMock<IDisposable>();
             TestHelpersNet.CatchExpected(50176, "SpMachine`2", "Tick", "Attempting to use Disposed Object", () => {
-                ISpStateMachine sm = new SpMachine<IDisposable,MyMsgId>(wo, st);
+                ISpStateMachine sm = new SpMachine<IDisposable,MyMsgId>(p.wo, p.st);
                 sm.Dispose();
                 sm.Tick(new MyBaseMsg(MyMsgType.SimpleMsg, MyMsgId.Tick));
             });
