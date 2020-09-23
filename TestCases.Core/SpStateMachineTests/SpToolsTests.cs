@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using Rhino.Mocks;
 using SpStateMachine.Core;
 using SpStateMachine.Interfaces;
 using System;
@@ -9,6 +8,7 @@ using TestCases.Core;
 using TestCases.Core.TestToolSet.Net;
 using TestCases.SpStateMachineTests.TestImplementations;
 using TestCases.SpStateMachineTests.TestImplementations.Messages;
+using FakeItEasy;
 
 namespace TestCases.SpStateMachineTests {
 
@@ -226,8 +226,8 @@ namespace TestCases.SpStateMachineTests {
         [Test]
         public void _51011_GetTransitionCloneFromStore_ErrorOnClone() {
             TestHelpersNet.CatchExpected(51011, this.className, "GetTransitionCloneFromStore", "Clone Exception", () => {
-                ISpStateTransition<MyMsgId> tr = MockRepository.GenerateMock<ISpStateTransition<MyMsgId>>();
-                tr.Expect(o => o.Clone()).Throw(new Exception("Clone Exception"));
+                ISpStateTransition<MyMsgId> tr = A.Fake<ISpStateTransition<MyMsgId>>();
+                A.CallTo(() => tr.Clone()).Throws(new Exception("Clone Exception"));
 
                 Dictionary<int,ISpStateTransition<MyMsgId>> store = new Dictionary<int, ISpStateTransition<MyMsgId>>();
                 SpTools.RegisterTransition("OnResult", MyMsgId.Tick, tr, store);

@@ -170,7 +170,9 @@ namespace TestCases.SpStateMachineTests {
 
             });
             // Allow the thread pool to catch up
-            this.logReader.Validate(50030, "QueueUserWorkItemCallback", "WaitCallback_Context", "Unexpected Error Raising Event 'Response'");
+            Thread.Sleep(100);
+            //this.logReader.Validate(50030, "QueueUserWorkItemCallback", "WaitCallback_Context", "Unexpected Error Raising Event 'Response'");
+            this.logReader.Validate(50030, "QueueUserWorkItemCallback", "Execute", "Unexpected Error Raising Event 'Response'");
         }
 
 
@@ -188,7 +190,10 @@ namespace TestCases.SpStateMachineTests {
                         new MyBaseMsg(MyMsgType.DataStrMsg, MyMsgId.Tick), MyReturnCode.Success, ""));
             });
             // Allow the thread pool to catch up
-            this.logReader.Validate(50030, "QueueUserWorkItemCallback", "WaitCallback_Context", "Unexpected Error Raising Event 'Message'");
+            Thread.Sleep(100);
+            //this.logReader.Validate(50030, "QueueUserWorkItemCallback", "WaitCallback_Context", "Unexpected Error Raising Event 'Message'");
+            this.logReader.Validate(50030, "QueueUserWorkItemCallback", "Execute", "Unexpected Error Raising Event 'Message'");
+
         }
 
         #endregion
