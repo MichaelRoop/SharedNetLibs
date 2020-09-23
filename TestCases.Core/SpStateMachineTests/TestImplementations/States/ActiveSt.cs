@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using SpStateMachine.Interfaces;
-using LogUtils;
+﻿using LogUtils.Net;
+using SpStateMachine.Net.Interfaces;
 using TestCases.SpStateMachineTests.TestImplementations.Messages;
-using LogUtils.Net;
 
 namespace TestCases.SpStateMachineTests.TestImplementations.States {
 

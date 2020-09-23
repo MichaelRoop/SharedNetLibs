@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LogUtils.Net;
-using SpStateMachine.Interfaces;
+﻿using LogUtils.Net;
+using SpStateMachine.Net.Interfaces;
 
 namespace TestCases.SpStateMachineTests.TestImplementations.SuperStates.ExitSS {
     public class S_A1 : MyState {

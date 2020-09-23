@@ -1,7 +1,7 @@
 ﻿using FakeItEasy;
 using NUnit.Framework;
-using SpStateMachine.Interfaces;
-using SpStateMachine.States;
+using SpStateMachine.Net.Interfaces;
+using SpStateMachine.Net.States;
 using System;
 using TestCases.Core.TestToolSet;
 using TestCases.SpStateMachineTests.TestImplementations;

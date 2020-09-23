@@ -1,5 +1,5 @@
-﻿using SpStateMachine.Interfaces;
-using SpStateMachine.Messages;
+﻿using SpStateMachine.Net.Interfaces;
+using SpStateMachine.Net.Messages;
 
 namespace TestCases.SpStateMachineTests.TestImplementations.Messages {
 

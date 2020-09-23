@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using SpStateMachine.Core;
-using SpStateMachine.Converters;
+﻿using SpStateMachine.Net.Interfaces;
 using TestCases.SpStateMachineTests.TestImplementations.Messages;
-using LogUtils.Net;
-using SpStateMachine.Interfaces;
 
 namespace TestCases.SpStateMachineTests.TestImplementations.SuperStates {
 

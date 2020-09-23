@@ -1,4 +1,4 @@
-﻿using SpStateMachine.Interfaces;
+﻿using SpStateMachine.Net.Interfaces;
 
 namespace TestCases.SpStateMachineTests.TestImplementations.SuperStates.ExitSS {
     public class SS_A2 : MySuperState {

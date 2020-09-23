@@ -1,8 +1,7 @@
-﻿using LogUtils;
-using LogUtils.Net;
-using SpStateMachine.Converters;
-using SpStateMachine.Interfaces;
-using SpStateMachine.States;
+﻿using LogUtils.Net;
+using SpStateMachine.Net.Converters;
+using SpStateMachine.Net.Interfaces;
+using SpStateMachine.Net.States;
 using TestCases.SpStateMachineTests.TestImplementations.Messages;
 
 namespace TestCases.SpStateMachineTests.TestImplementations {

@@ -1,14 +1,13 @@
-﻿using LogUtils;
+﻿using LogUtils.Net;
 using NUnit.Framework;
-using SpStateMachine.Interfaces;
+using SpStateMachine.Net.Interfaces;
 using System;
 using System.Threading;
+using TestCases.Core.TestToolSet;
 using TestCases.SpStateMachineTests.TestImplementations;
 using TestCases.SpStateMachineTests.TestImplementations.Messages;
 using TestCases.SpStateMachineTests.TestImplementations.SuperStates;
 using TestCases.SpStateMachineTests.TestImplementations.SuperStates.CascadeOnExit;
-using TestCases.Core.TestToolSet;
-using LogUtils.Net;
 
 namespace TestCases.SpStateMachineTests {
 

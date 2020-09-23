@@ -1,11 +1,11 @@
 ﻿using ChkUtils.Net;
 using LogUtils.Net;
 using NUnit.Framework;
-using SpStateMachine.Behaviours;
-using SpStateMachine.Core;
-using SpStateMachine.EventListners;
-using SpStateMachine.EventStores;
-using SpStateMachine.Interfaces;
+using SpStateMachine.Net.Behaviours;
+using SpStateMachine.Net.Core;
+using SpStateMachine.Net.EventListners;
+using SpStateMachine.Net.EventStores;
+using SpStateMachine.Net.Interfaces;
 using SpStateMachine.PeriodicTimers;
 using System;
 using System.Threading;

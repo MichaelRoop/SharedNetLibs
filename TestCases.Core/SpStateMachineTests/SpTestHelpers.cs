@@ -1,6 +1,6 @@
 ﻿using LogUtils.Net;
-using SpStateMachine.EventListners;
-using SpStateMachine.Interfaces;
+using SpStateMachine.Net.EventListners;
+using SpStateMachine.Net.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,7 +1,6 @@
-﻿using LogUtils;
-using LogUtils.Net;
-using SpStateMachine.Interfaces;
-using SpStateMachine.States;
+﻿using LogUtils.Net;
+using SpStateMachine.Net.Interfaces;
+using SpStateMachine.Net.States;
 using System;
 using System.Threading;
 

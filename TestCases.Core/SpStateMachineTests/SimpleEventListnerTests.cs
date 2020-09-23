@@ -1,7 +1,7 @@
 ﻿using LogUtils.Net;
 using NUnit.Framework;
-using SpStateMachine.EventListners;
-using SpStateMachine.Interfaces;
+using SpStateMachine.Net.EventListners;
+using SpStateMachine.Net.Interfaces;
 using System;
 using System.Threading;
 using TestCases.SpStateMachineTests.TestImplementations;

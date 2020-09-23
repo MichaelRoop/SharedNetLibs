@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using SpStateMachine.Interfaces;
+using SpStateMachine.Net.Interfaces;
 using TestCases.SpStateMachineTests.TestImplementations;
 using TestCases.SpStateMachineTests.TestImplementations.Messages;
 using TestCases.Core.TestToolSet;

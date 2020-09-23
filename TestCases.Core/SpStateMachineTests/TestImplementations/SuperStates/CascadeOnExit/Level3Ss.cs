@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using SpStateMachine.Interfaces;
-using TestCases.SpStateMachineTests.TestImplementations.States;
-using SpStateMachine.Converters;
-using SpStateMachine.Core;
-using LogUtils;
+﻿using LogUtils.Net;
+using SpStateMachine.Net.Converters;
+using SpStateMachine.Net.Core;
+using SpStateMachine.Net.Interfaces;
+using System;
 using TestCases.SpStateMachineTests.TestImplementations.Messages;
-using LogUtils.Net;
+using TestCases.SpStateMachineTests.TestImplementations.States;
 
 namespace TestCases.SpStateMachineTests.TestImplementations.SuperStates.CascadeOnExit {
 

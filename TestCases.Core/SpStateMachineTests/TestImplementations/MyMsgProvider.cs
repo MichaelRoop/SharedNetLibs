@@ -1,5 +1,5 @@
-﻿using SpStateMachine.Converters;
-using SpStateMachine.Interfaces;
+﻿using SpStateMachine.Net.Converters;
+using SpStateMachine.Net.Interfaces;
 using TestCases.SpStateMachineTests.TestImplementations.Messages;
 
 namespace TestCases.SpStateMachineTests.TestImplementations {

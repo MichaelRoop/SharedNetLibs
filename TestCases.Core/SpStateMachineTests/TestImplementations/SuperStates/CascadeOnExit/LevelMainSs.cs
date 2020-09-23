@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using SpStateMachine.Converters;
-using SpStateMachine.Core;
+﻿using SpStateMachine.Net.Core;
 using TestCases.SpStateMachineTests.TestImplementations.Messages;
 
 namespace TestCases.SpStateMachineTests.TestImplementations.SuperStates.CascadeOnExit {

@@ -1,6 +1,5 @@
-﻿using LogUtils;
-using LogUtils.Net;
-using SpStateMachine.Interfaces;
+﻿using LogUtils.Net;
+using SpStateMachine.Net.Interfaces;
 
 namespace TestCases.SpStateMachineTests.TestImplementations.SuperStates.ExitSS {
     class S_ExitDoneOnEntry : MyState {

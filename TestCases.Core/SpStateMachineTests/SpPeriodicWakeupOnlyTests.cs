@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
-using SpStateMachine.Behaviours;
-using SpStateMachine.Core;
+using SpStateMachine.Net.Behaviours;
+using SpStateMachine.Net.Core;
 using System.Threading;
 using TestCases.Core.TestToolSet;
 

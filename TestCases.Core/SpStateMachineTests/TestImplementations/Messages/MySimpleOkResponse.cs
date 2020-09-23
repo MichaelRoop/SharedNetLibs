@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using SpStateMachine.Converters;
-using SpStateMachine.Core;
-using SpStateMachine.Interfaces;
+﻿using SpStateMachine.Net.Converters;
+using SpStateMachine.Net.Core;
+using SpStateMachine.Net.Interfaces;
 
 namespace TestCases.SpStateMachineTests.TestImplementations.Messages {
 

@@ -1,5 +1,5 @@
-﻿using SpStateMachine.Core;
-using SpStateMachine.Interfaces;
+﻿using SpStateMachine.Net.Core;
+using SpStateMachine.Net.Interfaces;
 
 namespace TestCases.SpStateMachineTests.TestImplementations {
 

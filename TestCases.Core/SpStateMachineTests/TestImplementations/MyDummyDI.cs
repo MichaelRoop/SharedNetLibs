@@ -1,10 +1,5 @@
-﻿using SpStateMachine.Core;
-using SpStateMachine.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SpStateMachine.Net.Core;
+using SpStateMachine.Net.Interfaces;
 
 namespace TestCases.SpStateMachineTests.TestImplementations {
     public class MyDummyDI {

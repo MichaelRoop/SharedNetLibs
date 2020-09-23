@@ -1,4 +1,4 @@
-﻿using SpStateMachine.Core;
+﻿using SpStateMachine.Net.Core;
 
 namespace TestCases.SpStateMachineTests.TestImplementations.Messages {
 

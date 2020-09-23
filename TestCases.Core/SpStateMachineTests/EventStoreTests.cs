@@ -1,10 +1,10 @@
 ﻿using NUnit.Framework;
-using SpStateMachine.Core;
-using SpStateMachine.EventStores;
-using SpStateMachine.Interfaces;
+using SpStateMachine.Net.EventStores;
+using SpStateMachine.Net.Interfaces;
 using TestCases.SpStateMachineTests.TestImplementations;
 using TestCases.SpStateMachineTests.TestImplementations.Messages;
 using TestCases.Core.TestToolSet;
+using SpStateMachine.Net.Core;
 
 namespace TestCases.SpStateMachineTests {
 
