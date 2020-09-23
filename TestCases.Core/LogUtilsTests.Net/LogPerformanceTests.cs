@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using System;
 using System.Diagnostics;
-using TestCases.TestToolSet.Net;
+using TestCases.Core.TestToolSet.Net;
 
 namespace TestCases.LogUtilsTests.Net {
 

@@ -67,7 +67,6 @@
     <Compile Include="ChkUtilsTests\ToErrorReportExceptionTests.cs" />
     <Compile Include="ChkUtilsTests\ToErrReportTests.cs" />
     <Compile Include="ChkUtilsTests\ValidatorTests.cs" />
-    <Compile Include="DependencyInjectorTests\DITests.cs" />
     <Compile Include="SpStateMachineTests\SpTestHelpers.cs" />
     <Compile Include="SpStateMachineTests\TestImplementations\MyDummyDI.cs" />
     <Compile Include="SpStateMachineTests\TestImplementations\SuperStates\ExitSS\MyDoneMsg.cs" />
@@ -84,9 +83,6 @@
     <Compile Include="TestCaseBase.cs" />
     <Compile Include="TestHelpersNet.cs" />
     <Compile Include="TestToolSet\HelperLogReaderNet.cs" />
-    <Compile Include="LogUtilsTests.Net\LogPerformanceTests.cs" />
-    <Compile Include="LogUtilsTests.Net\LogTests.cs" />
-    <Compile Include="LogUtilsTests.Net\MsgLevelTests.cs" />
     <Compile Include="LogUtilsTests\LogPerformanceTests.cs" />
     <Compile Include="LogUtilsTests\LogTests.cs" />
     <Compile Include="LogUtilsTests\MsgLevelTests.cs" />
