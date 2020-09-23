@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SpStateMachine.Interfaces {
+namespace SpStateMachine.Net.Interfaces {
 
     /// <summary>Interface to define a periodic timer to pulse the state machine</summary>
     /// <author>Michael Roop</author>

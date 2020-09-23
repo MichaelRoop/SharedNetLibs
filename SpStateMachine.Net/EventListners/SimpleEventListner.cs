@@ -1,10 +1,10 @@
 ﻿using ChkUtils.Net;
 using LogUtils.Net;
-using SpStateMachine.Interfaces;
+using SpStateMachine.Net.Interfaces;
 using System;
 using System.Threading;
 
-namespace SpStateMachine.EventListners {
+namespace SpStateMachine.Net.EventListners {
 
     /// <summary>Args for the messages or responses</summary>
     /// <author>Michael Roop</author>

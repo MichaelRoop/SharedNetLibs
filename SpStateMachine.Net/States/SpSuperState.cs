@@ -1,11 +1,11 @@
 ﻿using ChkUtils.Net;
 using LogUtils.Net;
-using SpStateMachine.Core;
-using SpStateMachine.Interfaces;
+using SpStateMachine.Net.Core;
+using SpStateMachine.Net.Interfaces;
 using System;
 using System.Collections.Generic;
 
-namespace SpStateMachine.States {
+namespace SpStateMachine.Net.States {
 
     /// <summary>
     /// Implementation of the SpSuperState which handles the virtuals left exposed 

@@ -1,5 +1,4 @@
-﻿using SpStateMachine.Converters;
-using SpStateMachine.Interfaces;
+﻿using SpStateMachine.Net.Interfaces;
 
 namespace SpStateMachine.Net.Converters {
 

@@ -1,8 +1,8 @@
 ﻿using System;
 using ChkUtils.Net;
-using SpStateMachine.Interfaces;
+using SpStateMachine.Net.Interfaces;
 
-namespace SpStateMachine.Core {
+namespace SpStateMachine.Net.Core {
 
     /// <summary>
     /// Implementation of the MsgFactory that takes a Message provider

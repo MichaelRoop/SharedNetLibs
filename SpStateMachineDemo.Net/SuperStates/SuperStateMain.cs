@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using LogUtils.Net;
-using SpStateMachine.Interfaces;
+using SpStateMachine.Net.Interfaces;
 using SpStateMachineDemo.Net.DemoMachine;
 using SpStateMachineDemo.Net.Messaging;
 using SpStateMachineDemo.Net.Messaging.Messages;

@@ -1,5 +1,5 @@
-﻿using SpStateMachine.Converters;
-using SpStateMachine.Interfaces;
+﻿using SpStateMachine.Net.Converters;
+using SpStateMachine.Net.Interfaces;
 using SpStateMachineDemo.Net.Messaging;
 using SpStateMachineDemo.Net.Messaging.Responses;
 using System;

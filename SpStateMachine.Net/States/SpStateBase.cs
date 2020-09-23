@@ -1,13 +1,13 @@
 ﻿using ChkUtils.Net;
 using LogUtils.Net;
-using SpStateMachine.Core;
-using SpStateMachine.Interfaces;
+using SpStateMachine.Net.Core;
+using SpStateMachine.Net.Interfaces;
 using SpStateMachine.Net.Converters;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SpStateMachine.States {
+namespace SpStateMachine.Net.States {
 
     /// <summary>Base implementation of the ISpState interface</summary>
     /// <typeparam name="TMachine">Object type that the state represents</typeparam>

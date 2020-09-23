@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using SpStateMachine.Interfaces;
+using SpStateMachine.Net.Interfaces;
 using SpStateMachineDemo.Net.DemoMachine;
 using SpStateMachineDemo.Net.Messaging;
 

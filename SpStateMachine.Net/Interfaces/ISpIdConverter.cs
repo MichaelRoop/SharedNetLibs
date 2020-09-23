@@ -1,5 +1,5 @@
 ﻿
-namespace SpStateMachine.Interfaces {
+namespace SpStateMachine.Net.Interfaces {
 
     /// <summary>
     /// Used for the conversion of internal int ids to string

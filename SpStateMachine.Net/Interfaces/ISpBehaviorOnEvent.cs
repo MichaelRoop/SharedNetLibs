@@ -1,7 +1,7 @@
-﻿using SpStateMachine.Core;
+﻿using SpStateMachine.Net.Core;
 using System;
 
-namespace SpStateMachine.Interfaces {
+namespace SpStateMachine.Net.Interfaces {
 
     /// <summary>Encapsulate state machine behavior on events received</summary>
     /// <author>Michael Roop</author>

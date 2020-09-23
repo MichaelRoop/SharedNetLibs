@@ -1,5 +1,5 @@
 ﻿
-namespace SpStateMachine.Interfaces {
+namespace SpStateMachine.Net.Interfaces {
 
     /// <summary>
     /// Interface to a factory that will get message responses from a provider

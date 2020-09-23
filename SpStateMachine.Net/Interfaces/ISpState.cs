@@ -1,7 +1,7 @@
 ﻿
 using System.Collections.Generic;
 
-namespace SpStateMachine.Interfaces {
+namespace SpStateMachine.Net.Interfaces {
 
     /// <summary>Interface for defining the state interface</summary>
     /// <typeparam name="TMsgId">Event id (TEvent)</typeparam>

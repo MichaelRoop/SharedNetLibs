@@ -1,10 +1,10 @@
 ﻿using ChkUtils.Net;
-using SpStateMachine.Core;
-using SpStateMachine.Interfaces;
+using SpStateMachine.Net.Core;
+using SpStateMachine.Net.Interfaces;
 using System;
 using System.Collections.Generic;
 
-namespace SpStateMachine.EventStores {
+namespace SpStateMachine.Net.EventStores {
 
     /// <summary>
     /// Event store based on highest priority event being next in

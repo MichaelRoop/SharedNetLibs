@@ -1,5 +1,5 @@
 ﻿using LogUtils.Net;
-using SpStateMachine.Interfaces;
+using SpStateMachine.Net.Interfaces;
 using SpStateMachineDemo.Net.DemoMachine;
 using SpStateMachineDemo.Net.DemoMachine.IO;
 using SpStateMachineDemo.Net.DI;

@@ -1,8 +1,8 @@
 ﻿using System;
 using ChkUtils.Net;
-using SpStateMachine.Interfaces;
+using SpStateMachine.Net.Interfaces;
 
-namespace SpStateMachine.Core {
+namespace SpStateMachine.Net.Core {
     
     /// <summary>Base class for an ISpStateMachine that owns, controls and disposes the wrapped object</summary>
     /// <remarks>

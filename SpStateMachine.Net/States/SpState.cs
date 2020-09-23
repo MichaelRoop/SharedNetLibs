@@ -1,6 +1,6 @@
-﻿using SpStateMachine.Interfaces;
+﻿using SpStateMachine.Net.Interfaces;
 
-namespace SpStateMachine.States {
+namespace SpStateMachine.Net.States {
 
     /// <summary>Implementation of SpState handles virtuals left exposed by the State Base</summary>
     /// <typeparam name="TMachine">Generic type that the state represents</typeparam>

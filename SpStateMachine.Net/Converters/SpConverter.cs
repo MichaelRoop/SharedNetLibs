@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SpStateMachine.Converters {
+namespace SpStateMachine.Net.Converters {
 
     /// <summary>Static converter using static Enum Extension Methods</summary>
     /// <author>Michael Roop</author>

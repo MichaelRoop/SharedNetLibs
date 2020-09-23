@@ -2,10 +2,10 @@
 using System.Threading;
 using ChkUtils.Net;
 using LogUtils.Net;
-using SpStateMachine.EventListners;
-using SpStateMachine.Interfaces;
+using SpStateMachine.Net.EventListners;
+using SpStateMachine.Net.Interfaces;
 
-namespace SpStateMachine.Core {
+namespace SpStateMachine.Net.Core {
 
     /// <summary>
     /// Combines different elements of the State Machine architecture to 

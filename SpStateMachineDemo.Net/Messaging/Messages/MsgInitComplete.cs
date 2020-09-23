@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using SpStateMachine.Core;
+using SpStateMachine.Net.Core;
 
 namespace SpStateMachineDemo.Net.Messaging.Messages {
     public class MsgInitComplete : DemoMsgBase {

@@ -1,4 +1,4 @@
-﻿namespace SpStateMachine.Core {
+﻿namespace SpStateMachine.Net.Core {
 
     /// <summary>Different priorities of Events</summary>
     /// <copyright>July 2019 Michael Roop Used by permission</copyright> 

@@ -1,9 +1,9 @@
 ﻿using ChkUtils.Net;
-using SpStateMachine.Interfaces;
+using SpStateMachine.Net.Interfaces;
 using System;
 
 
-namespace SpStateMachine.EventStores {
+namespace SpStateMachine.Net.EventStores {
 
     /// <summary>
     /// Base class for event stores that handle locking and using

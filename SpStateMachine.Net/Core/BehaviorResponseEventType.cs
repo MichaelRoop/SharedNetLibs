@@ -1,4 +1,4 @@
-﻿namespace SpStateMachine.Core {
+﻿namespace SpStateMachine.Net.Core {
 
     /// <summary>
     /// Strongly typed event types which the ISpBehavior has to handle

@@ -1,11 +1,11 @@
 ﻿using ChkUtils.Net;
 using LogUtils.Net;
-using SpStateMachine.Core;
-using SpStateMachine.Interfaces;
+using SpStateMachine.Net.Core;
+using SpStateMachine.Net.Interfaces;
 using System;
 using System.Threading;
 
-namespace SpStateMachine.Behaviours {
+namespace SpStateMachine.Net.Behaviours {
 
     /// <summary>Implementation of a behavior that wakes on periodic timer</summary>
     /// <author>Michael Roop</author>

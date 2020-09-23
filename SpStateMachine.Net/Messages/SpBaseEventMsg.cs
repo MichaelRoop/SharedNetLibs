@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Runtime.Serialization;
 using ChkUtils.Net;
-using SpStateMachine.Core;
-using SpStateMachine.Interfaces;
+using SpStateMachine.Net.Core;
+using SpStateMachine.Net.Interfaces;
 
-namespace SpStateMachine.Messages {
+namespace SpStateMachine.Net.Messages {
 
     /// <summary>
     /// Serializable base class for the SpStateMachine messages and responses. This

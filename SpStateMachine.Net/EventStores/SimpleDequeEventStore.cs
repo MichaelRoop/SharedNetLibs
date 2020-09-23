@@ -1,7 +1,7 @@
-﻿using SpStateMachine.Interfaces;
+﻿using SpStateMachine.Net.Interfaces;
 using System.Collections.Generic;
 
-namespace SpStateMachine.EventStores {
+namespace SpStateMachine.Net.EventStores {
 
     /// <summary>Simple event object store using a queue</summary>
     /// <typeparam name="T">The payload type of the event object</typeparam>

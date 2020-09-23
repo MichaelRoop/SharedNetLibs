@@ -1,7 +1,7 @@
-﻿using SpStateMachine.Core;
+﻿using SpStateMachine.Net.Core;
 using System;
 
-namespace SpStateMachine.Interfaces {
+namespace SpStateMachine.Net.Interfaces {
 
     /// <summary>Interface for SpStateMachine architecture message event type</summary>
     /// <author>Michael Roop</author>

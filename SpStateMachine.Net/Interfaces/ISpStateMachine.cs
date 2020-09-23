@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SpStateMachine.Interfaces {
+namespace SpStateMachine.Net.Interfaces {
 
     /// <summary>Operational interface into the states comprising the state machine</summary>
     /// <author>Michael Roop</author>

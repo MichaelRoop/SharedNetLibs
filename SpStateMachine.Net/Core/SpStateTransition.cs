@@ -1,6 +1,6 @@
-﻿using SpStateMachine.Interfaces;
+﻿using SpStateMachine.Net.Interfaces;
 
-namespace SpStateMachine.Core {
+namespace SpStateMachine.Net.Core {
 
     /// <summary>
     /// Contains the necessary information to execute a state transition

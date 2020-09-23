@@ -1,6 +1,6 @@
 ﻿using ChkUtils.Net;
 using ChkUtils.Net.ErrObjects;
-using SpStateMachine.Interfaces;
+using SpStateMachine.Net.Interfaces;
 using System;
 using System.Timers;
 

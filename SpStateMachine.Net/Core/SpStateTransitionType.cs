@@ -1,6 +1,6 @@
 ﻿
 
-namespace SpStateMachine.Core {
+namespace SpStateMachine.Net.Core {
 
     /// <summary>Specify kind of transistion to excecute</summary>
     /// <author>Michael Roop</author>

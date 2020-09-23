@@ -1,5 +1,5 @@
 ﻿
-namespace SpStateMachine.Interfaces {
+namespace SpStateMachine.Net.Interfaces {
 
     /// <summary>
     /// Interface to a provider that will deliver implementation specific messages

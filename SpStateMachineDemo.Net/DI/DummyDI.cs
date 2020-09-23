@@ -1,6 +1,6 @@
-﻿using SpStateMachine.Core;
-using SpStateMachine.EventListners;
-using SpStateMachine.Interfaces;
+﻿using SpStateMachine.Net.Core;
+using SpStateMachine.Net.EventListners;
+using SpStateMachine.Net.Interfaces;
 using SpStateMachineDemo.Net.Core;
 using SpStateMachineDemo.Net.DemoMachine;
 using SpStateMachineDemo.Net.DemoMachine.IO;

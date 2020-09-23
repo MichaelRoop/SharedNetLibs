@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SpStateMachine.Interfaces {
+namespace SpStateMachine.Net.Interfaces {
 
     /// <summary>Interface for an SpEvent object with generic payload</summary>
     /// <author>Michael Roop</author>

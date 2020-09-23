@@ -1,10 +1,10 @@
 ﻿using ChkUtils.Net;
-using SpStateMachine.Interfaces;
+using SpStateMachine.Net.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SpStateMachine.Core {
+namespace SpStateMachine.Net.Core {
 
     /// <summary>
     /// Collection of tools useful for factoring out common functionality

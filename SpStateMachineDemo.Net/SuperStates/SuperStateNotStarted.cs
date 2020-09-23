@@ -1,4 +1,4 @@
-﻿using SpStateMachine.Interfaces;
+﻿using SpStateMachine.Net.Interfaces;
 using SpStateMachineDemo.Net.DemoMachine;
 using SpStateMachineDemo.Net.Messaging;
 using SpStateMachineDemo.Net.States;

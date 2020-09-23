@@ -1,9 +1,9 @@
 ﻿using ChkUtils.Net;
-using SpStateMachine.Core;
-using SpStateMachine.Interfaces;
+using SpStateMachine.Net.Core;
+using SpStateMachine.Net.Interfaces;
 using System;
 
-namespace SpStateMachine.Messages {
+namespace SpStateMachine.Net.Messages {
 
     /// <summary>
     /// Base class of a response which transfers the GUID from the message 

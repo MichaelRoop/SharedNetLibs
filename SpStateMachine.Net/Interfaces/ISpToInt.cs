@@ -1,5 +1,5 @@
 ﻿
-namespace SpStateMachine.Interfaces {
+namespace SpStateMachine.Net.Interfaces {
 
     /// <summary>Defines interface to pass an Enum convertible to Int/// </summary>
     /// <remarks>Allows strong typing of int type arguments as Enum</remarks>

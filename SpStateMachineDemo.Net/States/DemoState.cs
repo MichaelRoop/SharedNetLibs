@@ -1,5 +1,5 @@
-﻿using SpStateMachine.Interfaces;
-using SpStateMachine.States;
+﻿using SpStateMachine.Net.Interfaces;
+using SpStateMachine.Net.States;
 using SpStateMachineDemo.Net.DemoMachine;
 using SpStateMachineDemo.Net.DI;
 using SpStateMachineDemo.Net.Messaging;

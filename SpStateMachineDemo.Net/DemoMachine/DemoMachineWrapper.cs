@@ -1,9 +1,9 @@
 ﻿using LogUtils.Net;
-using SpStateMachine.Behaviours;
-using SpStateMachine.Core;
-using SpStateMachine.EventListners;
-using SpStateMachine.EventStores;
-using SpStateMachine.Interfaces;
+using SpStateMachine.Net.Behaviours;
+using SpStateMachine.Net.Core;
+using SpStateMachine.Net.EventListners;
+using SpStateMachine.Net.EventStores;
+using SpStateMachine.Net.Interfaces;
 using SpStateMachine.PeriodicTimers;
 using SpStateMachineDemo.Net.Core;
 using SpStateMachineDemo.Net.DemoMachine.IO;

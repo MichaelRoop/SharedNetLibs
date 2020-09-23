@@ -1,6 +1,6 @@
-﻿using SpStateMachine.Converters;
-using SpStateMachine.Core;
-using SpStateMachine.Interfaces;
+﻿using SpStateMachine.Net.Converters;
+using SpStateMachine.Net.Core;
+using SpStateMachine.Net.Interfaces;
 
 namespace SpStateMachineDemo.Net.Messaging.Responses {
 

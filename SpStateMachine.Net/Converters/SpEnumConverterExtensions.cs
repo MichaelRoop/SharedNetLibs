@@ -1,7 +1,7 @@
 ﻿using ChkUtils.Net;
 using System;
 
-namespace SpStateMachine.Converters {
+namespace SpStateMachine.Net.Converters {
 
     /// <summary>
     /// Extension tools to enable developers to use enums for strong typing in generating
