@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-//using Rhino.Mocks;
 using SpStateMachine.Core;
 using SpStateMachine.Interfaces;
 using System;
@@ -16,6 +15,16 @@ namespace TestCases.SpStateMachineTests {
         #region Data
 
         HelperLogReaderNet logReader = new HelperLogReaderNet();
+
+        public class engineParams {
+            public ISpEventListner listner { get; set; } = A.Fake<ISpEventListner>();
+            public ISpEventStore st { get; set; } = A.Fake<ISpEventStore>();
+            public ISpBehaviorOnEvent be { get; set; } = A.Fake<ISpBehaviorOnEvent>();
+            public ISpStateMachine sm { get; set; } = A.Fake<ISpStateMachine>();
+            public ISpPeriodicTimer tm { get; set; } = A.Fake<ISpPeriodicTimer>();
+        }
+
+        engineParams p = new engineParams();
 
         #endregion
 
@@ -34,27 +43,15 @@ namespace TestCases.SpStateMachineTests {
 
         #endregion
 
-        [Test]
-        public void OperateActualTestStateMachine() {
-
-        }
-
-
-
         #region Start
 
         [Test]
         public void _50056_StartDisposed() {
-            ISpEventListner listner = A.Fake<ISpEventListner>();
-            A.CallTo(() => listner.Dispose()).Throws(new Exception("Listner exception"));
-
-            ISpEventStore st = A.Fake<ISpEventStore>();
-            ISpBehaviorOnEvent be = A.Fake<ISpBehaviorOnEvent>();
-            ISpStateMachine sm = A.Fake<ISpStateMachine>();
-            ISpPeriodicTimer tm = A.Fake<ISpPeriodicTimer>();
+            engineParams ep = new engineParams();
+            A.CallTo(() => ep.listner.Dispose()).Throws(new Exception("Listner exception"));
 
             TestHelpersNet.CatchExpected(50056, "SpStateMachineEngine", "Start", "Attempting to use Disposed Object", () => {
-                SpStateMachineEngine engine = new SpStateMachineEngine(listner, st, be, sm, tm);
+                SpStateMachineEngine engine = new SpStateMachineEngine(ep.listner, ep.st, ep.be, ep.sm, ep.tm);
                 Console.WriteLine("Test: Disposing");
                 engine.Dispose();
                 Thread.Sleep(500); // Nothing stopping the thead internaly with mocks
@@ -69,16 +66,11 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _50057_StopDisposed() {
-            ISpEventListner listner = A.Fake<ISpEventListner>();
-            A.CallTo(() => listner.Dispose()).Throws(new Exception("Listner exception"));
-
-            ISpEventStore st = A.Fake<ISpEventStore>();
-            ISpBehaviorOnEvent be = A.Fake<ISpBehaviorOnEvent>();
-            ISpStateMachine sm = A.Fake<ISpStateMachine>();
-            ISpPeriodicTimer tm = A.Fake<ISpPeriodicTimer>();
+            engineParams ep = new engineParams();
+            A.CallTo(() => ep.listner.Dispose()).Throws(new Exception("Listner exception"));
 
             TestHelpersNet.CatchExpected(50057, "SpStateMachineEngine", "Stop", "Attempting to use Disposed Object", () => {
-                SpStateMachineEngine engine = new SpStateMachineEngine(listner, st, be, sm, tm);
+                SpStateMachineEngine engine = new SpStateMachineEngine(ep.listner, ep.st, ep.be, ep.sm, ep.tm);
                 Console.WriteLine("Test: Disposing");
                 engine.Dispose();
                 Thread.Sleep(500); // Nothing stopping the thead internaly with mocks
@@ -93,16 +85,11 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _0_Dispose_MultiDisposeSafe() {
-            ISpEventListner listner = A.Fake<ISpEventListner>();
-            A.CallTo(() => listner.Dispose()).Throws(new Exception("Listner exception"));
-
-            ISpEventStore st = A.Fake<ISpEventStore>();
-            ISpBehaviorOnEvent be = A.Fake<ISpBehaviorOnEvent>();
-            ISpStateMachine sm = A.Fake<ISpStateMachine>();
-            ISpPeriodicTimer tm = A.Fake<ISpPeriodicTimer>();
+            engineParams ep = new engineParams();
+            A.CallTo(() => ep.listner.Dispose()).Throws(new Exception("Listner exception"));
 
             TestHelpersNet.CatchUnexpected(() => {
-                SpStateMachineEngine engine = new SpStateMachineEngine(listner, st, be, sm, tm);
+                SpStateMachineEngine engine = new SpStateMachineEngine(ep.listner, ep.st, ep.be, ep.sm, ep.tm);
                 Console.WriteLine("Test: Disposing");
                 engine.Dispose();
                 engine.Dispose();
@@ -122,16 +109,10 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _50060_DisposeObject_ErrorDisposingInternalObjects() {
-            ISpEventListner listner = A.Fake<ISpEventListner>();
-            A.CallTo(() => listner.Dispose()).Throws(()=> new Exception("Listner exception"));
-
-            ISpEventStore st = A.Fake<ISpEventStore>();
-            ISpBehaviorOnEvent be = A.Fake<ISpBehaviorOnEvent>();
-            ISpStateMachine sm = A.Fake<ISpStateMachine>();
-            ISpPeriodicTimer tm = A.Fake<ISpPeriodicTimer>();
-
+            engineParams ep = new engineParams();
+            A.CallTo(() => ep.listner.Dispose()).Throws(() => new Exception("Listner exception"));
             TestHelpersNet.CatchUnexpected(() => {
-                SpStateMachineEngine engine = new SpStateMachineEngine(listner, st, be, sm, tm);
+                SpStateMachineEngine engine = new SpStateMachineEngine(ep.listner, ep.st, ep.be, ep.sm, ep.tm);
                 Console.WriteLine("Test: Disposing");
                 engine.Dispose();
                 Thread.Sleep(500); // Nothing stopping the thead internaly with mocks
@@ -144,14 +125,8 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _0_DisposeObject_Success() {
-            ISpEventListner listner = A.Fake<ISpEventListner>();
-            ISpEventStore st = A.Fake<ISpEventStore>();
-            ISpBehaviorOnEvent be = A.Fake<ISpBehaviorOnEvent>();
-            ISpStateMachine sm = A.Fake<ISpStateMachine>();
-            ISpPeriodicTimer tm = A.Fake<ISpPeriodicTimer>();
-
             TestHelpersNet.CatchUnexpected(() => {
-                SpStateMachineEngine engine = new SpStateMachineEngine(listner, st, be, sm, tm);
+                SpStateMachineEngine engine = new SpStateMachineEngine(p.listner, p.st, p.be, p.sm, p.tm);
                 engine.Dispose();
             });
         }
@@ -162,14 +137,8 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _50050_SpStateMachineEngine_nullListner() {
-            ISpEventListner listner = A.Fake<ISpEventListner>();
-            ISpEventStore st = A.Fake<ISpEventStore>();
-            ISpBehaviorOnEvent be = A.Fake<ISpBehaviorOnEvent>();
-            ISpStateMachine sm = A.Fake<ISpStateMachine>();
-            ISpPeriodicTimer tm = A.Fake<ISpPeriodicTimer>();
-
             TestHelpersNet.CatchExpected(50050, "SpStateMachineEngine", ".ctor", "Null msgListner Argument", () => {
-                SpStateMachineEngine engine = new SpStateMachineEngine(null, st, be, sm, tm);
+                SpStateMachineEngine engine = new SpStateMachineEngine(null, p.st, p.be, p.sm, p.tm);
                 engine.Dispose();
             });
 
@@ -178,57 +147,32 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _50051_SpStateMachineEngine_nullStore() {
-            ISpEventListner listner = A.Fake<ISpEventListner>();
-            ISpEventStore st = A.Fake<ISpEventStore>();
-            ISpBehaviorOnEvent be = A.Fake<ISpBehaviorOnEvent>();
-            ISpStateMachine sm = A.Fake<ISpStateMachine>();
-            ISpPeriodicTimer tm = A.Fake<ISpPeriodicTimer>();
-
             TestHelpersNet.CatchExpected(50051, "SpStateMachineEngine", ".ctor", "Null msgStore Argument", () => {
-                SpStateMachineEngine engine = new SpStateMachineEngine(listner, null, be, sm, tm);
+                SpStateMachineEngine engine = new SpStateMachineEngine(p.listner, null, p.be, p.sm, p.tm);
                 engine.Dispose();
             });
         }
 
         [Test]
         public void _50052_SpStateMachineEngine_nullBehavior() {
-            ISpEventListner listner = A.Fake<ISpEventListner>();
-            ISpEventStore st = A.Fake<ISpEventStore>();
-            ISpBehaviorOnEvent be = A.Fake<ISpBehaviorOnEvent>();
-            ISpStateMachine sm = A.Fake<ISpStateMachine>();
-            ISpPeriodicTimer tm = A.Fake<ISpPeriodicTimer>();
-
             TestHelpersNet.CatchExpected(50052, "SpStateMachineEngine", ".ctor", "Null eventBehavior Argument", () => {
-                SpStateMachineEngine engine = new SpStateMachineEngine(listner, st, null, sm, tm);
+                SpStateMachineEngine engine = new SpStateMachineEngine(p.listner, p.st, null, p.sm, p.tm);
                 engine.Dispose();
             });
         }
 
         [Test]
         public void _50053_SpStateMachineEngine_nullStateMachine() {
-            ISpEventListner listner = A.Fake<ISpEventListner>();
-            ISpEventStore st = A.Fake<ISpEventStore>();
-            ISpBehaviorOnEvent be = A.Fake<ISpBehaviorOnEvent>();
-            ISpStateMachine sm = A.Fake<ISpStateMachine>();
-            ISpPeriodicTimer tm = A.Fake<ISpPeriodicTimer>();
-
             TestHelpersNet.CatchExpected(50053, "SpStateMachineEngine", ".ctor", "Null stateMachine Argument", () => {
-                SpStateMachineEngine engine = new SpStateMachineEngine(listner, st, be, null, tm);
+                SpStateMachineEngine engine = new SpStateMachineEngine(p.listner, p.st, p.be, null, p.tm);
                 engine.Dispose();
             });
         }
 
         [Test]
         public void _50054_SpStateMachineEngine_nullTimer() {
-            ISpEventListner listner = A.Fake<ISpEventListner>();
-            ISpEventStore st = A.Fake<ISpEventStore>();
-            ISpBehaviorOnEvent be = A.Fake<ISpBehaviorOnEvent>();
-            ISpStateMachine sm = A.Fake<ISpStateMachine>();
-            ISpPeriodicTimer tm = A.Fake<ISpPeriodicTimer>();
-
-
             TestHelpersNet.CatchExpected(50054, "SpStateMachineEngine", ".ctor", "Null timer Argument", () => {
-                SpStateMachineEngine engine = new SpStateMachineEngine(listner, st, be, sm, null);
+                SpStateMachineEngine engine = new SpStateMachineEngine(p.listner, p.st, p.be, p.sm, null);
                 engine.Dispose();
             });
         }
@@ -236,62 +180,26 @@ namespace TestCases.SpStateMachineTests {
         #endregion
 
 
-        #region DriverThreade
+        #region DriverThread
 
         [Test]
         public void _50058_DriverThreadUnexpectedError() {
-            //ISpEventListner listner = MockRepository.GenerateMock<ISpEventListner>();
-            //listner.Expect((o) => o.Dispose()).Throw(new Exception("Listner exception"));
-
-            //ISpEventStore st = MockRepository.GenerateMock<ISpEventStore>();
-            //ISpBehaviorOnEvent be = MockRepository.GenerateMock<ISpBehaviorOnEvent>();
-            //be.Expect((o) => o.WaitOnEvent()).Throw(new Exception("Behavior WaitOn Exception"));
-
-            //ISpStateMachine sm = MockRepository.GenerateMock<ISpStateMachine>();
-            //ISpPeriodicTimer tm = MockRepository.GenerateMock<ISpPeriodicTimer>();
-
-            ISpEventListner listner = A.Fake<ISpEventListner>();
-            A.CallTo(() => listner.Dispose()).Throws(() => new Exception("Listner exception"));
-
-            ISpEventStore st = A.Fake<ISpEventStore>();
-            ISpBehaviorOnEvent be = A.Fake<ISpBehaviorOnEvent>();
-            A.CallTo(() => be.WaitOnEvent()).Throws(() => new Exception("Behavior WaitOn Exception"));
-            
-            ISpStateMachine sm = A.Fake<ISpStateMachine>();
-            ISpPeriodicTimer tm = A.Fake<ISpPeriodicTimer>();
+            engineParams ep = new engineParams();
+            A.CallTo(() => ep.listner.Dispose()).Throws(new Exception("Listner exception"));
+            A.CallTo(() => ep.be.WaitOnEvent()).Throws(() => new Exception("Behavior WaitOn Exception"));
 
             TestHelpersNet.CatchUnexpected(() => {
-                SpStateMachineEngine engine = new SpStateMachineEngine(listner, st, be, sm, tm);
+                SpStateMachineEngine engine = new SpStateMachineEngine(ep.listner, ep.st, ep.be, ep.sm, ep.tm);
                 Console.WriteLine("Test: Disposing");
                 engine.Dispose();
                 Thread.Sleep(500); // Nothing stopping the thead internaly with mocks
             });
-
+            // Need to give time for error to post from thread
+            Thread.Sleep(100);
             this.logReader.Validate(50058, "SpStateMachineEngine", "DriverThread", "Behavior WaitOn Exception");
-
-
         }
 
         #endregion
 
-
-
-
-
-        //[Test]
-        //public void _50054_SpStateMachineEngine_nullListner() {
-        //    //ISpEventListner listner = MockRepository.GenerateMock<ISpEventListner>();
-        //    ISpEventListner listner = null;
-
-        //    ISpEventStore st = MockRepository.GenerateMock<ISpEventStore>();
-        //    ISpBehaviorOnEvent be = MockRepository.GenerateMock<ISpBehaviorOnEvent>();
-        //    ISpStateMachine sm = MockRepository.GenerateMock<ISpStateMachine>();
-        //    ISpPeriodicTimer tm = MockRepository.GenerateMock<ISpPeriodicTimer>();
-
-        //    TestHelpersNet.CatchExpected(50050, "SpStateMachineEngine", ".ctor", "Null msgListner Argument", () => {
-        //        SpStateMachineEngine engine = new SpStateMachineEngine(listner, st, be, sm, tm);
-        //        engine.Dispose();
-        //    });
-        //}
     }
 }
