@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using Rhino.Mocks;
+//using Rhino.Mocks;
 using SpStateMachine.Core;
 using SpStateMachine.Interfaces;
 using System;
@@ -45,13 +45,13 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _50056_StartDisposed() {
-            ISpEventListner listner = MockRepository.GenerateMock<ISpEventListner>();
-            listner.Expect((o) => o.Dispose()).Throw(new Exception("Listner exception"));
+            ISpEventListner listner = A.Fake<ISpEventListner>();
+            A.CallTo(() => listner.Dispose()).Throws(new Exception("Listner exception"));
 
-            ISpEventStore st = MockRepository.GenerateMock<ISpEventStore>();
-            ISpBehaviorOnEvent be = MockRepository.GenerateMock<ISpBehaviorOnEvent>();
-            ISpStateMachine sm = MockRepository.GenerateMock<ISpStateMachine>();
-            ISpPeriodicTimer tm = MockRepository.GenerateMock<ISpPeriodicTimer>();
+            ISpEventStore st = A.Fake<ISpEventStore>();
+            ISpBehaviorOnEvent be = A.Fake<ISpBehaviorOnEvent>();
+            ISpStateMachine sm = A.Fake<ISpStateMachine>();
+            ISpPeriodicTimer tm = A.Fake<ISpPeriodicTimer>();
 
             TestHelpersNet.CatchExpected(50056, "SpStateMachineEngine", "Start", "Attempting to use Disposed Object", () => {
                 SpStateMachineEngine engine = new SpStateMachineEngine(listner, st, be, sm, tm);
@@ -69,13 +69,13 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _50057_StopDisposed() {
-            ISpEventListner listner = MockRepository.GenerateMock<ISpEventListner>();
-            listner.Expect((o) => o.Dispose()).Throw(new Exception("Listner exception"));
+            ISpEventListner listner = A.Fake<ISpEventListner>();
+            A.CallTo(() => listner.Dispose()).Throws(new Exception("Listner exception"));
 
-            ISpEventStore st = MockRepository.GenerateMock<ISpEventStore>();
-            ISpBehaviorOnEvent be = MockRepository.GenerateMock<ISpBehaviorOnEvent>();
-            ISpStateMachine sm = MockRepository.GenerateMock<ISpStateMachine>();
-            ISpPeriodicTimer tm = MockRepository.GenerateMock<ISpPeriodicTimer>();
+            ISpEventStore st = A.Fake<ISpEventStore>();
+            ISpBehaviorOnEvent be = A.Fake<ISpBehaviorOnEvent>();
+            ISpStateMachine sm = A.Fake<ISpStateMachine>();
+            ISpPeriodicTimer tm = A.Fake<ISpPeriodicTimer>();
 
             TestHelpersNet.CatchExpected(50057, "SpStateMachineEngine", "Stop", "Attempting to use Disposed Object", () => {
                 SpStateMachineEngine engine = new SpStateMachineEngine(listner, st, be, sm, tm);
@@ -93,20 +93,9 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _0_Dispose_MultiDisposeSafe() {
-            //ISpEventListner listner = MockRepository.GenerateMock<ISpEventListner>();
-            //listner.Expect((o) => o.Dispose()).Throw(new Exception("Listner exception"));
             ISpEventListner listner = A.Fake<ISpEventListner>();
-            A.CallTo(() => listner.Dispose()).Throws(new Exception("Listner exceptionXX"));
+            A.CallTo(() => listner.Dispose()).Throws(new Exception("Listner exception"));
 
-
-            //            listner.Expect((o) => o.Dispose()).Throw(new Exception("Listner exception"));
-
-            //return;
-
-            //ISpEventStore st = MockRepository.GenerateMock<ISpEventStore>();
-            //ISpBehaviorOnEvent be = MockRepository.GenerateMock<ISpBehaviorOnEvent>();
-            //ISpStateMachine sm = MockRepository.GenerateMock<ISpStateMachine>();
-            //ISpPeriodicTimer tm = MockRepository.GenerateMock<ISpPeriodicTimer>();
             ISpEventStore st = A.Fake<ISpEventStore>();
             ISpBehaviorOnEvent be = A.Fake<ISpBehaviorOnEvent>();
             ISpStateMachine sm = A.Fake<ISpStateMachine>();
@@ -133,13 +122,13 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _50060_DisposeObject_ErrorDisposingInternalObjects() {
-            ISpEventListner listner = MockRepository.GenerateMock<ISpEventListner>();
-            listner.Expect((o) => o.Dispose()).Throw(new Exception("Listner exception"));
+            ISpEventListner listner = A.Fake<ISpEventListner>();
+            A.CallTo(() => listner.Dispose()).Throws(()=> new Exception("Listner exception"));
 
-            ISpEventStore st = MockRepository.GenerateMock<ISpEventStore>();
-            ISpBehaviorOnEvent be = MockRepository.GenerateMock<ISpBehaviorOnEvent>();
-            ISpStateMachine sm = MockRepository.GenerateMock<ISpStateMachine>();
-            ISpPeriodicTimer tm = MockRepository.GenerateMock<ISpPeriodicTimer>();
+            ISpEventStore st = A.Fake<ISpEventStore>();
+            ISpBehaviorOnEvent be = A.Fake<ISpBehaviorOnEvent>();
+            ISpStateMachine sm = A.Fake<ISpStateMachine>();
+            ISpPeriodicTimer tm = A.Fake<ISpPeriodicTimer>();
 
             TestHelpersNet.CatchUnexpected(() => {
                 SpStateMachineEngine engine = new SpStateMachineEngine(listner, st, be, sm, tm);
@@ -155,11 +144,6 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _0_DisposeObject_Success() {
-            //ISpEventListner listner = MockRepository.GenerateMock<ISpEventListner>();
-            //ISpEventStore st = MockRepository.GenerateMock<ISpEventStore>();
-            //ISpBehaviorOnEvent be = MockRepository.GenerateMock<ISpBehaviorOnEvent>();
-            //ISpStateMachine sm = MockRepository.GenerateMock<ISpStateMachine>();
-            //ISpPeriodicTimer tm = MockRepository.GenerateMock<ISpPeriodicTimer>();
             ISpEventListner listner = A.Fake<ISpEventListner>();
             ISpEventStore st = A.Fake<ISpEventStore>();
             ISpBehaviorOnEvent be = A.Fake<ISpBehaviorOnEvent>();
@@ -178,11 +162,11 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _50050_SpStateMachineEngine_nullListner() {
-            ISpEventListner listner = MockRepository.GenerateMock<ISpEventListner>();
-            ISpEventStore st = MockRepository.GenerateMock<ISpEventStore>();
-            ISpBehaviorOnEvent be = MockRepository.GenerateMock<ISpBehaviorOnEvent>();
-            ISpStateMachine sm = MockRepository.GenerateMock<ISpStateMachine>();
-            ISpPeriodicTimer tm = MockRepository.GenerateMock<ISpPeriodicTimer>();
+            ISpEventListner listner = A.Fake<ISpEventListner>();
+            ISpEventStore st = A.Fake<ISpEventStore>();
+            ISpBehaviorOnEvent be = A.Fake<ISpBehaviorOnEvent>();
+            ISpStateMachine sm = A.Fake<ISpStateMachine>();
+            ISpPeriodicTimer tm = A.Fake<ISpPeriodicTimer>();
 
             TestHelpersNet.CatchExpected(50050, "SpStateMachineEngine", ".ctor", "Null msgListner Argument", () => {
                 SpStateMachineEngine engine = new SpStateMachineEngine(null, st, be, sm, tm);
@@ -194,11 +178,11 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _50051_SpStateMachineEngine_nullStore() {
-            ISpEventListner listner = MockRepository.GenerateMock<ISpEventListner>();
-            ISpEventStore st = MockRepository.GenerateMock<ISpEventStore>();
-            ISpBehaviorOnEvent be = MockRepository.GenerateMock<ISpBehaviorOnEvent>();
-            ISpStateMachine sm = MockRepository.GenerateMock<ISpStateMachine>();
-            ISpPeriodicTimer tm = MockRepository.GenerateMock<ISpPeriodicTimer>();
+            ISpEventListner listner = A.Fake<ISpEventListner>();
+            ISpEventStore st = A.Fake<ISpEventStore>();
+            ISpBehaviorOnEvent be = A.Fake<ISpBehaviorOnEvent>();
+            ISpStateMachine sm = A.Fake<ISpStateMachine>();
+            ISpPeriodicTimer tm = A.Fake<ISpPeriodicTimer>();
 
             TestHelpersNet.CatchExpected(50051, "SpStateMachineEngine", ".ctor", "Null msgStore Argument", () => {
                 SpStateMachineEngine engine = new SpStateMachineEngine(listner, null, be, sm, tm);
@@ -208,11 +192,11 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _50052_SpStateMachineEngine_nullBehavior() {
-            ISpEventListner listner = MockRepository.GenerateMock<ISpEventListner>();
-            ISpEventStore st = MockRepository.GenerateMock<ISpEventStore>();
-            ISpBehaviorOnEvent be = MockRepository.GenerateMock<ISpBehaviorOnEvent>();
-            ISpStateMachine sm = MockRepository.GenerateMock<ISpStateMachine>();
-            ISpPeriodicTimer tm = MockRepository.GenerateMock<ISpPeriodicTimer>();
+            ISpEventListner listner = A.Fake<ISpEventListner>();
+            ISpEventStore st = A.Fake<ISpEventStore>();
+            ISpBehaviorOnEvent be = A.Fake<ISpBehaviorOnEvent>();
+            ISpStateMachine sm = A.Fake<ISpStateMachine>();
+            ISpPeriodicTimer tm = A.Fake<ISpPeriodicTimer>();
 
             TestHelpersNet.CatchExpected(50052, "SpStateMachineEngine", ".ctor", "Null eventBehavior Argument", () => {
                 SpStateMachineEngine engine = new SpStateMachineEngine(listner, st, null, sm, tm);
@@ -222,11 +206,11 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _50053_SpStateMachineEngine_nullStateMachine() {
-            ISpEventListner listner = MockRepository.GenerateMock<ISpEventListner>();
-            ISpEventStore st = MockRepository.GenerateMock<ISpEventStore>();
-            ISpBehaviorOnEvent be = MockRepository.GenerateMock<ISpBehaviorOnEvent>();
-            ISpStateMachine sm = MockRepository.GenerateMock<ISpStateMachine>();
-            ISpPeriodicTimer tm = MockRepository.GenerateMock<ISpPeriodicTimer>();
+            ISpEventListner listner = A.Fake<ISpEventListner>();
+            ISpEventStore st = A.Fake<ISpEventStore>();
+            ISpBehaviorOnEvent be = A.Fake<ISpBehaviorOnEvent>();
+            ISpStateMachine sm = A.Fake<ISpStateMachine>();
+            ISpPeriodicTimer tm = A.Fake<ISpPeriodicTimer>();
 
             TestHelpersNet.CatchExpected(50053, "SpStateMachineEngine", ".ctor", "Null stateMachine Argument", () => {
                 SpStateMachineEngine engine = new SpStateMachineEngine(listner, st, be, null, tm);
@@ -236,11 +220,12 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _50054_SpStateMachineEngine_nullTimer() {
-            ISpEventListner listner = MockRepository.GenerateMock<ISpEventListner>();
-            ISpEventStore st = MockRepository.GenerateMock<ISpEventStore>();
-            ISpBehaviorOnEvent be = MockRepository.GenerateMock<ISpBehaviorOnEvent>();
-            ISpStateMachine sm = MockRepository.GenerateMock<ISpStateMachine>();
-            ISpPeriodicTimer tm = MockRepository.GenerateMock<ISpPeriodicTimer>();
+            ISpEventListner listner = A.Fake<ISpEventListner>();
+            ISpEventStore st = A.Fake<ISpEventStore>();
+            ISpBehaviorOnEvent be = A.Fake<ISpBehaviorOnEvent>();
+            ISpStateMachine sm = A.Fake<ISpStateMachine>();
+            ISpPeriodicTimer tm = A.Fake<ISpPeriodicTimer>();
+
 
             TestHelpersNet.CatchExpected(50054, "SpStateMachineEngine", ".ctor", "Null timer Argument", () => {
                 SpStateMachineEngine engine = new SpStateMachineEngine(listner, st, be, sm, null);
@@ -255,15 +240,25 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _50058_DriverThreadUnexpectedError() {
-            ISpEventListner listner = MockRepository.GenerateMock<ISpEventListner>();
-            listner.Expect((o) => o.Dispose()).Throw(new Exception("Listner exception"));
+            //ISpEventListner listner = MockRepository.GenerateMock<ISpEventListner>();
+            //listner.Expect((o) => o.Dispose()).Throw(new Exception("Listner exception"));
 
-            ISpEventStore st = MockRepository.GenerateMock<ISpEventStore>();
-            ISpBehaviorOnEvent be = MockRepository.GenerateMock<ISpBehaviorOnEvent>();
-            be.Expect((o) => o.WaitOnEvent()).Throw(new Exception("Behavior WaitOn Exception"));
+            //ISpEventStore st = MockRepository.GenerateMock<ISpEventStore>();
+            //ISpBehaviorOnEvent be = MockRepository.GenerateMock<ISpBehaviorOnEvent>();
+            //be.Expect((o) => o.WaitOnEvent()).Throw(new Exception("Behavior WaitOn Exception"));
 
-            ISpStateMachine sm = MockRepository.GenerateMock<ISpStateMachine>();
-            ISpPeriodicTimer tm = MockRepository.GenerateMock<ISpPeriodicTimer>();
+            //ISpStateMachine sm = MockRepository.GenerateMock<ISpStateMachine>();
+            //ISpPeriodicTimer tm = MockRepository.GenerateMock<ISpPeriodicTimer>();
+
+            ISpEventListner listner = A.Fake<ISpEventListner>();
+            A.CallTo(() => listner.Dispose()).Throws(() => new Exception("Listner exception"));
+
+            ISpEventStore st = A.Fake<ISpEventStore>();
+            ISpBehaviorOnEvent be = A.Fake<ISpBehaviorOnEvent>();
+            A.CallTo(() => be.WaitOnEvent()).Throws(() => new Exception("Behavior WaitOn Exception"));
+            
+            ISpStateMachine sm = A.Fake<ISpStateMachine>();
+            ISpPeriodicTimer tm = A.Fake<ISpPeriodicTimer>();
 
             TestHelpersNet.CatchUnexpected(() => {
                 SpStateMachineEngine engine = new SpStateMachineEngine(listner, st, be, sm, tm);
