@@ -15,6 +15,8 @@ namespace BluetoothCommon.Net.interfaces {
         /// <summary>Raised when the async connection is completed</summary>
         event EventHandler<bool> ConnectionCompleted;
 
+        /// <summary>Raised when pairing with BT</summary>
+        event EventHandler<BT_PairInfoRequest> BT_PairInfoRequested;
 
         /// <summary>Async retrieval of Bluetooth devices</summary>
         void DiscoverDevicesAsync();
