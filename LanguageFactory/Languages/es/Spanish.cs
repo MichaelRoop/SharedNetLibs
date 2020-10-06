@@ -40,6 +40,9 @@ namespace LanguageFactory.Net.Languages.es {
             this.AddMsg(MsgCode.Continue, "¿Continuar?");
             this.AddMsg(MsgCode.Configure, "Configurar");
             this.AddMsg(MsgCode.NoServices, "Ningún servicio encontrado");
+            this.AddMsg(MsgCode.PairBluetooth, "Emparejar Bluetooth");
+            this.AddMsg(MsgCode.EnterPin, "Escribir PIN");
+
 
             //this.AddMsg(MsgCode., "");
         }

@@ -39,6 +39,9 @@ namespace LanguageFactory.Net.Languages.cn {
             this.AddMsg(MsgCode.Continue, "繼續?");
             this.AddMsg(MsgCode.Configure, "配置");
             this.AddMsg(MsgCode.NoServices, "未检测到服务");
+            this.AddMsg(MsgCode.PairBluetooth, "对蓝牙设备进行配对");
+            this.AddMsg(MsgCode.EnterPin, "输入 PIN 码");
+
 
             //this.AddMsg(MsgCode., "");
 

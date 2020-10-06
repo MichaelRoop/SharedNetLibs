@@ -41,6 +41,8 @@
         Configure,
 
         NoServices,
+        PairBluetooth,
+        EnterPin,
 
 
     }

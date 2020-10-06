@@ -41,6 +41,8 @@ namespace LanguageFactory.Net.Languages.en {
             this.AddMsg(MsgCode.Continue, "Continue?");
             this.AddMsg(MsgCode.Configure, "Configure");
             this.AddMsg(MsgCode.NoServices, "No services");
+            this.AddMsg(MsgCode.PairBluetooth, "Pair Bluetooth");
+            this.AddMsg(MsgCode.EnterPin, "Enter PIN");
 
             //this.AddMsg(MsgCode., "");
         }

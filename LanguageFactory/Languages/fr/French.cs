@@ -39,6 +39,8 @@ namespace LanguageFactory.Net.Languages.fr {
             this.AddMsg(MsgCode.Continue, "Continuer?");
             this.AddMsg(MsgCode.Configure, "Configurer");
             this.AddMsg(MsgCode.NoServices, "Aucun service détecté");
+            this.AddMsg(MsgCode.PairBluetooth, "Coupler Bluetooth");
+            this.AddMsg(MsgCode.EnterPin, "Entrer le PIN");
 
             //this.AddMsg(MsgCode., "");
         }
