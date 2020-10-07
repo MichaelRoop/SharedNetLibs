@@ -18,6 +18,12 @@ namespace BluetoothCommon.Net.interfaces {
         /// <summary>Raised when pairing with BT</summary>
         event EventHandler<BT_PairInfoRequest> BT_PairInfoRequested;
 
+        /// <summary>Raised on completion of pair operation</summary>
+        event EventHandler<BTPairOperationStatus> BT_PairStatus;
+
+        /// <summary>Raised on completion of unpair operation</summary>
+        event EventHandler<BTUnPairOperationStatus> BT_UnPairStatus;
+
         /// <summary>Async retrieval of Bluetooth devices</summary>
         void DiscoverDevicesAsync();
 

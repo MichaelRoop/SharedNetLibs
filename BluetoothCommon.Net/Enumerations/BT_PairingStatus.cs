@@ -60,7 +60,14 @@
         RemoteDeviceHasAssociation = 18,
 
         /// <summary>Unknown failure</summary>
-        Failed = 19
+        Failed = 19,
+
+
+
+        // Not coming from the pairing call but 
+        NoParingObject = 100,
+        NotSupported = 101,
+
 
 
 
