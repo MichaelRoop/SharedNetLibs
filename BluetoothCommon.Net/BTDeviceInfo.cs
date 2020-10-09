@@ -17,7 +17,7 @@ namespace BluetoothCommon.Net {
         public bool CanPair { get; set; } = false;
 
         /// <summary>We will only try to get one service type, Serial Port</summary>
-        public BT_ServiceType ServiceType { get; set; } = BT_ServiceType.None;
+        public BT_ServiceType ServiceType { get; set; } = BT_ServiceType.NotHandled;
 
         public string RemoteHostName { get; set; } = "";
         public string RemoteServiceName { get; set; } = "";

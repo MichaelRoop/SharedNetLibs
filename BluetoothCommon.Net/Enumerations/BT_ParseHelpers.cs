@@ -24,7 +24,16 @@ namespace BluetoothCommon.Net.Enumerations {
                     return serviceType;
                 }
             }
-            return BT_ServiceType.None;
+            return BT_ServiceType.NotHandled;
+        }
+
+
+        public static BT_ServiceType GetServiceType(uint id) {
+            BT_ServiceType service;
+            if (Enum.TryParse(id.ToString(), out service)) {
+                return service;
+            }
+            return BT_ServiceType.NotHandled;
         }
 
         // TODO - move to common area. Used by BLE also
