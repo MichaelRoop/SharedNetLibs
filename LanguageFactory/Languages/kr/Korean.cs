@@ -41,6 +41,9 @@ namespace LanguageFactory.Net.Languages.kr {
             this.AddMsg(MsgCode.NoServices, "서비스를 찾을 수 없습니다");
             this.AddMsg(MsgCode.PairBluetooth, "Bluetooth 연결");
             this.AddMsg(MsgCode.EnterPin, "PIN 입력");
+            this.AddMsg(MsgCode.PairedDevices, "연결된 디바이스");
+            this.AddMsg(MsgCode.Pair, "연결하다");
+            this.AddMsg(MsgCode.Unpair, "언페어링");
 
 
             //this.AddMsg(MsgCode., "");

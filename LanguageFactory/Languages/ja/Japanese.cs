@@ -41,6 +41,9 @@ namespace LanguageFactory.Net.Languages.ja {
             this.AddMsg(MsgCode.NoServices, "サービスが見つかりません");
             this.AddMsg(MsgCode.PairBluetooth, "Bluetooth のペアリング");
             this.AddMsg(MsgCode.EnterPin, "PINの入力");
+            this.AddMsg(MsgCode.PairedDevices, "ペアリングされたデバイス");
+            this.AddMsg(MsgCode.Pair, "ペアリング");
+            this.AddMsg(MsgCode.Unpair, "ペアリングの解除");
 
 
             //this.AddMsg(MsgCode., "");

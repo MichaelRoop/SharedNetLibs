@@ -43,7 +43,9 @@
         NoServices,
         PairBluetooth,
         EnterPin,
-
+        PairedDevices,
+        Pair,
+        Unpair,
 
     }
 }

@@ -39,6 +39,8 @@
         Board,
         BoardEmitting,
         ArduinoIcon,
+        Pair,
+        Unpair,
 
     }
 }

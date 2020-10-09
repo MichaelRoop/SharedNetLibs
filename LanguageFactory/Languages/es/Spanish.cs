@@ -42,6 +42,9 @@ namespace LanguageFactory.Net.Languages.es {
             this.AddMsg(MsgCode.NoServices, "Ningún servicio encontrado");
             this.AddMsg(MsgCode.PairBluetooth, "Emparejar Bluetooth");
             this.AddMsg(MsgCode.EnterPin, "Escribir PIN");
+            this.AddMsg(MsgCode.PairedDevices, "Dispositivos emparejados");
+            this.AddMsg(MsgCode.Pair, "Emparejar");
+            this.AddMsg(MsgCode.Unpair, "Desemparejar");
 
 
             //this.AddMsg(MsgCode., "");
