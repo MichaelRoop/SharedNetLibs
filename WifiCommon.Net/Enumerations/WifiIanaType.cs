@@ -10,7 +10,7 @@ namespace WifiCommon.Net.Enumerations {
     /// <remarks>
     /// https://docs.microsoft.com/en-us/uwp/api/windows.networking.connectivity.networkadapter.ianainterfacetype?view=winrt-19041#Windows_Networking_Connectivity_NetworkAdapter_IanaInterfaceType
     /// </remarks>
-    public enum WifiIanaType {
+    public enum WifiIanaType : int {
 
         /// <summary>Added as a default when the type cannot be found</summary>
         Undefined = 0,
@@ -30,7 +30,7 @@ namespace WifiCommon.Net.Enumerations {
     public static class WifiIanaTypeExtensions {
         public static WifiIanaType ToEnum(this uint value) {
             Log.Info("WifiIanaTypeExtensions", "ToEnum", () => string.Format("Casting {0} to enum", value));
-            return EnumHelpers.ToEnum<WifiIanaType>(value);
+            return EnumHelpers.ToEnum<WifiIanaType>((int)value);
         }
 
 
