@@ -13,6 +13,13 @@ namespace WifiCommon.Net.interfaces {
         /// <summary>Raised with list of adapters found in discovery</summary>
         event EventHandler<List<WifiAdapterInfo>> DiscoveredAdapters;
 
+        /// <summary>Raised with list of networks found in discovery</summary>
+        event EventHandler<List<WifiNetworkInfo>> DiscoveredNetworks;
+
+        /// <summary>For various errors encountered in asynchronous operations</summary>
+        event EventHandler<WifiError> OnError;
+
+
         #endregion
 
         #region Methods

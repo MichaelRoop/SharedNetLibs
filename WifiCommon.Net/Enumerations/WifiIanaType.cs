@@ -1,6 +1,8 @@
-﻿using System;
+﻿using LogUtils.Net;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using VariousUtils.Net;
 
 namespace WifiCommon.Net.Enumerations {
 
@@ -23,4 +25,15 @@ namespace WifiCommon.Net.Enumerations {
         IEEE_1394_Firewire = 144,
 
     }
+
+
+    public static class WifiIanaTypeExtensions {
+        public static WifiIanaType ToEnum(this uint value) {
+            Log.Info("WifiIanaTypeExtensions", "ToEnum", () => string.Format("Casting {0} to enum", value));
+            return EnumHelpers.ToEnum<WifiIanaType>(value);
+        }
+
+
+    }
+
 }
