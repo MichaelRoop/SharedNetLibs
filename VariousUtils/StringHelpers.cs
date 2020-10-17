@@ -65,5 +65,10 @@ namespace VariousUtils.Net {
         }
 
 
+        public static string UnderlineToSpaces(this string data) {
+            return data.Replace('_', ' ');
+        }
+
+
     }
 }

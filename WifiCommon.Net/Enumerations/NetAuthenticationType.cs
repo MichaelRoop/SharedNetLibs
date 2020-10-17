@@ -17,14 +17,14 @@ namespace WifiCommon.Net.Enumerations {
         /// can connect to an access point, but communication with the network 
         /// requires a matching Wired Equivalent Privacy (WEP) key.
         /// </summary>
-        Open80211 = 2,
+        Open_802_11 = 2,
 
         /// <summary>
         /// Specifies an IEEE 802.11 Shared Key authentication algorithm that 
         /// requires the use of a pre-shared Wired Equivalent Privacy (WEP) key 
         /// for the 802.11 authentication.
         /// </summary>
-        SharedKey80211 = 3,
+        Shared_Key_802_11 = 3,
 
         /// <summary>
         /// Specifies a Wi-Fi Protected Access (WPA) algorithm. IEEE 802.1X port 
@@ -32,17 +32,17 @@ namespace WifiCommon.Net.Enumerations {
         /// authentication server. Cipher keys are dynamically derived through 
         /// the authentication process.
         /// </summary>
-        Wpa = 4,
+        WPA = 4,
 
         /// <summary>
         /// Specifies a Wi-Fi Protected Access (WPA) algorithm that uses pre-shared 
         /// keys (PSK). IEEE 802.1X port authorization is performed by the supplicant 
         /// and authenticator. Cipher keys are dynamically derived through a pre-shared key that is used on both the supplicant and authenticator.         
         /// </summary>
-        WpaPsk = 5,
+        WPA_PSK = 5,
 
         /// <summary>Wi-Fi Protected Access</summary>
-        WpaNone = 6,
+        WPA_None = 6,
 
         /// <summary>
         /// Specifies an IEEE 802.11i Robust Security Network Association (RSNA) 
@@ -50,7 +50,7 @@ namespace WifiCommon.Net.Enumerations {
         /// authenticator, and authentication server. Cipher keys are dynamically 
         /// derived through the authentication process.
         /// </summary>
-        Rsna = 7,
+        RSNA = 7,
 
         /// <summary>
         /// Specifies an IEEE 802.11i RSNA algorithm that uses PSK. IEEE 802.1X port 
@@ -58,12 +58,12 @@ namespace WifiCommon.Net.Enumerations {
         /// keys are dynamically derived through a pre-shared key that is used on both 
         /// the supplicant and authenticator.
         /// </summary>
-        RsnaPsk = 8,
+        RSNA_PSK = 8,
 
         /// <summary>
         /// Specifies an authentication type defined by an independent hardware vendor (IHV)
         /// </summary>
-        Ihv = 9,
+        IHV = 9,
 
         /// <summary>
         /// Specifies a Wi-Fi Protected Access 3 (WPA3) algorithm. WPA3 is an encryption 
@@ -71,7 +71,7 @@ namespace WifiCommon.Net.Enumerations {
         /// cryptographic strength, providing additional protections for networks transmitting 
         /// sensitive data.
         /// </summary>
-        Wpa3 = 10,
+        WPA3 = 10,
 
         /// <summary>
         /// Specifies a Wi-Fi Protected Access 3 Simultaneous Authentication of Equals 
@@ -80,7 +80,7 @@ namespace WifiCommon.Net.Enumerations {
         /// devices; it provides synchronous authentication, and stronger protections for 
         /// users against password-guessing attempts by third parties.
         /// </summary>
-        Wpa3Sae = 11,
+        WPA3_SAE = 11,
 
         /// <summary>
         /// Specifies an opportunistic wireless encryption (OWE) algorithm. OWE provides 
@@ -88,7 +88,7 @@ namespace WifiCommon.Net.Enumerations {
         /// derived through a Diffie-Hellman key exchange; enabling data protection without 
         /// authentication.
         /// </summary>
-        Owe = 12,
+        OWE = 12,
 
     }
 }
