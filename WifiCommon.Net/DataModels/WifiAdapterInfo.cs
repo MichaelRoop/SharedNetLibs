@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using WifiCommon.Net.Enumerations;
 
 namespace WifiCommon.Net.DataModels {
@@ -18,7 +19,8 @@ namespace WifiCommon.Net.DataModels {
         /// <summary>Maximum outbound transfer rate in bits per second</summary>
         public ulong MaxBitsPerSecondOut { get; set; } = 0;
 
-        public WifiReconnectionKind ReconnectionKind { get; set; } = WifiReconnectionKind.Automatic;
+        // Not sure where this should go - does not belong to the class
+        //public WifiReconnectionKind ReconnectionKind { get; set; } = WifiReconnectionKind.Automatic;
 
         // TODO - probably the TCP address
 
@@ -30,6 +32,10 @@ namespace WifiCommon.Net.DataModels {
 
         // NetkWorkItem also has list of NetworkTypes
         // None 0, Internet 1, Private 2 = use bitwise
+
+
+        /// <summary>List of available WIFI networks</summary>
+        public List<WifiNetworkInfo> Networks { get; set; } = new List<WifiNetworkInfo>();
 
 
     }
