@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CommunicationStack.Net\CommunicationStack.Net.csproj" />
     <ProjectReference Include="..\VariousUtils\VariousUtils.Net.csproj" />
   </ItemGroup>
 

@@ -4,8 +4,13 @@ using System.Text;
 
 namespace WifiCommon.Net.Enumerations {
     public enum WifiErrorCode {
-        None,
-        NoAdapters,
         Unknown,
+        Success,
+        NoAdapters,
+        NetworkNotAvailable,
+        AccessRevoked,
+        InvalidCredentials,
+        Timeout,
+        UnsupportedAuthenticationProtocol,
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommunicationStack.Net.interfaces;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using WifiCommon.Net.DataModels;
@@ -6,7 +7,7 @@ using WifiCommon.Net.DataModels;
 namespace WifiCommon.Net.interfaces {
 
     /// <summary>Interface to access WIFI modules</summary>
-    public interface IWifiInterface {
+    public interface IWifiInterface : ICommStackChannel {
 
         #region Events
 
