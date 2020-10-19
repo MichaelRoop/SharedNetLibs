@@ -48,6 +48,17 @@ namespace WifiCommon.Net.DataModels {
         /// <summary></summary>
         public TimeSpan UpTime { get; set; } = TimeSpan.Zero;
 
+        #region Socket Info
+
+        /// <summary>The name or IP address</summary>
+        public string RemoteHostName { get; set; }
+        
+        /// <summary>Correponds to the port number, 80 HTTP</summary>
+        public  string RemoteServiceName { get; set; }
+
+        // TODO - cross platform protection level? Or can we deduce it at OS implementation level
+
+        #endregion
 
 
     }

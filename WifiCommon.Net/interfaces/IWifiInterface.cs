@@ -1,4 +1,5 @@
-﻿using CommunicationStack.Net.interfaces;
+﻿using CommunicationStack.Net.DataModels;
+using CommunicationStack.Net.interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -20,6 +21,14 @@ namespace WifiCommon.Net.interfaces {
         /// <summary>For various errors encountered in asynchronous operations</summary>
         event EventHandler<WifiError> OnError;
 
+        /// <summary>Async Connection completed</summary>
+        event EventHandler<MsgPumpConnectResults> OnWifiConnectionAttemptCompleted;
+
+        #endregion
+
+        #region Properties
+
+        bool Connected { get; }
 
         #endregion
 
@@ -30,6 +39,14 @@ namespace WifiCommon.Net.interfaces {
         /// raised on completion
         /// </summary>
         void DiscoverWifiAdaptersAsync();
+
+
+        /// <summary>Connect to a WIFI network</summary>
+        /// <param name="dataModel">The information for connection</param>
+        void ConnectAsync(WifiNetworkInfo dataModel);
+
+
+        void Disconnect();
 
         #endregion
 
