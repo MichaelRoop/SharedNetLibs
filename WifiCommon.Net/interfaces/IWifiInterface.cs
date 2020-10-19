@@ -24,6 +24,9 @@ namespace WifiCommon.Net.interfaces {
         /// <summary>Async Connection completed</summary>
         event EventHandler<MsgPumpConnectResults> OnWifiConnectionAttemptCompleted;
 
+        /// <summary>Raised if there is no password, host name or service name in the connection data model</summary>
+        event EventHandler<WifiCredentials> CredentialsRequestedEvent;
+
         #endregion
 
         #region Properties

@@ -51,10 +51,15 @@ namespace WifiCommon.Net.DataModels {
         #region Socket Info
 
         /// <summary>The name or IP address</summary>
-        public string RemoteHostName { get; set; }
-        
+        public string RemoteHostName { get; set; } = string.Empty;
+
         /// <summary>Correponds to the port number, 80 HTTP</summary>
-        public  string RemoteServiceName { get; set; }
+        public string RemoteServiceName { get; set; } = string.Empty;
+
+        public string Password { get; set; } = string.Empty;
+
+        /// <summary>Required by some networks for connection</summary>
+        public string UserName { get; set; } = string.Empty;
 
         // TODO - cross platform protection level? Or can we deduce it at OS implementation level
 
