@@ -13,6 +13,8 @@ namespace WifiCommon.Net.DataModels {
 
         public string SSID { get; set; } = string.Empty;
 
+        /// <summary>Part of MS to differentiate between networks with same SSID</summary>
+        public Guid Id { get; set; } = Guid.Empty;
 
         // TODO - a property to fill in and pass up. To determine if user name is required
 
