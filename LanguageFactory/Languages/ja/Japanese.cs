@@ -44,6 +44,12 @@ namespace LanguageFactory.Net.Languages.ja {
             this.AddMsg(MsgCode.PairedDevices, "ペアリングされたデバイス");
             this.AddMsg(MsgCode.Pair, "ペアリング");
             this.AddMsg(MsgCode.Unpair, "ペアリングの解除");
+            this.AddMsg(MsgCode.Disconnect, "切断");
+            this.AddMsg(MsgCode.Password, "パスワード");
+            this.AddMsg(MsgCode.HostName, "ホスト名");
+            this.AddMsg(MsgCode.NetworkService, "ネットワーク サービス");
+            this.AddMsg(MsgCode.Port, "ポート");
+            this.AddMsg(MsgCode.NetworkSecurityKey, "ネットワーク セキュリティ キ");
 
 
             //this.AddMsg(MsgCode., "");

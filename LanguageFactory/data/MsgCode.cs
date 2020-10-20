@@ -46,6 +46,12 @@
         PairedDevices,
         Pair,
         Unpair,
+        Disconnect,
+        Password,
+        HostName,
+        NetworkService,
+        Port,
+        NetworkSecurityKey,
 
     }
 }

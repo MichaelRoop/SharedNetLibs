@@ -44,6 +44,12 @@ namespace LanguageFactory.Net.Languages.cn {
             this.AddMsg(MsgCode.PairedDevices, "已配对的设备");
             this.AddMsg(MsgCode.Pair, "配对");
             this.AddMsg(MsgCode.Unpair, "取消配对");
+            this.AddMsg(MsgCode.Disconnect, "断开连接");
+            this.AddMsg(MsgCode.Password, "密码");
+            this.AddMsg(MsgCode.HostName, "主机名");
+            this.AddMsg(MsgCode.NetworkService, "网络服务");
+            this.AddMsg(MsgCode.Port, "端口");
+            this.AddMsg(MsgCode.NetworkSecurityKey, "网络安全密钥");
 
 
             //this.AddMsg(MsgCode., "");

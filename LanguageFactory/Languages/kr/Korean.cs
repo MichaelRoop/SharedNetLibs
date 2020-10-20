@@ -44,6 +44,12 @@ namespace LanguageFactory.Net.Languages.kr {
             this.AddMsg(MsgCode.PairedDevices, "연결된 디바이스");
             this.AddMsg(MsgCode.Pair, "연결하다");
             this.AddMsg(MsgCode.Unpair, "언페어링");
+            this.AddMsg(MsgCode.Disconnect, "연결 끊기");
+            this.AddMsg(MsgCode.Password, "암호");
+            this.AddMsg(MsgCode.HostName, "호스트 이름");
+            this.AddMsg(MsgCode.NetworkService, "네트워크 서비스");
+            this.AddMsg(MsgCode.Port, "포트");
+            this.AddMsg(MsgCode.NetworkSecurityKey, "네트워크 보안 키");
 
 
             //this.AddMsg(MsgCode., "");

@@ -44,6 +44,12 @@ namespace LanguageFactory.Net.Languages.fr {
             this.AddMsg(MsgCode.PairedDevices, "Appareils appariés");
             this.AddMsg(MsgCode.Pair, "Coupler");
             this.AddMsg(MsgCode.Unpair, "Découpler");
+            this.AddMsg(MsgCode.Disconnect, "Déconnecter");
+            this.AddMsg(MsgCode.Password, "Mot de passe");
+            this.AddMsg(MsgCode.HostName, "Nom d'hôte");
+            this.AddMsg(MsgCode.NetworkService, "Service réseau");
+            this.AddMsg(MsgCode.Port, "Port");
+            this.AddMsg(MsgCode.NetworkSecurityKey, "Clé de sécurité réseau");
 
             //this.AddMsg(MsgCode., "");
         }

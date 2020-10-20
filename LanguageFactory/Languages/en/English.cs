@@ -46,6 +46,12 @@ namespace LanguageFactory.Net.Languages.en {
             this.AddMsg(MsgCode.PairedDevices, "Paired Devices");
             this.AddMsg(MsgCode.Pair, "Pair");
             this.AddMsg(MsgCode.Unpair, "Unpair");
+            this.AddMsg(MsgCode.Disconnect, "Disconnect");
+            this.AddMsg(MsgCode.Password, "Password");
+            this.AddMsg(MsgCode.HostName, "Host Name");
+            this.AddMsg(MsgCode.NetworkService, "Network Service");
+            this.AddMsg(MsgCode.Port, "Port");
+            this.AddMsg(MsgCode.NetworkSecurityKey, "Network Security Key");
 
             //this.AddMsg(MsgCode., "");
         }

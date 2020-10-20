@@ -45,6 +45,12 @@ namespace LanguageFactory.Net.Languages.es {
             this.AddMsg(MsgCode.PairedDevices, "Dispositivos emparejados");
             this.AddMsg(MsgCode.Pair, "Emparejar");
             this.AddMsg(MsgCode.Unpair, "Desemparejar");
+            this.AddMsg(MsgCode.Disconnect, "Desconectar");
+            this.AddMsg(MsgCode.Password, "Contraseña");
+            this.AddMsg(MsgCode.HostName, "Nombre de host");
+            this.AddMsg(MsgCode.NetworkService, "Servicio de red");
+            this.AddMsg(MsgCode.Port, "Puerto");
+            this.AddMsg(MsgCode.NetworkSecurityKey, "Clave de seguridad de red");
 
 
             //this.AddMsg(MsgCode., "");
