@@ -12,5 +12,11 @@ namespace WifiCommon.Net.Enumerations {
         InvalidCredentials,
         Timeout,
         UnsupportedAuthenticationProtocol,
+
+
+        EmptyHostName,
+        EmptyServiceName,
+        EmptyPassword,
+        UserCanceled,
     }
 }
