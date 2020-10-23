@@ -41,6 +41,8 @@
         ArduinoIcon,
         Pair,
         Unpair,
+        Credentials,
+        CredentialsWhite,
 
     }
 }

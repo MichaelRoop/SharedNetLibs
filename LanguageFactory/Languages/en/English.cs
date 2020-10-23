@@ -54,6 +54,7 @@ namespace LanguageFactory.Net.Languages.en {
             this.AddMsg(MsgCode.NetworkSecurityKey, "Network Security Key");
             this.AddMsg(MsgCode.Network, "Network");
             this.AddMsg(MsgCode.Socket, "Socket");
+            this.AddMsg(MsgCode.Credentials, "Credentials");
 
             //this.AddMsg(MsgCode., "");
         }

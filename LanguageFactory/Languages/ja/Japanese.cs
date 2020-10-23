@@ -52,6 +52,7 @@ namespace LanguageFactory.Net.Languages.ja {
             this.AddMsg(MsgCode.NetworkSecurityKey, "ネットワーク セキュリティ キ");
             this.AddMsg(MsgCode.Network, "ネットワーク");
             this.AddMsg(MsgCode.Socket, "ソケット");
+            this.AddMsg(MsgCode.Credentials, "資格証明");
 
 
             //this.AddMsg(MsgCode., "");

@@ -52,6 +52,7 @@ namespace LanguageFactory.Net.Languages.cn {
             this.AddMsg(MsgCode.NetworkSecurityKey, "网络安全密钥");
             this.AddMsg(MsgCode.Network, "网络");
             this.AddMsg(MsgCode.Socket, "套接字");
+            this.AddMsg(MsgCode.Credentials, "凭据");
 
 
             //this.AddMsg(MsgCode., "");
