@@ -53,6 +53,7 @@ namespace LanguageFactory.Net.Languages.kr {
             this.AddMsg(MsgCode.Network, "네트워크");
             this.AddMsg(MsgCode.Socket, "소켓");
             this.AddMsg(MsgCode.Credentials, "자격 증명");
+            this.AddMsg(MsgCode.About, "정보");
 
 
             //this.AddMsg(MsgCode., "");

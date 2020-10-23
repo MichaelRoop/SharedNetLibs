@@ -43,6 +43,8 @@
         Unpair,
         Credentials,
         CredentialsWhite,
+        About,
+        AboutWhite,
 
     }
 }

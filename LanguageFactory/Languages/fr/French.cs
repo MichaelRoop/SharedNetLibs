@@ -53,6 +53,7 @@ namespace LanguageFactory.Net.Languages.fr {
             this.AddMsg(MsgCode.Network, "Réseau");
             this.AddMsg(MsgCode.Socket, "Socket");
             this.AddMsg(MsgCode.Credentials, "Info. d'identification");
+            this.AddMsg(MsgCode.About, "À propos");
 
             //this.AddMsg(MsgCode., "");
         }
