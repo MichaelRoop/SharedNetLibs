@@ -52,6 +52,8 @@ namespace LanguageFactory.Net.Languages.en {
             this.AddMsg(MsgCode.NetworkService, "Network Service");
             this.AddMsg(MsgCode.Port, "Port");
             this.AddMsg(MsgCode.NetworkSecurityKey, "Network Security Key");
+            this.AddMsg(MsgCode.Network, "Network");
+            this.AddMsg(MsgCode.Socket, "Socket");
 
             //this.AddMsg(MsgCode., "");
         }

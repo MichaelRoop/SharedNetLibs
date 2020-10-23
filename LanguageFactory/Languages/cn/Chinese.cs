@@ -50,6 +50,8 @@ namespace LanguageFactory.Net.Languages.cn {
             this.AddMsg(MsgCode.NetworkService, "网络服务");
             this.AddMsg(MsgCode.Port, "端口");
             this.AddMsg(MsgCode.NetworkSecurityKey, "网络安全密钥");
+            this.AddMsg(MsgCode.Network, "网络");
+            this.AddMsg(MsgCode.Socket, "套接字");
 
 
             //this.AddMsg(MsgCode., "");

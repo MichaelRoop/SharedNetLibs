@@ -52,6 +52,8 @@
         NetworkService,
         Port,
         NetworkSecurityKey,
+        Network,
+        Socket,
 
     }
 }

@@ -51,6 +51,8 @@ namespace LanguageFactory.Net.Languages.es {
             this.AddMsg(MsgCode.NetworkService, "Servicio de red");
             this.AddMsg(MsgCode.Port, "Puerto");
             this.AddMsg(MsgCode.NetworkSecurityKey, "Clave de seguridad de red");
+            this.AddMsg(MsgCode.Network, "Red");
+            this.AddMsg(MsgCode.Socket, "Socket");
 
 
             //this.AddMsg(MsgCode., "");

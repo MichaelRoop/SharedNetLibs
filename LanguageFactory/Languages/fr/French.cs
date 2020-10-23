@@ -50,6 +50,8 @@ namespace LanguageFactory.Net.Languages.fr {
             this.AddMsg(MsgCode.NetworkService, "Service réseau");
             this.AddMsg(MsgCode.Port, "Port");
             this.AddMsg(MsgCode.NetworkSecurityKey, "Clé de sécurité réseau");
+            this.AddMsg(MsgCode.Network, "Réseau");
+            this.AddMsg(MsgCode.Socket, "Socket");
 
             //this.AddMsg(MsgCode., "");
         }

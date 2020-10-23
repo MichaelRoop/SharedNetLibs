@@ -50,6 +50,8 @@ namespace LanguageFactory.Net.Languages.kr {
             this.AddMsg(MsgCode.NetworkService, "네트워크 서비스");
             this.AddMsg(MsgCode.Port, "포트");
             this.AddMsg(MsgCode.NetworkSecurityKey, "네트워크 보안 키");
+            this.AddMsg(MsgCode.Network, "네트워크");
+            this.AddMsg(MsgCode.Socket, "소켓");
 
 
             //this.AddMsg(MsgCode., "");
