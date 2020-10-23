@@ -54,6 +54,9 @@ namespace LanguageFactory.Net.Languages.fr {
             this.AddMsg(MsgCode.Socket, "Socket");
             this.AddMsg(MsgCode.Credentials, "Info. d'identification");
             this.AddMsg(MsgCode.About, "À propos");
+            this.AddMsg(MsgCode.Icons, "Icônes");
+            this.AddMsg(MsgCode.Author, "Auteur");
+
 
             //this.AddMsg(MsgCode., "");
         }

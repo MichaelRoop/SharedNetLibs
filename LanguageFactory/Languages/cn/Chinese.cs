@@ -54,6 +54,8 @@ namespace LanguageFactory.Net.Languages.cn {
             this.AddMsg(MsgCode.Socket, "套接字");
             this.AddMsg(MsgCode.Credentials, "凭据");
             this.AddMsg(MsgCode.About, "关于");
+            this.AddMsg(MsgCode.Icons, "图标");
+            this.AddMsg(MsgCode.Author, "作者");
 
 
             //this.AddMsg(MsgCode., "");

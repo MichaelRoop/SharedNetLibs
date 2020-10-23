@@ -56,6 +56,8 @@
         Socket,
         Credentials,
         About,
+        Icons,
+        Author,
 
     }
 }
