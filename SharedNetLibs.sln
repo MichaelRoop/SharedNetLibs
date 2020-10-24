@@ -46,7 +46,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestCases.Core", "TestCases
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpStateMachineDemo.Core.UI", "SpStateMachineDemo.Core.UI\SpStateMachineDemo.Core.UI.csproj", "{564511AF-DED4-4979-BC7A-6127CEF55218}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WifiCommon.Net", "WifiCommon.Net\WifiCommon.Net.csproj", "{3EF5CF10-BCC8-481A-A903-16964136DFE1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WifiCommon.Net", "WifiCommon.Net\WifiCommon.Net.csproj", "{3EF5CF10-BCC8-481A-A903-16964136DFE1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Net", "Common.Net\Common.Net.csproj", "{AAB6FB7C-91AF-4DA8-AA8D-B29D18C50E86}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -134,6 +136,10 @@ Global
 		{3EF5CF10-BCC8-481A-A903-16964136DFE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3EF5CF10-BCC8-481A-A903-16964136DFE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3EF5CF10-BCC8-481A-A903-16964136DFE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAB6FB7C-91AF-4DA8-AA8D-B29D18C50E86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAB6FB7C-91AF-4DA8-AA8D-B29D18C50E86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAB6FB7C-91AF-4DA8-AA8D-B29D18C50E86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAB6FB7C-91AF-4DA8-AA8D-B29D18C50E86}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

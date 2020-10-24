@@ -4,45 +4,19 @@ using ChkUtils.Net;
 using LogUtils.Net;
 using System;
 using System.Collections.Generic;
-using BluetoothCommon.Net.DataModels;
+using Common.Net.Network;
+using Common.Net.Network.interfaces;
+using Common.Net.Enumerations;
+using Common.Net.Properties;
 
 namespace BluetoothLE.Net.DataModels {
-
-    public class StringProperyUpdate {
-        public string Key { get; set; } = "";
-        public string Value { get; set; } = "";
-        public StringProperyUpdate(string key, string value) {
-            this.Key = key;
-            this.Value = value;
-        }
-    }
-
-    public class BoolProperyUpdate {
-        public string Key { get; set; } = "";
-        public bool Value { get; set; } = false;
-        public BoolProperyUpdate(string key, bool value) {
-            this.Key = key;
-            this.Value = value;
-        }
-    }
-
-
-    public class GuidProperyUpdate {
-        public string Key { get; set; } = "";
-        public Guid Value { get; set; } = Guid.NewGuid();
-        public GuidProperyUpdate(string key, Guid value) {
-            this.Key = key;
-            this.Value = value;
-        }
-    }
-
 
 
     /// <summary>Information particular to Bluetooth LE devices</summary>
     public class BluetoothLEDeviceInfo {
 
         private ClassLog log = new ClassLog("BluetoothLEDeviceInfo");
-        private IPropertyKeys propertyKeys = null;
+        private INetPropertyKeys propertyKeys = null;
 
         public event EventHandler<StringProperyUpdate> OnStringPropertyChanged;
         public event EventHandler<BoolProperyUpdate> OnBoolPropertyChanged;
@@ -85,7 +59,7 @@ namespace BluetoothLE.Net.DataModels {
 
         public BLE_DeviceAccessStatus AccessStatus { get; set; } = BLE_DeviceAccessStatus.Unspecified;
 
-        public Dictionary<string, BluetoothPropertyDataModel> ServiceProperties { get; set; } = new Dictionary<string, BluetoothPropertyDataModel>();
+        public Dictionary<string, NetPropertyDataModel> ServiceProperties { get; set; } = new Dictionary<string, NetPropertyDataModel>();
 
         public Dictionary<string, BLE_ServiceDataModel> Services { get; set; } = new Dictionary<string, BLE_ServiceDataModel>();
 
@@ -140,12 +114,12 @@ namespace BluetoothLE.Net.DataModels {
 
         }
 
-        public BluetoothLEDeviceInfo(IPropertyKeys propertyKeys) {
+        public BluetoothLEDeviceInfo(INetPropertyKeys propertyKeys) {
             this.propertyKeys = propertyKeys;
         }
 
 
-        public void Update(Dictionary<string, BluetoothPropertyDataModel> properties) {
+        public void Update(Dictionary<string, NetPropertyDataModel> properties) {
             // Need some kind of event that something has changed
             foreach (var property in properties) {
                 if (this.ServiceProperties.ContainsKey(property.Key)) {
@@ -166,7 +140,7 @@ namespace BluetoothLE.Net.DataModels {
 
         /// <summary>Change class values based on updated property</summary>
         /// <param name="dm">The property data model</param>
-        private void ChangeValueOnUpdate(BluetoothPropertyDataModel dm) {
+        private void ChangeValueOnUpdate(NetPropertyDataModel dm) {
             if (dm.Key == this.propertyKeys.ItemNameDisplay) {
                 this.Name = dm.Value as string;
             }
@@ -191,7 +165,7 @@ namespace BluetoothLE.Net.DataModels {
 
         }
 
-        private void RaiseChangedEvent(BluetoothPropertyDataModel dm) {
+        private void RaiseChangedEvent(NetPropertyDataModel dm) {
             this.log.Info("++++++++++++", 
                 () => string.Format("Updating {0} : {1} : {2}",
                 dm.Key, dm.DataType, dm.Value.ToString()));
@@ -209,6 +183,8 @@ namespace BluetoothLE.Net.DataModels {
                 case PropertyDataType.TypeUnknown:
                     this.OnStringPropertyChanged?.Invoke(this, new StringProperyUpdate(dm.Key, dm.Value.ToString()));
                     break;
+
+                    // TODO add events for other types
             }
         }
 

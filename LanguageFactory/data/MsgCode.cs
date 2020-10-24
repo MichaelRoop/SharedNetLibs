@@ -61,5 +61,31 @@
         Services,
         Properties,
 
+
+        //// BLE Fields
+        //True,
+        //False,
+        //Id,
+        //AccessStatus,
+        //AddressType,
+        //Enabled,
+        //Default,
+        //Kind,
+        //// Can be paired
+        //Paired,
+        //PairedSecureConnection,
+        //Connectable,
+        //Connected,
+        //ProtectionLevel,
+        //// BT
+        ///
+        Address,
+        DeviceClass,
+        ServiceClass,
+        LastSeen,
+        LastUsed,
+
+
+
     }
 }

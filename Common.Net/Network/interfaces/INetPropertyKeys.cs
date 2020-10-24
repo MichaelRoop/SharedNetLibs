@@ -1,8 +1,8 @@
-﻿namespace BluetoothLE.Net.interfaces {
+﻿
+namespace Common.Net.Network.interfaces {
 
     /// <summary>Cross platform property keys</summary>
-    public interface IPropertyKeys {
-
+    public interface INetPropertyKeys {
         string IsConnected { get; }
         string IsConnectable { get; }
         string CanPair { get; }
@@ -13,4 +13,5 @@
         string ItemNameDisplay { get; }
 
     }
+
 }
