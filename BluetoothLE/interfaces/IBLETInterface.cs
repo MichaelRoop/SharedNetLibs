@@ -1,4 +1,5 @@
-﻿using BluetoothLE.Net.DataModels;
+﻿using BluetoothCommon.Net.DataModels;
+using BluetoothLE.Net.DataModels;
 using CommunicationStack.Net.interfaces;
 using System;
 
@@ -17,7 +18,7 @@ namespace BluetoothLE.Net.interfaces {
         event EventHandler<bool> DeviceDiscoveryCompleted;
 
         /// <summary>Raised when BLE updates a device properties</summary>
-        event EventHandler<BLE_PropertiesUpdateDataModel> DeviceUpdated;
+        event EventHandler<BluetoothPropertiesUpdateDataModel> DeviceUpdated;
 
         /// <summary>Raised when BLE gets all the info from a device which requires connection</summary>
         event EventHandler<BluetoothLEDeviceInfo> DeviceInfoAssembled;

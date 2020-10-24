@@ -4,6 +4,7 @@ using ChkUtils.Net;
 using LogUtils.Net;
 using System;
 using System.Collections.Generic;
+using BluetoothCommon.Net.DataModels;
 
 namespace BluetoothLE.Net.DataModels {
 
@@ -84,7 +85,7 @@ namespace BluetoothLE.Net.DataModels {
 
         public BLE_DeviceAccessStatus AccessStatus { get; set; } = BLE_DeviceAccessStatus.Unspecified;
 
-        public Dictionary<string, BLE_PropertyDataModel> ServiceProperties { get; set; } = new Dictionary<string, BLE_PropertyDataModel>();
+        public Dictionary<string, BluetoothPropertyDataModel> ServiceProperties { get; set; } = new Dictionary<string, BluetoothPropertyDataModel>();
 
         public Dictionary<string, BLE_ServiceDataModel> Services { get; set; } = new Dictionary<string, BLE_ServiceDataModel>();
 
@@ -144,7 +145,7 @@ namespace BluetoothLE.Net.DataModels {
         }
 
 
-        public void Update(Dictionary<string, BLE_PropertyDataModel> properties) {
+        public void Update(Dictionary<string, BluetoothPropertyDataModel> properties) {
             // Need some kind of event that something has changed
             foreach (var property in properties) {
                 if (this.ServiceProperties.ContainsKey(property.Key)) {
@@ -165,7 +166,7 @@ namespace BluetoothLE.Net.DataModels {
 
         /// <summary>Change class values based on updated property</summary>
         /// <param name="dm">The property data model</param>
-        private void ChangeValueOnUpdate(BLE_PropertyDataModel dm) {
+        private void ChangeValueOnUpdate(BluetoothPropertyDataModel dm) {
             if (dm.Key == this.propertyKeys.ItemNameDisplay) {
                 this.Name = dm.Value as string;
             }
@@ -190,7 +191,7 @@ namespace BluetoothLE.Net.DataModels {
 
         }
 
-        private void RaiseChangedEvent(BLE_PropertyDataModel dm) {
+        private void RaiseChangedEvent(BluetoothPropertyDataModel dm) {
             this.log.Info("++++++++++++", 
                 () => string.Format("Updating {0} : {1} : {2}",
                 dm.Key, dm.DataType, dm.Value.ToString()));

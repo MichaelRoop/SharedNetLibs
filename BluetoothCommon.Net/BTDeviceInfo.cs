@@ -1,5 +1,5 @@
-﻿using BluetoothCommon.Net.Enumerations;
-using BluetoothLE.Net.DataModels;
+﻿using BluetoothCommon.Net.DataModels;
+using BluetoothCommon.Net.Enumerations;
 using System;
 using System.Collections.Generic;
 
@@ -52,7 +52,7 @@ namespace BluetoothCommon.Net {
         public BTRadioInfo Radio { get; set; }
 
         // TODO - rename and move the BLE_ProperyDataModel to generic
-        public Dictionary<string, BLE_PropertyDataModel> Properties { get; set; } = new Dictionary<string, BLE_PropertyDataModel>();
+        public Dictionary<string, BluetoothPropertyDataModel> Properties { get; set; } = new Dictionary<string, BluetoothPropertyDataModel>();
 
 
 
