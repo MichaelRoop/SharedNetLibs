@@ -56,6 +56,8 @@ namespace LanguageFactory.Net.Languages.kr {
             this.AddMsg(MsgCode.About, "정보");
             this.AddMsg(MsgCode.Icons, "아이콘");
             this.AddMsg(MsgCode.Author, "만든 이");
+            this.AddMsg(MsgCode.Services, "서비스");
+            this.AddMsg(MsgCode.Properties, "속성");
 
 
             //this.AddMsg(MsgCode., "");

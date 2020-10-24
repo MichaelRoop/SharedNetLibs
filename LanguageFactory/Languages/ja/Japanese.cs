@@ -56,6 +56,8 @@ namespace LanguageFactory.Net.Languages.ja {
             this.AddMsg(MsgCode.About, "情報");
             this.AddMsg(MsgCode.Icons, "アイコン");
             this.AddMsg(MsgCode.Author, "作成者");
+            this.AddMsg(MsgCode.Services, "サービス");
+            this.AddMsg(MsgCode.Properties, "のプロパティ");
 
 
             //this.AddMsg(MsgCode., "");

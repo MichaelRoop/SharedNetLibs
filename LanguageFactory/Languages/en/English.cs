@@ -58,6 +58,8 @@ namespace LanguageFactory.Net.Languages.en {
             this.AddMsg(MsgCode.About, "About");
             this.AddMsg(MsgCode.Icons, "Icons");
             this.AddMsg(MsgCode.Author, "Author");
+            this.AddMsg(MsgCode.Services, "Services");
+            this.AddMsg(MsgCode.Properties, "Properties");
 
 
             //this.AddMsg(MsgCode., "");

@@ -45,6 +45,10 @@
         CredentialsWhite,
         About,
         AboutWhite,
+        Services,
+        ServicesWhite,
+        Properties,
+        PropertiesWhite,
 
     }
 }

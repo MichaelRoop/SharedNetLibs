@@ -58,6 +58,8 @@
         About,
         Icons,
         Author,
+        Services,
+        Properties,
 
     }
 }
