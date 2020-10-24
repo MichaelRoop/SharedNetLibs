@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\SharedNetLibs\CommunicationStack.Net\CommunicationStack.Net.csproj" />
+    <ProjectReference Include="..\BluetoothLE\BluetoothLE.Net.csproj" />
   </ItemGroup>
 
 </Project>

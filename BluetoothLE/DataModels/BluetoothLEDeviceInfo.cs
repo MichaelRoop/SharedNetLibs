@@ -76,7 +76,7 @@ namespace BluetoothLE.Net.DataModels {
 
         public bool IsConnected { get; set; } = false;
 
-        public bool IsConnectable { get; set; } = false;
+        //public bool IsConnectable { get; set; } = false;
 
         public BLE_ProtectionLevel ProtectionLevel { get; set; } = BLE_ProtectionLevel.DefaultPlain;
 
@@ -179,7 +179,8 @@ namespace BluetoothLE.Net.DataModels {
                 this.IsConnected = (bool)dm.Value;
             }
             else if (dm.Key == this.propertyKeys.IsConnectable) {
-                this.IsConnectable = (bool)dm.Value;
+                // Have never seen this property so remove from variables. Can still see in properties
+                //this.IsConnectable = (bool)dm.Value;
             }
 
             // These are in the properties only 

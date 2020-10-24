@@ -1,5 +1,7 @@
 ﻿using BluetoothCommon.Net.Enumerations;
+using BluetoothLE.Net.DataModels;
 using System;
+using System.Collections.Generic;
 
 namespace BluetoothCommon.Net {
 
@@ -48,6 +50,11 @@ namespace BluetoothCommon.Net {
         public DateTime LastUsed { get; set; }
 
         public BTRadioInfo Radio { get; set; }
+
+        // TODO - rename and move the BLE_ProperyDataModel to generic
+        public Dictionary<string, BLE_PropertyDataModel> Properties { get; set; } = new Dictionary<string, BLE_PropertyDataModel>();
+
+
 
 
         public BTDeviceInfo() {
