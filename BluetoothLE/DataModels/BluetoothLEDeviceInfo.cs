@@ -47,6 +47,8 @@ namespace BluetoothLE.Net.DataModels {
         public event EventHandler<BoolProperyUpdate> OnBoolPropertyChanged;
         public event EventHandler<GuidProperyUpdate> OnGuidPropertyChanged;
 
+        /// <summary>So that we do not try multiple times to connect to gather info if connect failed</summary>
+        public bool InfoAttempted { get; set; } = false;
 
         /// <summary>Name</summary>
         public string Name { get; set; }
