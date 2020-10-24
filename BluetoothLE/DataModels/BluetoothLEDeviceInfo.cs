@@ -72,7 +72,7 @@ namespace BluetoothLE.Net.DataModels {
 
         public bool IsPaired { get; set; } = false;
 
-        public BLE_DeviceInfoKind Kind { get; set; } = BLE_DeviceInfoKind.Unknown;
+        public BLE_DeviceInfoKind DeviceKind { get; set; } = BLE_DeviceInfoKind.Unknown;
 
         public bool IsConnected { get; set; } = false;
 

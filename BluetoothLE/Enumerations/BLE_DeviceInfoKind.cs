@@ -14,7 +14,7 @@ namespace BluetoothLE.Net.Enumerations {
         /// by device drivers to enable an app to talk to the device, typically using device
         /// IOCTLS (input output controls).
         /// </summary>
-        DeviceInterface = 1,
+        PnP_Device_Interface = 1,
 
         /// <summary>
         /// The DeviceInformation object represents a device container. *DeviceContainer*
@@ -22,7 +22,7 @@ namespace BluetoothLE.Net.Enumerations {
         /// device. For example, a multi-function printer may have several different devices
         /// included, but they would all exist as part of the parent *DeviceContainer* object.
         /// </summary>
-        DeviceContainer = 2,
+        Device_Container = 2,
 
         /// <summary>
         /// The DeviceInformation object represents a device object. This could also be referred
@@ -41,7 +41,7 @@ namespace BluetoothLE.Net.Enumerations {
         /// every other PnP object. *DeviceInterfaceClass* objects contain little more information
         /// than a unique identifier and possibly a name.
         /// </summary>
-        DeviceInterfaceClass = 4,
+        Device_Interface_Class = 4,
 
         /// <summary>
         /// The DeviceInformation object represents a device association endpoint (AEP).
@@ -51,7 +51,7 @@ namespace BluetoothLE.Net.Enumerations {
         /// if a device is already paired with the system. Only *AssociationEndpoint* objects
         /// have a non-NULL value for Pairing.
         /// </summary>
-        AssociationEndpoint = 5,
+        AEP_Association_Endpoint = 5,
 
         /// <summary>
         /// Represents an association endpoint (AEP) container.
@@ -61,7 +61,7 @@ namespace BluetoothLE.Net.Enumerations {
         /// would be the television. It would also have two *AssociationEndpoint* objects
         /// to represent each protocol.
         /// </summary>
-        AssociationEndpointContainer = 6,
+        AEP_Association_Endpoint_Container = 6,
 
         /// <summary>
         /// Represents an association endpoint (AEP) Service. An *AssociationEndpointService* 
@@ -69,10 +69,10 @@ namespace BluetoothLE.Net.Enumerations {
         /// protocols support AEP services. An *AssociationEndpointService* can have a single 
         /// parent *AssociationEndpointContainer* object.
         /// </summary>
-        AssociationEndpointService = 7,
+        AEP_Association_Endpoint_Service = 7,
 
         /// <summary>Represents a single physical face of a device enclosure</summary>
-        DevicePanel = 8
+        Device_Panel = 8
 
 
 
