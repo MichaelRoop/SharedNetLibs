@@ -30,4 +30,19 @@
         public object Value { get; set; } = new object();
 
     }
+
+    public static class PropertyDataTypeExtensions {
+
+        public static string ToFriendlyString(this PropertyDataType dataType) {
+            switch (dataType) {
+                case PropertyDataType.TypeUnknown: return "Unknown";
+                case PropertyDataType.TypeString: return "String";
+                case PropertyDataType.TypeBool: return "Bool";
+                case PropertyDataType.TypeGuid: return "Guid";
+                default: return dataType.ToString();
+            }
+        }
+
+    }
+
 }
