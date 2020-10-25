@@ -50,6 +50,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WifiCommon.Net", "WifiCommo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Net", "Common.Net\Common.Net.csproj", "{AAB6FB7C-91AF-4DA8-AA8D-B29D18C50E86}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerialCommon.Net", "SerialCommon.Net\SerialCommon.Net.csproj", "{29F7BCEF-ADA6-4472-9453-57E8DD743DC0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -140,6 +142,10 @@ Global
 		{AAB6FB7C-91AF-4DA8-AA8D-B29D18C50E86}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AAB6FB7C-91AF-4DA8-AA8D-B29D18C50E86}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AAB6FB7C-91AF-4DA8-AA8D-B29D18C50E86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29F7BCEF-ADA6-4472-9453-57E8DD743DC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29F7BCEF-ADA6-4472-9453-57E8DD743DC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29F7BCEF-ADA6-4472-9453-57E8DD743DC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29F7BCEF-ADA6-4472-9453-57E8DD743DC0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
