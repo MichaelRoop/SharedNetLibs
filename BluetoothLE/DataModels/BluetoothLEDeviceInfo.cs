@@ -1,13 +1,12 @@
 ﻿using BluetoothLE.Net.Enumerations;
-using BluetoothLE.Net.interfaces;
 using ChkUtils.Net;
+using Common.Net.Enumerations;
+using Common.Net.Network;
+using Common.Net.Network.interfaces;
+using Common.Net.Properties;
 using LogUtils.Net;
 using System;
 using System.Collections.Generic;
-using Common.Net.Network;
-using Common.Net.Network.interfaces;
-using Common.Net.Enumerations;
-using Common.Net.Properties;
 
 namespace BluetoothLE.Net.DataModels {
 
@@ -50,8 +49,6 @@ namespace BluetoothLE.Net.DataModels {
         public BLE_DeviceInfoKind DeviceKind { get; set; } = BLE_DeviceInfoKind.Unknown;
 
         public bool IsConnected { get; set; } = false;
-
-        //public bool IsConnectable { get; set; } = false;
 
         public BLE_ProtectionLevel ProtectionLevel { get; set; } = BLE_ProtectionLevel.DefaultPlain;
 
