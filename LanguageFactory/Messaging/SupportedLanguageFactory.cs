@@ -105,8 +105,8 @@ namespace LanguageFactory.Net.Messaging {
         /// <summary>Load all available languages</summary>
         private void LoadLanguages() {
             this.LoadLanguage(new English());
-            this.LoadLanguage(new French());
             this.LoadLanguage(new Spanish());
+            this.LoadLanguage(new French());
             this.LoadLanguage(new Chinese());
             this.LoadLanguage(new Japanese());
             this.LoadLanguage(new Korean());
