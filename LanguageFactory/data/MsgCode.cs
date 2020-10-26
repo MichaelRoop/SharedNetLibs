@@ -84,7 +84,7 @@
         ServiceClass,
         LastSeen,
         LastUsed,
-
+        Delete,
 
 
     }
