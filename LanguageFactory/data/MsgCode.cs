@@ -85,7 +85,7 @@
         LastSeen,
         LastUsed,
         Delete,
-
+        UserManual,
 
     }
 }

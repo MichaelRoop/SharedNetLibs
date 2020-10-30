@@ -59,6 +59,7 @@ namespace LanguageFactory.Net.Languages.kr {
             this.AddMsg(MsgCode.Services, "서비스");
             this.AddMsg(MsgCode.Properties, "속성");
             this.AddMsg(MsgCode.Delete, "삭제");
+            this.AddMsg(MsgCode.UserManual, "사용자 매뉴얼");
 
 
             //this.AddMsg(MsgCode., "");

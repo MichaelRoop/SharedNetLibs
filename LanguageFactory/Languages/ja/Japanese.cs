@@ -59,6 +59,7 @@ namespace LanguageFactory.Net.Languages.ja {
             this.AddMsg(MsgCode.Services, "サービス");
             this.AddMsg(MsgCode.Properties, "のプロパティ");
             this.AddMsg(MsgCode.Delete, "削除");
+            this.AddMsg(MsgCode.UserManual, "ユーザー マニュアル");
 
 
             //this.AddMsg(MsgCode., "");

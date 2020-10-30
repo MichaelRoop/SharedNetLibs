@@ -59,6 +59,7 @@ namespace LanguageFactory.Net.Languages.cn {
             this.AddMsg(MsgCode.Services, "服务");
             this.AddMsg(MsgCode.Properties, "属性");
             this.AddMsg(MsgCode.Delete, "删除");
+            this.AddMsg(MsgCode.UserManual, "用户手册");
 
 
             //this.AddMsg(MsgCode., "");
