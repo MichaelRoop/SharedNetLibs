@@ -7,6 +7,10 @@ using System.Text;
 namespace SerialCommon.Net.DataModels {
     
     public class SerialDeviceInfo {
+
+        /// <summary>Has the full Windows id string</summary>
+        public string Id { get; set; } = string.Empty;
+
         public string Name { get; set; } = string.Empty;
         public bool IsDefault { get; set; } = false;
         public bool IsEnabled { get; set; } = false;
