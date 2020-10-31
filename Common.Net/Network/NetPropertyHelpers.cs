@@ -64,7 +64,10 @@ namespace Common.Net.Network {
 
 
         private static NetPropertyType GetPropertyTarget(string key) {
-            if (key == KEYS.IsConnected) {
+            if (key == null || key.Length == 0 || KEYS == null){
+                return NetPropertyType.UnHandled;
+            }
+            else if (key == KEYS.IsConnected) {
                 return NetPropertyType.IsConnected;
             }
             else if (key == KEYS.IsConnected) {
