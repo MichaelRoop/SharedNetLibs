@@ -9,8 +9,4 @@
     <ProjectReference Include="..\CommunicationStack.Net\CommunicationStack.Net.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Enumerations\" />
-  </ItemGroup>
-
 </Project>

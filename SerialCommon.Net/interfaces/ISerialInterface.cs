@@ -1,4 +1,5 @@
 ﻿using CommunicationStack.Net.interfaces;
+using SerialCommon.Net.DataModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,8 +11,8 @@ namespace SerialCommon.Net.interfaces {
 
         #region Events
 
-        ///// <summary>Raised with list of adapters found in discovery</summary>
-        //event EventHandler<List<WifiAdapterInfo>> DiscoveredAdapters;
+        /// <summary>Raised with list of adapters found in discovery</summary>
+        event EventHandler<List<SerialDeviceInfo>> DiscoveredDevices;
 
         ///// <summary>Raised with list of networks found in discovery</summary>
         //event EventHandler<List<WifiNetworkInfo>> DiscoveredNetworks;
@@ -44,7 +45,7 @@ namespace SerialCommon.Net.interfaces {
 
         /// <summary>Connect to a WIFI network</summary>
         /// <param name="dataModel">The information for connection</param>
-        //void ConnectAsync(WifiNetworkInfo dataModel);
+        void ConnectAsync(SerialDeviceInfo dataModel);
 
 
         void Disconnect();
