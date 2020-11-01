@@ -14,13 +14,10 @@ namespace SerialCommon.Net.interfaces {
         /// <summary>Raised with list of adapters found in discovery</summary>
         event EventHandler<List<SerialDeviceInfo>> DiscoveredDevices;
 
-        ///// <summary>Raised with list of networks found in discovery</summary>
-        //event EventHandler<List<WifiNetworkInfo>> DiscoveredNetworks;
+        /// <summary>For various errors encountered in asynchronous operations</summary>
+        event EventHandler<SerialUsbError> OnError;
 
-        ///// <summary>For various errors encountered in asynchronous operations</summary>
-        //event EventHandler<WifiError> OnError;
-
-        ///// <summary>Async Connection completed</summary>
+        /// <summary>Async Connection completed</summary>
         //event EventHandler<MsgPumpConnectResults> OnWifiConnectionAttemptCompleted;
 
         ///// <summary>Raised if there is no password, host name or service name in the connection data model</summary>

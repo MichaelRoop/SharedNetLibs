@@ -69,6 +69,9 @@ namespace SerialCommon.Net.DataModels {
         /// <remarks>see: https://the-sz.com/products/usbid/</remarks>
         public ushort USB_ProductId { get; set; } = 0;
 
+        public string USB_VendorIdDisplay { get; set; } = string.Empty;
+        public string USB_ProductIdDisplay { get; set; } = string.Empty;
+
 
         // Not sure if the same
         public Dictionary<string, NetPropertyDataModel> Properties { get; set; } =
