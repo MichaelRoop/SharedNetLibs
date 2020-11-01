@@ -12,6 +12,10 @@ namespace SerialCommon.Net.DataModels {
         public string Id { get; set; } = string.Empty;
 
         public string Name { get; set; } = string.Empty;
+
+        /// <summary>The AQS query string to retrieve the device</summary>
+        public string Aqs { get; set; } = string.Empty;
+
         public bool IsDefault { get; set; } = false;
         public bool IsEnabled { get; set; } = false;
         public string PortName { get; set; } = string.Empty;
