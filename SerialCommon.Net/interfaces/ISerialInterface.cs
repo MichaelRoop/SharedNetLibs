@@ -1,4 +1,5 @@
-﻿using CommunicationStack.Net.interfaces;
+﻿using CommunicationStack.Net.DataModels;
+using CommunicationStack.Net.interfaces;
 using SerialCommon.Net.DataModels;
 using System;
 using System.Collections.Generic;
@@ -18,10 +19,7 @@ namespace SerialCommon.Net.interfaces {
         event EventHandler<SerialUsbError> OnError;
 
         /// <summary>Async Connection completed</summary>
-        //event EventHandler<MsgPumpConnectResults> OnWifiConnectionAttemptCompleted;
-
-        ///// <summary>Raised if there is no password, host name or service name in the connection data model</summary>
-        //event EventHandler<WifiCredentials> CredentialsRequestedEvent;
+        event EventHandler<MsgPumpConnectResults> OnSerialConnectionAttemptCompleted;
 
         #endregion
 
