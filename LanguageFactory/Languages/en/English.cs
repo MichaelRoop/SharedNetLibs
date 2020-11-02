@@ -62,7 +62,14 @@ namespace LanguageFactory.Net.Languages.en {
             this.AddMsg(MsgCode.Properties, "Properties");
             this.AddMsg(MsgCode.Delete, "Delete");
             this.AddMsg(MsgCode.UserManual, "User Manual");
-
+            this.AddMsg(MsgCode.Vendor, "Vendor");
+            this.AddMsg(MsgCode.Product, "Product");
+            this.AddMsg(MsgCode.Enabled, "Enabled");
+            this.AddMsg(MsgCode.Default, "Default");
+            this.AddMsg(MsgCode.BaudRate, "Baud Rate");
+            this.AddMsg(MsgCode.DataBits, "Data Bits");
+            this.AddMsg(MsgCode.StopBits, "Stop Bits");
+            this.AddMsg(MsgCode.Parity, "Parity");
 
             //this.AddMsg(MsgCode., "");
         }

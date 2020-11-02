@@ -60,6 +60,14 @@ namespace LanguageFactory.Net.Languages.fr {
             this.AddMsg(MsgCode.Properties, "Propriétés");
             this.AddMsg(MsgCode.Delete, "Supprimer");
             this.AddMsg(MsgCode.UserManual, "Manuel de l'utilisateur");
+            this.AddMsg(MsgCode.Vendor, "Fournisseur");
+            this.AddMsg(MsgCode.Product, "Produit");
+            this.AddMsg(MsgCode.Enabled, "Activé");
+            this.AddMsg(MsgCode.Default, "Par défaut");
+            this.AddMsg(MsgCode.BaudRate, "Vitesse (en bauds)");
+            this.AddMsg(MsgCode.DataBits, "Bits de données");
+            this.AddMsg(MsgCode.StopBits, "Bits d’arrêt");
+            this.AddMsg(MsgCode.Parity, "Parity");
 
 
             //this.AddMsg(MsgCode., "");

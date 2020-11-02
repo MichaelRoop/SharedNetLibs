@@ -60,6 +60,14 @@ namespace LanguageFactory.Net.Languages.cn {
             this.AddMsg(MsgCode.Properties, "属性");
             this.AddMsg(MsgCode.Delete, "删除");
             this.AddMsg(MsgCode.UserManual, "用户手册");
+            this.AddMsg(MsgCode.Vendor, "供应商");
+            this.AddMsg(MsgCode.Product, "产品");
+            this.AddMsg(MsgCode.Enabled, "已启用");
+            this.AddMsg(MsgCode.Default, "默认");
+            this.AddMsg(MsgCode.BaudRate, "波特率");
+            this.AddMsg(MsgCode.DataBits, "数据位");
+            this.AddMsg(MsgCode.StopBits, "停止位");
+            this.AddMsg(MsgCode.Parity, "奇偶校验");
 
 
             //this.AddMsg(MsgCode., "");

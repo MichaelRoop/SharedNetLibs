@@ -61,6 +61,14 @@ namespace LanguageFactory.Net.Languages.es {
             this.AddMsg(MsgCode.Properties, "Propiedades");
             this.AddMsg(MsgCode.Delete, "Eliminar");
             this.AddMsg(MsgCode.UserManual, "Manual del usuario");
+            this.AddMsg(MsgCode.Vendor, "Proveedor");
+            this.AddMsg(MsgCode.Product, "Producto");
+            this.AddMsg(MsgCode.Enabled, "Habilitado");
+            this.AddMsg(MsgCode.Default, "Predeterminados");
+            this.AddMsg(MsgCode.BaudRate, "Velocidad en baudios");
+            this.AddMsg(MsgCode.DataBits, "Bits de datos");
+            this.AddMsg(MsgCode.StopBits, "Bits de parada");
+            this.AddMsg(MsgCode.Parity, "Paridad");
 
 
             //this.AddMsg(MsgCode., "");

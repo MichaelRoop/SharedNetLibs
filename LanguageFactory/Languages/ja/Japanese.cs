@@ -60,6 +60,14 @@ namespace LanguageFactory.Net.Languages.ja {
             this.AddMsg(MsgCode.Properties, "のプロパティ");
             this.AddMsg(MsgCode.Delete, "削除");
             this.AddMsg(MsgCode.UserManual, "ユーザー マニュアル");
+            this.AddMsg(MsgCode.Vendor, "ベンダー");
+            this.AddMsg(MsgCode.Product, "製品");
+            this.AddMsg(MsgCode.Enabled, "有効");
+            this.AddMsg(MsgCode.Default, "既定値");
+            this.AddMsg(MsgCode.BaudRate, "ボー レート");
+            this.AddMsg(MsgCode.DataBits, "データ ビット");
+            this.AddMsg(MsgCode.StopBits, "ストップ ビット");
+            this.AddMsg(MsgCode.Parity, "パリティ");
 
 
             //this.AddMsg(MsgCode., "");

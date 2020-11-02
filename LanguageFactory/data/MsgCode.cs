@@ -68,8 +68,6 @@
         //Id,
         //AccessStatus,
         //AddressType,
-        //Enabled,
-        //Default,
         //Kind,
         //// Can be paired
         //Paired,
@@ -86,6 +84,15 @@
         LastUsed,
         Delete,
         UserManual,
+        Product,
+        Vendor,
+
+        Enabled,
+        Default,
+        BaudRate,
+        DataBits,
+        StopBits,
+        Parity,
 
     }
 }

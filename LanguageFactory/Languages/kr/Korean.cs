@@ -60,6 +60,14 @@ namespace LanguageFactory.Net.Languages.kr {
             this.AddMsg(MsgCode.Properties, "속성");
             this.AddMsg(MsgCode.Delete, "삭제");
             this.AddMsg(MsgCode.UserManual, "사용자 매뉴얼");
+            this.AddMsg(MsgCode.Vendor, "공급업체");
+            this.AddMsg(MsgCode.Product, "제품");
+            this.AddMsg(MsgCode.Enabled, "사용");
+            this.AddMsg(MsgCode.Default, "기본값");
+            this.AddMsg(MsgCode.BaudRate, "전송 속도");
+            this.AddMsg(MsgCode.DataBits, "데이터 비트");
+            this.AddMsg(MsgCode.StopBits, "정지 비트");
+            this.AddMsg(MsgCode.Parity, "패리티");
 
 
             //this.AddMsg(MsgCode., "");
