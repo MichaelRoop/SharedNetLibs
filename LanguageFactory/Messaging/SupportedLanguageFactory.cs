@@ -68,16 +68,14 @@ namespace LanguageFactory.Net.Messaging {
         /// <param name="code">The message code</param>
         /// <returns>The display string</returns>
         public string GetMsgDisplay(MsgCode code) {
-            ErrReport report;
-            string msg = WrapErr.ToErrReport(out report, 0, () => string.Format(""), () => {
-                if (this.current.HasMsg(code)) {
-                    return this.current.GetMsg(code).Display;
-                }
-                this.log.Error(9999, () => 
-                    string.Format("Language:{0} does not have msg:{1}", this.current.Language.Code, code));
-                return this.defaultLang.GetMsg(code).Display;
-            });
-            return (report.Code == 0) ? msg : "** ERROR **";
+            switch (code) {
+                case MsgCode.ReadTimeout:
+                    return string.Format("{0}({1})", this.GetMsg(MsgCode.Timeout), this.GetMsg(MsgCode.Read));
+                case MsgCode.WriteTimeout:
+                    return string.Format("{0}({1})", this.GetMsg(MsgCode.Timeout), this.GetMsg(MsgCode.Write));
+                default:
+                    return this.GetMsg(code);
+            }
         }
 
 
@@ -126,6 +124,26 @@ namespace LanguageFactory.Net.Messaging {
                 this.log.Error(9999, () => string.Format("Language {0} already loaded", language.Language.Code));
             }
         }
+
+
+
+        /// <summary>Get the display string for the message code</summary>
+        /// <param name="code">The message code</param>
+        /// <returns>The display string</returns>
+        private string GetMsg(MsgCode code) {
+            ErrReport report;
+            string msg = WrapErr.ToErrReport(out report, 0, () => string.Format(""), () => {
+                if (this.current.HasMsg(code)) {
+                    return this.current.GetMsg(code).Display;
+                }
+                this.log.Error(9999, () =>
+                    string.Format("Language:{0} does not have msg:{1}", this.current.Language.Code, code));
+                return this.defaultLang.GetMsg(code).Display;
+            });
+            return (report.Code == 0) ? msg : "** ERROR **";
+        }
+
+
 
         #endregion
 

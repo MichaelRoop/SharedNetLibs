@@ -69,6 +69,10 @@ namespace LanguageFactory.Net.Languages.es {
             this.AddMsg(MsgCode.DataBits, "Bits de datos");
             this.AddMsg(MsgCode.StopBits, "Bits de parada");
             this.AddMsg(MsgCode.Parity, "Paridad");
+            this.AddMsg(MsgCode.FlowControl, "Control de flujo");
+            this.AddMsg(MsgCode.Read, "Leer");
+            this.AddMsg(MsgCode.Write, "Escritura");
+            this.AddMsg(MsgCode.Timeout, "Tiempo de expiración");
 
 
             //this.AddMsg(MsgCode., "");

@@ -68,6 +68,10 @@ namespace LanguageFactory.Net.Languages.kr {
             this.AddMsg(MsgCode.DataBits, "데이터 비트");
             this.AddMsg(MsgCode.StopBits, "정지 비트");
             this.AddMsg(MsgCode.Parity, "패리티");
+            this.AddMsg(MsgCode.FlowControl, "흐름 제어");
+            this.AddMsg(MsgCode.Read, "읽기");
+            this.AddMsg(MsgCode.Write, "쓰기");
+            this.AddMsg(MsgCode.Timeout, "시간 제한");
 
 
             //this.AddMsg(MsgCode., "");

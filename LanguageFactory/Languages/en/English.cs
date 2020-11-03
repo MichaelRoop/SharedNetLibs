@@ -70,6 +70,10 @@ namespace LanguageFactory.Net.Languages.en {
             this.AddMsg(MsgCode.DataBits, "Data Bits");
             this.AddMsg(MsgCode.StopBits, "Stop Bits");
             this.AddMsg(MsgCode.Parity, "Parity");
+            this.AddMsg(MsgCode.FlowControl, "Flow Control");
+            this.AddMsg(MsgCode.Read, "Read");
+            this.AddMsg(MsgCode.Write, "Write");
+            this.AddMsg(MsgCode.Timeout, "Timeout");
 
             //this.AddMsg(MsgCode., "");
         }

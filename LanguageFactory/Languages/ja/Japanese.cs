@@ -68,6 +68,10 @@ namespace LanguageFactory.Net.Languages.ja {
             this.AddMsg(MsgCode.DataBits, "データ ビット");
             this.AddMsg(MsgCode.StopBits, "ストップ ビット");
             this.AddMsg(MsgCode.Parity, "パリティ");
+            this.AddMsg(MsgCode.FlowControl, "フロー制御");
+            this.AddMsg(MsgCode.Read, "読み取り");
+            this.AddMsg(MsgCode.Write, "書き込み");
+            this.AddMsg(MsgCode.Timeout, "タイムアウト");
 
 
             //this.AddMsg(MsgCode., "");

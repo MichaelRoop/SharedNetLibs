@@ -68,6 +68,10 @@ namespace LanguageFactory.Net.Languages.cn {
             this.AddMsg(MsgCode.DataBits, "数据位");
             this.AddMsg(MsgCode.StopBits, "停止位");
             this.AddMsg(MsgCode.Parity, "奇偶校验");
+            this.AddMsg(MsgCode.FlowControl, "流控制");
+            this.AddMsg(MsgCode.Read, "读取");
+            this.AddMsg(MsgCode.Write, "写入");
+            this.AddMsg(MsgCode.Timeout, "超时");
 
 
             //this.AddMsg(MsgCode., "");
