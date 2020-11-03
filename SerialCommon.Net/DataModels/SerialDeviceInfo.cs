@@ -8,6 +8,10 @@ namespace SerialCommon.Net.DataModels {
     
     public class SerialDeviceInfo {
 
+        /// <summary>Unique file identifier when we store this as a configuration</summary>
+        public string StorageUid { get; set; } = string.Empty;
+
+
         /// <summary>Has the full Windows id string</summary>
         public string Id { get; set; } = string.Empty;
 
@@ -82,6 +86,12 @@ namespace SerialCommon.Net.DataModels {
             new Dictionary<string, NetPropertyDataModel>();
         
         // Device information kind - same as BLE -
+
+
+        public SerialDeviceInfo() {
+            // Used only when storing as a configuration
+            this.StorageUid = Guid.NewGuid().ToString();
+        }
 
     }
 }
