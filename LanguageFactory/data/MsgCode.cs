@@ -94,5 +94,14 @@
         StopBits,
         Parity,
 
+        FlowControl,
+        Read,
+        Write,
+        Timeout,
+
+        // Composite - no direct lookup
+        ReadTimeout,
+        WriteTimeout,
+
     }
 }
