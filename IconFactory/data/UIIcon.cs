@@ -26,6 +26,7 @@
         BluetoothLEWhite,
         Ethernet,
         Usb,
+        UsbWhite,
         Connect,
         Command,
         CommandWhite,
