@@ -4,6 +4,9 @@ namespace SerialCommon.Net.Enumerations {
         None,
         NotFound,
         RetrieveFailed,
+        NotConnected,
+        ReadFailure,
+        WriteFailure,
         Unknown,
 
     }

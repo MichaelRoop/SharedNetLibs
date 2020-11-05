@@ -20,10 +20,12 @@ namespace CommunicationStack.Net.interfaces {
         #region Events
 
         /// <summary>Raised on completion of connection attempt</summary>
-        event EventHandler<MsgPumpConnectResults> ConnectResultEvent;
+        event EventHandler<MsgPumpResults> MsgPumpConnectResultEvent;
 
         /// <summary>Raised on each message received</summary>
         event EventHandler<byte[]> MsgReceivedEvent;
+
+        //event EventHandler<MsgPumpResult>
 
         #endregion
 

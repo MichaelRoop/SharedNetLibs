@@ -19,7 +19,7 @@ namespace SerialCommon.Net.interfaces {
         event EventHandler<SerialUsbError> OnError;
 
         /// <summary>Async Connection completed</summary>
-        event EventHandler<MsgPumpConnectResults> OnSerialConnectionAttemptCompleted;
+        event EventHandler<MsgPumpResults> OnSerialConnectionAttemptCompleted;
 
         #endregion
 

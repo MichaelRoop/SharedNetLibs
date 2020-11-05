@@ -8,11 +8,15 @@ namespace SerialCommon.Net.DataModels {
         public string Message { get; set; } = string.Empty;
 
         public SerialUsbError() { }
+
         public SerialUsbError(string portName, SerialErrorCode code) {
             this.PortName = portName;
             this.Code = code;
         }
 
+        public SerialUsbError(SerialErrorCode code) {
+            this.Code = code;
+        }
 
     }
 

@@ -22,7 +22,7 @@ namespace WifiCommon.Net.interfaces {
         event EventHandler<WifiError> OnError;
 
         /// <summary>Async Connection completed</summary>
-        event EventHandler<MsgPumpConnectResults> OnWifiConnectionAttemptCompleted;
+        event EventHandler<MsgPumpResults> OnWifiConnectionAttemptCompleted;
 
         /// <summary>Raised if there is no password, host name or service name in the connection data model</summary>
         event EventHandler<WifiCredentials> CredentialsRequestedEvent;
