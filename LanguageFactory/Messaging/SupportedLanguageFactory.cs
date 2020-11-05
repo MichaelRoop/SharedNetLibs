@@ -3,9 +3,11 @@ using ChkUtils.Net.ErrObjects;
 using LanguageFactory.Net.data;
 using LanguageFactory.Net.interfaces;
 using LanguageFactory.Net.Languages.cn;
+using LanguageFactory.Net.Languages.de;
 using LanguageFactory.Net.Languages.en;
 using LanguageFactory.Net.Languages.es;
 using LanguageFactory.Net.Languages.fr;
+using LanguageFactory.Net.Languages.it;
 using LanguageFactory.Net.Languages.ja;
 using LanguageFactory.Net.Languages.kr;
 using LogUtils.Net;
@@ -104,7 +106,9 @@ namespace LanguageFactory.Net.Messaging {
         private void LoadLanguages() {
             this.LoadLanguage(new English());
             this.LoadLanguage(new Spanish());
+            this.LoadLanguage(new German());
             this.LoadLanguage(new French());
+            this.LoadLanguage(new Italian());
             this.LoadLanguage(new Chinese());
             this.LoadLanguage(new Japanese());
             this.LoadLanguage(new Korean());

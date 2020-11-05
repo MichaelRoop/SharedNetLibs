@@ -8,5 +8,7 @@
         Chinese,
         Korean,
         Japanese,
+        German,
+        Italian,
     }
 }
