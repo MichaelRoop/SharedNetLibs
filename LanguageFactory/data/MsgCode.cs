@@ -107,7 +107,7 @@
         WriteFailue,
         UnknownError,
         UnhandledError,
-
+        Support,
 
         // Composite - no direct lookup
         ReadTimeout,

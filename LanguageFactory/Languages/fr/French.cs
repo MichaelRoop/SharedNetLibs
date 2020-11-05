@@ -81,6 +81,7 @@ namespace LanguageFactory.Net.Languages.fr {
             this.AddMsg(MsgCode.WriteFailue, "Échec D’écriture");
             this.AddMsg(MsgCode.UnknownError, "Erreur Inconnue");
             this.AddMsg(MsgCode.UnhandledError, "Erreur non Gérée");
+            this.AddMsg(MsgCode.Support, "Support");
 
 
             //this.AddMsg(MsgCode., "");

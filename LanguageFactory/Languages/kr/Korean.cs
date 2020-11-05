@@ -81,6 +81,7 @@ namespace LanguageFactory.Net.Languages.kr {
             this.AddMsg(MsgCode.WriteFailue, "쓰기 오류입니다");
             this.AddMsg(MsgCode.UnknownError, "알 수 없는 오류");
             this.AddMsg(MsgCode.UnhandledError, "처리되지 않은 오류");
+            this.AddMsg(MsgCode.Support, "지원");
 
 
             //this.AddMsg(MsgCode., "");

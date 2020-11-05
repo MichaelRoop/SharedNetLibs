@@ -81,6 +81,8 @@ namespace LanguageFactory.Net.Languages.cn {
             this.AddMsg(MsgCode.WriteFailue, "的写入故障");
             this.AddMsg(MsgCode.UnknownError, "未知错误");
             this.AddMsg(MsgCode.UnhandledError, "未处理的错误");
+            this.AddMsg(MsgCode.Support, "支持");
+
 
             //this.AddMsg(MsgCode., "");
 

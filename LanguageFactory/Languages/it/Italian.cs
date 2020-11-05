@@ -83,6 +83,7 @@ namespace LanguageFactory.Net.Languages.it {
             this.AddMsg(MsgCode.WriteFailue, "Errore di scrittura");
             this.AddMsg(MsgCode.UnknownError, "Errore sconosciuto");
             this.AddMsg(MsgCode.UnhandledError, "Errore non gestito");
+            this.AddMsg(MsgCode.Support, "Supporto");
 
             //this.AddMsg(MsgCode., "");
         }

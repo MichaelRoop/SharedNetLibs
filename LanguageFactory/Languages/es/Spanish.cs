@@ -82,6 +82,7 @@ namespace LanguageFactory.Net.Languages.es {
             this.AddMsg(MsgCode.WriteFailue, "Error de Escritura");
             this.AddMsg(MsgCode.UnknownError, "Error Desconocido");
             this.AddMsg(MsgCode.UnhandledError, "Error no Controlado");
+            this.AddMsg(MsgCode.Support, "Soporte");
 
 
             //this.AddMsg(MsgCode., "");

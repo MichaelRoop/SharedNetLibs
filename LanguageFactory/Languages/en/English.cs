@@ -83,6 +83,7 @@ namespace LanguageFactory.Net.Languages.en {
             this.AddMsg(MsgCode.WriteFailue, "Write Failure");
             this.AddMsg(MsgCode.UnknownError, "Unknown Error");
             this.AddMsg(MsgCode.UnhandledError, "Unhandled Error");
+            this.AddMsg(MsgCode.Support, "Support");
 
             //this.AddMsg(MsgCode., "");
         }

@@ -84,6 +84,7 @@ namespace LanguageFactory.Net.Languages.de {
             this.AddMsg(MsgCode.WriteFailue, "Fehler beim Schreiben");
             this.AddMsg(MsgCode.UnknownError, "Unbekannter Fehler");
             this.AddMsg(MsgCode.UnhandledError, "Unbehandelter Fehler");
+            this.AddMsg(MsgCode.Support, "Support");
 
             //this.AddMsg(MsgCode., "");
         }

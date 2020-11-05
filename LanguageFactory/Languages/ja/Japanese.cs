@@ -81,6 +81,7 @@ namespace LanguageFactory.Net.Languages.ja {
             this.AddMsg(MsgCode.WriteFailue, "書き込み失敗");
             this.AddMsg(MsgCode.UnknownError, "不明なエラー");
             this.AddMsg(MsgCode.UnhandledError, "未処理のエラー");
+            this.AddMsg(MsgCode.Support, "サポート");
 
 
             //this.AddMsg(MsgCode., "");
