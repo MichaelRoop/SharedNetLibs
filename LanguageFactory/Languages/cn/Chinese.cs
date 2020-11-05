@@ -72,7 +72,15 @@ namespace LanguageFactory.Net.Languages.cn {
             this.AddMsg(MsgCode.Read, "读取");
             this.AddMsg(MsgCode.Write, "写入");
             this.AddMsg(MsgCode.Timeout, "超时");
-
+            this.AddMsg(MsgCode.Log, "记录");
+            this.AddMsg(MsgCode.None, "无");
+            this.AddMsg(MsgCode.NotFound, "找不到");
+            this.AddMsg(MsgCode.NotConnected, "未连接");
+            this.AddMsg(MsgCode.ConnectionFailure, "连接失败");
+            this.AddMsg(MsgCode.ReadFailure, "读取失败");
+            this.AddMsg(MsgCode.WriteFailue, "的写入故障");
+            this.AddMsg(MsgCode.UnknownError, "未知错误");
+            this.AddMsg(MsgCode.UnhandledError, "未处理的错误");
 
             //this.AddMsg(MsgCode., "");
 

@@ -74,6 +74,15 @@ namespace LanguageFactory.Net.Languages.en {
             this.AddMsg(MsgCode.Read, "Read");
             this.AddMsg(MsgCode.Write, "Write");
             this.AddMsg(MsgCode.Timeout, "Timeout");
+            this.AddMsg(MsgCode.Log, "Log");
+            this.AddMsg(MsgCode.None, "None");
+            this.AddMsg(MsgCode.NotFound, "Not Found");
+            this.AddMsg(MsgCode.NotConnected, "Not Connected");
+            this.AddMsg(MsgCode.ConnectionFailure, "Connection Failure");
+            this.AddMsg(MsgCode.ReadFailure, "Read Failure");
+            this.AddMsg(MsgCode.WriteFailue, "Write Failure");
+            this.AddMsg(MsgCode.UnknownError, "Unknown Error");
+            this.AddMsg(MsgCode.UnhandledError, "Unhandled Error");
 
             //this.AddMsg(MsgCode., "");
         }

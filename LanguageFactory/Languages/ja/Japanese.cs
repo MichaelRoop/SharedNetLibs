@@ -72,6 +72,15 @@ namespace LanguageFactory.Net.Languages.ja {
             this.AddMsg(MsgCode.Read, "読み取り");
             this.AddMsg(MsgCode.Write, "書き込み");
             this.AddMsg(MsgCode.Timeout, "タイムアウト");
+            this.AddMsg(MsgCode.Log, "ログ");
+            this.AddMsg(MsgCode.None, "なし");
+            this.AddMsg(MsgCode.NotFound, "見つかりません");
+            this.AddMsg(MsgCode.NotConnected, "未接続");
+            this.AddMsg(MsgCode.ConnectionFailure, "接続の失敗");
+            this.AddMsg(MsgCode.ReadFailure, "読み取りエラーです");
+            this.AddMsg(MsgCode.WriteFailue, "書き込み失敗");
+            this.AddMsg(MsgCode.UnknownError, "不明なエラー");
+            this.AddMsg(MsgCode.UnhandledError, "未処理のエラー");
 
 
             //this.AddMsg(MsgCode., "");

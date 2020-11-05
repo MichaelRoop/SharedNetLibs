@@ -72,6 +72,15 @@ namespace LanguageFactory.Net.Languages.kr {
             this.AddMsg(MsgCode.Read, "읽기");
             this.AddMsg(MsgCode.Write, "쓰기");
             this.AddMsg(MsgCode.Timeout, "시간 제한");
+            this.AddMsg(MsgCode.Log, "로그");
+            this.AddMsg(MsgCode.None, "없음");
+            this.AddMsg(MsgCode.NotFound, "찾을 수 없음");
+            this.AddMsg(MsgCode.NotConnected, "연결 안 됨");
+            this.AddMsg(MsgCode.ConnectionFailure, "연결 실패");
+            this.AddMsg(MsgCode.ReadFailure, "읽기 실패입니다");
+            this.AddMsg(MsgCode.WriteFailue, "쓰기 오류입니다");
+            this.AddMsg(MsgCode.UnknownError, "알 수 없는 오류");
+            this.AddMsg(MsgCode.UnhandledError, "처리되지 않은 오류");
 
 
             //this.AddMsg(MsgCode., "");

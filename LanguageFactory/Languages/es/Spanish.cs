@@ -73,6 +73,15 @@ namespace LanguageFactory.Net.Languages.es {
             this.AddMsg(MsgCode.Read, "Leer");
             this.AddMsg(MsgCode.Write, "Escritura");
             this.AddMsg(MsgCode.Timeout, "Tiempo de expiración");
+            this.AddMsg(MsgCode.Log, "Registro");
+            this.AddMsg(MsgCode.None, "Ninguna");
+            this.AddMsg(MsgCode.NotFound, "No Encontrado");
+            this.AddMsg(MsgCode.NotConnected, "No Conectado");
+            this.AddMsg(MsgCode.ConnectionFailure, "Error De conexión");
+            this.AddMsg(MsgCode.ReadFailure, "Error de Lectura");
+            this.AddMsg(MsgCode.WriteFailue, "Error de Escritura");
+            this.AddMsg(MsgCode.UnknownError, "Error Desconocido");
+            this.AddMsg(MsgCode.UnhandledError, "Error no Controlado");
 
 
             //this.AddMsg(MsgCode., "");

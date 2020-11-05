@@ -98,10 +98,19 @@
         Read,
         Write,
         Timeout,
+        Log,
+        None,
+        NotFound,
+        NotConnected,
+        ConnectionFailure,
+        ReadFailure,
+        WriteFailue,
+        UnknownError,
+        UnhandledError,
+
 
         // Composite - no direct lookup
         ReadTimeout,
         WriteTimeout,
-
     }
 }
