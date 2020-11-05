@@ -50,6 +50,7 @@
         ServicesWhite,
         Properties,
         PropertiesWhite,
+        LogIcon,
 
     }
 }
