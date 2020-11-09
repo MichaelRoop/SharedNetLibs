@@ -3,6 +3,7 @@ using LogUtils.Net;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace CommunicationStack.Net.interfaces {
 
@@ -35,8 +36,16 @@ namespace CommunicationStack.Net.interfaces {
         /// <param name="paramsObj">Data model holding the co</param>
         void ConnectAsync(TConnectParams paramsObj);
 
+
+        /// <summary>True async method to await in other async methods</summary>
+        /// <param name="paramsObj">Data model holding the co</param>
+        /// <returns>The Task to await</returns>
+        Task ConnectAsync2(TConnectParams paramsObj);
+
+
         /// <summary>Stop reading or sending if connected, then disconnect</summary>
         void Disconnect();
+
 
         /// <summary>Send out a message asynchronously</summary>
         /// <param name="msg">The message to send</param>

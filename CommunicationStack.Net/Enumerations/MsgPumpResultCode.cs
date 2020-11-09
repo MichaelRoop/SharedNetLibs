@@ -11,6 +11,7 @@ namespace CommunicationStack.Net.Enumerations {
         ReadFailure,
         WriteFailure,
         ConnectionFailure,
+        EmptyParams,
     }
 
 }

@@ -48,9 +48,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpStateMachineDemo.Core.UI"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WifiCommon.Net", "WifiCommon.Net\WifiCommon.Net.csproj", "{3EF5CF10-BCC8-481A-A903-16964136DFE1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Net", "Common.Net\Common.Net.csproj", "{AAB6FB7C-91AF-4DA8-AA8D-B29D18C50E86}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.Net", "Common.Net\Common.Net.csproj", "{AAB6FB7C-91AF-4DA8-AA8D-B29D18C50E86}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerialCommon.Net", "SerialCommon.Net\SerialCommon.Net.csproj", "{29F7BCEF-ADA6-4472-9453-57E8DD743DC0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SerialCommon.Net", "SerialCommon.Net\SerialCommon.Net.csproj", "{29F7BCEF-ADA6-4472-9453-57E8DD743DC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ethernet.Common.Net", "Ethernet.Common.Net\Ethernet.Common.Net.csproj", "{831609EA-1953-40B5-B1F3-0C44B5EF3EF5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -146,6 +148,10 @@ Global
 		{29F7BCEF-ADA6-4472-9453-57E8DD743DC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29F7BCEF-ADA6-4472-9453-57E8DD743DC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29F7BCEF-ADA6-4472-9453-57E8DD743DC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{831609EA-1953-40B5-B1F3-0C44B5EF3EF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{831609EA-1953-40B5-B1F3-0C44B5EF3EF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{831609EA-1953-40B5-B1F3-0C44B5EF3EF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{831609EA-1953-40B5-B1F3-0C44B5EF3EF5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
