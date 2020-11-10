@@ -83,7 +83,11 @@ namespace LanguageFactory.Net.Languages.es {
             this.AddMsg(MsgCode.UnknownError, "Error Desconocido");
             this.AddMsg(MsgCode.UnhandledError, "Error no Controlado");
             this.AddMsg(MsgCode.Support, "Soporte");
-
+            this.AddMsg(MsgCode.Edit, "Editar");
+            this.AddMsg(MsgCode.Create, "Crear");
+            this.AddMsg(MsgCode.NothingSelected, "No se seleccionó nada");
+            this.AddMsg(MsgCode.DeleteFailure, "Error de eliminación");
+            this.AddMsg(MsgCode.Ethernet, "Ethernet");
 
             //this.AddMsg(MsgCode., "");
         }

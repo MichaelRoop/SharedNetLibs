@@ -82,7 +82,11 @@ namespace LanguageFactory.Net.Languages.ja {
             this.AddMsg(MsgCode.UnknownError, "不明なエラー");
             this.AddMsg(MsgCode.UnhandledError, "未処理のエラー");
             this.AddMsg(MsgCode.Support, "サポート");
-
+            this.AddMsg(MsgCode.Edit, "編集");
+            this.AddMsg(MsgCode.Create, "作成");
+            this.AddMsg(MsgCode.NothingSelected, "選択されていません");
+            this.AddMsg(MsgCode.DeleteFailure, "削除に失敗しました");
+            this.AddMsg(MsgCode.Ethernet, "イーサネット");
 
             //this.AddMsg(MsgCode., "");
         }

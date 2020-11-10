@@ -84,6 +84,11 @@ namespace LanguageFactory.Net.Languages.en {
             this.AddMsg(MsgCode.UnknownError, "Unknown Error");
             this.AddMsg(MsgCode.UnhandledError, "Unhandled Error");
             this.AddMsg(MsgCode.Support, "Support");
+            this.AddMsg(MsgCode.Edit, "Edit");
+            this.AddMsg(MsgCode.Create, "Create");
+            this.AddMsg(MsgCode.NothingSelected, "Nothing Selected");
+            this.AddMsg(MsgCode.DeleteFailure, "Delete Failed");
+            this.AddMsg(MsgCode.Ethernet, "Ethernet");
 
             //this.AddMsg(MsgCode., "");
         }

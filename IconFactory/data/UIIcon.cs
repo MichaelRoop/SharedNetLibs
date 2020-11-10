@@ -25,6 +25,7 @@
         BluetoothLE,
         BluetoothLEWhite,
         Ethernet,
+        EthernetWhite,
         Usb,
         UsbWhite,
         Connect,

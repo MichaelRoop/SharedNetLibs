@@ -83,6 +83,12 @@ namespace LanguageFactory.Net.Languages.cn {
             this.AddMsg(MsgCode.UnhandledError, "未处理的错误");
             this.AddMsg(MsgCode.Support, "支持");
 
+            this.AddMsg(MsgCode.Edit, "编辑");
+            this.AddMsg(MsgCode.Create, "创建");
+            this.AddMsg(MsgCode.NothingSelected, "没有选中项");
+            this.AddMsg(MsgCode.DeleteFailure, "删除失败");
+            this.AddMsg(MsgCode.Ethernet, "以太网");
+
 
             //this.AddMsg(MsgCode., "");
 

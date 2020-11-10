@@ -82,7 +82,11 @@ namespace LanguageFactory.Net.Languages.fr {
             this.AddMsg(MsgCode.UnknownError, "Erreur Inconnue");
             this.AddMsg(MsgCode.UnhandledError, "Erreur non Gérée");
             this.AddMsg(MsgCode.Support, "Support");
-
+            this.AddMsg(MsgCode.Edit, "Modifier");
+            this.AddMsg(MsgCode.Create, "Créer");
+            this.AddMsg(MsgCode.NothingSelected, "Rien n’est sélectionné");
+            this.AddMsg(MsgCode.DeleteFailure, "Échec de la suppression");
+            this.AddMsg(MsgCode.Ethernet, "Ethernet");
 
             //this.AddMsg(MsgCode., "");
         }

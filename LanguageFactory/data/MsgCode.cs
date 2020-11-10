@@ -108,6 +108,13 @@
         UnknownError,
         UnhandledError,
         Support,
+        Edit,
+        Create,
+        NothingSelected,
+        DeleteFailure,
+        Ethernet,
+
+
 
         // Composite - no direct lookup
         ReadTimeout,

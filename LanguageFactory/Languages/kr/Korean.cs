@@ -82,7 +82,11 @@ namespace LanguageFactory.Net.Languages.kr {
             this.AddMsg(MsgCode.UnknownError, "알 수 없는 오류");
             this.AddMsg(MsgCode.UnhandledError, "처리되지 않은 오류");
             this.AddMsg(MsgCode.Support, "지원");
-
+            this.AddMsg(MsgCode.Edit, "편집");
+            this.AddMsg(MsgCode.Create, "만들기");
+            this.AddMsg(MsgCode.NothingSelected, "선택하지 않음");
+            this.AddMsg(MsgCode.DeleteFailure, "삭제 실패");
+            this.AddMsg(MsgCode.Ethernet, "이더넷");
 
             //this.AddMsg(MsgCode., "");
         }

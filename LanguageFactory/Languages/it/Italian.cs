@@ -84,6 +84,11 @@ namespace LanguageFactory.Net.Languages.it {
             this.AddMsg(MsgCode.UnknownError, "Errore sconosciuto");
             this.AddMsg(MsgCode.UnhandledError, "Errore non gestito");
             this.AddMsg(MsgCode.Support, "Supporto");
+            this.AddMsg(MsgCode.Edit, "Modifica");
+            this.AddMsg(MsgCode.Create, "Crea");
+            this.AddMsg(MsgCode.NothingSelected, "Nessun elemento selezionato");
+            this.AddMsg(MsgCode.DeleteFailure, "Errore di eliminazione");
+            this.AddMsg(MsgCode.Ethernet, "Ethernet");
 
             //this.AddMsg(MsgCode., "");
         }
