@@ -10,6 +10,7 @@ using LanguageFactory.Net.Languages.fr;
 using LanguageFactory.Net.Languages.it;
 using LanguageFactory.Net.Languages.ja;
 using LanguageFactory.Net.Languages.kr;
+using LanguageFactory.Net.Languages.ru;
 using LogUtils.Net;
 using System;
 using System.Collections.Generic;
@@ -109,6 +110,7 @@ namespace LanguageFactory.Net.Messaging {
             this.LoadLanguage(new German());
             this.LoadLanguage(new French());
             this.LoadLanguage(new Italian());
+            this.LoadLanguage(new Russian());
             this.LoadLanguage(new Chinese());
             this.LoadLanguage(new Japanese());
             this.LoadLanguage(new Korean());

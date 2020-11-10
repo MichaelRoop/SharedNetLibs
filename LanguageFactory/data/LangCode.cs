@@ -10,5 +10,6 @@
         Japanese,
         German,
         Italian,
+        Russian,
     }
 }
