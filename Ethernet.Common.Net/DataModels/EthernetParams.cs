@@ -6,6 +6,12 @@ namespace Ethernet.Common.Net.DataModels {
 
     public class EthernetParams {
 
+        /// <summary>Used for storage item unique identifier</summary>
+        public string UId { get; set; } = Guid.Empty.ToString();
+
+        /// <summary>User friendly identifier</summary>
+        public string Name { get; set; } = string.Empty;
+
         /// <summary>Socket host name or IP</summary>
         public string EthernetAddress { get; set; } = string.Empty;
 
@@ -13,8 +19,20 @@ namespace Ethernet.Common.Net.DataModels {
         public string EthernetServiceName { get; set; } = string.Empty;
 
 
+        public string DisplayString {
+            get {
+                string name = this.Name.Length > 0
+                    ? string.Format("{0}:{1}:{2}", this.Name, this.EthernetAddress, this.EthernetServiceName)
+                    : string.Format("{0}:{1}", this.EthernetAddress, this.EthernetServiceName);
+                return name;
+            }
+        }
 
 
+        public EthernetParams() {
+            // to create a unique storage file name
+            this.UId = Guid.NewGuid().ToString();
+        }
 
 
     }
