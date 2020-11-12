@@ -52,7 +52,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.Net", "Common.Net\Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SerialCommon.Net", "SerialCommon.Net\SerialCommon.Net.csproj", "{29F7BCEF-ADA6-4472-9453-57E8DD743DC0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ethernet.Common.Net", "Ethernet.Common.Net\Ethernet.Common.Net.csproj", "{831609EA-1953-40B5-B1F3-0C44B5EF3EF5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ethernet.Common.Net", "Ethernet.Common.Net\Ethernet.Common.Net.csproj", "{831609EA-1953-40B5-B1F3-0C44B5EF3EF5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
