@@ -231,9 +231,17 @@ namespace CommunicationStack.Net.MsgPumps {
                 (args.UserToken as AutoResetEvent).Set();
             }
             else if (receiveArgs.BytesTransferred > 0) {
+                this.log.Info("ProcessReceivedData", ()=> string.Format("raise event for {0} bytes received", receiveArgs.BytesTransferred));
+
+
+
                 this.RaiseReceivedData(args);
                 (args.UserToken as AutoResetEvent).Set();
                 this.StartReceive(args);
+            }
+            else {
+                this.log.Info("ProcessReceivedData", "0 Bytes received. Do not raise");
+
             }
         }
 
