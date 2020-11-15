@@ -171,8 +171,7 @@ namespace CommunicationStack.Net.MsgPumps {
             if (this.Connected) {
                 this.doReading = false;
                 // TODO replace with event wait
-                Thread.Sleep(1000);
-
+                //Thread.Sleep(1000);
                 if (socket != null) {
                     if (socket.Connected) {
                         socket.Disconnect(false);
@@ -202,130 +201,91 @@ namespace CommunicationStack.Net.MsgPumps {
         #region Private
 
         private bool doReading = false;
-        SocketAsyncEventArgs receiveArgs = new SocketAsyncEventArgs();
+        SocketAsyncEventArgs receiveArgs = null;
 
         private void StartReceive(SocketAsyncEventArgs args) {
             args.SetBuffer(this.buff, 0, buffSize);
-            if (socket.ReceiveAsync(args)) {
-
+            if (!socket.ReceiveAsync(args)) {
+                this.log.Info("StartReceive", "Synchronous processing");
+                this.ProcessReceivedData(args);
             }
-            else {
-                if (args.SocketError != SocketError.Success) {
-                    this.log.Error(1234, "Error detected on read thread. Exiting");
-                    this.MsgPumpConnectResultEvent?.Invoke(this,
-                        new MsgPumpResults(
-                            MsgPumpResultCode.ConnectionFailure,
-                            args.SocketError.ToString()));
+        }
+
+
+        private void ProcessReceivedData(SocketAsyncEventArgs args) {
+            if (args.SocketError != SocketError.Success) {
+                if (this.doReading == false) {
+                    // This is an abort so do not post error
+                    this.log.Info("ProcessReceivedData", "Aborting the read thread");
+                    (args.UserToken as AutoResetEvent).Set();
+                    return;
                 }
-                else {
-                    this.log.Info("StartReceive", "Synchronous - no error");
-                    if (receiveArgs.Count > 0) {
-                        this.log.Info("Read Thread", "Sync");
-                        this.RaiseReceivedData(args);
-                    }
-                }
+
+                this.log.Error(9999, "Error detected");
+                // TODO - close down?
+                this.MsgPumpConnectResultEvent?.Invoke(this,
+                    new MsgPumpResults(
+                        MsgPumpResultCode.ConnectionFailure,
+                        args.SocketError.ToString()));
+                // If there any events to set we can do it here
+                (args.UserToken as AutoResetEvent).Set();
+            }
+            else if (receiveArgs.BytesTransferred > 0) {
+                this.RaiseReceivedData(args);
+                (args.UserToken as AutoResetEvent).Set();
+                this.StartReceive(args);
             }
         }
 
 
         private void LaunchReadThread() {
             Task.Run(()=>{
-                this.doReading = true;
-                //int count = 0;
+                try {
+                    this.doReading = true;
+                    if (this.receiveArgs != null) {
+                        this.receiveArgs.Dispose();
+                        this.receiveArgs = null;
+                    }
 
-                AutoResetEvent done = new AutoResetEvent(false);
-                //SocketAsyncEventArgs receiveArgs = new SocketAsyncEventArgs();
-                receiveArgs.SetBuffer(this.buff, 0, buffSize);
-                receiveArgs.Completed += this.ReceiveArgs_Completed;
-                receiveArgs.UserToken = socket;
-                receiveArgs.AcceptSocket = socket;
-                receiveArgs.SocketFlags = SocketFlags.Partial;
+                    this.receiveArgs = new SocketAsyncEventArgs();
+                    AutoResetEvent done = new AutoResetEvent(false);
+                    receiveArgs.SetBuffer(this.buff, 0, buffSize);
+                    receiveArgs.Completed += this.ReceiveArgs_Completed;
+                    receiveArgs.UserToken = done;
+                    receiveArgs.AcceptSocket = socket;
+                    receiveArgs.SocketFlags = SocketFlags.Partial;
 
-                this.log.InfoEntry("LaunchReadThread");
-                while (this.doReading) {
+                    this.log.InfoEntry("LaunchReadThread");
+                    while (this.doReading) {
+                        done.Reset();
+                        this.log.Info("LaunchReadThread", "Calling StartReceive top of loop");
+                        this.StartReceive(this.receiveArgs);
+                        //(this.receiveArgs.UserToken as AutoResetEvent).WaitOne(5000);
 
-                    //receiveArgs.Completed -= this.ReceiveArgs_Completed;
-                    //receiveArgs.Dispose();
-                    //done = new AutoResetEvent(false);
-                    //receiveArgs = new SocketAsyncEventArgs();
-                    //receiveArgs.SetBuffer(this.buff, 0, buffSize);
-                    //receiveArgs.Completed += this.ReceiveArgs_Completed;
-                    //receiveArgs.AcceptSocket = socket;
-                    //receiveArgs.UserToken = done;
-                    //done.Reset();
+                        this.log.Info("LaunchReadThread", "Calling StartReceive bottom of loop");
+                    }
+                    receiveArgs.Completed -= this.ReceiveArgs_Completed;
+                    receiveArgs.Dispose();
 
-                    this.StartReceive(this.receiveArgs);
-                    this.log.Info("LaunchReadThread", "Waiting on socket.ReceiveAsync");
-
-                    //if (socket.ReceiveAsync(receiveArgs)) {
-                    //    this.log.Info("LaunchReadThread", "Wait on socket.ReceiveAsync done");
-
-                    //    //// Wake up every half second to exit on cancel
-                    //    //if (done.WaitOne(300)) {
-                    //    //    this.log.Info("Read Thread", "Async pending - done event set - data had been received");
-                    //    //    receiveArgs.Completed -= this.ReceiveArgs_Completed;
-                    //    //    receiveArgs.Dispose();
-                    //    //    done = new AutoResetEvent(false);
-                    //    //    receiveArgs = new SocketAsyncEventArgs();
-                    //    //    receiveArgs.SetBuffer(this.buff, 0, buffSize);
-                    //    //    receiveArgs.Completed += this.ReceiveArgs_Completed;
-                    //    //    receiveArgs.AcceptSocket = socket;
-                    //    //    receiveArgs.UserToken = done;
-                    //    //    done.Reset();
-                    //    //}
-                    //    //else {
-                    //    //    this.log.Info("Read Thread", "Async pending - timeout");
-                    //    //    //done.Set();
-                    //    //}
-                    //}
-                    //else {
-                    //    this.log.Info("LaunchReadThread", "Synchronous");
-
-                    //    if (receiveArgs.SocketError != SocketError.Success) {
-                    //        this.log.Error(1234, "Error detected on read thread. Exiting");
-                    //        this.MsgPumpConnectResultEvent?.Invoke(this,
-                    //            new MsgPumpResults(
-                    //                MsgPumpResultCode.ConnectionFailure,
-                    //                receiveArgs.SocketError.ToString()));
-                    //        break;
-                    //    }
-                    //    else {
-                    //        this.log.Info("LaunchReadThread", "Synchronous - no error");
-
-                    //        if (receiveArgs.Count > 0) {
-                    //            // When false it did it synchronously and we must check here
-                    //            this.log.Info("Read Thread", "Sync");
-                    //            this.RaiseReceivedData(receiveArgs);
-                    //        }
-                    //        //else {
-
-                    //        //    this.log.Info("LaunchReadThread", () => string.Format("Synchronous - Count:{0}", receiveArgs.Count));
-                    //        //    if ((count++ % 100) == 0) {
-                    //        //        this.log.Info("Read Thread", "Sync - 0 bytes");
-                    //        //        Thread.Sleep(100);
-                    //        //    }
-                    //        //}
-                    //    }
-                    //}
-                    //this.log.Info("LaunchReadThread", "Bottom of while loop. Going up");
+                    this.log.InfoExit("LaunchReadThread");
                 }
-                receiveArgs.Completed -= this.ReceiveArgs_Completed;
-                receiveArgs.Dispose();
-
-                this.log.InfoExit("LaunchReadThread");
+                catch(SocketException se) {
+                    this.log.Exception(1222, "Exception on read thread", se);
+                }
+                catch (Exception e) {
+                    this.log.Exception(1222, "Exception on read thread", e);
+                }
             });
         }
 
+
         private void ReceiveArgs_Completed(object sender, SocketAsyncEventArgs args) {
             this.log.Info("ReceiveArgs_Completed", "Asynchronous data in handler - raise and set event");
-            this.RaiseReceivedData(args);
-            this.log.Info("ReceiveArgs_Completed", "Asynchronous data in handler - setting UserToken");
-            //(args.UserToken as AutoResetEvent).Set();
-
-            this.StartReceive(args);
+            this.ProcessReceivedData(args);
 
 
-            this.log.Info("ReceiveArgs_Completed", "Asynchronous data in handler - LEAVING");
+            //this.RaiseReceivedData(args);
+            //this.StartReceive(args);
         }
 
 
