@@ -36,6 +36,9 @@ namespace LogUtils.Net {
         /// <summary>Raised on messages of level Exception</summary>
         public event EventHandler<string> ExceptionMsgEvent;
 
+        /// <summary>Raised on every message with raw info</summary>
+        public Action<MsgLevel, ErrReport> RawCurrentVerbotsityMsgInfoEvent;
+
         #endregion
 
         #region Public
@@ -84,6 +87,7 @@ namespace LogUtils.Net {
                 }
 
                 this.EveryMsgEvent?.Invoke(this, err.Msg);
+                this.RawCurrentVerbotsityMsgInfoEvent?.Invoke(level, err);
 
                 string msg = Log.GetMsgFormat1(level, err);
                 switch (level) {
