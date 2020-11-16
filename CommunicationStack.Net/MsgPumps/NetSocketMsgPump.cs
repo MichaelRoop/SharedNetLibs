@@ -3,10 +3,8 @@ using CommunicationStack.Net.Enumerations;
 using CommunicationStack.Net.interfaces;
 using LogUtils.Net;
 using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -143,67 +141,44 @@ namespace CommunicationStack.Net.MsgPumps {
             }
         }
 
-
-
         #endregion
 
         #region Private
 
-        private void RaiseConnectResult(MsgPumpResultCode code, string msg) {
-            this.MsgPumpConnectResultEvent?.Invoke(this, new MsgPumpResults(code, msg));
-        }
-
-
-        private void RaiseConnectOk() {
-            this.LaunchReadThread();
-            this.Connected = true;
-            this.MsgPumpConnectResultEvent?.Invoke(this, new MsgPumpResults(MsgPumpResultCode.Connected));
-        }
-
-
+        /// <summary>Start a new asynchronous read</summary>
+        /// <param name="args">The read event args where buffer is reset</param>
         private void StartReceive(SocketAsyncEventArgs args) {
             args.SetBuffer(this.buff, 0, buffSize);
             if (!socket.ReceiveAsync(args)) {
                 this.log.Info("StartReceive", "Synchronous processing");
-                this.ProcessReceivedData(args);
+                this.ProcessReceivedEvent(args);
             }
         }
 
 
-        private void ProcessReceivedData(SocketAsyncEventArgs args) {
-            if (args.SocketError != SocketError.Success) {
-                if (this.doReading == false) {
-                    try {
-                        // This is an abort so do not post error
-                        this.log.Info("ProcessReceivedData", "Aborting the read thread");
-                        (args.UserToken as AutoResetEvent).Set();
-                        return;
-                    }
-                    catch (Exception e) {
-                        this.log.Exception(9999, "On Process Receive socket error", e);
-                        (args.UserToken as AutoResetEvent).Set();
-                        return;
-                    }
-                }
-
+        /// <summary>Process the results of the last read event</summary>
+        /// <param name="args">The read event args</param>
+        private void ProcessReceivedEvent(SocketAsyncEventArgs args) {
+            if (doReading == false) {
+                this.log.Info("ProcessReceivedData", "Aborting the read thread");
+            }
+            else if (args.SocketError != SocketError.Success) {
                 // TODO Error but keep thread alive?
                 this.log.Error(9999, "Error detected - keeping thread alive");
                 this.RaiseConnectResult(MsgPumpResultCode.ConnectionFailure, args.SocketError.ToString());
-                (args.UserToken as AutoResetEvent).Set();
             }
             else if (receiveArgs.BytesTransferred > 0) {
-                this.log.Info("ProcessReceivedData", () => string.Format("raise event for {0} bytes received", receiveArgs.BytesTransferred));
+                this.log.Info("ProcessReceivedData", () => string.Format("{0} Bytes received", receiveArgs.BytesTransferred));
                 this.RaiseReceivedData(args);
-                (args.UserToken as AutoResetEvent).Set();
             }
             else {
-                // 0 Bytes so wait again for more
-                this.log.Info("ProcessReceivedData", "0 Bytes received. Do not raise");
-                (args.UserToken as AutoResetEvent).Set();
+                this.log.Info("ProcessReceivedData", "0 Bytes received");
             }
+            (args.UserToken as AutoResetEvent).Set();
         }
 
 
+        /// <summary>Launch the read task that stays active until disconnection</summary>
         private void LaunchReadThread() {
             Task.Run(()=>{
                 try {
@@ -243,13 +218,17 @@ namespace CommunicationStack.Net.MsgPumps {
         }
 
 
+        /// <summary>Process synchronous or asynchronous read event</summary>
+        /// <param name="sender">Sender of the event</param>
+        /// <param name="args">The event args</param>
         private void ReceiveArgs_Completed(object sender, SocketAsyncEventArgs args) {
             this.log.Info("ReceiveArgs_Completed", "Asynchronous data in handler - raise and set event");
-            this.ProcessReceivedData(args);
-
+            this.ProcessReceivedEvent(args);
         }
 
 
+        /// <summary>Raise an event with the bytes received</summary>
+        /// <param name="args">The read event args with the data</param>
         private void RaiseReceivedData(SocketAsyncEventArgs args) {
             int count = args.BytesTransferred;
             if (count > 0) {
@@ -265,25 +244,37 @@ namespace CommunicationStack.Net.MsgPumps {
         }
 
 
+        /// <summary>Raise the connection results event</summary>
+        /// <param name="code">The connection result code</param>
+        /// <param name="msg">Message in case of error</param>
+        private void RaiseConnectResult(MsgPumpResultCode code, string msg) {
+            this.MsgPumpConnectResultEvent?.Invoke(this, new MsgPumpResults(code, msg));
+        }
+
+
+        /// <summary>Raise the connection result event with success and launch the read thread</summary>
+        private void RaiseConnectOk() {
+            this.LaunchReadThread();
+            this.Connected = true;
+            this.MsgPumpConnectResultEvent?.Invoke(this, new MsgPumpResults(MsgPumpResultCode.Connected));
+        }
+
+
         /// <summary>Event handler for ConnectAsync set on the async event args</summary>
-        /// <param name="sender"></param>
+        /// <param name="sender">Sender of the event</param>
         /// <param name="args">Async event args</param>
         private void ConnectCompletedHandler(object sender, SocketAsyncEventArgs args) {
             if (args.ConnectSocket != null) {
-                this.log.Info("Args_ConnectCompleted", "Connect socket not null Connection success");
-                this.log.Info("Args_ConnectCompleted", () => string.Format("Connected Status:{0}", args.ConnectSocket.Connected));
-
+                this.log.Info("ConnectCompletedHandler", () => string.Format("Connected Status:{0}", args.ConnectSocket.Connected));
                 this.socket = args.ConnectSocket;
-
                 this.RaiseConnectOk();
             }
             else {
-                this.log.Info("Args_ConnectCompleted", "Connect socket NULL FAil");
+                this.log.Info("Args_ConnectCompleted", "Connect socket NULL Fail");
                 // TODO - convert extension
                 this.RaiseConnectResult(MsgPumpResultCode.ConnectionFailure, args.SocketError.ToString());
             }
         }
-
 
 
         /// <summary>Callback when send completes</summary>
