@@ -79,8 +79,7 @@ namespace CommunicationStack.Net.MsgPumps {
                     }
                     IPAddress ip;
                     if (!IPAddress.TryParse(paramsObj.RemoteHostName, out ip)) {
-                        this.MsgPumpConnectResultEvent?.Invoke(this,
-                            new MsgPumpResults(MsgPumpResultCode.InvalidAddress));
+                        this.RaiseConnectResult(MsgPumpResultCode.InvalidAddress, paramsObj.RemoteHostName);
                         return;
                     }
 
@@ -115,15 +114,18 @@ namespace CommunicationStack.Net.MsgPumps {
                 catch (SocketException se) {
                     // TODO Conversion
                     this.log.Exception(9999, "", se);
-                    this.MsgPumpConnectResultEvent?.Invoke(this,
-                        new MsgPumpResults(MsgPumpResultCode.ConnectionFailure, se.Message));
+                    this.RaiseConnectResult(MsgPumpResultCode.ConnectionFailure, se.Message);
                 }
                 catch (Exception e) {
                     this.log.Exception(9999, "", e);
-                    this.MsgPumpConnectResultEvent?.Invoke(this,
-                        new MsgPumpResults(MsgPumpResultCode.ConnectionFailure, e.Message));
+                    this.RaiseConnectResult(MsgPumpResultCode.ConnectionFailure, e.Message);
                 }
             });
+        }
+
+
+        private void RaiseConnectResult(MsgPumpResultCode code, string msg) {
+            this.MsgPumpConnectResultEvent?.Invoke(this, new MsgPumpResults(code, msg));
         }
 
 
@@ -139,31 +141,15 @@ namespace CommunicationStack.Net.MsgPumps {
             else {
                 this.log.Info("Args_ConnectCompleted", "Connect socket NULL FAil");
                 // TODO - convert extension
-                this.MsgPumpConnectResultEvent?.Invoke(this,
-                    new MsgPumpResults(MsgPumpResultCode.ConnectionFailure, args.SocketError.ToString()));
+                this.RaiseConnectResult(MsgPumpResultCode.ConnectionFailure, args.SocketError.ToString());
             }
-
-
-            //if (args.SocketError == SocketError.Success) {
-            //    this.log.Info("Args_ConnectCompleted", "Connection success");
-
-            //    this.log.Info("Args_ConnectCompleted", () => string.Format("Connected Status:{0}", args.AcceptSocket.Connected));
-
-            //    this.RaiseConnectOk();
-            //}
-            //else {
-            //    // TODO - convert extension
-            //    this.MsgPumpConnectResultEvent?.Invoke(this,
-            //        new MsgPumpResults(MsgPumpResultCode.ConnectionFailure, args.SocketError.ToString()));
-            //}
         }
 
 
         private void RaiseConnectOk() {
             this.LaunchReadThread();
             this.Connected = true;
-            this.MsgPumpConnectResultEvent?.Invoke(this,
-                new MsgPumpResults(MsgPumpResultCode.Connected));
+            this.MsgPumpConnectResultEvent?.Invoke(this, new MsgPumpResults(MsgPumpResultCode.Connected));
         }
 
 
@@ -223,10 +209,8 @@ namespace CommunicationStack.Net.MsgPumps {
 
                 this.log.Error(9999, "Error detected");
                 // TODO - close down?
-                this.MsgPumpConnectResultEvent?.Invoke(this,
-                    new MsgPumpResults(
-                        MsgPumpResultCode.ConnectionFailure,
-                        args.SocketError.ToString()));
+                this.RaiseConnectResult(MsgPumpResultCode.ConnectionFailure, args.SocketError.ToString());
+
                 // If there any events to set we can do it here
                 (args.UserToken as AutoResetEvent).Set();
             }
