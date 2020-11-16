@@ -11,29 +11,19 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace CommunicationStack.Net.MsgPumps {
+
+    /// <summary>Socket message pump using the Net Standard Socket API. Cross platform</summary>
     public class NetSocketMsgPump : IMsgPump<NetSocketConnectData> {
 
         #region Data
 
-        private static Socket socket = null;
+        private ClassLog log = new ClassLog("NetSocketMsgPump");
         private const int buffSize = 256;
         private byte[] buff = new byte[buffSize];
-        ClassLog log = new ClassLog("**** NetSocketMsgPump");
-        //        Task connectTask = null;
-        //Task readTask = null;
-        //ManualResetEvent connectComplete = new ManualResetEvent(false);
-        //ManualResetEvent readThreadStarted = new ManualResetEvent(false);
-        //ManualResetEvent readThreadEnded = new ManualResetEvent(false);
-
-        //CancellationTokenSource readCancelation = new CancellationTokenSource();
-
-        //SocketAsyncEventArgs receiveArgs = new SocketAsyncEventArgs();
-
-        //private bool connecting = false;
-
-
-        //private static Socket stSocket = null;
-
+        private bool doReading = false;
+        private Socket socket = null;
+        private SocketAsyncEventArgs receiveArgs = null;
+        private AutoResetEvent doneRead = new AutoResetEvent(false);
 
         #endregion
 
@@ -50,31 +40,25 @@ namespace CommunicationStack.Net.MsgPumps {
 
         #endregion
 
+        #region Constructors
+
         public NetSocketMsgPump() {
         }
 
+        #endregion
+
+        #region IMsgPump methods
 
         public void ConnectAsync(NetSocketConnectData paramsObj) {
             // Not going to await. User can check the event for completion
             this.ConnectAsync2(paramsObj);
-
-            //if (this.DoItTask != null) {
-            //    this.DoItTask.Dispose();
-                    
-            //}
-
-
         }
-
-        //private Task DoItTask = null;
-        //private void DoIt() { }
 
 
         public Task ConnectAsync2(NetSocketConnectData paramsObj) {
             return Task.Run(() => {
                 try {
                     if (this.Connected) {
-                        // TODO - teardown
                         this.Disconnect();
                     }
                     IPAddress ip;
@@ -83,16 +67,14 @@ namespace CommunicationStack.Net.MsgPumps {
                         return;
                     }
 
-                    this.log.Info("ConnectAsync2", () => string.Format("{0}:{1} - {2}", 
+                    this.log.Info("ConnectAsync2", () => string.Format("{0}:{1} - {2}",
                         paramsObj.RemoteHostName, paramsObj.RemotePort, ip.AddressFamily));
 
-                    //IPEndPoint endPoint = new IPEndPoint(ip, paramsObj.RemotePort);
-                    //socket = new Socket(ip.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-                    socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                    this.socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
                     SocketAsyncEventArgs args = new SocketAsyncEventArgs();
-                    args.Completed += Args_ConnectCompleted;
-                    args.AcceptSocket = socket;
+                    args.Completed += ConnectCompletedHandler;
+                    args.AcceptSocket = this.socket;
                     args.RemoteEndPoint = new IPEndPoint(ip, paramsObj.RemotePort);
 
                     this.log.Info("ConnectAsync2", () => string.Format("Connecting to:{0}",
@@ -124,25 +106,51 @@ namespace CommunicationStack.Net.MsgPumps {
         }
 
 
-        private void RaiseConnectResult(MsgPumpResultCode code, string msg) {
-            this.MsgPumpConnectResultEvent?.Invoke(this, new MsgPumpResults(code, msg));
+        // Synchronous disconnect
+        public void Disconnect() {
+            try {
+                if (this.Connected) {
+                    this.doReading = false;
+                    this.doneRead.Set();
+                    if (this.socket != null) {
+                        // TODO - replace with socket.DisconnectAsync()
+                        if (this.socket.Connected) {
+                            this.socket.Disconnect(false);
+                        }
+                        this.socket.Dispose();
+                        this.socket = null;
+                    }
+                }
+            }
+            catch (Exception e) {
+                this.log.Exception(9999, "", e);
+            }
         }
 
 
-        private void Args_ConnectCompleted(object sender, SocketAsyncEventArgs args) {
-            if (args.ConnectSocket != null) {
-                this.log.Info("Args_ConnectCompleted", "Connect socket not null Connection success");
-                this.log.Info("Args_ConnectCompleted", () => string.Format("Connected Status:{0}", args.ConnectSocket.Connected));
+        /// <summary>Asynchrous write where this.SendCallback raised on completion</summary>
+        /// <param name="msg">The message bytes to send</param>
+        public void WriteAsync(byte[] msg) {
+            try {
+                if (this.Connected) {
+                    this.socket.BeginSend(
+                        msg, 0, msg.Length, SocketFlags.None,
+                        new AsyncCallback(this.SendCallback), this.socket);
+                }
+            }
+            catch (Exception e) {
+                this.log.Exception(9999, "", e);
+            }
+        }
 
-                socket = args.ConnectSocket;
-                
-                this.RaiseConnectOk();
-            }
-            else {
-                this.log.Info("Args_ConnectCompleted", "Connect socket NULL FAil");
-                // TODO - convert extension
-                this.RaiseConnectResult(MsgPumpResultCode.ConnectionFailure, args.SocketError.ToString());
-            }
+
+
+        #endregion
+
+        #region Private
+
+        private void RaiseConnectResult(MsgPumpResultCode code, string msg) {
+            this.MsgPumpConnectResultEvent?.Invoke(this, new MsgPumpResults(code, msg));
         }
 
 
@@ -152,42 +160,6 @@ namespace CommunicationStack.Net.MsgPumps {
             this.MsgPumpConnectResultEvent?.Invoke(this, new MsgPumpResults(MsgPumpResultCode.Connected));
         }
 
-
-        public void Disconnect() {
-            if (this.Connected) {
-                this.doReading = false;
-                // TODO replace with event wait
-                //Thread.Sleep(1000);
-                if (socket != null) {
-                    if (socket.Connected) {
-                        socket.Disconnect(false);
-                    }
-                    socket.Dispose();
-                    socket = null;
-                }
-            }
-        }
-
-
-        public void WriteAsync(byte[] msg) {
-            if (this.Connected) {
-                try {
-                    socket.BeginSend(
-                        msg, 0, msg.Length, SocketFlags.None,
-                        new AsyncCallback(this.SendCallback),
-                        socket);
-                    // No waiting
-                }
-                catch(Exception e) {
-                    this.log.Exception(9999, "", e);
-                }
-            }
-        }
-
-        #region Private
-
-        private bool doReading = false;
-        SocketAsyncEventArgs receiveArgs = null;
 
         private void StartReceive(SocketAsyncEventArgs args) {
             args.SetBuffer(this.buff, 0, buffSize);
@@ -201,30 +173,33 @@ namespace CommunicationStack.Net.MsgPumps {
         private void ProcessReceivedData(SocketAsyncEventArgs args) {
             if (args.SocketError != SocketError.Success) {
                 if (this.doReading == false) {
-                    // This is an abort so do not post error
-                    this.log.Info("ProcessReceivedData", "Aborting the read thread");
-                    (args.UserToken as AutoResetEvent).Set();
-                    return;
+                    try {
+                        // This is an abort so do not post error
+                        this.log.Info("ProcessReceivedData", "Aborting the read thread");
+                        (args.UserToken as AutoResetEvent).Set();
+                        return;
+                    }
+                    catch (Exception e) {
+                        this.log.Exception(9999, "On Process Receive socket error", e);
+                        (args.UserToken as AutoResetEvent).Set();
+                        return;
+                    }
                 }
 
-                this.log.Error(9999, "Error detected");
-                // TODO - close down?
+                // TODO Error but keep thread alive?
+                this.log.Error(9999, "Error detected - keeping thread alive");
                 this.RaiseConnectResult(MsgPumpResultCode.ConnectionFailure, args.SocketError.ToString());
-
-                // If there any events to set we can do it here
                 (args.UserToken as AutoResetEvent).Set();
             }
             else if (receiveArgs.BytesTransferred > 0) {
-                this.log.Info("ProcessReceivedData", ()=> string.Format("raise event for {0} bytes received", receiveArgs.BytesTransferred));
+                this.log.Info("ProcessReceivedData", () => string.Format("raise event for {0} bytes received", receiveArgs.BytesTransferred));
                 this.RaiseReceivedData(args);
                 (args.UserToken as AutoResetEvent).Set();
-                this.StartReceive(args);
             }
             else {
                 // 0 Bytes so wait again for more
                 this.log.Info("ProcessReceivedData", "0 Bytes received. Do not raise");
                 (args.UserToken as AutoResetEvent).Set();
-                this.StartReceive(args);
             }
         }
 
@@ -239,32 +214,30 @@ namespace CommunicationStack.Net.MsgPumps {
                     }
 
                     this.receiveArgs = new SocketAsyncEventArgs();
-                    AutoResetEvent done = new AutoResetEvent(false);
-                    receiveArgs.SetBuffer(this.buff, 0, buffSize);
-                    receiveArgs.Completed += this.ReceiveArgs_Completed;
-                    receiveArgs.UserToken = done;
-                    receiveArgs.AcceptSocket = socket;
-                    receiveArgs.SocketFlags = SocketFlags.Partial;
+                    this.receiveArgs.SetBuffer(this.buff, 0, buffSize);
+                    this.receiveArgs.Completed += this.ReceiveArgs_Completed;
+                    this.receiveArgs.UserToken = this.doneRead;
+                    this.receiveArgs.AcceptSocket = this.socket;
+                    this.receiveArgs.SocketFlags = SocketFlags.Partial;
 
-                    this.log.InfoEntry("LaunchReadThread");
+                    this.log.Info("LaunchReadThread", () => string.Format("Thread:{0} number:{1}", Thread.CurrentThread.Name, Thread.CurrentThread.ManagedThreadId));
                     while (this.doReading) {
-                        done.Reset();
-                        this.log.Info("LaunchReadThread", "Calling StartReceive top of loop");
+                        this.doneRead.Reset();
                         this.StartReceive(this.receiveArgs);
-                        //(this.receiveArgs.UserToken as AutoResetEvent).WaitOne(5000);
-
-                        this.log.Info("LaunchReadThread", "Calling StartReceive bottom of loop");
+                        this.doneRead.WaitOne();
                     }
-                    receiveArgs.Completed -= this.ReceiveArgs_Completed;
-                    receiveArgs.Dispose();
-
+                    this.receiveArgs.Completed -= this.ReceiveArgs_Completed;
+                    this.receiveArgs.Dispose();
                     this.log.InfoExit("LaunchReadThread");
+                    this.Connected = false;
                 }
                 catch(SocketException se) {
-                    this.log.Exception(1222, "Exception on read thread", se);
+                    this.log.Exception(1222, "Socket Exception on read thread", se);
+                    this.Connected = false;
                 }
                 catch (Exception e) {
                     this.log.Exception(1222, "Exception on read thread", e);
+                    this.Connected = false;
                 }
             });
         }
@@ -274,62 +247,59 @@ namespace CommunicationStack.Net.MsgPumps {
             this.log.Info("ReceiveArgs_Completed", "Asynchronous data in handler - raise and set event");
             this.ProcessReceivedData(args);
 
-
-            //this.RaiseReceivedData(args);
-            //this.StartReceive(args);
         }
 
 
         private void RaiseReceivedData(SocketAsyncEventArgs args) {
-            this.log.InfoEntry("RaiseReceivedData");
             int count = args.BytesTransferred;
             if (count > 0) {
                 try {
                     byte[] tmpBuff = new byte[count];
                     Array.Copy(args.Buffer, tmpBuff, count);
                     this.MsgReceivedEvent?.Invoke(this, tmpBuff);
-
-                    
-
                 }
                 catch(Exception e) {
                     this.log.Exception(9999, "", e);
                 }
             }
-            this.log.InfoExit("RaiseReceivedData");
+        }
+
+
+        /// <summary>Event handler for ConnectAsync set on the async event args</summary>
+        /// <param name="sender"></param>
+        /// <param name="args">Async event args</param>
+        private void ConnectCompletedHandler(object sender, SocketAsyncEventArgs args) {
+            if (args.ConnectSocket != null) {
+                this.log.Info("Args_ConnectCompleted", "Connect socket not null Connection success");
+                this.log.Info("Args_ConnectCompleted", () => string.Format("Connected Status:{0}", args.ConnectSocket.Connected));
+
+                this.socket = args.ConnectSocket;
+
+                this.RaiseConnectOk();
+            }
+            else {
+                this.log.Info("Args_ConnectCompleted", "Connect socket NULL FAil");
+                // TODO - convert extension
+                this.RaiseConnectResult(MsgPumpResultCode.ConnectionFailure, args.SocketError.ToString());
+            }
         }
 
 
 
-
-        //private void ConnectCallback(IAsyncResult ar) {
-        //    try {
-        //        // Retrieve the socket from the state object.  
-        //        Socket s = (Socket)ar.AsyncState;
-
-        //        // Complete the connection.  
-        //        s.EndConnect(ar);
-
-        //        //Console.WriteLine("Socket connected to {0}",
-        //        //    client.RemoteEndPoint.ToString());
-
-        //        this.connectComplete.Set();
-        //    }
-        //    catch (Exception e) {
-        //        this.log.Exception(9999, "", e);
-        //    }
-        //}
-
+        /// <summary>Callback when send completes</summary>
+        /// <param name="result">The asynchronous result object</param>
         private void SendCallback(IAsyncResult result) {
-            Socket s = (Socket)result.AsyncState;
-            SocketError err;
-            s.EndSend(result, out err);
-            if (err != SocketError.Success) {
-                this.log.Error(999, () => string.Format("Send Failed:{0}", err));
-                // TODO - raise error
+            try {
+                Socket s = (Socket)result.AsyncState;
+                SocketError err;
+                s.EndSend(result, out err);
+                if (err != SocketError.Success) {
+                    this.log.Error(999, () => string.Format("Send Failed:{0}", err));
+                    // TODO - raise error
+                }
             }
-            else {
-                this.log.Info("SendCallback", "Send OK");
+            catch(Exception e) {
+                this.log.Exception(9999, "Send callback exception", e);
             }
         }
 
