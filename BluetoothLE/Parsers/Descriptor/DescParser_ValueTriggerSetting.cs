@@ -57,13 +57,9 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
                 byte condition = this.RawData[0];
                 if (condition.IsValueTriggerEnum()) {
                     this.Condition = this.RawData[0].AsValueTriggerEnum();
-                    switch (this.Condition) {
-                    
-                    
-                    
-                    
-                    }
-
+                    // TODO - complete parse switch
+                    //switch (this.Condition) {
+                    //}
 
                 }
             }

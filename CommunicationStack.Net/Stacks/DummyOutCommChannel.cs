@@ -14,5 +14,11 @@ namespace CommunicationStack.Net.Stacks {
             Log.Error(9999, "Using Dummy outgoing comm channel");
             return false;
         }
+
+
+        private void ToSatisfyCompiler() {
+            this.MsgReceivedEvent?.Invoke(this, null);
+        }
+
     }
 }
