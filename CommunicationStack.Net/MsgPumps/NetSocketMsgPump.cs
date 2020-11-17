@@ -172,7 +172,10 @@ namespace CommunicationStack.Net.MsgPumps {
                 this.RaiseReceivedData(args);
             }
             else {
-                this.log.Info("ProcessReceivedData", "0 Bytes received");
+                //this.log.Info("ProcessReceivedData", "0 Bytes received");
+
+                // Do a bit of a delay
+                Thread.Sleep(25);
             }
             (args.UserToken as AutoResetEvent).Set();
         }
@@ -222,7 +225,7 @@ namespace CommunicationStack.Net.MsgPumps {
         /// <param name="sender">Sender of the event</param>
         /// <param name="args">The event args</param>
         private void ReceiveArgs_Completed(object sender, SocketAsyncEventArgs args) {
-            this.log.Info("ReceiveArgs_Completed", "Asynchronous data in handler - raise and set event");
+            //this.log.Info("ReceiveArgs_Completed", "Asynchronous data in handler - raise and set event");
             this.ProcessReceivedEvent(args);
         }
 
@@ -264,10 +267,20 @@ namespace CommunicationStack.Net.MsgPumps {
         /// <param name="sender">Sender of the event</param>
         /// <param name="args">Async event args</param>
         private void ConnectCompletedHandler(object sender, SocketAsyncEventArgs args) {
+
+            this.log.Info("ConnectCompletedHandler", () => string.Format("args.ConnectSocket NULL:{0}", args.ConnectSocket == null));
+            this.log.Info("ConnectCompletedHandler", () => string.Format("args.AcceptSocket NULL:{0}", args.AcceptSocket == null));
+
             if (args.ConnectSocket != null) {
-                this.log.Info("ConnectCompletedHandler", () => string.Format("Connected Status:{0}", args.ConnectSocket.Connected));
-                this.socket = args.ConnectSocket;
-                this.RaiseConnectOk();
+                if (args.SocketError == SocketError.Success) {
+                    this.log.Info("ConnectCompletedHandler", () => string.Format("Connected Status:{0}", args.ConnectSocket.Connected));
+                    this.socket = args.ConnectSocket;
+                    this.RaiseConnectOk();
+                }
+                else {
+                    // Found instance of when it returned with non null Connect socket
+                    this.RaiseConnectResult(MsgPumpResultCode.ConnectionFailure, args.SocketError.ToString());
+                }
             }
             else {
                 this.log.Info("Args_ConnectCompleted", "Connect socket NULL Fail");
