@@ -89,7 +89,7 @@ namespace LanguageFactory.Net.Languages.it {
             this.AddMsg(MsgCode.NothingSelected, "Nessun elemento selezionato");
             this.AddMsg(MsgCode.DeleteFailure, "Errore di eliminazione");
             this.AddMsg(MsgCode.Ethernet, "Ethernet");
-            this.AddMsg(MsgCode.EmptyParameter, "Can't add empty parameter");
+            this.AddMsg(MsgCode.EmptyParameter, "Impossibile aggiungere un parametro vuoto");
             this.AddMsg(MsgCode.AbandonChanges, "Ignora modifiche?");
             this.AddMsg(MsgCode.Warning, "Avviso");
 
