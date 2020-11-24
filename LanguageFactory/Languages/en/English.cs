@@ -89,6 +89,9 @@ namespace LanguageFactory.Net.Languages.en {
             this.AddMsg(MsgCode.NothingSelected, "Nothing Selected");
             this.AddMsg(MsgCode.DeleteFailure, "Delete Failed");
             this.AddMsg(MsgCode.Ethernet, "Ethernet");
+            this.AddMsg(MsgCode.EmptyParameter, "Can't add empty parameter");
+            this.AddMsg(MsgCode.AbandonChanges, "Abandon changes?");
+            this.AddMsg(MsgCode.Warning, "Warning");
 
             //this.AddMsg(MsgCode., "");
         }

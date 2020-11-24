@@ -87,6 +87,9 @@ namespace LanguageFactory.Net.Languages.fr {
             this.AddMsg(MsgCode.NothingSelected, "Rien n’est sélectionné");
             this.AddMsg(MsgCode.DeleteFailure, "Échec de la suppression");
             this.AddMsg(MsgCode.Ethernet, "Ethernet");
+            this.AddMsg(MsgCode.EmptyParameter, "Impossible d’ajouter un paramètre vide");
+            this.AddMsg(MsgCode.AbandonChanges, "Abandonner les modifications?");
+            this.AddMsg(MsgCode.Warning, "Avertissement");
 
             //this.AddMsg(MsgCode., "");
         }

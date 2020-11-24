@@ -90,6 +90,9 @@ namespace LanguageFactory.Net.Languages.de {
             this.AddMsg(MsgCode.NothingSelected, "Keine Auswahl");
             this.AddMsg(MsgCode.DeleteFailure, "Fehler beim Löschen");
             this.AddMsg(MsgCode.Ethernet, "Ethernet");
+            this.AddMsg(MsgCode.EmptyParameter, "Es kann kein leerer Parameter hinzugefügt werden");
+            this.AddMsg(MsgCode.AbandonChanges, "Änderungen verwerfen?");
+            this.AddMsg(MsgCode.Warning, "Warnung");
 
             //this.AddMsg(MsgCode., "");
         }

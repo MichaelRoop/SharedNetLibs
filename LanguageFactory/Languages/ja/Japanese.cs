@@ -87,6 +87,9 @@ namespace LanguageFactory.Net.Languages.ja {
             this.AddMsg(MsgCode.NothingSelected, "選択されていません");
             this.AddMsg(MsgCode.DeleteFailure, "削除に失敗しました");
             this.AddMsg(MsgCode.Ethernet, "イーサネット");
+            this.AddMsg(MsgCode.EmptyParameter, "空のパラメーターを追加することはできません");
+            this.AddMsg(MsgCode.AbandonChanges, "変更の破棄?");
+            this.AddMsg(MsgCode.Warning, "警告");
 
             //this.AddMsg(MsgCode., "");
         }

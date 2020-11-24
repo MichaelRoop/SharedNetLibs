@@ -88,6 +88,10 @@ namespace LanguageFactory.Net.Languages.kr {
             this.AddMsg(MsgCode.DeleteFailure, "삭제 실패");
             this.AddMsg(MsgCode.Ethernet, "이더넷");
 
+            this.AddMsg(MsgCode.EmptyParameter, "빈 매개 변수를 추가할 수 없습니다");
+            this.AddMsg(MsgCode.AbandonChanges, "변경 내용 취소?");
+            this.AddMsg(MsgCode.Warning, "경고");
+
             //this.AddMsg(MsgCode., "");
         }
 

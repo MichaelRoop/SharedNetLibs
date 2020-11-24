@@ -88,6 +88,10 @@ namespace LanguageFactory.Net.Languages.es {
             this.AddMsg(MsgCode.NothingSelected, "No se seleccionó nada");
             this.AddMsg(MsgCode.DeleteFailure, "Error de eliminación");
             this.AddMsg(MsgCode.Ethernet, "Ethernet");
+            this.AddMsg(MsgCode.EmptyParameter, "No se puede agregar un parámetro vacío");
+            this.AddMsg(MsgCode.AbandonChanges, "¿Abandonar cambios?");
+            this.AddMsg(MsgCode.Warning, "Advertencia");
+
 
             //this.AddMsg(MsgCode., "");
         }

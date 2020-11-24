@@ -113,8 +113,9 @@
         NothingSelected,
         DeleteFailure,
         Ethernet,
-
-
+        EmptyParameter,
+        Warning,
+        AbandonChanges,
 
         // Composite - no direct lookup
         ReadTimeout,
