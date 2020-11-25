@@ -26,6 +26,7 @@ namespace LanguageFactory.Net.Languages.ru {
             this.AddMsg(MsgCode.language, "Языки");
             this.AddMsg(MsgCode.send, "Отправка");
             this.AddMsg(MsgCode.command, "Команда");
+            this.AddMsg(MsgCode.command, "Команды");
             this.AddMsg(MsgCode.response, "Ответ");
             this.AddMsg(MsgCode.select, "выбрать");
             this.AddMsg(MsgCode.discover, "Обнаружить");

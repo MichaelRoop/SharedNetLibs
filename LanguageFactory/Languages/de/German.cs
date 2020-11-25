@@ -24,6 +24,7 @@ namespace LanguageFactory.Net.Languages.de {
             this.AddMsg(MsgCode.language, "Sprache");
             this.AddMsg(MsgCode.send, "Senden");
             this.AddMsg(MsgCode.command, "Befehl");
+            this.AddMsg(MsgCode.commands, "Befehle");
             this.AddMsg(MsgCode.response, "Antwort");
             this.AddMsg(MsgCode.select, "Auswählen");
             this.AddMsg(MsgCode.discover, "Entdecken");

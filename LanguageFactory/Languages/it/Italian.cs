@@ -23,6 +23,7 @@ namespace LanguageFactory.Net.Languages.it {
             this.AddMsg(MsgCode.language, "Lingua");
             this.AddMsg(MsgCode.send, "Invia");
             this.AddMsg(MsgCode.command, "Comando");
+            this.AddMsg(MsgCode.commands, "Comandi");
             this.AddMsg(MsgCode.response, "Risposta");
             this.AddMsg(MsgCode.select, "Seleziona");
             this.AddMsg(MsgCode.discover, "Recupera elenco");

@@ -22,6 +22,7 @@
         language,
         send,
         command,
+        commands,
         response,
         select,
         discover,

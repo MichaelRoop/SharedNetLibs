@@ -21,6 +21,7 @@ namespace LanguageFactory.Net.Languages.cn {
             this.AddMsg(MsgCode.language, "语言");
             this.AddMsg(MsgCode.send, "发送");
             this.AddMsg(MsgCode.command, "命令");
+            this.AddMsg(MsgCode.commands, "命令");
             this.AddMsg(MsgCode.response, "响应");
             this.AddMsg(MsgCode.select, "选择");
             this.AddMsg(MsgCode.discover, "发现");

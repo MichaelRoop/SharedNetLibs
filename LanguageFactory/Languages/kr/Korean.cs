@@ -21,6 +21,7 @@ namespace LanguageFactory.Net.Languages.kr {
             this.AddMsg(MsgCode.language, "언어");
             this.AddMsg(MsgCode.send, "보내다");
             this.AddMsg(MsgCode.command, "명령");
+            this.AddMsg(MsgCode.commands, "명령");
             this.AddMsg(MsgCode.response, "응답");
             this.AddMsg(MsgCode.select, "선택");
             this.AddMsg(MsgCode.discover, "디스커버");
