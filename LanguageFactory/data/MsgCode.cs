@@ -117,6 +117,7 @@
         EmptyParameter,
         Warning,
         AbandonChanges,
+        Run,
 
         // Composite - no direct lookup
         ReadTimeout,

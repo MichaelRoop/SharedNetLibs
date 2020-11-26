@@ -94,6 +94,7 @@ namespace LanguageFactory.Net.Languages.de {
             this.AddMsg(MsgCode.EmptyParameter, "Es kann kein leerer Parameter hinzugefügt werden");
             this.AddMsg(MsgCode.AbandonChanges, "Änderungen verwerfen?");
             this.AddMsg(MsgCode.Warning, "Warnung");
+            this.AddMsg(MsgCode.Run, "Ausführen");
 
             //this.AddMsg(MsgCode., "");
         }

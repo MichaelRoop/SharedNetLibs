@@ -92,6 +92,7 @@ namespace LanguageFactory.Net.Languages.es {
             this.AddMsg(MsgCode.EmptyParameter, "No se puede agregar un parámetro vacío");
             this.AddMsg(MsgCode.AbandonChanges, "¿Abandonar cambios?");
             this.AddMsg(MsgCode.Warning, "Advertencia");
+            this.AddMsg(MsgCode.Run, "Ejecutar");
 
 
             //this.AddMsg(MsgCode., "");

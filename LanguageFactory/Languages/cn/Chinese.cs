@@ -91,6 +91,7 @@ namespace LanguageFactory.Net.Languages.cn {
             this.AddMsg(MsgCode.EmptyParameter, "无法添加空参数");
             this.AddMsg(MsgCode.AbandonChanges, "放弃更改?");
             this.AddMsg(MsgCode.Warning, "警告");
+            this.AddMsg(MsgCode.Run, "运行");
 
 
             //this.AddMsg(MsgCode., "");

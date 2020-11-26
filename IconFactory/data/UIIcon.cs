@@ -20,6 +20,7 @@
 
         // communications
         Wifi,
+        WifiWhite,
         BluetoothClassic,
         BluetoothClassicWhite,
         BluetoothLE,

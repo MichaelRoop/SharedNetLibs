@@ -93,6 +93,7 @@ namespace LanguageFactory.Net.Languages.en {
             this.AddMsg(MsgCode.EmptyParameter, "Can't add empty parameter");
             this.AddMsg(MsgCode.AbandonChanges, "Abandon changes?");
             this.AddMsg(MsgCode.Warning, "Warning");
+            this.AddMsg(MsgCode.Run, "Run");
 
             //this.AddMsg(MsgCode., "");
         }

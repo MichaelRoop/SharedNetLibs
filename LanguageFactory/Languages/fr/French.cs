@@ -91,6 +91,7 @@ namespace LanguageFactory.Net.Languages.fr {
             this.AddMsg(MsgCode.EmptyParameter, "Impossible d’ajouter un paramètre vide");
             this.AddMsg(MsgCode.AbandonChanges, "Abandonner les modifications?");
             this.AddMsg(MsgCode.Warning, "Avertissement");
+            this.AddMsg(MsgCode.Run, "Exécuter");
 
             //this.AddMsg(MsgCode., "");
         }

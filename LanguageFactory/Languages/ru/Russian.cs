@@ -96,6 +96,7 @@ namespace LanguageFactory.Net.Languages.ru {
             this.AddMsg(MsgCode.EmptyParameter, "Невозможно добавить пустой параметр");
             this.AddMsg(MsgCode.AbandonChanges, "Отменить изменения?");
             this.AddMsg(MsgCode.Warning, "Предупреждение");
+            this.AddMsg(MsgCode.Run, "Выполнить");
 
             //this.AddMsg(MsgCode., "");
         }
