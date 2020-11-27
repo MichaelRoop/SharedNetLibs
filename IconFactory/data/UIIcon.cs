@@ -53,6 +53,7 @@
         Properties,
         PropertiesWhite,
         LogIcon,
+        Disconnect,
 
     }
 }
