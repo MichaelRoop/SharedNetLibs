@@ -92,7 +92,7 @@ namespace LanguageFactory.Net.Languages.cn {
             this.AddMsg(MsgCode.AbandonChanges, "放弃更改?");
             this.AddMsg(MsgCode.Warning, "警告");
             this.AddMsg(MsgCode.Run, "运行");
-
+            this.AddMsg(MsgCode.InsufficienPermissions, "权限不足");
 
             //this.AddMsg(MsgCode., "");
 

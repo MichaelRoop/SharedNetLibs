@@ -94,6 +94,7 @@ namespace LanguageFactory.Net.Languages.en {
             this.AddMsg(MsgCode.AbandonChanges, "Abandon changes?");
             this.AddMsg(MsgCode.Warning, "Warning");
             this.AddMsg(MsgCode.Run, "Run");
+            this.AddMsg(MsgCode.InsufficienPermissions, "Insufficient Permissions");
 
             //this.AddMsg(MsgCode., "");
         }

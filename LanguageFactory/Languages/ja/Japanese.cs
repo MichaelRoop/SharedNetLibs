@@ -92,6 +92,7 @@ namespace LanguageFactory.Net.Languages.ja {
             this.AddMsg(MsgCode.AbandonChanges, "変更の破棄?");
             this.AddMsg(MsgCode.Warning, "警告");
             this.AddMsg(MsgCode.Run, "実行");
+            this.AddMsg(MsgCode.InsufficienPermissions, "アクセス許可が不十分です");
 
             //this.AddMsg(MsgCode., "");
         }

@@ -94,6 +94,7 @@ namespace LanguageFactory.Net.Languages.it {
             this.AddMsg(MsgCode.AbandonChanges, "Ignora modifiche?");
             this.AddMsg(MsgCode.Warning, "Avviso");
             this.AddMsg(MsgCode.Run, "Esegui");
+            this.AddMsg(MsgCode.InsufficienPermissions, "Autorizzazioni insufficienti");
 
             //this.AddMsg(MsgCode., "");
         }

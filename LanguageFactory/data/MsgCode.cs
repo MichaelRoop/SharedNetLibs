@@ -118,6 +118,7 @@
         Warning,
         AbandonChanges,
         Run,
+        InsufficienPermissions,
 
         // Composite - no direct lookup
         ReadTimeout,

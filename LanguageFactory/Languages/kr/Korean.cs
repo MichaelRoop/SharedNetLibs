@@ -92,6 +92,7 @@ namespace LanguageFactory.Net.Languages.kr {
             this.AddMsg(MsgCode.AbandonChanges, "변경 내용 취소?");
             this.AddMsg(MsgCode.Warning, "경고");
             this.AddMsg(MsgCode.Run, "실행");
+            this.AddMsg(MsgCode.InsufficienPermissions, "권한이 충분하지 않습니다");
 
             //this.AddMsg(MsgCode., "");
         }

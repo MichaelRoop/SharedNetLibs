@@ -92,6 +92,7 @@ namespace LanguageFactory.Net.Languages.fr {
             this.AddMsg(MsgCode.AbandonChanges, "Abandonner les modifications?");
             this.AddMsg(MsgCode.Warning, "Avertissement");
             this.AddMsg(MsgCode.Run, "Exécuter");
+            this.AddMsg(MsgCode.InsufficienPermissions, "Autorisation insuffisante");
 
             //this.AddMsg(MsgCode., "");
         }

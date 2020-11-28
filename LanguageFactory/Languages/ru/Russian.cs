@@ -97,6 +97,7 @@ namespace LanguageFactory.Net.Languages.ru {
             this.AddMsg(MsgCode.AbandonChanges, "Отменить изменения?");
             this.AddMsg(MsgCode.Warning, "Предупреждение");
             this.AddMsg(MsgCode.Run, "Выполнить");
+            this.AddMsg(MsgCode.InsufficienPermissions, "Недостаточно разрешений");
 
             //this.AddMsg(MsgCode., "");
         }
