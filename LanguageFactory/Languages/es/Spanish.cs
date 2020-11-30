@@ -94,6 +94,7 @@ namespace LanguageFactory.Net.Languages.es {
             this.AddMsg(MsgCode.Warning, "Advertencia");
             this.AddMsg(MsgCode.Run, "Ejecutar");
             this.AddMsg(MsgCode.InsufficienPermissions, "Permisos insuficientes");
+            this.AddMsg(MsgCode.CodeSamples, "Ejemplos de código");
 
 
             //this.AddMsg(MsgCode., "");

@@ -98,6 +98,7 @@ namespace LanguageFactory.Net.Languages.ru {
             this.AddMsg(MsgCode.Warning, "Предупреждение");
             this.AddMsg(MsgCode.Run, "Выполнить");
             this.AddMsg(MsgCode.InsufficienPermissions, "Недостаточно разрешений");
+            this.AddMsg(MsgCode.CodeSamples, "Примеры кода");
 
             //this.AddMsg(MsgCode., "");
         }

@@ -96,6 +96,7 @@ namespace LanguageFactory.Net.Languages.de {
             this.AddMsg(MsgCode.Warning, "Warnung");
             this.AddMsg(MsgCode.Run, "Ausführen");
             this.AddMsg(MsgCode.InsufficienPermissions, "Unzureichende Berechtigungen");
+            this.AddMsg(MsgCode.CodeSamples, "Codebeispiele");
 
             //this.AddMsg(MsgCode., "");
         }

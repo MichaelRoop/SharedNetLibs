@@ -119,6 +119,8 @@
         AbandonChanges,
         Run,
         InsufficienPermissions,
+        
+        CodeSamples,
 
         // Composite - no direct lookup
         ReadTimeout,

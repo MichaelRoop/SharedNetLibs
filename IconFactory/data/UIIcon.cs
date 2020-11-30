@@ -54,6 +54,7 @@
         PropertiesWhite,
         LogIcon,
         Disconnect,
-
+        Code,
+        CodeWhite,
     }
 }

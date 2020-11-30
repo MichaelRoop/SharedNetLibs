@@ -93,6 +93,7 @@ namespace LanguageFactory.Net.Languages.kr {
             this.AddMsg(MsgCode.Warning, "경고");
             this.AddMsg(MsgCode.Run, "실행");
             this.AddMsg(MsgCode.InsufficienPermissions, "권한이 충분하지 않습니다");
+            this.AddMsg(MsgCode.CodeSamples, "코드 샘플");
 
             //this.AddMsg(MsgCode., "");
         }
