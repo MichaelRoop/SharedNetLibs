@@ -56,5 +56,6 @@
         Disconnect,
         Code,
         CodeWhite,
+        OpenBook,
     }
 }
