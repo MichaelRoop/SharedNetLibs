@@ -19,5 +19,6 @@ namespace WifiCommon.Net.Enumerations {
         EmptyPassword,
         UserCanceled,
         NonNumericPort,
+        EmptySsid,
     }
 }
