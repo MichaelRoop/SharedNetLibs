@@ -43,6 +43,7 @@
         BoardEmitting,
         ArduinoIcon,
         Pair,
+        PairWhite,
         Unpair,
         Credentials,
         CredentialsWhite,
@@ -57,5 +58,6 @@
         Code,
         CodeWhite,
         OpenBook,
+        BackDelete,
     }
 }
