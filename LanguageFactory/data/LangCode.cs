@@ -11,5 +11,7 @@
         German,
         Italian,
         Russian,
+        Hindi,
+        Portuguese,
     }
 }
