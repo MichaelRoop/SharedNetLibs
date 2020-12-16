@@ -15,6 +15,7 @@
         // Menu
         HamburgerMenuWhite,
         Settings,
+        SettingsWhite,
         Language,
         LanguageWhite,
 

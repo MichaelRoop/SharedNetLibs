@@ -119,8 +119,15 @@
         AbandonChanges,
         Run,
         InsufficienPermissions,
-        
         CodeSamples,
+
+        AuthenticationType,
+        EncryptionType,
+        UpTime,
+        SignalStrength,
+        MacAddress,
+        Kind,
+        BeaconInterval,
 
         // Composite - no direct lookup
         ReadTimeout,

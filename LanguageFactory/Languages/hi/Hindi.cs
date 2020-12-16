@@ -100,6 +100,14 @@ namespace LanguageFactory.Net.Languages.hi {
             this.AddMsg(MsgCode.Run, "चलाएँ");
             this.AddMsg(MsgCode.InsufficienPermissions, "अपर्याप्त अनुमतियाँ");
             this.AddMsg(MsgCode.CodeSamples, "कोड नमूने");
+            this.AddMsg(MsgCode.AuthenticationType, "प्रमाणीकरण प्रकार");
+            this.AddMsg(MsgCode.EncryptionType, "एन्क्रिप्शन प्रकार");
+            this.AddMsg(MsgCode.SignalStrength, "सिग्नल क्षमता");
+            this.AddMsg(MsgCode.UpTime, "अप टाइम");
+            this.AddMsg(MsgCode.MacAddress, "MAC पता");
+            this.AddMsg(MsgCode.Kind, "प्रकार");
+            this.AddMsg(MsgCode.BeaconInterval, "बीकन अंतराल");
+
 
             //this.AddMsg(MsgCode., "");
 

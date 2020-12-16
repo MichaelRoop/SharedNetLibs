@@ -94,6 +94,13 @@ namespace LanguageFactory.Net.Languages.fr {
             this.AddMsg(MsgCode.Run, "Exécuter");
             this.AddMsg(MsgCode.InsufficienPermissions, "Autorisation insuffisante");
             this.AddMsg(MsgCode.CodeSamples, "Exemples de code");
+            this.AddMsg(MsgCode.AuthenticationType, "Type d’authentification");
+            this.AddMsg(MsgCode.EncryptionType, "Type de chiffrement");
+            this.AddMsg(MsgCode.SignalStrength, "Puissance du signal");
+            this.AddMsg(MsgCode.UpTime, "Durée de fonctionnement");
+            this.AddMsg(MsgCode.MacAddress, "Adresse MAC");
+            this.AddMsg(MsgCode.Kind, "Type");
+            this.AddMsg(MsgCode.BeaconInterval, "Intervalle de balise");
 
             //this.AddMsg(MsgCode., "");
         }

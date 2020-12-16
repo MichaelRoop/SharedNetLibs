@@ -29,7 +29,7 @@ namespace WifiCommon.Net.Enumerations {
         ERP_ExtendedRate = 6,
 
         /// <summary>High Throughput (HT) PHY for 802.11n PHY</summary>
-        HT_HighThroughput_802_11n = 7,
+        HT_High_Throughput_802_11n = 7,
 
         /// <summary>Very High Throughput (VHT) PHY for 802.11ac PHY</summary>
         VHT_VeryHighThroughput_802_11ac = 8,

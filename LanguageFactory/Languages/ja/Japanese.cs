@@ -94,6 +94,14 @@ namespace LanguageFactory.Net.Languages.ja {
             this.AddMsg(MsgCode.Run, "実行");
             this.AddMsg(MsgCode.InsufficienPermissions, "アクセス許可が不十分です");
             this.AddMsg(MsgCode.CodeSamples, "コード サンプル");
+            this.AddMsg(MsgCode.AuthenticationType, "認証の種類");
+            this.AddMsg(MsgCode.EncryptionType, "暗号化の種類");
+            this.AddMsg(MsgCode.SignalStrength, "シグナルの強さ");
+            this.AddMsg(MsgCode.UpTime, "稼働時間");
+            this.AddMsg(MsgCode.MacAddress, "MAC アドレス");
+            this.AddMsg(MsgCode.Kind, "分類");
+            this.AddMsg(MsgCode.BeaconInterval, "ビーコン間隔");
+
 
             //this.AddMsg(MsgCode., "");
         }

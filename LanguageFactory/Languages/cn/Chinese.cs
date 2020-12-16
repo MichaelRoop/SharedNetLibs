@@ -94,6 +94,13 @@ namespace LanguageFactory.Net.Languages.cn {
             this.AddMsg(MsgCode.Run, "运行");
             this.AddMsg(MsgCode.InsufficienPermissions, "权限不足");
             this.AddMsg(MsgCode.CodeSamples, "代码示例");
+            this.AddMsg(MsgCode.AuthenticationType, "身份验证类型");
+            this.AddMsg(MsgCode.EncryptionType, "加密类型");
+            this.AddMsg(MsgCode.SignalStrength, "信号强度");
+            this.AddMsg(MsgCode.UpTime, "正常运行时间");
+            this.AddMsg(MsgCode.MacAddress, "MAC 地址");
+            this.AddMsg(MsgCode.Kind, "类型​​");
+            this.AddMsg(MsgCode.BeaconInterval, "信号间隔");
 
             //this.AddMsg(MsgCode., "");
 

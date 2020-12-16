@@ -97,6 +97,14 @@ namespace LanguageFactory.Net.Languages.de {
             this.AddMsg(MsgCode.Run, "Ausführen");
             this.AddMsg(MsgCode.InsufficienPermissions, "Unzureichende Berechtigungen");
             this.AddMsg(MsgCode.CodeSamples, "Codebeispiele");
+            this.AddMsg(MsgCode.AuthenticationType, "Authentifizierungstyp");
+            this.AddMsg(MsgCode.EncryptionType, "Verschlüsselungstyp");
+            this.AddMsg(MsgCode.SignalStrength, "Signalstärke");
+            this.AddMsg(MsgCode.UpTime, "Betriebszeit");
+            this.AddMsg(MsgCode.MacAddress, "MAC-Adresse");
+            this.AddMsg(MsgCode.Kind, "Art");
+            this.AddMsg(MsgCode.BeaconInterval, "Beaconintervall");
+
 
             //this.AddMsg(MsgCode., "");
         }

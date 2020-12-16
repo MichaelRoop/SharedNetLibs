@@ -98,11 +98,16 @@ namespace LanguageFactory.Net.Languages.pt {
             this.AddMsg(MsgCode.Run, "Executar");
             this.AddMsg(MsgCode.InsufficienPermissions, "Permissões Insuficientes");
             this.AddMsg(MsgCode.CodeSamples, "Exemplos de Código");
+            this.AddMsg(MsgCode.AuthenticationType, "Tipo de autenticação");
+            this.AddMsg(MsgCode.EncryptionType, "Tipo de encriptação");
+            this.AddMsg(MsgCode.SignalStrength, "Força do sinal");
+            this.AddMsg(MsgCode.UpTime, "Tempo ativo");
+            this.AddMsg(MsgCode.MacAddress, "Endereço MAC");
+            this.AddMsg(MsgCode.Kind, "Tipo");
+            this.AddMsg(MsgCode.BeaconInterval, "Intervalo de Beacons");
 
 
             //this.AddMsg(MsgCode., "");
-
-
         }
 
 

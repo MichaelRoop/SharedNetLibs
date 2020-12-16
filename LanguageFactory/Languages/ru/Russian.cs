@@ -99,6 +99,14 @@ namespace LanguageFactory.Net.Languages.ru {
             this.AddMsg(MsgCode.Run, "Выполнить");
             this.AddMsg(MsgCode.InsufficienPermissions, "Недостаточно разрешений");
             this.AddMsg(MsgCode.CodeSamples, "Примеры кода");
+            this.AddMsg(MsgCode.AuthenticationType, "Тип проверки подлинности");
+            this.AddMsg(MsgCode.EncryptionType, "Тип шифрования");
+            this.AddMsg(MsgCode.SignalStrength, "Уровень сигнала");
+            this.AddMsg(MsgCode.UpTime, "Время работы");
+            this.AddMsg(MsgCode.MacAddress, "MAC-адрес");
+            this.AddMsg(MsgCode.Kind, "Тип");
+            this.AddMsg(MsgCode.BeaconInterval, "Интервал сигналов предупреждения");
+
 
             //this.AddMsg(MsgCode., "");
         }

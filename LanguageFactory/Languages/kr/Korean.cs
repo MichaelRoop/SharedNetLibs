@@ -94,6 +94,13 @@ namespace LanguageFactory.Net.Languages.kr {
             this.AddMsg(MsgCode.Run, "실행");
             this.AddMsg(MsgCode.InsufficienPermissions, "권한이 충분하지 않습니다");
             this.AddMsg(MsgCode.CodeSamples, "코드 샘플");
+            this.AddMsg(MsgCode.AuthenticationType, "인증 유형");
+            this.AddMsg(MsgCode.EncryptionType, "암호화 종류");
+            this.AddMsg(MsgCode.SignalStrength, "신호 강도");
+            this.AddMsg(MsgCode.UpTime, "작동 시간");
+            this.AddMsg(MsgCode.MacAddress, "MAC 주소");
+            this.AddMsg(MsgCode.Kind, "종류");
+            this.AddMsg(MsgCode.BeaconInterval, "오류 신호 간격");
 
             //this.AddMsg(MsgCode., "");
         }
