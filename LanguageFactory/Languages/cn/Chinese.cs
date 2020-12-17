@@ -101,6 +101,22 @@ namespace LanguageFactory.Net.Languages.cn {
             this.AddMsg(MsgCode.MacAddress, "MAC 地址");
             this.AddMsg(MsgCode.Kind, "类型​​");
             this.AddMsg(MsgCode.BeaconInterval, "信号间隔");
+            this.AddMsg(MsgCode.AccessStatus, "访问状态s");
+            this.AddMsg(MsgCode.AddressType, "地址类型");
+            this.AddMsg(MsgCode.Paired, "已配对");
+            this.AddMsg(MsgCode.Connected, "已连接");
+            this.AddMsg(MsgCode.ProtectionLevel, "保护级别");
+            this.AddMsg(MsgCode.SecureConnection, "安全连接(");
+            this.AddMsg(MsgCode.Id, "ID");
+            this.AddMsg(MsgCode.Allowed, "允许");
+            this.AddMsg(MsgCode.Address, "地址");
+            this.AddMsg(MsgCode.DeviceClass, "设备类");
+            this.AddMsg(MsgCode.ServiceClass, "服务类");
+            this.AddMsg(MsgCode.LastSeen, "上一次查看时间");
+            this.AddMsg(MsgCode.LastUsed, "上次使用时间");
+            this.AddMsg(MsgCode.Authenticated, "已通过身份验证");
+            this.AddMsg(MsgCode.RemoteHost, "远程主机");
+            this.AddMsg(MsgCode.RemoteService, "远程服务");
 
             //this.AddMsg(MsgCode., "");
 

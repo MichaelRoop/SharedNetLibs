@@ -101,6 +101,22 @@ namespace LanguageFactory.Net.Languages.ja {
             this.AddMsg(MsgCode.MacAddress, "MAC アドレス");
             this.AddMsg(MsgCode.Kind, "分類");
             this.AddMsg(MsgCode.BeaconInterval, "ビーコン間隔");
+            this.AddMsg(MsgCode.AccessStatus, "アクセス状態");
+            this.AddMsg(MsgCode.AddressType, "アドレスの種類");
+            this.AddMsg(MsgCode.Paired, "ペアリング済み");
+            this.AddMsg(MsgCode.Connected, "接続しました");
+            this.AddMsg(MsgCode.ProtectionLevel, "保護レベル");
+            this.AddMsg(MsgCode.SecureConnection, "セキュリティで保護された接続 ");
+            this.AddMsg(MsgCode.Id, "ID");
+            this.AddMsg(MsgCode.Allowed, "許可");
+            this.AddMsg(MsgCode.Address, "住所");
+            this.AddMsg(MsgCode.DeviceClass, "デバイス クラス");
+            this.AddMsg(MsgCode.ServiceClass, "サービス クラス");
+            this.AddMsg(MsgCode.LastSeen, "最終表示日");
+            this.AddMsg(MsgCode.LastUsed, "使用日時");
+            this.AddMsg(MsgCode.Authenticated, "認証済み");
+            this.AddMsg(MsgCode.RemoteHost, "リモート ホスト");
+            this.AddMsg(MsgCode.RemoteService, "リモート サービス");
 
 
             //this.AddMsg(MsgCode., "");

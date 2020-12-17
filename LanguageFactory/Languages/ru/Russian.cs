@@ -106,7 +106,22 @@ namespace LanguageFactory.Net.Languages.ru {
             this.AddMsg(MsgCode.MacAddress, "MAC-адрес");
             this.AddMsg(MsgCode.Kind, "Тип");
             this.AddMsg(MsgCode.BeaconInterval, "Интервал сигналов предупреждения");
-
+            this.AddMsg(MsgCode.AccessStatus, "Состояние доступа");
+            this.AddMsg(MsgCode.AddressType, "Тип адреса");
+            this.AddMsg(MsgCode.Paired, "Связано");
+            this.AddMsg(MsgCode.Connected, "Подключена");
+            this.AddMsg(MsgCode.ProtectionLevel, "Уровень защиты");
+            this.AddMsg(MsgCode.SecureConnection, "Безопасное соединение");
+            this.AddMsg(MsgCode.Id, "ИД");
+            this.AddMsg(MsgCode.Allowed, "Разрешено");
+            this.AddMsg(MsgCode.Address, "Адрес");
+            this.AddMsg(MsgCode.DeviceClass, "Класс устройства");
+            this.AddMsg(MsgCode.ServiceClass, "Класс службы");
+            this.AddMsg(MsgCode.LastSeen, "Последний просмотр");
+            this.AddMsg(MsgCode.LastUsed, "Использованные в последний раз");
+            this.AddMsg(MsgCode.Authenticated, "Проверка подлинности выполнена");
+            this.AddMsg(MsgCode.RemoteHost, "Удаленный узел");
+            this.AddMsg(MsgCode.RemoteService, "Удаленная служба");
 
             //this.AddMsg(MsgCode., "");
         }

@@ -66,23 +66,9 @@
         //// BLE Fields
         //True,
         //False,
-        //Id,
-        //AccessStatus,
         //AddressType,
-        //Kind,
-        //// Can be paired
-        //Paired,
-        //PairedSecureConnection,
         //Connectable,
-        //Connected,
-        //ProtectionLevel,
-        //// BT
-        ///
         Address,
-        DeviceClass,
-        ServiceClass,
-        LastSeen,
-        LastUsed,
         Delete,
         UserManual,
         Product,
@@ -120,7 +106,6 @@
         Run,
         InsufficienPermissions,
         CodeSamples,
-
         AuthenticationType,
         EncryptionType,
         UpTime,
@@ -129,8 +114,27 @@
         Kind,
         BeaconInterval,
 
+        AccessStatus,
+        AddressType,
+        Paired,
+        Connected,
+        ProtectionLevel,
+        SecureConnection,
+        Id,
+        Allowed,
+
+        DeviceClass,
+        ServiceClass,
+        LastSeen,
+        LastUsed,
+        Authenticated,
+        RemoteHost,
+        RemoteService,
+
         // Composite - no direct lookup
         ReadTimeout,
         WriteTimeout,
+        PairedWithSecureConnection,
+        PairingAllowed,
     }
 }

@@ -107,6 +107,24 @@ namespace LanguageFactory.Net.Languages.hi {
             this.AddMsg(MsgCode.MacAddress, "MAC पता");
             this.AddMsg(MsgCode.Kind, "प्रकार");
             this.AddMsg(MsgCode.BeaconInterval, "बीकन अंतराल");
+            this.AddMsg(MsgCode.AccessStatus, "पहुंच की स्थिति");
+            this.AddMsg(MsgCode.AddressType, "पता प्रकार");
+            this.AddMsg(MsgCode.Paired, "युग्मित");
+            this.AddMsg(MsgCode.Connected, "कनेक्ट किया गया");
+            this.AddMsg(MsgCode.ProtectionLevel, "सुरक्षा स्तर");
+            this.AddMsg(MsgCode.SecureConnection, "सुरक्षित कनेक्शन");
+            this.AddMsg(MsgCode.Id, "ID");
+            this.AddMsg(MsgCode.Allowed, "अनुमत");
+            this.AddMsg(MsgCode.Address, "पता");
+
+            this.AddMsg(MsgCode.DeviceClass, "Device Class");
+            this.AddMsg(MsgCode.ServiceClass, "Service Class");
+            this.AddMsg(MsgCode.LastSeen, "अंतिम बार देखा");
+            this.AddMsg(MsgCode.LastUsed, "अंतिम बार उपयोग किया");
+            this.AddMsg(MsgCode.Authenticated, "प्रमाणीकृत");
+            this.AddMsg(MsgCode.RemoteHost, "दूरस्थ होस्ट");
+            this.AddMsg(MsgCode.RemoteService, "दूरस्थ सेवा ");
+
 
 
             //this.AddMsg(MsgCode., "");

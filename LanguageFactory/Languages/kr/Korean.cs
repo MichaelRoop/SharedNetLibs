@@ -101,6 +101,22 @@ namespace LanguageFactory.Net.Languages.kr {
             this.AddMsg(MsgCode.MacAddress, "MAC 주소");
             this.AddMsg(MsgCode.Kind, "종류");
             this.AddMsg(MsgCode.BeaconInterval, "오류 신호 간격");
+            this.AddMsg(MsgCode.AccessStatus, "액세스 상태");
+            this.AddMsg(MsgCode.AddressType, "주소 유형");
+            this.AddMsg(MsgCode.Paired, "페어링됨");
+            this.AddMsg(MsgCode.Connected, "연결됨");
+            this.AddMsg(MsgCode.ProtectionLevel, "보호 수준");
+            this.AddMsg(MsgCode.SecureConnection, "보안 연결");
+            this.AddMsg(MsgCode.Id, "ID");
+            this.AddMsg(MsgCode.Allowed, "허용함");
+            this.AddMsg(MsgCode.Address, "주소");
+            this.AddMsg(MsgCode.DeviceClass, "장치 클래스");
+            this.AddMsg(MsgCode.ServiceClass, "서비스 클래스");
+            this.AddMsg(MsgCode.LastSeen, "마지막 표시한 시간");
+            this.AddMsg(MsgCode.LastUsed, "마지막 사용 날짜");
+            this.AddMsg(MsgCode.Authenticated, "인증됨");
+            this.AddMsg(MsgCode.RemoteHost, "원격 호스트");
+            this.AddMsg(MsgCode.RemoteService, "원격 서비스");
 
             //this.AddMsg(MsgCode., "");
         }

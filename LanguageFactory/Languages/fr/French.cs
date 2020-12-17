@@ -101,6 +101,22 @@ namespace LanguageFactory.Net.Languages.fr {
             this.AddMsg(MsgCode.MacAddress, "Adresse MAC");
             this.AddMsg(MsgCode.Kind, "Type");
             this.AddMsg(MsgCode.BeaconInterval, "Intervalle de balise");
+            this.AddMsg(MsgCode.AccessStatus, "État de l’accès");
+            this.AddMsg(MsgCode.AddressType, "Type d'adresse");
+            this.AddMsg(MsgCode.Paired, "Couplé");
+            this.AddMsg(MsgCode.Connected, "Connecté");
+            this.AddMsg(MsgCode.ProtectionLevel, "Niveau de protection");
+            this.AddMsg(MsgCode.SecureConnection, "Connexion sécurisée");
+            this.AddMsg(MsgCode.Id, "ID");
+            this.AddMsg(MsgCode.Allowed, "Autorisé");
+            this.AddMsg(MsgCode.Address, "Address");
+            this.AddMsg(MsgCode.DeviceClass, "Classe de périphérique");
+            this.AddMsg(MsgCode.ServiceClass, "Classe de service");
+            this.AddMsg(MsgCode.LastSeen, "Dernière consultation");
+            this.AddMsg(MsgCode.LastUsed, "Dernière utilisation");
+            this.AddMsg(MsgCode.Authenticated, "Authentifié");
+            this.AddMsg(MsgCode.RemoteHost, "Hôte distant");
+            this.AddMsg(MsgCode.RemoteService, "Service distant");
 
             //this.AddMsg(MsgCode., "");
         }
