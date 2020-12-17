@@ -116,7 +116,6 @@ namespace LanguageFactory.Net.Languages.hi {
             this.AddMsg(MsgCode.Id, "ID");
             this.AddMsg(MsgCode.Allowed, "अनुमत");
             this.AddMsg(MsgCode.Address, "पता");
-
             this.AddMsg(MsgCode.DeviceClass, "Device Class");
             this.AddMsg(MsgCode.ServiceClass, "Service Class");
             this.AddMsg(MsgCode.LastSeen, "अंतिम बार देखा");
@@ -124,7 +123,7 @@ namespace LanguageFactory.Net.Languages.hi {
             this.AddMsg(MsgCode.Authenticated, "प्रमाणीकृत");
             this.AddMsg(MsgCode.RemoteHost, "दूरस्थ होस्ट");
             this.AddMsg(MsgCode.RemoteService, "दूरस्थ सेवा ");
-
+            this.AddMsg(MsgCode.Clear, "साफ़ करें");
 
 
             //this.AddMsg(MsgCode., "");

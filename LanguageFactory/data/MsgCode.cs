@@ -122,7 +122,6 @@
         SecureConnection,
         Id,
         Allowed,
-
         DeviceClass,
         ServiceClass,
         LastSeen,
@@ -130,6 +129,7 @@
         Authenticated,
         RemoteHost,
         RemoteService,
+        Clear,
 
         // Composite - no direct lookup
         ReadTimeout,

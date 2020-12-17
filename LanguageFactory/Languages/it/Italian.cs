@@ -119,6 +119,7 @@ namespace LanguageFactory.Net.Languages.it {
             this.AddMsg(MsgCode.Authenticated, "Autenticato");
             this.AddMsg(MsgCode.RemoteHost, "Host remoto");
             this.AddMsg(MsgCode.RemoteService, "Servizio remoto");
+            this.AddMsg(MsgCode.Clear, "Cancella");
 
             //this.AddMsg(MsgCode., "");
         }

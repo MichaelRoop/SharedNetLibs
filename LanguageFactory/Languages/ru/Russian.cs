@@ -122,6 +122,7 @@ namespace LanguageFactory.Net.Languages.ru {
             this.AddMsg(MsgCode.Authenticated, "Проверка подлинности выполнена");
             this.AddMsg(MsgCode.RemoteHost, "Удаленный узел");
             this.AddMsg(MsgCode.RemoteService, "Удаленная служба");
+            this.AddMsg(MsgCode.Clear, "Очистить");
 
             //this.AddMsg(MsgCode., "");
         }

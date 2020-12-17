@@ -120,6 +120,7 @@ namespace LanguageFactory.Net.Languages.de {
             this.AddMsg(MsgCode.Authenticated, "Authentifiziert");
             this.AddMsg(MsgCode.RemoteHost, "Remotehost");
             this.AddMsg(MsgCode.RemoteService, "Remotedienst");
+            this.AddMsg(MsgCode.Clear, "Löschen");
 
 
             //this.AddMsg(MsgCode., "");
