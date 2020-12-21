@@ -82,7 +82,8 @@ namespace LanguageFactory.Net.Messaging {
                     return string.Format("{0} ({1})", this.GetMsg(MsgCode.Paired), this.GetMsg(MsgCode.SecureConnection));
                 case MsgCode.PairingAllowed:
                     return string.Format("{0} ({1})", this.GetMsg(MsgCode.Pair), this.GetMsg(MsgCode.Allowed));
-
+                case MsgCode.ServicesFailure:
+                    return string.Format("{0} ({1})", this.GetMsg(MsgCode.ReadFailure), this.GetMsg(MsgCode.Services));
                 default:
                     return this.GetMsg(code);
             }

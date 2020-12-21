@@ -136,5 +136,6 @@
         WriteTimeout,
         PairedWithSecureConnection,
         PairingAllowed,
+        ServicesFailure,
     }
 }

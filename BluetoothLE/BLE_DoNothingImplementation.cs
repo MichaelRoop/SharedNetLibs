@@ -1,4 +1,5 @@
 ﻿using BluetoothLE.Net.DataModels;
+using BluetoothLE.Net.Enumerations;
 using BluetoothLE.Net.interfaces;
 using Common.Net.Network;
 using System;
@@ -11,7 +12,7 @@ namespace BluetoothLE.Net {
         public event EventHandler<BluetoothLEDeviceInfo> DeviceDiscovered;
         public event EventHandler<bool> DeviceDiscoveryCompleted;
         public event EventHandler<NetPropertiesUpdateDataModel> DeviceUpdated;
-        public event EventHandler<BluetoothLEDeviceInfo> DeviceInfoAssembled;
+        public event EventHandler<BLEGetInfoStatus> DeviceInfoAssembled;
         public event EventHandler<byte[]> MsgReceivedEvent;
 
         public void Connect(BluetoothLEDeviceInfo deviceInfo) {
@@ -27,9 +28,9 @@ namespace BluetoothLE.Net {
         }
 
         public void GetInfo(BluetoothLEDeviceInfo deviceInfo) {
-            this.DeviceInfoAssembled?.Invoke(this, new BluetoothLEDeviceInfo() {
-                Name = "NOT IMPLEMENTED",
-            });
+            this.DeviceInfoAssembled?.Invoke(
+                this,
+                new BLEGetInfoStatus(new BluetoothLEDeviceInfo() { Name = "NOT IMPLEMENTED" }, BLEOperationStatus.NotFound));
         }
 
         public bool SendOutMsg(byte[] msg) {

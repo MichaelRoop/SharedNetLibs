@@ -21,7 +21,7 @@ namespace BluetoothLE.Net.interfaces {
         event EventHandler<NetPropertiesUpdateDataModel> DeviceUpdated;
 
         /// <summary>Raised when BLE gets all the info from a device which requires connection</summary>
-        event EventHandler<BluetoothLEDeviceInfo> DeviceInfoAssembled;
+        event EventHandler<BLEGetInfoStatus> DeviceInfoAssembled;
 
         /// <summary>Start or restart the device discovery</summary>
         void DiscoverDevices();
