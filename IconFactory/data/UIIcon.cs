@@ -1,7 +1,9 @@
 ﻿namespace IconFactory.Net.data {
     public enum UIIcon {
         Save,
+        SaveSmall,
         Cancel,
+        CancelSmall,
         Exit,
         Delete,
         Edit,
