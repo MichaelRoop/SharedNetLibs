@@ -40,10 +40,10 @@ namespace SerialCommon.Net.DataModels {
         public SerialFlowControlHandshake FlowHandshake { get; set; } = SerialFlowControlHandshake.None;
 
         /// <summary>Gets or sets value when write operation time out</summary>
-        public TimeSpan WriteTimeout { get; set; }
+        public TimeSpan WriteTimeout { get; set; } = TimeSpan.FromMilliseconds(5);
 
         /// <summary>Gets or sets value when read operation time out- near infinite by default</summary>
-        public TimeSpan ReadTimeout { get; set; }
+        public TimeSpan ReadTimeout { get; set; } = TimeSpan.FromMilliseconds(5);
 
         /// <summary>Gets or sets the TX to enable or disable transmission</summary>
         public bool TX_BreakSignalEnabled { get; set; } = true;
