@@ -3,6 +3,7 @@ using ChkUtils.Net.ErrObjects;
 using LanguageFactory.Net.data;
 using LanguageFactory.Net.interfaces;
 using LanguageFactory.Net.Languages.cn;
+using LanguageFactory.Net.Languages.cz;
 using LanguageFactory.Net.Languages.de;
 using LanguageFactory.Net.Languages.en;
 using LanguageFactory.Net.Languages.es;
@@ -13,6 +14,9 @@ using LanguageFactory.Net.Languages.ja;
 using LanguageFactory.Net.Languages.kr;
 using LanguageFactory.Net.Languages.pt;
 using LanguageFactory.Net.Languages.ru;
+using LanguageFactory.Net.Languages.tr;
+using LanguageFactory.Net.Languages.uk;
+using LanguageFactory.Net.Languages.vi;
 using LogUtils.Net;
 using System;
 using System.Collections.Generic;
@@ -113,6 +117,7 @@ namespace LanguageFactory.Net.Messaging {
 
         /// <summary>Load all available languages</summary>
         private void LoadLanguages() {
+            this.LoadLanguage(new Czech());
             this.LoadLanguage(new English());
             this.LoadLanguage(new Spanish());
             this.LoadLanguage(new German());
@@ -120,6 +125,9 @@ namespace LanguageFactory.Net.Messaging {
             this.LoadLanguage(new Italian());
             this.LoadLanguage(new Portuguese());
             this.LoadLanguage(new Russian());
+            this.LoadLanguage(new Turkish());
+            this.LoadLanguage(new Ukranian());
+            this.LoadLanguage(new Vietnamese());
             this.LoadLanguage(new Hindi());
             this.LoadLanguage(new Chinese());
             this.LoadLanguage(new Japanese());

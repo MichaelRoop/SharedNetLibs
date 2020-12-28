@@ -13,5 +13,9 @@
         Russian,
         Hindi,
         Portuguese,
+        Vietnamese,
+        Ukranian,
+        Turkish,
+        Czech,
     }
 }
