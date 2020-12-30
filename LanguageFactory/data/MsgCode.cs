@@ -25,7 +25,7 @@
         commands,
         response,
         select,
-        discover,
+        Search,
         connect,
         cancel,
         info,

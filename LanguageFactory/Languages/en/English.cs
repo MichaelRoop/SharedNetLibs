@@ -25,7 +25,7 @@ namespace LanguageFactory.Net.Languages.en {
             this.AddMsg(MsgCode.commands, "Commands");
             this.AddMsg(MsgCode.response, "Response");
             this.AddMsg(MsgCode.select, "Select");
-            this.AddMsg(MsgCode.discover, "Discover");
+            this.AddMsg(MsgCode.Search, "Search");
             this.AddMsg(MsgCode.connect, "Connect");
             this.AddMsg(MsgCode.Connected, "Connected");
             this.AddMsg(MsgCode.ConnectionFailure, "Connection Failure");

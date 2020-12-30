@@ -26,7 +26,7 @@ namespace LanguageFactory.Net.Languages.cz {
             this.AddMsg(MsgCode.commands, "Příkazy");
             this.AddMsg(MsgCode.response, "Odpověď");
             this.AddMsg(MsgCode.select, "Vybrat");
-            this.AddMsg(MsgCode.discover, "Hledat");
+            this.AddMsg(MsgCode.Search, "Hledat");
             this.AddMsg(MsgCode.connect, "Připojit");
             this.AddMsg(MsgCode.Connected, "Připojeno");
             this.AddMsg(MsgCode.ConnectionFailure, "Chyba připojení");

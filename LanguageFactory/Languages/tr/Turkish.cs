@@ -26,7 +26,7 @@ namespace LanguageFactory.Net.Languages.tr {
             this.AddMsg(MsgCode.commands, "Komutlar");
             this.AddMsg(MsgCode.response, "Yanıt");
             this.AddMsg(MsgCode.select, "Seç");
-            this.AddMsg(MsgCode.discover, "Arama");
+            this.AddMsg(MsgCode.Search, "Ara");
             this.AddMsg(MsgCode.connect, "Bağlan");
             this.AddMsg(MsgCode.cancel, "İptal etmek");
             this.AddMsg(MsgCode.info, "Bilgi");

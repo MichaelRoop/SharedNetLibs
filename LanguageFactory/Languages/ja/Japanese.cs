@@ -24,7 +24,7 @@ namespace LanguageFactory.Net.Languages.ja {
             this.AddMsg(MsgCode.commands, "コマンド");
             this.AddMsg(MsgCode.response, "応答");
             this.AddMsg(MsgCode.select, "選択する");
-            this.AddMsg(MsgCode.discover, "発見する");
+            this.AddMsg(MsgCode.Search, "検索");
             this.AddMsg(MsgCode.connect, "接続");
             this.AddMsg(MsgCode.cancel, "キャンセル");
             this.AddMsg(MsgCode.info, "情報");

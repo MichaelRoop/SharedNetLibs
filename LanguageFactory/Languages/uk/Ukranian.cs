@@ -26,7 +26,7 @@ namespace LanguageFactory.Net.Languages.uk {
             this.AddMsg(MsgCode.commands, "Команди");
             this.AddMsg(MsgCode.response, "Відповідь");
             this.AddMsg(MsgCode.select, "Вибрати");
-            this.AddMsg(MsgCode.discover, "Пошук");
+            this.AddMsg(MsgCode.Search, "Пошук");
             this.AddMsg(MsgCode.connect, "Підключення");
             this.AddMsg(MsgCode.cancel, "Скасувати");
             this.AddMsg(MsgCode.info, "Відомості");

@@ -25,7 +25,7 @@ namespace LanguageFactory.Net.Languages.es {
             this.AddMsg(MsgCode.commands, "Comandos");
             this.AddMsg(MsgCode.response, "Respuesta");
             this.AddMsg(MsgCode.select, "Seleccionar");
-            this.AddMsg(MsgCode.discover, "Descubrir");
+            this.AddMsg(MsgCode.Search, "Buscar");
             this.AddMsg(MsgCode.connect, "Conectar");
             this.AddMsg(MsgCode.cancel, "Cancelar");
             this.AddMsg(MsgCode.info, "Información");

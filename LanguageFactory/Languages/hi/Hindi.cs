@@ -30,7 +30,7 @@ namespace LanguageFactory.Net.Languages.hi {
             this.AddMsg(MsgCode.commands, "आदेश");
             this.AddMsg(MsgCode.response, "प्रतिसाद");
             this.AddMsg(MsgCode.select, "चुनें");
-            this.AddMsg(MsgCode.discover, "खोजें");
+            this.AddMsg(MsgCode.Search, "खोजें");
             this.AddMsg(MsgCode.connect, "कनेक्ट करें");
             this.AddMsg(MsgCode.cancel, "रद्द करें");
             this.AddMsg(MsgCode.info, "Info");

@@ -29,7 +29,7 @@ namespace LanguageFactory.Net.Languages.ru {
             this.AddMsg(MsgCode.commands, "Команды");
             this.AddMsg(MsgCode.response, "Ответ");
             this.AddMsg(MsgCode.select, "выбрать");
-            this.AddMsg(MsgCode.discover, "Обнаружить");
+            this.AddMsg(MsgCode.Search, "Поиск");
             this.AddMsg(MsgCode.connect, "Подключиться");
             this.AddMsg(MsgCode.cancel, "Отмена");
             this.AddMsg(MsgCode.info, "Информация");

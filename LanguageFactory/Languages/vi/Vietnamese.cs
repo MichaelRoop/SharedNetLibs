@@ -25,7 +25,7 @@ namespace LanguageFactory.Net.Languages.vi {
             this.AddMsg(MsgCode.commands, "Lệnh");
             this.AddMsg(MsgCode.response, "Phản hồi");
             this.AddMsg(MsgCode.select, "Chọn");
-            this.AddMsg(MsgCode.discover, "Tìm kiếm");
+            this.AddMsg(MsgCode.Search, "Tìm kiếm");
             this.AddMsg(MsgCode.connect, "Kết nối");
             this.AddMsg(MsgCode.cancel, "Hủy bỏ");
             this.AddMsg(MsgCode.info, "Thông tin");
