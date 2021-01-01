@@ -119,6 +119,7 @@ namespace LanguageFactory.Net.Languages.vi {
             this.AddMsg(MsgCode.RemoteHost, "Máy chủ Từ xa");
             this.AddMsg(MsgCode.RemoteService, "Dịch vụ từ xa");
             this.AddMsg(MsgCode.Clear, "Xóa");
+            this.AddMsg(MsgCode.ResetAll, "Đặt lại Tất cả");
 
 
             //this.AddMsg(MsgCode., "");

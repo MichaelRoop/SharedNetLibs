@@ -122,6 +122,7 @@ namespace LanguageFactory.Net.Languages.pt {
             this.AddMsg(MsgCode.RemoteHost, "Anfitrião remoto");
             this.AddMsg(MsgCode.RemoteService, "Serviço Remoto");
             this.AddMsg(MsgCode.Clear, "Limpar");
+            this.AddMsg(MsgCode.ResetAll, "Repor Tudo");
 
             //this.AddMsg(MsgCode., "");
         }

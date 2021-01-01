@@ -124,6 +124,7 @@ namespace LanguageFactory.Net.Languages.hi {
             this.AddMsg(MsgCode.RemoteHost, "दूरस्थ होस्ट");
             this.AddMsg(MsgCode.RemoteService, "दूरस्थ सेवा ");
             this.AddMsg(MsgCode.Clear, "साफ़ करें");
+            this.AddMsg(MsgCode.ResetAll, "सभी को रीसेट करें");
 
 
             //this.AddMsg(MsgCode., "");

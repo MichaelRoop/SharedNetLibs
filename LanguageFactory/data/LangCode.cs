@@ -17,5 +17,6 @@
         Ukranian,
         Turkish,
         Czech,
+        Bengali,
     }
 }

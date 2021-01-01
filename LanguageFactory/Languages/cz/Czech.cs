@@ -120,6 +120,7 @@ namespace LanguageFactory.Net.Languages.cz {
             this.AddMsg(MsgCode.RemoteHost, "Vzdálený hostitel");
             this.AddMsg(MsgCode.RemoteService, "Vzdálená služba");
             this.AddMsg(MsgCode.Clear, "Vymazat");
+            this.AddMsg(MsgCode.ResetAll, "Obnovit výchozí");
 
 
         }

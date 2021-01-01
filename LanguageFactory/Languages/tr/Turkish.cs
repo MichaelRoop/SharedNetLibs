@@ -120,6 +120,7 @@ namespace LanguageFactory.Net.Languages.tr {
             this.AddMsg(MsgCode.RemoteHost, "Uzak ana bilgisayar");
             this.AddMsg(MsgCode.RemoteService, "Uzak Hizmeti");
             this.AddMsg(MsgCode.Clear, "Temizle");
+            this.AddMsg(MsgCode.ResetAll, "Tümünü Sıfırla");
 
 
             //this.AddMsg(MsgCode., "");

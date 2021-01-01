@@ -120,6 +120,7 @@ namespace LanguageFactory.Net.Languages.uk {
             this.AddMsg(MsgCode.RemoteHost, "віддалений хост");
             this.AddMsg(MsgCode.RemoteService, "віддалений cлужба");
             this.AddMsg(MsgCode.Clear, "Очистити");
+            this.AddMsg(MsgCode.ResetAll, "Скинути все");
 
 
             //this.AddMsg(MsgCode., "");

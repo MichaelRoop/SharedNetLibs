@@ -118,6 +118,7 @@ namespace LanguageFactory.Net.Languages.kr {
             this.AddMsg(MsgCode.RemoteHost, "원격 호스트");
             this.AddMsg(MsgCode.RemoteService, "원격 서비스");
             this.AddMsg(MsgCode.Clear, "지우기");
+            this.AddMsg(MsgCode.ResetAll, "모두 재설정");
 
             //this.AddMsg(MsgCode., "");
         }

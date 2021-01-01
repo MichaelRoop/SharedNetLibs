@@ -2,6 +2,7 @@
 using ChkUtils.Net.ErrObjects;
 using LanguageFactory.Net.data;
 using LanguageFactory.Net.interfaces;
+using LanguageFactory.Net.Languages.bn;
 using LanguageFactory.Net.Languages.cn;
 using LanguageFactory.Net.Languages.cz;
 using LanguageFactory.Net.Languages.de;
@@ -129,6 +130,7 @@ namespace LanguageFactory.Net.Messaging {
             this.LoadLanguage(new Ukranian());
             this.LoadLanguage(new Vietnamese());
             this.LoadLanguage(new Hindi());
+            this.LoadLanguage(new Bengali());
             this.LoadLanguage(new Chinese());
             this.LoadLanguage(new Japanese());
             this.LoadLanguage(new Korean());

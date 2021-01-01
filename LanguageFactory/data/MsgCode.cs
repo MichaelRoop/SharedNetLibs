@@ -130,6 +130,7 @@
         RemoteHost,
         RemoteService,
         Clear,
+        ResetAll,
 
         // Composite - no direct lookup
         ReadTimeout,
