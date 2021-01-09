@@ -1,5 +1,6 @@
 ﻿using BluetoothLE.Net.Enumerations;
 using BluetoothLE.Net.interfaces;
+using BluetoothLE.Net.Parsers.Characteristics;
 using BluetoothLE.Net.Parsers.Descriptor;
 using System;
 using VariousUtils.Net;
@@ -19,6 +20,7 @@ namespace BluetoothLE.Net.Parsers {
         #region Data
 
         private static IDescParserFactory factory = new DescParserFactory();
+        private static ICharParserFactory charParseFactory = new CharParserFactory();
 
         #endregion
 
@@ -81,6 +83,11 @@ namespace BluetoothLE.Net.Parsers {
         public static string GetDescriptorValueAsString(Guid descriptorUuid, byte[] value) {
             return factory.GetParsedValueAsString(descriptorUuid, value);
         }        
+
+
+        public static string GetCharacteristicValueAsString(Guid characteristicUuid, byte[] data) {
+            return charParseFactory.GetParsedValueAsString(characteristicUuid, data);
+        }
 
 
         /// <summary>

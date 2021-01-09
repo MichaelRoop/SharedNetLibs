@@ -1,4 +1,5 @@
 ﻿using BluetoothLE.Net.Enumerations;
+using BluetoothLE.Net.Parsers;
 using System;
 using System.Collections.Generic;
 
@@ -35,6 +36,8 @@ namespace BluetoothLE.Net.DataModels {
 
         /// <summary>Unique identifier</summary>
         public Guid Uuid { get; set; }
+
+        public GattNativeCharacteristicUuid GattType { get; set; }
 
         public BLE_ProtectionLevel ProtectionLevel { get; set; }
 
