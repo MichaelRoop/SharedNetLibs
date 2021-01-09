@@ -40,6 +40,8 @@ namespace BluetoothLE.Net.DataModels {
 
         public string CharName { get; set; } = "xxxx";
 
+        public string CharValue { get; set; } = "";
+
         /// <summary>User friendly description or empty</summary>
         public string UserDescription { get; set; }
 
@@ -89,6 +91,10 @@ namespace BluetoothLE.Net.DataModels {
             // and inform user to update to refresh display
             // User could also grab the data to push it somewhere else
 
+            // This data model is what is displayed in the WIN BLE_ServicesDisplay
+            // to writing to a field should work. the update is in question
+
+            // TODO Write to CharValue. Need to convert according to type of value
         }
 
 
