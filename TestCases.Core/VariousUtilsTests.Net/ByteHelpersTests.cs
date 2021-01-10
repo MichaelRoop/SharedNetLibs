@@ -3,6 +3,8 @@ using LogUtils.Net;
 using NUnit.Framework;
 using System;
 using System.Diagnostics;
+using System.Text;
+using System.Threading;
 using TestCases.Core.TestToolSet;
 using VariousUtils.Net;
 
@@ -247,6 +249,43 @@ namespace TestCases.VariousUtilsTests.Net {
 
             });
         }
+
+
+
+
+        [Test]
+        public void BitMaskingTest() {
+            TestHelpersNet.CatchUnexpected(() => {
+                byte[] data = new byte[] { 0xC1, 0x03 };
+                uint raw = (uint)BitConverter.ToUInt16(data);
+                //  6 bits = sub category - bits 0-5
+                // 10 bits = category     - bits 6-15
+                uint uCatMask = 65534; // 1111 1111 1100 0000 
+                uint uSubMask = 63;    // 0000 0000 0011 1111
+                StringBuilder sb = new StringBuilder();
+                sb.Append((raw & uCatMask)).Append(",").Append((raw & uSubMask));
+                string val = sb.ToString();
+                this.log.Info("BitMaskingTest", () => string.Format("{0} ({1})  from bytes {2}", val, raw, data.ToFormatedByteString()));
+            });
+        }
+
+
+
+        //Appearance
+        //iPad
+        //0x80,0x02
+        //1000 0000 0000 0010
+        //gave 640,0
+        //should have been: 512,2
+        //spec 960 Generic Media Player
+
+        //Keyboard
+        //0xC1, 0x03
+        //1100 0001 0000 0011
+        //gave 961,0
+        //Spec 960, 1 (concatenated 961)
+        //should have been:772,3 xxxxx 960,0
+
 
 
 

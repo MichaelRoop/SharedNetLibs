@@ -15,21 +15,17 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
         protected override bool DoParse(byte[] data) {
             //https://specificationrefs.bluetooth.com/assigned-values/Appearance%20Values.pdf
-            //  6 bits = sub category - bits 0-5
-            // 10 bits = category     - bits 6-15
-            // bitmask (0-5)  1111 1100 0000 0000 (64,512)
-            // bitmask (6-15) 0000 0011 1111 1111 (1,023)
+            //  6 bits = sub category - bits 0-5  - Mask 0000 0000 0011 1111 (63)
+            // 10 bits = category     - bits 6-15 - Mask 1111 1111 1100 0000 (65,534)
             if (this.CopyToRawData(data, data.Length)) {
-                // TODO - for now just put out the bytes
                 uint raw = (uint)BitConverter.ToUInt16(this.RawData);
-                uint catMask = 1023;
-                uint subMask = 64512;
+                uint catMask = 65534;
+                uint subMask = 63;
                 StringBuilder sb = new StringBuilder();
                 sb.Append((raw & catMask)).Append(",").Append((raw & subMask));
                 this.strValue = sb.ToString();
-                this.log.Info("", () => string.Format(
-                    "{0} from bytes {1}", 
-                    this.strValue, this.RawData.ToFormatedByteString()));
+                this.log.Info("DoParse", () => 
+                    string.Format("{0} from {1} ({2})", this.strValue, raw, this.RawData.ToFormatedByteString()));
                 return true;
             }
             return false;
