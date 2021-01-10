@@ -15,6 +15,9 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
         private CharParser_Default defaultParser = new CharParser_Default();
         private CharParser_String stringParser = new CharParser_String();
         private CharParser_BatteryLevel batteryLevelParser = new CharParser_BatteryLevel();
+        private CharParser_PPnPID pPnPidParser = new CharParser_PPnPID();
+        private CharParser_Appearance appearanceParser = new CharParser_Appearance();
+        private CharParser_PeripheralPrefferedConnectParams ppConnParamParser = new CharParser_PeripheralPrefferedConnectParams();
 
         #endregion
 
@@ -49,6 +52,12 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                                 return this.stringParser;
                             case GattNativeCharacteristicUuid.BatteryLevel:
                                 return this.batteryLevelParser;
+                            case GattNativeCharacteristicUuid.PnPID:
+                                return this.pPnPidParser;
+                            case GattNativeCharacteristicUuid.Appearance:
+                                return this.appearanceParser;
+                            case GattNativeCharacteristicUuid.PeripheralPreferredConnectionParameters:
+                                return this.ppConnParamParser;
 
                             // TODO create parsers
                             case GattNativeCharacteristicUuid.AlertCategoryID:
@@ -56,7 +65,6 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                             case GattNativeCharacteristicUuid.AlertLevel:
                             case GattNativeCharacteristicUuid.AlertNotificationControlPoint:
                             case GattNativeCharacteristicUuid.AlertStatus:
-                            case GattNativeCharacteristicUuid.Appearance:
                             case GattNativeCharacteristicUuid.BloodPressureFeature:
                             case GattNativeCharacteristicUuid.BloodPressureMeasurement:
                             case GattNativeCharacteristicUuid.BodySensorLocation:
@@ -88,9 +96,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                                 // TODO - string?
                             case GattNativeCharacteristicUuid.ModelNumberString:
                             case GattNativeCharacteristicUuid.NewAlert:
-                            case GattNativeCharacteristicUuid.PeripheralPreferredConnectionParameters:
                             case GattNativeCharacteristicUuid.PeripheralPrivacyFlag:
-                            case GattNativeCharacteristicUuid.PnPID:
                             case GattNativeCharacteristicUuid.ProtocolMode:
                             case GattNativeCharacteristicUuid.ReconnectionAddress:
                             case GattNativeCharacteristicUuid.RecordAccessControlPoint:

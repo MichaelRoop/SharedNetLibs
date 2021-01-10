@@ -11,6 +11,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
         #region Data
 
         private ClassLog baseLog = new ClassLog("CharParserBase");
+        protected string strValue = "";
 
         #endregion
 
@@ -22,7 +23,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
         public string DisplayString() {
             try {
-                return this.DoDisplayString();
+                return this.GetDisplayString();
             }
             catch (Exception e) {
                 this.baseLog.Exception(13300, "DisplayString", "Failed On DoDisplayString", e);
@@ -67,22 +68,31 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
         protected abstract bool DoParse(byte[] data);
 
 
-        /// <summary>
-        /// Derived to reset their specific data propertis before parse. 
-        /// Base sets its own. NOTE: need to set the base RawData with 
-        /// CopyToRawData when length is known in the DoParse method
-        /// </summary>
-        protected abstract void ResetMembers();
-
-
         /// <summary>Override to provide type for future cast of specific data fields</summary>
         /// <returns>The type of the derived class</returns>
         protected abstract Type GetDerivedType();
 
 
+
+        #endregion
+
+        #region Virtual methods
+
         /// <summary>Provides a string of the derived class parsed data for display</summary>
         /// <returns>A display string</returns>
-        protected abstract string DoDisplayString();
+        protected virtual string GetDisplayString() {
+            return this.strValue;
+        }
+
+
+        /// <summary>
+        /// Derived to reset their specific data propertis before parse. 
+        /// Base sets its own. NOTE: need to set the base RawData with 
+        /// CopyToRawData when length is known in the DoParse method
+        /// </summary>
+        protected virtual void ResetMembers() {
+            this.strValue = "";
+        }
 
         #endregion
 
