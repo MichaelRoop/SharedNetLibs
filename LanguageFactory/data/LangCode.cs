@@ -18,5 +18,6 @@
         Turkish,
         Czech,
         Bengali,
+        Arabic,
     }
 }
