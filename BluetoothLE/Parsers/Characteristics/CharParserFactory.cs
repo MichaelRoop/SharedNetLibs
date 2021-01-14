@@ -49,6 +49,11 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                             case GattNativeCharacteristicUuid.DeviceName:
                             case GattNativeCharacteristicUuid.String:
                             case GattNativeCharacteristicUuid.ManufacturerNameString:
+                            case GattNativeCharacteristicUuid.ModelNumberString:
+                            case GattNativeCharacteristicUuid.HardwareRevisionString:
+                            case GattNativeCharacteristicUuid.FirmwareRevisionString:
+                            case GattNativeCharacteristicUuid.SerialNumberString:
+                            case GattNativeCharacteristicUuid.SoftwareRevisionString:
                                 return this.stringParser;
                             case GattNativeCharacteristicUuid.BatteryLevel:
                                 return this.batteryLevelParser;
@@ -79,11 +84,9 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                             case GattNativeCharacteristicUuid.DayofWeek:
                             case GattNativeCharacteristicUuid.DSTOffset:
                             case GattNativeCharacteristicUuid.ExactTime256:
-                            case GattNativeCharacteristicUuid.FirmwareRevisionString:
                             case GattNativeCharacteristicUuid.GlucoseFeature:
                             case GattNativeCharacteristicUuid.GlucoseMeasurement:
                             case GattNativeCharacteristicUuid.GlucoseMeasurementContext:
-                            case GattNativeCharacteristicUuid.HardwareRevisionString:
                             case GattNativeCharacteristicUuid.HeartRateControlPoint:
                             case GattNativeCharacteristicUuid.HeartRateMeasurement:
                             case GattNativeCharacteristicUuid.HIDControlPoint:
@@ -93,8 +96,6 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                             case GattNativeCharacteristicUuid.IntermediateTemperature:
                             case GattNativeCharacteristicUuid.LocalTimeInformation:
                             case GattNativeCharacteristicUuid.MeasurementInterval:
-                                // TODO - string?
-                            case GattNativeCharacteristicUuid.ModelNumberString:
                             case GattNativeCharacteristicUuid.NewAlert:
                             case GattNativeCharacteristicUuid.PeripheralPrivacyFlag:
                             case GattNativeCharacteristicUuid.ProtocolMode:
@@ -111,9 +112,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                             case GattNativeCharacteristicUuid.ScanIntervalWindow:
                             case GattNativeCharacteristicUuid.ScanRefresh:
                             case GattNativeCharacteristicUuid.SensorLocation:
-                            case GattNativeCharacteristicUuid.SerialNumberString:
                             case GattNativeCharacteristicUuid.ServiceChanged:
-                            case GattNativeCharacteristicUuid.SoftwareRevisionString:
                             case GattNativeCharacteristicUuid.SupportedNewAlertCategory:
                             case GattNativeCharacteristicUuid.SupportedUnreadAlertCategory:
                             case GattNativeCharacteristicUuid.SystemID:
