@@ -14,6 +14,7 @@ namespace BluetoothLE.Net {
         public event EventHandler<NetPropertiesUpdateDataModel> DeviceUpdated;
         public event EventHandler<BLEGetInfoStatus> DeviceInfoAssembled;
         public event EventHandler<byte[]> MsgReceivedEvent;
+        public event EventHandler<BLEGetInfoStatus> DeviceConnectResult;
 
         public void Connect(BluetoothLEDeviceInfo deviceInfo) {
             // nothing at the moment

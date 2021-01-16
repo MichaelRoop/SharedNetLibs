@@ -14,5 +14,10 @@ namespace BluetoothLE.Net.DataModels {
             this.Status = status;
         }
 
+
+        public BLEGetInfoStatus(BLEOperationStatus status) {
+            this.Status = status;
+        }
+
     }
 }
