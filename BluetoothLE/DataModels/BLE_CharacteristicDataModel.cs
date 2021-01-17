@@ -48,7 +48,7 @@ namespace BluetoothLE.Net.DataModels {
         /// <summary>User friendly description or empty</summary>
         public string UserDescription { get; set; }
 
-        public Dictionary<string, BLE_DescriptorDataModel> Descriptors { get; set; } = new Dictionary<string, BLE_DescriptorDataModel>();
+        public List<BLE_DescriptorDataModel> Descriptors { get; set; } = new List<BLE_DescriptorDataModel>();
 
         // TODO - why a list? Can characteristic data have multiple formats?
         public List<BLE_PresentationFormat> PresentationFormats { get; set; } = new List<BLE_PresentationFormat>();

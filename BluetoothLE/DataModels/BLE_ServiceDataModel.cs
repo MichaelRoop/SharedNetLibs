@@ -22,7 +22,7 @@ namespace BluetoothLE.Net.DataModels {
         public string DisplayName { get; set; } = "";
 
         /// <summary>List of Gatt characteristics which include read/write sources</summary>
-        public Dictionary<string, BLE_CharacteristicDataModel> Characteristics { get; set; } = new Dictionary<string, BLE_CharacteristicDataModel>();
+        public List<BLE_CharacteristicDataModel> Characteristics { get; set; } = new List<BLE_CharacteristicDataModel>();
 
         public BLE_DeviceAccessStatus DeviceAccess { get; set; } = BLE_DeviceAccessStatus.Unspecified;
 
@@ -43,7 +43,7 @@ namespace BluetoothLE.Net.DataModels {
 
 
         public BLE_ServiceDataModel() {
-            this.Characteristics = new Dictionary<string, BLE_CharacteristicDataModel>();
+            this.Characteristics = new List<BLE_CharacteristicDataModel>();
         }
 
     }

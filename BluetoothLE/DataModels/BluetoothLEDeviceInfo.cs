@@ -58,7 +58,7 @@ namespace BluetoothLE.Net.DataModels {
 
         public Dictionary<string, NetPropertyDataModel> ServiceProperties { get; set; } = new Dictionary<string, NetPropertyDataModel>();
 
-        public Dictionary<string, BLE_ServiceDataModel> Services { get; set; } = new Dictionary<string, BLE_ServiceDataModel>();
+        public List<BLE_ServiceDataModel> Services { get; set; } = new List<BLE_ServiceDataModel>();
 
         public bool WasPairedUsingSecureConnection { get; set; } = false;
 
