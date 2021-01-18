@@ -29,6 +29,9 @@ namespace BluetoothLE.Net.interfaces {
         /// <summary>Start or restart the device discovery</summary>
         void DiscoverDevices();
 
+        /// <summary>Cancel any ongoing discovery</summary>
+        void CancelDiscoverDevices();
+
         void Connect(BluetoothLEDeviceInfo deviceInfo);
 
 

@@ -28,6 +28,11 @@ namespace BluetoothLE.Net {
             this.DeviceDiscoveryCompleted?.Invoke(this, false);
         }
 
+        public void CancelDiscoverDevices() {
+            this.DeviceDiscoveryCompleted?.Invoke(this, false);
+        }
+
+
         public void GetInfo(BluetoothLEDeviceInfo deviceInfo) {
             this.DeviceInfoAssembled?.Invoke(
                 this,
