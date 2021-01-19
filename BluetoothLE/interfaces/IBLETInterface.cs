@@ -1,4 +1,5 @@
 ﻿using BluetoothLE.Net.DataModels;
+using BluetoothLE.Net.Enumerations;
 using Common.Net.Network;
 using CommunicationStack.Net.interfaces;
 using System;
@@ -25,6 +26,11 @@ namespace BluetoothLE.Net.interfaces {
 
         /// <summary>Raised on BLE connection attempt</summary>
         event EventHandler<BLEGetInfoStatus> DeviceConnectResult;
+
+
+        /// <summary>Raised when a characteristic read value changes</summary>
+        event EventHandler<BLE_CharacteristicReadResult> CharacteristicReadValueChanged;
+
 
         /// <summary>Start or restart the device discovery</summary>
         void DiscoverDevices();

@@ -83,6 +83,7 @@ namespace BluetoothLE.Net.DataModels {
         /// <summary>Used by the OS to push up characteristic read data</summary>
         /// <param name="data">The data read</param>
         public void PushReadDataEvent(byte[] data) {
+           LogUtils.Net.Log.InfoEntry("BLE_CharacteristicDataModel",  "PushReadDataEvent");
             this.OnReadValueChanged?.Invoke(this, new BLE_CharacteristicReadResult() {
                 Status = BLE_CharacteristicCommunicationStatus.Success,
                 Data = data,
