@@ -21,11 +21,11 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                 StringBuilder sb = new StringBuilder();
                 sb
                     .Append("Vendor ID:")
-                    .Append(this.RawData[0]).Append(",")
+                    .Append(this.RawData[0]).Append(", ")
                     .Append("Vendor Namespace:")
-                    .Append(BitConverter.ToInt16(this.RawData, 1)).Append(",")
+                    .Append(BitConverter.ToInt16(this.RawData, 1)).Append(", ")
                     .Append("Manufacturer ID:")
-                    .Append(BitConverter.ToInt16(this.RawData, 3)).Append(",")
+                    .Append(BitConverter.ToInt16(this.RawData, 3)).Append(", ")
                     .Append("Manufacturer Namespace:")
                     .Append(BitConverter.ToInt16(this.RawData, 5));
                 this.strValue = sb.ToString();

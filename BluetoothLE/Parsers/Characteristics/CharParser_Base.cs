@@ -10,7 +10,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
         #region Data
 
-        private ClassLog baseLog = new ClassLog("CharParserBase");
+        private ClassLog baseLog = new ClassLog("CharParser_Base");
         protected string strValue = "";
 
         #endregion
@@ -26,7 +26,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                 return this.GetDisplayString();
             }
             catch (Exception e) {
-                this.baseLog.Exception(13300, "DisplayString", "Failed On DoDisplayString", e);
+                this.baseLog.Exception(13601, "DisplayString", "Failed On DoDisplayString", e);
                 return "* FAILED *";
             }
         }
@@ -45,15 +45,15 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                         }
                     }
                     else {
-                        this.baseLog.Error(9999, "Parse", "byte[] is zero length");
+                        this.baseLog.Error(13605, "Parse", "byte[] is zero length");
                     }
                 }
                 else {
-                    this.baseLog.Error(9999, "Parse", "Raw byte[] is null");
+                    this.baseLog.Error(13606, "Parse", "Raw byte[] is null");
                 }
             }
             catch (Exception e) {
-                this.baseLog.Exception(9999, "Parse", "Failure on Parse", e);
+                this.baseLog.Exception(13607, "Parse", "Failure on Parse", e);
             }
             return "* N/A *";
         }
@@ -99,7 +99,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
         #region Constructors
 
         public CharParser_Base() {
-            WrapErr.ToErrorReportException(9999, "Failed on construction", () => {
+            WrapErr.ToErrorReportException(13610, "Failed on construction", () => {
                 this.ImplementationType = this.GetDerivedType();
                 this.RawData = new byte[0];
                 this.ResetMembers();
@@ -108,7 +108,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
 
         public CharParser_Base(byte[] data) {
-            WrapErr.ToErrorReportException(13326, "Failed on construction", () => {
+            WrapErr.ToErrorReportException(13611, "Failed on construction", () => {
                 this.ImplementationType = this.GetDerivedType();
                 this.Parse(data);
             });
@@ -134,17 +134,17 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                         return true;
                     }
                     else {
-                        this.baseLog.Error(9999, "CopyToRawData",
+                        this.baseLog.Error(13615, "CopyToRawData",
                             () => string.Format("Data length:{0} smaller than requested:{1} Data '{2}'",
                             data.Length, length, data.ToHexByteString()));
                     }
                 }
                 else {
-                    this.baseLog.Error(9999, "CopyToRawData", "Raw byte[] is null");
+                    this.baseLog.Error(13616, "CopyToRawData", "Raw byte[] is null");
                 }
             }
             catch (Exception e) {
-                this.baseLog.Exception(9999, "CopyToRawData", "Failed on CopyToRaw", e);
+                this.baseLog.Exception(13617, "CopyToRawData", "Failed on CopyToRaw", e);
             }
             return false;
         }
