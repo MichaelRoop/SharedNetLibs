@@ -22,15 +22,15 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
             // 2. Maximum Connect interval 6-3200
             // 3. Slave latency 0-1000
             // 4. Connection Supervisor Timeout Multiplier 10-3200
-            if (this.CopyToRawData(data, data.Length)) {
+            if (this.CopyToRawData(data, 8)) {
                 StringBuilder sb = new StringBuilder();
                 sb
                     .Append("Min Connect Interval:")
-                    .Append(BitConverter.ToInt16(this.RawData, 0)).Append(",")
+                    .Append(BitConverter.ToInt16(this.RawData, 0)).Append(", ")
                     .Append("Max Connect Interval:")
-                    .Append(BitConverter.ToInt16(this.RawData, 2)).Append(",")
+                    .Append(BitConverter.ToInt16(this.RawData, 2)).Append(", ")
                     .Append("Slave Latency:")
-                    .Append(BitConverter.ToInt16(this.RawData, 4)).Append(",")
+                    .Append(BitConverter.ToInt16(this.RawData, 4)).Append(", ")
                     .Append("Connect Supervisor Timout multiplier:")
                     .Append(BitConverter.ToInt16(this.RawData, 6));
 

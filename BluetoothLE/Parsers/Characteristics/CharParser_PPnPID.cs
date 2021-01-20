@@ -11,7 +11,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
 
         protected override bool DoParse(byte[] data) {
-            if (this.CopyToRawData(data, data.Length)) {
+            if (this.CopyToRawData(data, 7)) {
                 // 7 bytes
                 //0x02,0x5E,0x04,0x17,0x08,0x31,0x01
                 // field1 - 1 byte uint8 source of Vendor ID

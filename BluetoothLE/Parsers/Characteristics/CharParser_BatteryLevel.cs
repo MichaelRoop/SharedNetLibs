@@ -13,7 +13,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
 
         protected override bool DoParse(byte[] data) {
-            if (this.CopyToRawData(data, data.Length)) {
+            if (this.CopyToRawData(data, 1)) {
                 // Will be 1 in length
                 int tmp = Convert.ToInt32(this.RawData[0].ToString());
                 this.strValue = tmp.ToString();
