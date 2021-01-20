@@ -10,6 +10,8 @@ namespace BluetoothLE.Net.Enumerations {
         
         public byte[] Data { get; set; }
 
+        public string DataAsString { get; set; }
+
     }
 
 }
