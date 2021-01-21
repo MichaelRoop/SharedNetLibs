@@ -17,7 +17,9 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
         private CharParser_BatteryLevel batteryLevelParser = new CharParser_BatteryLevel();
         private CharParser_PPnPID pPnPidParser = new CharParser_PPnPID();
         private CharParser_Appearance appearanceParser = new CharParser_Appearance();
-        
+
+
+        private CharParser_LocalTimeInformation localTimeInfo = new CharParser_LocalTimeInformation();
         private CharParser_PeripheralPrefferedConnectParams ppConnParamParser = new CharParser_PeripheralPrefferedConnectParams();
         CharParser_AlertCategoryID alertCategoryId = new CharParser_AlertCategoryID();
 
@@ -66,6 +68,8 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                                 return this.appearanceParser;
                             case GattNativeCharacteristicUuid.BatteryLevel:
                                 return this.batteryLevelParser;
+                            case GattNativeCharacteristicUuid.LocalTimeInformation:
+                                return this.localTimeInfo;
                             case GattNativeCharacteristicUuid.PnPID:
                                 return this.pPnPidParser;
                             case GattNativeCharacteristicUuid.PeripheralPreferredConnectionParameters:
@@ -113,7 +117,6 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                             case GattNativeCharacteristicUuid.IEEE11073_20601RegulatoryCertificationDataList:
                             case GattNativeCharacteristicUuid.IntermediateCuffPressure:
                             case GattNativeCharacteristicUuid.IntermediateTemperature:
-                            case GattNativeCharacteristicUuid.LocalTimeInformation:
                             case GattNativeCharacteristicUuid.LNControlPoint:
                             case GattNativeCharacteristicUuid.LNFeature:
                             case GattNativeCharacteristicUuid.LocationandSpeed:
