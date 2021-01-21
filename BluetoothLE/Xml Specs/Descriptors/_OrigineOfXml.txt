@@ -1,0 +1,6 @@
+﻿These were found on GITHUB
+https://github.com/oesmith/gatt-xml
+
+each file name would have had prefix
+
+org.bluetooth.characteristic.
