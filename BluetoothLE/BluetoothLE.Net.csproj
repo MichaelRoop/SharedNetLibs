@@ -20,4 +20,9 @@
     </Reference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Parsers\Attributes\" />
+    <Folder Include="Parsers\Services\" />
+  </ItemGroup>
+
 </Project>

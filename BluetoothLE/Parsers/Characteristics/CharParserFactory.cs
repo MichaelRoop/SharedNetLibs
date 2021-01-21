@@ -17,7 +17,10 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
         private CharParser_BatteryLevel batteryLevelParser = new CharParser_BatteryLevel();
         private CharParser_PPnPID pPnPidParser = new CharParser_PPnPID();
         private CharParser_Appearance appearanceParser = new CharParser_Appearance();
+        
         private CharParser_PeripheralPrefferedConnectParams ppConnParamParser = new CharParser_PeripheralPrefferedConnectParams();
+        CharParser_AlertCategoryID alertCategoryId = new CharParser_AlertCategoryID();
+
 
         #endregion
 
@@ -46,6 +49,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                     if (BLE_ParseHelpers.IsSigDefinedUuid(characteristicUuid)) {
                         GattNativeCharacteristicUuid charEnum = BLE_ParseHelpers.GetCharacteristicEnum(characteristicUuid, "");
                         switch (charEnum) {
+                            // Common UTF8 strings    
                             case GattNativeCharacteristicUuid.DeviceName:
                             case GattNativeCharacteristicUuid.String:
                             case GattNativeCharacteristicUuid.ManufacturerNameString:
@@ -55,21 +59,29 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                             case GattNativeCharacteristicUuid.SerialNumberString:
                             case GattNativeCharacteristicUuid.SoftwareRevisionString:
                                 return this.stringParser;
+
+                            case GattNativeCharacteristicUuid.AlertCategoryID:
+                                return this.alertCategoryId;
+                            case GattNativeCharacteristicUuid.Appearance:
+                                return this.appearanceParser;
                             case GattNativeCharacteristicUuid.BatteryLevel:
                                 return this.batteryLevelParser;
                             case GattNativeCharacteristicUuid.PnPID:
                                 return this.pPnPidParser;
-                            case GattNativeCharacteristicUuid.Appearance:
-                                return this.appearanceParser;
                             case GattNativeCharacteristicUuid.PeripheralPreferredConnectionParameters:
                                 return this.ppConnParamParser;
 
                             // TODO create parsers
-                            case GattNativeCharacteristicUuid.AlertCategoryID:
                             case GattNativeCharacteristicUuid.AlertCategoryIDBitMask:
                             case GattNativeCharacteristicUuid.AlertLevel:
                             case GattNativeCharacteristicUuid.AlertNotificationControlPoint:
                             case GattNativeCharacteristicUuid.AlertStatus:
+                            case GattNativeCharacteristicUuid.AggregateInput:
+                            case GattNativeCharacteristicUuid.AnalogInput:
+                            case GattNativeCharacteristicUuid.AnalogOutput:
+                            // TODO - what is battery level state
+                            case GattNativeCharacteristicUuid.BatteryLevelState:
+                            case GattNativeCharacteristicUuid.BatteryPowerState:
                             case GattNativeCharacteristicUuid.BloodPressureFeature:
                             case GattNativeCharacteristicUuid.BloodPressureMeasurement:
                             case GattNativeCharacteristicUuid.BodySensorLocation:
@@ -79,10 +91,17 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                             case GattNativeCharacteristicUuid.CSCFeature:
                             case GattNativeCharacteristicUuid.CSCMeasurement:
                             case GattNativeCharacteristicUuid.CurrentTime:
+                            case GattNativeCharacteristicUuid.CyclingPowerControlPoint:
+                            case GattNativeCharacteristicUuid.CyclingPowerFeature:
+                            case GattNativeCharacteristicUuid.CyclingPowerMeasurement:
+                            case GattNativeCharacteristicUuid.CyclingPowerVector:
                             case GattNativeCharacteristicUuid.DateTime:
                             case GattNativeCharacteristicUuid.DayDateTime:
                             case GattNativeCharacteristicUuid.DayofWeek:
+                            case GattNativeCharacteristicUuid.DigitalInput:
+                            case GattNativeCharacteristicUuid.DigitalOutput:
                             case GattNativeCharacteristicUuid.DSTOffset:
+                            case GattNativeCharacteristicUuid.ExactTime100:
                             case GattNativeCharacteristicUuid.ExactTime256:
                             case GattNativeCharacteristicUuid.GlucoseFeature:
                             case GattNativeCharacteristicUuid.GlucoseMeasurement:
@@ -95,10 +114,20 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                             case GattNativeCharacteristicUuid.IntermediateCuffPressure:
                             case GattNativeCharacteristicUuid.IntermediateTemperature:
                             case GattNativeCharacteristicUuid.LocalTimeInformation:
+                            case GattNativeCharacteristicUuid.LNControlPoint:
+                            case GattNativeCharacteristicUuid.LNFeature:
+                            case GattNativeCharacteristicUuid.LocationandSpeed:
                             case GattNativeCharacteristicUuid.MeasurementInterval:
                             case GattNativeCharacteristicUuid.NewAlert:
+                            case GattNativeCharacteristicUuid.Navigation:
+                            case GattNativeCharacteristicUuid.NetworkAvailability:
                             case GattNativeCharacteristicUuid.PeripheralPrivacyFlag:
+                            case GattNativeCharacteristicUuid.PositionQuality:
                             case GattNativeCharacteristicUuid.ProtocolMode:
+                            case GattNativeCharacteristicUuid.PulseOximetryContinuousMeasurement:
+                            case GattNativeCharacteristicUuid.PulseOximetryControlPoint:
+                            case GattNativeCharacteristicUuid.PulseOximetryFeatures:
+                            case GattNativeCharacteristicUuid.PulseOximetryPulsatileEvent:
                             case GattNativeCharacteristicUuid.ReconnectionAddress:
                             case GattNativeCharacteristicUuid.RecordAccessControlPoint:
                             case GattNativeCharacteristicUuid.ReferenceTimeInformation:
@@ -111,8 +140,11 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                             case GattNativeCharacteristicUuid.SCControlPoint:
                             case GattNativeCharacteristicUuid.ScanIntervalWindow:
                             case GattNativeCharacteristicUuid.ScanRefresh:
+                            case GattNativeCharacteristicUuid.ScientificTemperatureinCelsius:
+                            case GattNativeCharacteristicUuid.SecondaryTimeZone:
                             case GattNativeCharacteristicUuid.SensorLocation:
                             case GattNativeCharacteristicUuid.ServiceChanged:
+                            case GattNativeCharacteristicUuid.SimpleKeyState:
                             case GattNativeCharacteristicUuid.SupportedNewAlertCategory:
                             case GattNativeCharacteristicUuid.SupportedUnreadAlertCategory:
                             case GattNativeCharacteristicUuid.SystemID:
@@ -125,36 +157,11 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                             case GattNativeCharacteristicUuid.TimewithDST:
                             case GattNativeCharacteristicUuid.TimeZone:
                             case GattNativeCharacteristicUuid.TxPowerLevel:
-                            case GattNativeCharacteristicUuid.UnreadAlertStatus:
-                            case GattNativeCharacteristicUuid.AggregateInput:
-                            case GattNativeCharacteristicUuid.AnalogInput:
-                            case GattNativeCharacteristicUuid.AnalogOutput:
-                            case GattNativeCharacteristicUuid.CyclingPowerControlPoint:
-                            case GattNativeCharacteristicUuid.CyclingPowerFeature:
-                            case GattNativeCharacteristicUuid.CyclingPowerMeasurement:
-                            case GattNativeCharacteristicUuid.CyclingPowerVector:
-                            case GattNativeCharacteristicUuid.DigitalInput:
-                            case GattNativeCharacteristicUuid.DigitalOutput:
-                            case GattNativeCharacteristicUuid.ExactTime100:
-                            case GattNativeCharacteristicUuid.LNControlPoint:
-                            case GattNativeCharacteristicUuid.LNFeature:
-                            case GattNativeCharacteristicUuid.LocationandSpeed:
-                            case GattNativeCharacteristicUuid.Navigation:
-                            case GattNativeCharacteristicUuid.NetworkAvailability:
-                            case GattNativeCharacteristicUuid.PositionQuality:
-                            case GattNativeCharacteristicUuid.ScientificTemperatureinCelsius:
-                            case GattNativeCharacteristicUuid.SecondaryTimeZone:
                             case GattNativeCharacteristicUuid.TemperatureinCelsius:
                             case GattNativeCharacteristicUuid.TemperatureinFahrenheit:
                             case GattNativeCharacteristicUuid.TimeBroadcast:
-                            // TODO - what is battery level state
-                            case GattNativeCharacteristicUuid.BatteryLevelState:
-                            case GattNativeCharacteristicUuid.BatteryPowerState:
-                            case GattNativeCharacteristicUuid.PulseOximetryContinuousMeasurement:
-                            case GattNativeCharacteristicUuid.PulseOximetryControlPoint:
-                            case GattNativeCharacteristicUuid.PulseOximetryFeatures:
-                            case GattNativeCharacteristicUuid.PulseOximetryPulsatileEvent:
-                            case GattNativeCharacteristicUuid.SimpleKeyState:
+                            case GattNativeCharacteristicUuid.UnreadAlertStatus:
+
                             case GattNativeCharacteristicUuid.None:
                             default:
                                 return this.defaultParser;
