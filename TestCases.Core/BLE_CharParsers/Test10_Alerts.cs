@@ -28,6 +28,7 @@ namespace TestCases.Core.BLE_CharParsers {
         }
 
         #endregion
+        #region Alert level bitmask
 
         [Test]
         public void OneByteAllFirstByteOff() {
@@ -70,22 +71,6 @@ namespace TestCases.Core.BLE_CharParsers {
 
 
         [Test]
-        public void AlertId_SMS() {
-            byte[] data = new byte[1];
-            data[0] = 5;
-            this.TestAlertId(data, "SMS/MMS arrives");
-        }
-
-        [Test]
-        public void AlertId_Email() {
-            byte[] data = new byte[1];
-            data[0] = 1;
-            this.TestAlertId(data, "Email");
-        }
-
-
-
-        [Test]
         public void TwoByteSomeOff() {
             byte[] data = new byte[2];
             data.SetMaskAllOn(0);
@@ -103,7 +88,51 @@ namespace TestCases.Core.BLE_CharParsers {
             this.Test(data, expected);
         }
 
+        #endregion
+        #region Alert level ID
 
+        [Test]
+        public void AlertId_SMS() {
+            byte[] data = new byte[1];
+            data[0] = 5;
+            this.TestAlertId(data, "SMS/MMS arrives");
+        }
+
+        [Test]
+        public void AlertId_Email() {
+            byte[] data = new byte[1];
+            data[0] = 1;
+            this.TestAlertId(data, "Email");
+        }
+
+        #endregion
+        #region Alert levels
+
+        [Test]
+        public void AlertLevel_None() {
+            this.TestAlertLeve(0, "No Alert");
+        }
+
+
+        [Test]
+        public void AlertLevel_Mild() {
+            this.TestAlertLeve(1, "Mild Alert");
+        }
+
+        [Test]
+        public void AlertLevel_High() {
+            this.TestAlertLeve(2, "High Alert");
+        }
+
+        [Test]
+        public void AlertLevel_Err() {
+            this.TestAlertLeve(42, "ERR");
+        }
+
+
+
+
+        #endregion
 
         private void Test(byte[] data, string expected) {
             TestHelpersNet.CatchUnexpected(() => {
@@ -125,6 +154,16 @@ namespace TestCases.Core.BLE_CharParsers {
         }
 
 
+        private void TestAlertLeve(byte level, string expected) {
+            TestHelpersNet.CatchUnexpected(() => {
+                byte[] data = new byte[1];
+                data[0] = level;
+                CharParser_AlertLevel parser = new CharParser_AlertLevel();
+                string result = parser.Parse(data);
+                LogUtils.Net.Log.Info("Test10_Alerts", "TestAlertLeve", result);
+                Assert.AreEqual(expected, result, "Parse fail");
+            });
+        }
 
     }
 }

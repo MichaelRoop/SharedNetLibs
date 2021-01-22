@@ -15,6 +15,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
         private ClassLog log = new ClassLog("CharParserFactory");
         private CharParser_AlertCategoryID alertCategoryId = new CharParser_AlertCategoryID();
         private CharParser_AlertCategoryIDBitmask alertCategoryIDBitmask = new CharParser_AlertCategoryIDBitmask();
+        private CharParser_AlertLevel alertLevel = new CharParser_AlertLevel();
         private CharParser_Appearance appearanceParser = new CharParser_Appearance();
         private CharParser_BatteryLevel batteryLevelParser = new CharParser_BatteryLevel();
         private CharParser_CurrentTime currentTime = new CharParser_CurrentTime();
@@ -76,6 +77,8 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                                 return this.alertCategoryId;
                             case GattNativeCharacteristicUuid.AlertCategoryIDBitMask:
                                 return this.alertCategoryIDBitmask;
+                            case GattNativeCharacteristicUuid.AlertLevel:
+                                return this.alertLevel;
                             case GattNativeCharacteristicUuid.Appearance:
                                 return this.appearanceParser;
                             case GattNativeCharacteristicUuid.BatteryLevel:
@@ -103,9 +106,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                             #endregion
 
 
-
                             // TODO create parsers
-                            case GattNativeCharacteristicUuid.AlertLevel:
                             case GattNativeCharacteristicUuid.AlertNotificationControlPoint:
                             case GattNativeCharacteristicUuid.AlertStatus:
                             case GattNativeCharacteristicUuid.AggregateInput:
