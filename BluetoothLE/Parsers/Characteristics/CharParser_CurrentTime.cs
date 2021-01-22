@@ -14,7 +14,6 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
 
         public CharParser_CurrentTime() : base() { this.Setup(); }
-        public CharParser_CurrentTime(byte[] data) : base(data) { this.Setup(); }
 
 
         protected override bool DoParse(byte[] data) {
@@ -26,7 +25,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                 sb.Append(this.timeParser.Parse(timeBlock))
                     .Append(" ")
                     .Append(adjustReason.CurrentTimeAdjustReasonStr());
-                this.strValue = sb.ToString();
+                this.DisplayString = sb.ToString();
                 return true;
             }
             return false;

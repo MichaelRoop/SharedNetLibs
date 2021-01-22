@@ -11,7 +11,6 @@ namespace BluetoothLE.Net.Parsers.Characteristics.DataTypes {
         public override int RequiredBytes { get; protected set; } = 0;
 
         public TypeParser_DayDateTime() : base() { this.Setup(); }
-        public TypeParser_DayDateTime(byte[] data) : base(data) { this.Setup(); }
 
 
         protected override bool DoParse(byte[] data) {
@@ -23,7 +22,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics.DataTypes {
                 sb.Append(this.dayOfWeek.Parse(dowBlock))
                     .Append(" ")
                     .Append(this.dateTime.Parse(dtBlock));
-                this.strValue = sb.ToString();
+                this.DisplayString = sb.ToString();
                 return true;
             }
             return false;

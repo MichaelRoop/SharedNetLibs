@@ -27,7 +27,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                     .Append(BitConverter.ToInt16(this.RawData, 3)).Append(", ")
                     .Append("Manufacturer Namespace:")
                     .Append(BitConverter.ToInt16(this.RawData, 5));
-                this.strValue = sb.ToString();
+                this.DisplayString = sb.ToString();
                 return true;
             }
             return false;

@@ -22,9 +22,9 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                 uint subMask = 63;
                 StringBuilder sb = new StringBuilder();
                 sb.Append((raw & catMask)).Append(",").Append((raw & subMask));
-                this.strValue = sb.ToString();
+                this.DisplayString = sb.ToString();
                 this.log.Info("DoParse", () => 
-                    string.Format("{0} from {1} ({2})", this.strValue, raw, this.RawData.ToFormatedByteString()));
+                    string.Format("{0} from {1} ({2})", this.DisplayString, raw, this.RawData.ToFormatedByteString()));
                 return true;
             }
             return false;

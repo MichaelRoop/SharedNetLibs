@@ -54,7 +54,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                 }
 
 
-                this.strValue = sb.ToString();
+                this.DisplayString = sb.ToString();
                 return true;
             }
             return false;

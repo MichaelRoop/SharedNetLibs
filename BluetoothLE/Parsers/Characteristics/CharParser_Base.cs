@@ -11,7 +11,6 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
         #region Data
 
         private ClassLog baseLog = new ClassLog("CharParser_Base");
-        protected string strValue = "";
 
         #endregion
 
@@ -21,27 +20,17 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
         public byte[] RawData { get; private set; } = new byte[0];
 
-        public string DisplayString() {
-            try {
-                return this.strValue;
-            }
-            catch (Exception e) {
-                this.baseLog.Exception(13601, "DisplayString", "Failed On getting display string", e);
-                return "* FAILED *";
-            }
-        }
-
+        public string DisplayString { get; protected set; } = "";
 
         public string Parse(byte[] data) {
             try {
                 // Make sure zero out raw value. 
                 this.RawData = new byte[0];
-                // Do not need to reset type. Done on construction
-                this.ResetMembers();
+                this.DisplayString = "";
                 if (data != null) {
                     if (data.Length > 0) {
                         if (this.DoParse(data)) {
-                            return this.DisplayString();
+                            return this.DisplayString;
                         }
                     }
                     else {
@@ -71,32 +60,13 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
         #region Virtual methods
 
-        /// <summary>
-        /// Derived to reset their specific data propertis before parse. 
-        /// Base sets its own. NOTE: need to set the base RawData with 
-        /// CopyToRawData when length is known in the DoParse method
-        /// </summary>
-        protected virtual void ResetMembers() {
-            this.strValue = "";
-        }
-
-
         #endregion
 
         #region Constructors
 
         public CharParser_Base() {
-            WrapErr.ToErrorReportException(13610, "Failed on construction", () => {
-                this.RawData = new byte[0];
-                this.ResetMembers();
-            });
-        }
-
-
-        public CharParser_Base(byte[] data) {
-            WrapErr.ToErrorReportException(13611, "Failed on construction", () => {
-                this.Parse(data);
-            });
+            this.RawData = new byte[0];
+            this.DisplayString = "";
         }
 
         #endregion

@@ -9,9 +9,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics.DataTypes {
 
         public override int RequiredBytes { get; protected set; } = 0;
 
-
         public TypeParser_ExactTime256() : base() { this.Setup(); }
-        public TypeParser_ExactTime256(byte[] data) : base(data) { this.Setup(); }
 
 
         protected override bool DoParse(byte[] data) {
@@ -23,7 +21,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics.DataTypes {
                 sb.Append(this.dayDateTimeParser.Parse(dayDtBlock))
                     .Append(".")
                     .Append(fraction.Get256Fragment());
-                this.strValue = sb.ToString();
+                this.DisplayString = sb.ToString();
                 return true;
             }
             return false;

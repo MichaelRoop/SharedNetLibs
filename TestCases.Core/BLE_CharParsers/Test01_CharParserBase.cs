@@ -42,14 +42,12 @@ namespace TestCases.Core.BLE_CharParsers {
             }
 
             public CharParserFailConstructor1() : base() { }
-            public CharParserFailConstructor1(byte[] data) : base(data) { }
 
         }
 
         class CharParserFailConstructor2 : CharParserFailConstructor1 {
             public override int RequiredBytes { get; protected set; } = 0;
             public CharParserFailConstructor2() : base() { }
-            public CharParserFailConstructor2(byte[] data) : base(data) { }
         }
 
 
@@ -59,7 +57,6 @@ namespace TestCases.Core.BLE_CharParsers {
                 return true;
             }
             public CharParserDisplayStrFaile() : base() { }
-            public CharParserDisplayStrFaile(byte[] data) : base(data) { }
         }
 
         class CharParserCopyRaw : CharParser_Base {
@@ -78,7 +75,8 @@ namespace TestCases.Core.BLE_CharParsers {
         [Test]
         public void Err13605_ParseZeroLength() {
             TestHelpersNet.CatchUnexpected(() => {
-                CharParser_BatteryLevel b = new CharParser_BatteryLevel(new byte[0]);
+                CharParser_BatteryLevel bl = new CharParser_BatteryLevel();
+                bl.Parse(new byte[0]);
                 this.logReader.Validate(13605, "CharParser_Base", "Parse", "byte[] is zero length");
             });
         }
@@ -87,7 +85,8 @@ namespace TestCases.Core.BLE_CharParsers {
         [Test]
         public void Err13606_FailParseNull() {
             TestHelpersNet.CatchUnexpected(() => {
-                CharParser_BatteryLevel b = new CharParser_BatteryLevel(null);
+                CharParser_BatteryLevel bl = new CharParser_BatteryLevel();
+                bl.Parse(null);
                 this.logReader.Validate(13606, "CharParser_Base", "Parse", "Raw byte[] is null");
             });
         }
@@ -99,16 +98,9 @@ namespace TestCases.Core.BLE_CharParsers {
         public void Err13607_FailParseException() {
             TestHelpersNet.CatchUnexpected(() => {
                 byte[] blah = new byte[2];
-                CharParserFailConstructor2 b = new CharParserFailConstructor2(blah);
+                CharParserFailConstructor1 c = new CharParserFailConstructor1();
+                c.Parse(blah);
                 this.logReader.Validate(13607, "CharParser_Base", "Parse", "Failure on Parse");
-            });
-        }
-
-
-        [Test]
-        public void Err13611_FailOnConstruction() {
-            TestHelpersNet.CatchExpected(13611, "CharParser_Base", ".ctor", "Failed on construction", () => {
-                CharParserFailConstructor1 b = new CharParserFailConstructor1(new byte[5]);
             });
         }
 

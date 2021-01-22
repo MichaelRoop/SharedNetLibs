@@ -31,10 +31,10 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                     .Append("Connect Supervisor Timout multiplier:")
                     .Append(BitConverter.ToInt16(this.RawData, 6));
 
-                this.strValue = sb.ToString();
+                this.DisplayString = sb.ToString();
                 this.log.Info("DoParse", () => 
                     string.Format("{0} from bytes {1}", 
-                        this.strValue, this.RawData.ToFormatedByteString()));
+                        this.DisplayString, this.RawData.ToFormatedByteString()));
                 return true;
             }
             return false;

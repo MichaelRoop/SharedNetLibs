@@ -46,17 +46,12 @@
       </Descriptors>
       <CharacteristicParsers range="13,601-14,000">
         <CharParserBase range="13,601-13,630">
-          <DisplayString range="13,601-13,629">
-            <Err no="13601" msg="Failed on DoDisplayString"/>
-          </DisplayString>
           <Parse range="13,605-13,609">
             <Err no="13605" msg="byte[] is zero length"/>
             <Err no="13606" msg="Raw byte[] is null"/>
             <Err no="13607" msg="Failure on Parse"/>
           </Parse>
           <Constructors range="13,610-13,614">
-            <Err no="13610" msg="Failed on construction"/>
-            <Err no="13611" msg="Failed on construction"/>
           </Constructors>
           <CopyToRawData range="13,615-13,619">
             <Err no="13615" msg="Data length:{0} smaller than requested:{1} Data '{2}'"/>

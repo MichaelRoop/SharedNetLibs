@@ -7,38 +7,37 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
         public override int RequiredBytes { get; protected set; } = 1;
 
         protected override bool DoParse(byte[] data) {
-            this.strValue = "";
             if (this.CopyToRawData(data)) {
                 switch (this.RawData[0]) {
                     case 0:
-                        this.strValue = "Simple Alert";
+                        this.DisplayString = "Simple Alert";
                         return true;
                     case 1:
-                        this.strValue = "Email";
+                        this.DisplayString = "Email";
                         return true;
                     case 2:
-                        this.strValue = "News";
+                        this.DisplayString = "News";
                         return true;
                     case 3:
-                        this.strValue = "Incoming call";
+                        this.DisplayString = "Incoming call";
                         return true;
                     case 4:
-                        this.strValue = "Missed call";
+                        this.DisplayString = "Missed call";
                         return true;
                     case 5:
-                        this.strValue = "SMS/MMS arrives";
+                        this.DisplayString = "SMS/MMS arrives";
                         return true;
                     case 6:
-                        this.strValue = "Voice mail";
+                        this.DisplayString = "Voice mail";
                         return true;
                     case 7:
-                        this.strValue = "Scheduler";
+                        this.DisplayString = "Scheduler";
                         return true;
                     case 8:
-                        this.strValue = "High Prioritized";
+                        this.DisplayString = "High Prioritized";
                         return true;
                     case 9:
-                        this.strValue = "Instant Message";
+                        this.DisplayString = "Instant Message";
                         return true;
                 }
             }

@@ -11,16 +11,16 @@ namespace BluetoothLE.Net.Parsers.Characteristics.DataTypes {
             if (this.CopyToRawData(data)) {
                 byte day = ByteHelpers.ToByte(data, 0);
                 if (day == 0) {
-                    this.strValue = "Unknown";
+                    this.DisplayString = "Unknown";
                 }
                 else if (day > 0 && day < 8) {
                     // Note: BLE starts week on Monday 1 while 
                     // MS array starts sunday [0]
                     int ndx = (day == 7) ? 0 : day;
-                    this.strValue = ((DayOfWeek)ndx).GetDayStr();
+                    this.DisplayString = ((DayOfWeek)ndx).GetDayStr();
                 }
                 else {
-                    this.strValue = "Invalid";
+                    this.DisplayString = "Invalid";
                 }
                 return true;
             }

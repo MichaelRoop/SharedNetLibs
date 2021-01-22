@@ -23,19 +23,19 @@ namespace BluetoothLE.Net.Parsers.Characteristics.DataTypes {
                 if (this.Validate(year, month, day, hour, minutes, seconds)) {
                     try {
                         DateTime dt = new DateTime(year, month, day, hour, minutes, seconds, DateTimeKind.Local);
-                        this.strValue = string.Format("{0} {1}", dt.ToLongDateString(), dt.ToLongTimeString());
+                        this.DisplayString = string.Format("{0} {1}", dt.ToLongDateString(), dt.ToLongTimeString());
                         return true;
                     }
                     catch(Exception e) {
                         this.log.Exception(9999, "DoParse", "", e);
-                        this.strValue = string.Format(
+                        this.DisplayString = string.Format(
                             "Invalid Date Time - {0} {1} {2} {3}:{4}:{5}",
                             year, month, day, hour, minutes, seconds);
                         return true;
                     }
                 }
                 else {
-                    this.strValue = string.Format( 
+                    this.DisplayString = string.Format( 
                         "Invalid Date Time - {0} {1} {2} {3}:{4}:{5}",
                         year, month, day, hour, minutes, seconds);
                     return true;

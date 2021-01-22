@@ -15,8 +15,8 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
         protected override bool DoParse(byte[] data) {
             this.RequiredBytes = data.Length;
             if (this.CopyToRawData(data)) {
-                this.strValue = this.RawData.ToFormatedByteString();
-                this.log.Info("DoParse", () => string.Format("NOT IMPLEMENTED Display:{0}", this.strValue));
+                this.DisplayString = this.RawData.ToFormatedByteString();
+                this.log.Info("DoParse", () => string.Format("NOT IMPLEMENTED Display:{0}", this.DisplayString));
                 return true;
             }
             return false;
