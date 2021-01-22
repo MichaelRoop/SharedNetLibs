@@ -13,18 +13,20 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
         #region Data
 
         private ClassLog log = new ClassLog("CharParserFactory");
-        private CharParser_Default defaultParser = new CharParser_Default();
-        private CharParser_String stringParser = new CharParser_String();
-        private CharParser_BatteryLevel batteryLevelParser = new CharParser_BatteryLevel();
-        private CharParser_PPnPID pPnPidParser = new CharParser_PPnPID();
         private CharParser_Appearance appearanceParser = new CharParser_Appearance();
+        private CharParser_BatteryLevel batteryLevelParser = new CharParser_BatteryLevel();
+        private CharParser_CurrentTime currentTime = new CharParser_CurrentTime();
         private TypeParser_DateTime dateTime = new TypeParser_DateTime();
         private TypeParser_DayDateTime dayDateTime = new TypeParser_DayDateTime();
         private TypeParser_DayOfWeek dayOfWeek = new TypeParser_DayOfWeek();
+        private CharParser_DaylightSavingsTimeOffset dtsOffset = new CharParser_DaylightSavingsTimeOffset();
+        private CharParser_Default defaultParser = new CharParser_Default();
         private TypeParser_ExactTime256 exactTime256 = new TypeParser_ExactTime256();
-
-        private CharParser_CurrentTime currentTime = new CharParser_CurrentTime();
         private CharParser_LocalTimeInformation localTimeInfo = new CharParser_LocalTimeInformation();
+        private CharParser_PPnPID pPnPidParser = new CharParser_PPnPID();
+        private CharParser_String stringParser = new CharParser_String();
+        private CharParser_TimeZone timeZone = new CharParser_TimeZone();
+
         private CharParser_PeripheralPrefferedConnectParams ppConnParamParser = new CharParser_PeripheralPrefferedConnectParams();
         CharParser_AlertCategoryID alertCategoryId = new CharParser_AlertCategoryID();
 
@@ -56,6 +58,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                     if (BLE_ParseHelpers.IsSigDefinedUuid(characteristicUuid)) {
                         GattNativeCharacteristicUuid charEnum = BLE_ParseHelpers.GetCharacteristicEnum(characteristicUuid, "");
                         switch (charEnum) {
+                            #region String formaters
                             // Common UTF8 strings    
                             case GattNativeCharacteristicUuid.DeviceName:
                             case GattNativeCharacteristicUuid.String:
@@ -66,7 +69,8 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                             case GattNativeCharacteristicUuid.SerialNumberString:
                             case GattNativeCharacteristicUuid.SoftwareRevisionString:
                                 return this.stringParser;
-
+                            #endregion
+                            #region Assigned parsers
                             case GattNativeCharacteristicUuid.AlertCategoryID:
                                 return this.alertCategoryId;
                             case GattNativeCharacteristicUuid.Appearance:
@@ -81,6 +85,8 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                                 return this.dayDateTime;
                             case GattNativeCharacteristicUuid.DayofWeek:
                                 return this.dayOfWeek;
+                            case GattNativeCharacteristicUuid.DSTOffset:
+                                return this.dtsOffset;
                             case GattNativeCharacteristicUuid.ExactTime256:
                                 return this.exactTime256;
                             case GattNativeCharacteristicUuid.LocalTimeInformation:
@@ -89,7 +95,9 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                                 return this.pPnPidParser;
                             case GattNativeCharacteristicUuid.PeripheralPreferredConnectionParameters:
                                 return this.ppConnParamParser;
-
+                            case GattNativeCharacteristicUuid.TimeZone:
+                                return this.timeZone;
+                            #endregion
 
                             // TODO create parsers
                             case GattNativeCharacteristicUuid.AlertCategoryIDBitMask:
@@ -116,7 +124,6 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                             case GattNativeCharacteristicUuid.CyclingPowerVector:
                             case GattNativeCharacteristicUuid.DigitalInput:
                             case GattNativeCharacteristicUuid.DigitalOutput:
-                            case GattNativeCharacteristicUuid.DSTOffset:
                             case GattNativeCharacteristicUuid.ExactTime100:
                             case GattNativeCharacteristicUuid.GlucoseFeature:
                             case GattNativeCharacteristicUuid.GlucoseMeasurement:
@@ -169,7 +176,6 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                             case GattNativeCharacteristicUuid.TimeUpdateControlPoint:
                             case GattNativeCharacteristicUuid.TimeUpdateState:
                             case GattNativeCharacteristicUuid.TimewithDST:
-                            case GattNativeCharacteristicUuid.TimeZone:
                             case GattNativeCharacteristicUuid.TxPowerLevel:
                             case GattNativeCharacteristicUuid.TemperatureinCelsius:
                             case GattNativeCharacteristicUuid.TemperatureinFahrenheit:
