@@ -26,8 +26,67 @@
             return (value & (1 << pos)) != 0;
         }
 
+        #region SetMask
 
 
+        public static void SetMaskAllOn(this byte[] mask, int pos) {
+            mask[pos] = 0xFF;
+        }
+
+        public static void SetMaskAllOff(this byte[] mask, int pos) {
+            mask[pos] = 0;
+        }
+
+
+        public static void SetMask(this byte[] mask, int pos,
+            bool zero, bool one, bool two, bool three, bool four, bool five, bool six, bool seven) {
+            // set all bits off
+            byte b = mask[pos];
+            b = 0;
+            b = BitTools.SetBit(b, 0, zero);
+            b = BitTools.SetBit(b, 1, one);
+            b = BitTools.SetBit(b, 2, two);
+            b = BitTools.SetBit(b, 3, three);
+            b = BitTools.SetBit(b, 4, four);
+            b = BitTools.SetBit(b, 5, five);
+            b = BitTools.SetBit(b, 6, six);
+            b = BitTools.SetBit(b, 7, seven);
+            mask[pos] = b;
+        }
+
+
+        public static void SetMask(this byte[] mask, int pos,
+            bool zero, bool one, bool two, bool three, bool four, bool five, bool six) {
+            mask.SetMask(pos, zero, one, two, three, four, five, six, false);
+        }
+
+        public static void SetMask(this byte[] mask, int pos,
+            bool zero, bool one, bool two, bool three, bool four, bool five) {
+            mask.SetMask(pos, zero, one, two, three, four, five, false);
+        }
+
+        public static void SetMask(this byte[] mask, int pos,
+            bool zero, bool one, bool two, bool three, bool four) {
+            mask.SetMask(pos, zero, one, two, three, four, false);
+        }
+
+        public static void SetMask(this byte[] mask, int pos, bool zero, bool one, bool two, bool three) {
+            mask.SetMask(pos, zero, one, two, three, false);
+        }
+
+        public static void SetMask(this byte[] mask, int pos, bool zero, bool one, bool two) {
+            mask.SetMask(pos, zero, one, two, false);
+        }
+
+        public static void SetMask(this byte[] mask, int pos, bool zero, bool one) {
+            mask.SetMask(pos, zero, one, false);
+        }
+
+        public static void SetMask(this byte[] mask, int pos, bool zero) {
+            mask.SetMask(pos, zero, false);
+        }
+
+        #endregion
 
     }
 }
