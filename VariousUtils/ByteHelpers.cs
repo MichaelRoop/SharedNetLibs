@@ -144,6 +144,13 @@ namespace VariousUtils.Net {
             return BitConverter.ToInt64(data, pos).ReverseBytes();
         }
 
+
+        public static byte[] ToByteArray(this byte[] data, int length, int pos) {
+            byte[] block = new byte[length];
+            Array.Copy(data, pos, block, 0, block.Length);
+            return block;
+        }
+
         #endregion
 
         #region Read from buffer and increment position
@@ -202,6 +209,13 @@ namespace VariousUtils.Net {
             Int64 tmp = data.ToInt64(pos);
             pos += sizeof(Int64);
             return tmp;
+        }
+
+
+        public static byte[] ToByteArray(this byte[] data, int length, ref int pos) {
+            byte[] block = data.ToByteArray(length, pos);
+            pos += block.Length;
+            return block;
         }
 
         #endregion
