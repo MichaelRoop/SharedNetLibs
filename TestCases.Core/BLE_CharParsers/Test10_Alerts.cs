@@ -70,6 +70,22 @@ namespace TestCases.Core.BLE_CharParsers {
 
 
         [Test]
+        public void AlertId_SMS() {
+            byte[] data = new byte[1];
+            data[0] = 5;
+            this.TestAlertId(data, "SMS/MMS arrives");
+        }
+
+        [Test]
+        public void AlertId_Email() {
+            byte[] data = new byte[1];
+            data[0] = 1;
+            this.TestAlertId(data, "Email");
+        }
+
+
+
+        [Test]
         public void TwoByteSomeOff() {
             byte[] data = new byte[2];
             data.SetMaskAllOn(0);
@@ -97,6 +113,17 @@ namespace TestCases.Core.BLE_CharParsers {
                 Assert.AreEqual(expected, result, "Parse fail");
             });
         }
+
+
+        private void TestAlertId(byte[] data, string expected) {
+            TestHelpersNet.CatchUnexpected(() => {
+                CharParser_AlertCategoryID parser = new CharParser_AlertCategoryID();
+                string result = parser.Parse(data);
+                LogUtils.Net.Log.Info("Test10_Alerts", "TestAlertId", result);
+                Assert.AreEqual(expected, result, "Parse fail");
+            });
+        }
+
 
 
     }

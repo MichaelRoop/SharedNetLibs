@@ -13,6 +13,8 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
         #region Data
 
         private ClassLog log = new ClassLog("CharParserFactory");
+        private CharParser_AlertCategoryID alertCategoryId = new CharParser_AlertCategoryID();
+        private CharParser_AlertCategoryIDBitmask alertCategoryIDBitmask = new CharParser_AlertCategoryIDBitmask();
         private CharParser_Appearance appearanceParser = new CharParser_Appearance();
         private CharParser_BatteryLevel batteryLevelParser = new CharParser_BatteryLevel();
         private CharParser_CurrentTime currentTime = new CharParser_CurrentTime();
@@ -28,7 +30,6 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
         private CharParser_TimeZone timeZone = new CharParser_TimeZone();
 
         private CharParser_PeripheralPrefferedConnectParams ppConnParamParser = new CharParser_PeripheralPrefferedConnectParams();
-        CharParser_AlertCategoryID alertCategoryId = new CharParser_AlertCategoryID();
 
 
         #endregion
@@ -73,6 +74,8 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                             #region Assigned parsers
                             case GattNativeCharacteristicUuid.AlertCategoryID:
                                 return this.alertCategoryId;
+                            case GattNativeCharacteristicUuid.AlertCategoryIDBitMask:
+                                return this.alertCategoryIDBitmask;
                             case GattNativeCharacteristicUuid.Appearance:
                                 return this.appearanceParser;
                             case GattNativeCharacteristicUuid.BatteryLevel:
@@ -99,8 +102,9 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                                 return this.timeZone;
                             #endregion
 
+
+
                             // TODO create parsers
-                            case GattNativeCharacteristicUuid.AlertCategoryIDBitMask:
                             case GattNativeCharacteristicUuid.AlertLevel:
                             case GattNativeCharacteristicUuid.AlertNotificationControlPoint:
                             case GattNativeCharacteristicUuid.AlertStatus:
