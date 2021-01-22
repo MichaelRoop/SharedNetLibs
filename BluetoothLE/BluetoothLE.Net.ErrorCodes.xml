@@ -47,8 +47,6 @@
       <CharacteristicParsers range="13,601-14,000">
         <CharParserBase range="13,601-13,630">
           <Parse range="13,605-13,609">
-            <Err no="13605" msg="byte[] is zero length"/>
-            <Err no="13606" msg="Raw byte[] is null"/>
             <Err no="13607" msg="Failure on Parse"/>
           </Parse>
           <Constructors range="13,610-13,614">
@@ -57,6 +55,7 @@
             <Err no="13615" msg="Data length:{0} smaller than requested:{1} Data '{2}'"/>
             <Err no="13616" msg="Raw byte[] is null"/>
             <Err no="13617" msg="Failed on CopyToRaw"/>
+            <Err no="13618" msg="byte[] is zero length"/>
           </CopyToRawData>
 
         </CharParserBase>

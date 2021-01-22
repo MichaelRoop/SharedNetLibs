@@ -13,18 +13,15 @@ namespace BluetoothLE.Net.Parsers.Characteristics.DataTypes {
 
 
         protected override bool DoParse(byte[] data) {
-            if (this.CopyToRawData(data)) {
-                int pos = 0;
-                byte[] dayDtBlock = this.RawData.ToByteArray(this.dayDateTimeParser.RequiredBytes, ref pos);
-                byte fraction = data.ToByte(ref pos);
-                StringBuilder sb = new StringBuilder();
-                sb.Append(this.dayDateTimeParser.Parse(dayDtBlock))
-                    .Append(".")
-                    .Append(fraction.Get256Fragment());
-                this.DisplayString = sb.ToString();
-                return true;
-            }
-            return false;
+            int pos = 0;
+            byte[] dayDtBlock = data.ToByteArray(this.dayDateTimeParser.RequiredBytes, ref pos);
+            byte fraction = data.ToByte(ref pos);
+            StringBuilder sb = new StringBuilder();
+            sb.Append(this.dayDateTimeParser.Parse(dayDtBlock))
+                .Append(".")
+                .Append(fraction.Get256Fragment());
+            this.DisplayString = sb.ToString();
+            return true;
         }
 
 

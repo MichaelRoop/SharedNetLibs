@@ -11,15 +11,13 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
         // This is variable. Set on parse
         public override int RequiredBytes { get; protected set; } = 0;
 
+        protected override bool IsDataVariableLength { get; set; } = true;
+
 
         protected override bool DoParse(byte[] data) {
-            this.RequiredBytes = data.Length;
-            if (this.CopyToRawData(data)) {
-                this.DisplayString = this.RawData.ToFormatedByteString();
-                this.log.Info("DoParse", () => string.Format("NOT IMPLEMENTED Display:{0}", this.DisplayString));
-                return true;
-            }
-            return false;
+            this.DisplayString = data.ToFormatedByteString();
+            this.log.Info("DoParse", () => string.Format("NOT IMPLEMENTED Display:{0}", this.DisplayString));
+            return true;
         }
 
     }

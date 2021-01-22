@@ -17,18 +17,15 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
 
         protected override bool DoParse(byte[] data) {
-            if (this.CopyToRawData(data)) {
-                int pos = 0;
-                byte[] timeBlock = ByteHelpers.ToByteArray(this.RawData, this.timeParser.RequiredBytes, ref pos);
-                byte adjustReason = this.RawData.ToByte(ref pos);
-                StringBuilder sb = new StringBuilder();
-                sb.Append(this.timeParser.Parse(timeBlock))
-                    .Append(" ")
-                    .Append(adjustReason.CurrentTimeAdjustReasonStr());
-                this.DisplayString = sb.ToString();
-                return true;
-            }
-            return false;
+            int pos = 0;
+            byte[] timeBlock = ByteHelpers.ToByteArray(data, this.timeParser.RequiredBytes, ref pos);
+            byte adjustReason = data.ToByte(ref pos);
+            StringBuilder sb = new StringBuilder();
+            sb.Append(this.timeParser.Parse(timeBlock))
+                .Append(" ")
+                .Append(adjustReason.CurrentTimeAdjustReasonStr());
+            this.DisplayString = sb.ToString();
+            return true;
         }
 
 

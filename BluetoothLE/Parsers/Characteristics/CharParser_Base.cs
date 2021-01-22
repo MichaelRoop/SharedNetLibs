@@ -18,7 +18,10 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
         public abstract int RequiredBytes { get; protected set; }
 
-        protected byte[] RawData { get; private set; } = new byte[0];
+        private byte[] RawData { get; set; } = new byte[0];
+
+        protected virtual bool IsDataVariableLength { get; set; } = false;
+
 
         public string DisplayString { get; protected set; } = "";
 
@@ -27,18 +30,10 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                 // Make sure zero out raw value. 
                 this.RawData = new byte[0];
                 this.DisplayString = "";
-                if (data != null) {
-                    if (data.Length > 0) {
-                        if (this.DoParse(data)) {
-                            return this.DisplayString;
-                        }
+                if (this.CopyToRawData(data)) {
+                    if (this.DoParse(this.RawData)) {
+                        return this.DisplayString;
                     }
-                    else {
-                        this.baseLog.Error(13605, "Parse", "byte[] is zero length");
-                    }
-                }
-                else {
-                    this.baseLog.Error(13606, "Parse", "Raw byte[] is null");
                 }
             }
             catch (Exception e) {
@@ -60,6 +55,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
         #region Virtual methods
 
+
         #endregion
 
         #region Constructors
@@ -71,7 +67,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
         #endregion
 
-        #region Protected
+        #region Private
 
         /// <summary>
         /// Creates a new sized Raw buffer array and copies bytes to it. CALL IN DoParse method
@@ -79,19 +75,25 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
         /// <param name="data">The data to copy</param>
         /// <param name="length">The length of data to copy</param>
         /// <returns>true on success, otherwise false on exception or if data null or smaller than length</returns>
-        protected bool CopyToRawData(byte[] data) {
+        private bool CopyToRawData(byte[] data) {
             try {
                 if (data != null) {
-                    if (data.Length >= this.RequiredBytes) {
-                        this.RawData = new byte[this.RequiredBytes];
-                        Array.Copy(data, this.RawData, this.RawData.Length);
-                        this.baseLog.Info("CopyToRawData", () => string.Format("Data:{0}", this.RawData.ToHexByteString()));
-                        return true;
+                    if (data.Length > 0) {
+                        this.SetDataLengthIfVariable(data);
+                        if (data.Length >= this.RequiredBytes) {
+                            this.RawData = new byte[this.RequiredBytes];
+                            Array.Copy(data, this.RawData, this.RawData.Length);
+                            this.baseLog.Info("CopyToRawData", () => string.Format("Data:{0}", this.RawData.ToHexByteString()));
+                            return true;
+                        }
+                        else {
+                            this.baseLog.Error(13615, "CopyToRawData",
+                                () => string.Format("Data length:{0} smaller than requested:{1} Data '{2}'",
+                                data.Length, this.RequiredBytes, data.ToHexByteString()));
+                        }
                     }
                     else {
-                        this.baseLog.Error(13615, "CopyToRawData",
-                            () => string.Format("Data length:{0} smaller than requested:{1} Data '{2}'",
-                            data.Length, this.RequiredBytes, data.ToHexByteString()));
+                        this.baseLog.Error(13618, "Parse", "byte[] is zero length");
                     }
                 }
                 else {
@@ -104,7 +106,16 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
             return false;
         }
 
+
+        private void SetDataLengthIfVariable(byte[] data) {
+            if (this.IsDataVariableLength) {
+                this.RequiredBytes = data.Length;
+            }
+        }
+
+
         #endregion
 
     }
+
 }

@@ -7,13 +7,15 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
         public override int RequiredBytes { get; protected set; } = 1;
 
         protected override bool DoParse(byte[] data) {
-            if (this.CopyToRawData(data)) {
-                // Will be 1 in length
-                int tmp = Convert.ToInt32(this.RawData[0].ToString());
-                this.DisplayString = tmp.ToString();
-                return true;
+            // TODO - do a parse to confirm it is a number?
+            if (data[0] > 100) {
+                this.DisplayString = "ERR";
             }
-            return false;
+            else {
+                //this.DisplayString = Convert.ToInt32(data[0].ToString()).ToString();
+                this.DisplayString = data[0].ToString();
+            }
+            return true;
         }
 
     }

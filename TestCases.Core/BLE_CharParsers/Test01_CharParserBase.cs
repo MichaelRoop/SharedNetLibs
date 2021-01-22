@@ -60,34 +60,37 @@ namespace TestCases.Core.BLE_CharParsers {
         }
 
         class CharParserCopyRaw : CharParser_Base {
-            public override int RequiredBytes { get; protected set; } = 0;
+            public override int RequiredBytes { get; protected set; } = 5;
 
             protected override bool DoParse(byte[] data) { return true; }
-            public CharParserCopyRaw(byte[] data, int length) {
-                this.RequiredBytes = length;
-                this.CopyToRawData(data);
-            }
+
+
+            //public CharParserCopyRaw(byte[] data, int length) {
+            //    this.RequiredBytes = length;
+            //    //this.CopyToRawData(data);
+
+            //}
 
         }
 
         #endregion
 
         [Test]
-        public void Err13605_ParseZeroLength() {
+        public void Err13618_ParseZeroLength() {
             TestHelpersNet.CatchUnexpected(() => {
                 CharParser_BatteryLevel bl = new CharParser_BatteryLevel();
                 bl.Parse(new byte[0]);
-                this.logReader.Validate(13605, "CharParser_Base", "Parse", "byte[] is zero length");
+                this.logReader.Validate(13618, "CharParser_Base", "Parse", "byte[] is zero length");
             });
         }
 
 
         [Test]
-        public void Err13606_FailParseNull() {
+        public void Err13616_FailParseNull() {
             TestHelpersNet.CatchUnexpected(() => {
                 CharParser_BatteryLevel bl = new CharParser_BatteryLevel();
                 bl.Parse(null);
-                this.logReader.Validate(13606, "CharParser_Base", "Parse", "Raw byte[] is null");
+                this.logReader.Validate(13616, "CharParser_Base", "CopyToRawData", "Raw byte[] is null");
             });
         }
 
@@ -97,7 +100,7 @@ namespace TestCases.Core.BLE_CharParsers {
         [Test]
         public void Err13607_FailParseException() {
             TestHelpersNet.CatchUnexpected(() => {
-                byte[] blah = new byte[2];
+                byte[] blah = new byte[5];
                 CharParserFailConstructor1 c = new CharParserFailConstructor1();
                 c.Parse(blah);
                 this.logReader.Validate(13607, "CharParser_Base", "Parse", "Failure on Parse");
@@ -109,20 +112,24 @@ namespace TestCases.Core.BLE_CharParsers {
         public void Err13615_CopyRawLengthMismatch() {
             TestHelpersNet.CatchUnexpected(() => {
                 byte[] data = new byte[2];
-                CharParserCopyRaw b = new CharParserCopyRaw(data, 5);
+                //CharParserCopyRaw b = new CharParserCopyRaw(data, 5);
+                CharParserCopyRaw b = new CharParserCopyRaw();
+                b.Parse(data);
                 this.logReader.Validate(13615, "CharParser_Base", "CopyToRawData",
                     "Data length:2 smaller than requested:5 Data '0x00,0x00'");
             });
         }
 
 
-        [Test]
-        public void Err13616_CopyRawNull() {
-            TestHelpersNet.CatchUnexpected(() => {
-                CharParserCopyRaw b = new CharParserCopyRaw(null, 5);
-                this.logReader.Validate(13616, "CharParser_Base", "CopyToRawData", "Raw byte[] is null");
-            });
-        }
+        //[Test]
+        //public void Err13616_CopyRawNull() {
+        //    TestHelpersNet.CatchUnexpected(() => {
+        //        //CharParserCopyRaw b = new CharParserCopyRaw(null, 5);
+        //        CharParserCopyRaw b = new CharParserCopyRaw();
+        //        b.Parse(null);
+        //        this.logReader.Validate(13616, "CharParser_Base", "CopyToRawData", "Raw byte[] is null");
+        //    });
+        //}
 
         // 13617 cannot be tested. Generic catch in CopyRawData
 

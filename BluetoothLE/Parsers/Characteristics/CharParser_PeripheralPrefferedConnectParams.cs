@@ -7,8 +7,6 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
     public class CharParser_PeripheralPrefferedConnectParams : CharParser_Base {
 
-        private readonly ClassLog log = new ClassLog("CharParser_PeripheralPrefferedConnectParams");
-
         public override int RequiredBytes { get; protected set; } = 8;
 
 
@@ -19,25 +17,19 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
             // 2. Maximum Connect interval 6-3200
             // 3. Slave latency 0-1000
             // 4. Connection Supervisor Timeout Multiplier 10-3200
-            if (this.CopyToRawData(data)) {
-                StringBuilder sb = new StringBuilder();
-                sb
-                    .Append("Min Connect Interval:")
-                    .Append(BitConverter.ToInt16(this.RawData, 0)).Append(", ")
-                    .Append("Max Connect Interval:")
-                    .Append(BitConverter.ToInt16(this.RawData, 2)).Append(", ")
-                    .Append("Slave Latency:")
-                    .Append(BitConverter.ToInt16(this.RawData, 4)).Append(", ")
-                    .Append("Connect Supervisor Timout multiplier:")
-                    .Append(BitConverter.ToInt16(this.RawData, 6));
+            StringBuilder sb = new StringBuilder();
+            sb
+                .Append("Min Connect Interval:")
+                .Append(BitConverter.ToInt16(data, 0)).Append(", ")
+                .Append("Max Connect Interval:")
+                .Append(BitConverter.ToInt16(data, 2)).Append(", ")
+                .Append("Slave Latency:")
+                .Append(BitConverter.ToInt16(data, 4)).Append(", ")
+                .Append("Connect Supervisor Timout multiplier:")
+                .Append(BitConverter.ToInt16(data, 6));
 
-                this.DisplayString = sb.ToString();
-                this.log.Info("DoParse", () => 
-                    string.Format("{0} from bytes {1}", 
-                        this.DisplayString, this.RawData.ToFormatedByteString()));
-                return true;
-            }
-            return false;
+            this.DisplayString = sb.ToString();
+            return true;
         }
 
     }

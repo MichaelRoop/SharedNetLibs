@@ -12,36 +12,33 @@ namespace BluetoothLE.Net.Parsers.Characteristics.DataTypes {
 
 
         protected override bool DoParse(byte[] data) {
-            if (this.CopyToRawData(data)) {
-                int pos = 0;
-                ushort year = ByteHelpers.ToUint16(this.RawData, ref pos);
-                byte month = ByteHelpers.ToByte(this.RawData, ref pos);
-                byte day = ByteHelpers.ToByte(this.RawData, ref pos);
-                byte hour = ByteHelpers.ToByte(this.RawData, ref pos);
-                byte minutes = ByteHelpers.ToByte(this.RawData, ref pos);
-                byte seconds = ByteHelpers.ToByte(this.RawData, ref pos);
-                if (this.Validate(year, month, day, hour, minutes, seconds)) {
-                    try {
-                        DateTime dt = new DateTime(year, month, day, hour, minutes, seconds, DateTimeKind.Local);
-                        this.DisplayString = string.Format("{0} {1}", dt.ToLongDateString(), dt.ToLongTimeString());
-                        return true;
-                    }
-                    catch(Exception e) {
-                        this.log.Exception(9999, "DoParse", "", e);
-                        this.DisplayString = string.Format(
-                            "Invalid Date Time - {0} {1} {2} {3}:{4}:{5}",
-                            year, month, day, hour, minutes, seconds);
-                        return true;
-                    }
+            int pos = 0;
+            ushort year = ByteHelpers.ToUint16(data, ref pos);
+            byte month = ByteHelpers.ToByte(data, ref pos);
+            byte day = ByteHelpers.ToByte(data, ref pos);
+            byte hour = ByteHelpers.ToByte(data, ref pos);
+            byte minutes = ByteHelpers.ToByte(data, ref pos);
+            byte seconds = ByteHelpers.ToByte(data, ref pos);
+            if (this.Validate(year, month, day, hour, minutes, seconds)) {
+                try {
+                    DateTime dt = new DateTime(year, month, day, hour, minutes, seconds, DateTimeKind.Local);
+                    this.DisplayString = string.Format("{0} {1}", dt.ToLongDateString(), dt.ToLongTimeString());
+                    return true;
                 }
-                else {
-                    this.DisplayString = string.Format( 
+                catch (Exception e) {
+                    this.log.Exception(9999, "DoParse", "", e);
+                    this.DisplayString = string.Format(
                         "Invalid Date Time - {0} {1} {2} {3}:{4}:{5}",
                         year, month, day, hour, minutes, seconds);
                     return true;
                 }
             }
-            return false;
+            else {
+                this.DisplayString = string.Format(
+                    "Invalid Date Time - {0} {1} {2} {3}:{4}:{5}",
+                    year, month, day, hour, minutes, seconds);
+                return true;
+            }
         }
 
 

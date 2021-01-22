@@ -16,18 +16,15 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
             //https://specificationrefs.bluetooth.com/assigned-values/Appearance%20Values.pdf
             //  6 bits = sub category - bits 0-5  - Mask 0000 0000 0011 1111 (63)
             // 10 bits = category     - bits 6-15 - Mask 1111 1111 1100 0000 (65,472)
-            if (this.CopyToRawData(data)) {
-                uint raw = (uint)BitConverter.ToUInt16(this.RawData);
-                uint catMask = 65472;
-                uint subMask = 63;
-                StringBuilder sb = new StringBuilder();
-                sb.Append((raw & catMask)).Append(",").Append((raw & subMask));
-                this.DisplayString = sb.ToString();
-                this.log.Info("DoParse", () => 
-                    string.Format("{0} from {1} ({2})", this.DisplayString, raw, this.RawData.ToFormatedByteString()));
-                return true;
-            }
-            return false;
+            uint raw = (uint)BitConverter.ToUInt16(data);
+            uint catMask = 65472;
+            uint subMask = 63;
+            StringBuilder sb = new StringBuilder();
+            sb.Append((raw & catMask)).Append(",").Append((raw & subMask));
+            this.DisplayString = sb.ToString();
+            this.log.Info("DoParse", () =>
+                string.Format("{0} from {1} ({2})", this.DisplayString, raw, data.ToFormatedByteString()));
+            return true;
         }
 
     }
