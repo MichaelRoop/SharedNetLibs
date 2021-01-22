@@ -18,7 +18,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
         public abstract int RequiredBytes { get; protected set; }
 
-        public byte[] RawData { get; private set; } = new byte[0];
+        protected byte[] RawData { get; private set; } = new byte[0];
 
         public string DisplayString { get; protected set; } = "";
 

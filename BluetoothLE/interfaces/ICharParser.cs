@@ -9,10 +9,6 @@ namespace BluetoothLE.Net.interfaces {
         int RequiredBytes { get; }
 
 
-        /// <summary>Contains variable number of bytes from reading the characteristic</summary>
-        byte[] RawData { get; }
-
-
         /// <summary>User friendly display of descriptor value(s)</summary>
         string DisplayString { get; }
 

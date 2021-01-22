@@ -15,7 +15,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics.DataTypes {
         protected override bool DoParse(byte[] data) {
             if (this.CopyToRawData(data)) {
                 int pos = 0;
-                byte[] dayDtBlock = data.ToByteArray(this.dayDateTimeParser.RequiredBytes, ref pos);
+                byte[] dayDtBlock = this.RawData.ToByteArray(this.dayDateTimeParser.RequiredBytes, ref pos);
                 byte fraction = data.ToByte(ref pos);
                 StringBuilder sb = new StringBuilder();
                 sb.Append(this.dayDateTimeParser.Parse(dayDtBlock))

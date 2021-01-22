@@ -16,8 +16,8 @@ namespace BluetoothLE.Net.Parsers.Characteristics.DataTypes {
         protected override bool DoParse(byte[] data) {
             if (this.CopyToRawData(data)) {
                 int pos = 0;
-                byte[] dtBlock = data.ToByteArray(this.dateTime.RequiredBytes, ref pos);
-                byte[] dowBlock = data.ToByteArray(this.dayOfWeek.RequiredBytes, ref pos);
+                byte[] dtBlock = this.RawData.ToByteArray(this.dateTime.RequiredBytes, ref pos);
+                byte[] dowBlock = this.RawData.ToByteArray(this.dayOfWeek.RequiredBytes, ref pos);
                 StringBuilder sb = new StringBuilder();
                 sb.Append(this.dayOfWeek.Parse(dowBlock))
                     .Append(" ")

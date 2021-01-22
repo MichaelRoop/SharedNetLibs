@@ -14,12 +14,12 @@ namespace BluetoothLE.Net.Parsers.Characteristics.DataTypes {
         protected override bool DoParse(byte[] data) {
             if (this.CopyToRawData(data)) {
                 int pos = 0;
-                ushort year = ByteHelpers.ToUint16(data, ref pos);
-                byte month = ByteHelpers.ToByte(data, ref pos);
-                byte day = ByteHelpers.ToByte(data, ref pos);
-                byte hour = ByteHelpers.ToByte(data, ref pos);
-                byte minutes = ByteHelpers.ToByte(data, ref pos);
-                byte seconds = ByteHelpers.ToByte(data, ref pos);
+                ushort year = ByteHelpers.ToUint16(this.RawData, ref pos);
+                byte month = ByteHelpers.ToByte(this.RawData, ref pos);
+                byte day = ByteHelpers.ToByte(this.RawData, ref pos);
+                byte hour = ByteHelpers.ToByte(this.RawData, ref pos);
+                byte minutes = ByteHelpers.ToByte(this.RawData, ref pos);
+                byte seconds = ByteHelpers.ToByte(this.RawData, ref pos);
                 if (this.Validate(year, month, day, hour, minutes, seconds)) {
                     try {
                         DateTime dt = new DateTime(year, month, day, hour, minutes, seconds, DateTimeKind.Local);

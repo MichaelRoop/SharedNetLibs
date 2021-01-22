@@ -9,7 +9,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics.DataTypes {
 
         protected override bool DoParse(byte[] data) {
             if (this.CopyToRawData(data)) {
-                byte day = ByteHelpers.ToByte(data, 0);
+                byte day = ByteHelpers.ToByte(this.RawData, 0);
                 if (day == 0) {
                     this.DisplayString = "Unknown";
                 }
