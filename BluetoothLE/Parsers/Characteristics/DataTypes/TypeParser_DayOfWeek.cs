@@ -17,7 +17,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics.DataTypes {
                     // Note: BLE starts week on Monday 1 while 
                     // MS array starts sunday [0]
                     int ndx = (day == 7) ? 0 : day;
-                    this.strValue = DateTimeFormatInfo.CurrentInfo.GetDayName((DayOfWeek)ndx);
+                    this.strValue = ((DayOfWeek)ndx).GetDayStr();
                 }
                 else {
                     this.strValue = "Invalid";

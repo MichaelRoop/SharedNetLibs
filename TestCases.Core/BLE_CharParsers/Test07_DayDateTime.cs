@@ -12,20 +12,6 @@ namespace TestCases.Core.BLE_CharParsers {
     [TestFixture]
     public class Test07_DayDateTime : TestCaseBase {
 
-        #region Data
-
-        // BLE reports Monday as first day of the week
-        const byte BLE_UNKNOWN = 0;
-        const byte BLE_MON = 1;
-        const byte BLE_TUE = 2;
-        const byte BLE_WED = 3;
-        const byte BLE_THUR = 4;
-        const byte BLE_FRI = 5;
-        const byte BLE_SAT = 6;
-        const byte BLE_SUN = 7;
-
-        #endregion
-
         #region Setup
 
         [OneTimeSetUp]
@@ -69,7 +55,7 @@ namespace TestCases.Core.BLE_CharParsers {
         private void Test(ushort year, byte month, byte day, byte hour, byte minutes, byte seconds) {
             DateTime dt = new DateTime(year, month, day, hour, minutes, seconds, DateTimeKind.Local);
             string expected = string.Format("{0} {1} {2}", 
-                this.GetDayStr(dt.DayOfWeek), dt.ToLongDateString(), dt.ToLongTimeString());
+                dt.DayOfWeek.GetDayStr(), dt.ToLongDateString(), dt.ToLongTimeString());
             this.Test(year, month, day, hour, minutes, seconds, expected);
         }
 
@@ -86,47 +72,13 @@ namespace TestCases.Core.BLE_CharParsers {
                 hour.WriteToBuffer(data, ref pos);
                 minutes.WriteToBuffer(data, ref pos);
                 seconds.WriteToBuffer(data, ref pos);
-                byte bleDay = this.GetBleDay(dt.DayOfWeek);
+                byte bleDay = dt.DayOfWeek.GetBleDayByte(); //this.GetBleDay(dt.DayOfWeek);
                 bleDay.WriteToBuffer(data, ref pos);
                 string result = parser.Parse(data);
                 Assert.AreEqual(expected, result, "Parse fail");
             });
 
         }
-
-
-
-        private string GetDayStr(DayOfWeek day) {
-            return DateTimeFormatInfo.CurrentInfo.GetDayName(day);
-        }
-
-
-        private byte GetBleDay(DayOfWeek day) {
-            switch (day) {
-                case DayOfWeek.Sunday:
-                    return 7;
-                case DayOfWeek.Monday:
-                    return 1;
-                case DayOfWeek.Tuesday:
-                    return 2;
-                case DayOfWeek.Wednesday:
-                    return 3;
-                case DayOfWeek.Thursday:
-                    return 4;
-                case DayOfWeek.Friday:
-                    return 5;
-                case DayOfWeek.Saturday:
-                    return 6;
-                default:
-                    return 0;
-            }
-
-
-            //int bleDay = (day == 1) ? 7 : (day);
-            //return (byte)bleDay;
-        }
-
-
 
 
     }
