@@ -6,40 +6,42 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
         public override int RequiredBytes { get; protected set; } = 1;
 
-        protected override bool DoParse(byte[] data) {
+        protected override void DoParse(byte[] data) {
             switch (data[0]) {
                 case 0:
                     this.DisplayString = "Simple Alert";
-                    return true;
+                    break;
                 case 1:
                     this.DisplayString = "Email";
-                    return true;
+                    break;
                 case 2:
                     this.DisplayString = "News";
-                    return true;
+                    break;
                 case 3:
                     this.DisplayString = "Incoming call";
-                    return true;
+                    break;
                 case 4:
                     this.DisplayString = "Missed call";
-                    return true;
+                    break;
                 case 5:
                     this.DisplayString = "SMS/MMS arrives";
-                    return true;
+                    break;
                 case 6:
                     this.DisplayString = "Voice mail";
-                    return true;
+                    break;
                 case 7:
                     this.DisplayString = "Scheduler";
-                    return true;
+                    break;
                 case 8:
                     this.DisplayString = "High Prioritized";
-                    return true;
+                    break;
                 case 9:
                     this.DisplayString = "Instant Message";
-                    return true;
+                    break;
+                default:
+                    this.DisplayString = "Unknown";
+                    break;
             }
-            return true;
         }
 
     }

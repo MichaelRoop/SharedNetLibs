@@ -6,16 +6,8 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
         public override int RequiredBytes { get; protected set; } = 1;
 
-        protected override bool DoParse(byte[] data) {
-            // TODO - do a parse to confirm it is a number?
-            if (data[0] > 100) {
-                this.DisplayString = "ERR";
-            }
-            else {
-                //this.DisplayString = Convert.ToInt32(data[0].ToString()).ToString();
-                this.DisplayString = data[0].ToString();
-            }
-            return true;
+        protected override void DoParse(byte[] data) {
+            this.DisplayString = (data[0] > 100) ? "ERR" : data[0].ToString();
         }
 
     }

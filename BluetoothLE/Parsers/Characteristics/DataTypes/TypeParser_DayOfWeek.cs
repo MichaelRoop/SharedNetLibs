@@ -7,7 +7,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics.DataTypes {
 
         public override int RequiredBytes { get; protected set; } = 1;
 
-        protected override bool DoParse(byte[] data) {
+        protected override void DoParse(byte[] data) {
             byte day = ByteHelpers.ToByte(data, 0);
             if (day == 0) {
                 this.DisplayString = "Unknown";
@@ -21,7 +21,6 @@ namespace BluetoothLE.Net.Parsers.Characteristics.DataTypes {
             else {
                 this.DisplayString = "Invalid";
             }
-            return true;
         }
     }
 

@@ -10,7 +10,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
         public override int RequiredBytes { get; protected set; } = 8;
 
 
-        protected override bool DoParse(byte[] data) {
+        protected override void DoParse(byte[] data) {
             //Peripheral Preferred Connection Parameters  Value:0x14,0x00,0x24,0x00,0x04,0x00,0xC8,0x00 - 8 bytes
             // 8 bytes in 4 uint16 fields
             // 1. Minimum Connect interval 6-3200
@@ -29,7 +29,6 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                 .Append(BitConverter.ToInt16(data, 6));
 
             this.DisplayString = sb.ToString();
-            return true;
         }
 
     }

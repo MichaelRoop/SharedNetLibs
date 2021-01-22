@@ -7,11 +7,10 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
     /// <summary>Heart rate mesurement data parser</summary>
     public class CharParser_HeartRateMeasurement : CharParser_Base {
 
-        // TODO - this will be variable. set on each parse
-        public override int RequiredBytes { get; protected set; } = 5;
+        protected override bool IsDataVariableLength { get; set; } = true;
 
         // TODO - implement parser
-        protected override bool DoParse(byte[] data) {
+        protected override void DoParse(byte[] data) {
             #region documentation
             // https://github.com/oesmith/gatt-xml/blob/master/org.bluetooth.characteristic.heart_rate_measurement.xml
             // https://docs.particle.io/tutorials/device-os/bluetooth-le/

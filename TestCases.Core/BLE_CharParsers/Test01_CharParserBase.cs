@@ -37,7 +37,7 @@ namespace TestCases.Core.BLE_CharParsers {
 
             public override int RequiredBytes { get; protected set; } = 5;
 
-            protected override bool DoParse(byte[] data) {
+            protected override void DoParse(byte[] data) {
                 throw new NotImplementedException();
             }
 
@@ -53,8 +53,7 @@ namespace TestCases.Core.BLE_CharParsers {
 
         class CharParserDisplayStrFaile : CharParserFailConstructor2 {
             public override int RequiredBytes { get; protected set; } = 0;
-            protected override bool DoParse(byte[] data) {
-                return true;
+            protected override void DoParse(byte[] data) {
             }
             public CharParserDisplayStrFaile() : base() { }
         }
@@ -62,7 +61,7 @@ namespace TestCases.Core.BLE_CharParsers {
         class CharParserCopyRaw : CharParser_Base {
             public override int RequiredBytes { get; protected set; } = 5;
 
-            protected override bool DoParse(byte[] data) { return true; }
+            protected override void DoParse(byte[] data) { }
 
 
             //public CharParserCopyRaw(byte[] data, int length) {

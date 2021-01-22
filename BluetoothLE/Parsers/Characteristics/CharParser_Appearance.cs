@@ -12,7 +12,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
         public override int RequiredBytes { get; protected set; } = 2;
 
 
-        protected override bool DoParse(byte[] data) {
+        protected override void DoParse(byte[] data) {
             //https://specificationrefs.bluetooth.com/assigned-values/Appearance%20Values.pdf
             //  6 bits = sub category - bits 0-5  - Mask 0000 0000 0011 1111 (63)
             // 10 bits = category     - bits 6-15 - Mask 1111 1111 1100 0000 (65,472)
@@ -24,7 +24,6 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
             this.DisplayString = sb.ToString();
             this.log.Info("DoParse", () =>
                 string.Format("{0} from {1} ({2})", this.DisplayString, raw, data.ToFormatedByteString()));
-            return true;
         }
 
     }

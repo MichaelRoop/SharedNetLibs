@@ -57,7 +57,7 @@ namespace TestCases.Core.BLE_CharParsers {
                 TypeParser_DateTime parser = new TypeParser_DateTime();
                 byte[] data = new byte[4];
                 string result = parser.Parse(data);
-                Assert.AreEqual("* N/A *", result, "Parse fail");
+                Assert.AreEqual("", result, "Parse fail");
             });
         }
 

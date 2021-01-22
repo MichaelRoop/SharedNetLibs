@@ -9,7 +9,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
         public override int RequiredBytes { get; protected set; } = 7;
 
 
-        protected override bool DoParse(byte[] data) {
+        protected override void DoParse(byte[] data) {
             // 7 bytes
             //0x02,0x5E,0x04,0x17,0x08,0x31,0x01
             // field1 - 1 byte uint8 source of Vendor ID
@@ -27,7 +27,6 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                 .Append("Manufacturer Namespace:")
                 .Append(BitConverter.ToInt16(data, 5));
             this.DisplayString = sb.ToString();
-            return true;
         }
 
     }

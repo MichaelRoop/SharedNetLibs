@@ -16,7 +16,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
         #region ICharParser Properties and methods
 
-        public abstract int RequiredBytes { get; protected set; }
+        public virtual int RequiredBytes { get; protected set; }
 
         private byte[] RawData { get; set; } = new byte[0];
 
@@ -27,19 +27,17 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
         public string Parse(byte[] data) {
             try {
-                // Make sure zero out raw value. 
                 this.RawData = new byte[0];
                 this.DisplayString = "";
                 if (this.CopyToRawData(data)) {
-                    if (this.DoParse(this.RawData)) {
-                        return this.DisplayString;
-                    }
+                    this.DoParse(this.RawData);
                 }
             }
             catch (Exception e) {
                 this.baseLog.Exception(13607, "Parse", "Failure on Parse", e);
+                this.DisplayString = "ERR";
             }
-            return "* N/A *";
+            return this.DisplayString;
         }
 
         #endregion
@@ -49,7 +47,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
         /// <summary>Parse data according to derived. Null and zero length data checked</summary>
         /// <param name="data">The data to parse</param>
         /// <returns>true on success, otherwise false</returns>
-        protected abstract bool DoParse(byte[] data);
+        protected abstract void DoParse(byte[] data);
 
         #endregion
 
@@ -86,11 +84,10 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                             this.baseLog.Info("CopyToRawData", () => string.Format("Data:{0}", this.RawData.ToHexByteString()));
                             return true;
                         }
-                        else {
-                            this.baseLog.Error(13615, "CopyToRawData",
-                                () => string.Format("Data length:{0} smaller than requested:{1} Data '{2}'",
-                                data.Length, this.RequiredBytes, data.ToHexByteString()));
-                        }
+
+                        this.baseLog.Error(13615, "CopyToRawData",
+                            () => string.Format("Data length:{0} smaller than requested:{1} Data '{2}'",
+                            data.Length, this.RequiredBytes, data.ToHexByteString()));
                     }
                     else {
                         this.baseLog.Error(13618, "Parse", "byte[] is zero length");
@@ -102,6 +99,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
             }
             catch (Exception e) {
                 this.baseLog.Exception(13617, "CopyToRawData", "Failed on CopyToRaw", e);
+                this.DisplayString = "ERR";
             }
             return false;
         }
