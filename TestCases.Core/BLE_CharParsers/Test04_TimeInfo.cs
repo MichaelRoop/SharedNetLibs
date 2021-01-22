@@ -1,8 +1,5 @@
 ﻿using BluetoothLE.Net.Parsers.Characteristics;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using TestCases.Core.TestToolSet;
 
 namespace TestCases.Core.BLE_CharParsers {
@@ -81,12 +78,8 @@ namespace TestCases.Core.BLE_CharParsers {
 
         private void Test(int zone, byte st, string expected) {
             TestHelpersNet.CatchUnexpected(() => {
-                //Assert.True(zone >= -12, "Zone plus range");
-                //Assert.True(zone <= 14, "Zone plus range");
-                //Assert.True(st == STANDARD_TIME || st == DST_05 || st == DST_1 || st == DST_2 || st == DST_UNKNOWN, "DTS");
-
                 byte[] data = new byte[2];
-                data[0] = (byte)(zone * 4); // Convert.ToByte(Convert.ToSByte((zone * 4)));
+                data[0] = (byte)(zone * 4);
                 data[1] = st;
                 CharParser_LocalTimeInformation parser = new CharParser_LocalTimeInformation();
                 string result = parser.Parse(data);

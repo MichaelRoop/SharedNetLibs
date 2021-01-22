@@ -67,13 +67,6 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
         /// <returns>true on success, otherwise false</returns>
         protected abstract bool DoParse(byte[] data);
 
-
-        /// <summary>Override to provide type for future cast of specific data fields</summary>
-        /// <returns>The type of the derived class</returns>
-        protected abstract Type GetDerivedType();
-
-
-
         #endregion
 
         #region Virtual methods
@@ -93,6 +86,21 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
         protected virtual void ResetMembers() {
             this.strValue = "";
         }
+
+
+        /// <summary>Override to provide type for future cast of specific data fields</summary>
+        /// <returns>The type of the derived class</returns>
+        protected virtual Type GetDerivedType() {
+            return this.GetType();
+        }
+
+
+        /// <summary>Override if a nested parser requires x number of bytes</summary>
+        /// <returns>The required number of bytes or 0 if not overriden</returns>
+        public virtual int RequiredBytes() {
+            return 0;
+        }
+
 
         #endregion
 
