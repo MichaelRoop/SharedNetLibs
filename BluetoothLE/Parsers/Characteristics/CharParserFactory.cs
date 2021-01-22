@@ -1,4 +1,5 @@
 ﻿using BluetoothLE.Net.interfaces;
+using BluetoothLE.Net.Parsers.Characteristics.DataTypes;
 using ChkUtils.Net;
 using ChkUtils.Net.ErrObjects;
 using LogUtils.Net;
@@ -17,8 +18,12 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
         private CharParser_BatteryLevel batteryLevelParser = new CharParser_BatteryLevel();
         private CharParser_PPnPID pPnPidParser = new CharParser_PPnPID();
         private CharParser_Appearance appearanceParser = new CharParser_Appearance();
+        private TypeParser_DateTime dateTime = new TypeParser_DateTime();
+        private TypeParser_DayDateTime dayDateTime = new TypeParser_DayDateTime();
+        private TypeParser_DayOfWeek dayOfWeek = new TypeParser_DayOfWeek();
+        private TypeParser_ExactTime256 exactTime256 = new TypeParser_ExactTime256();
 
-
+        private CharParser_CurrentTime currentTime = new CharParser_CurrentTime();
         private CharParser_LocalTimeInformation localTimeInfo = new CharParser_LocalTimeInformation();
         private CharParser_PeripheralPrefferedConnectParams ppConnParamParser = new CharParser_PeripheralPrefferedConnectParams();
         CharParser_AlertCategoryID alertCategoryId = new CharParser_AlertCategoryID();
@@ -68,12 +73,23 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                                 return this.appearanceParser;
                             case GattNativeCharacteristicUuid.BatteryLevel:
                                 return this.batteryLevelParser;
+                            case GattNativeCharacteristicUuid.CurrentTime:
+                                return this.currentTime;
+                            case GattNativeCharacteristicUuid.DateTime:
+                                return this.dateTime;
+                            case GattNativeCharacteristicUuid.DayDateTime:
+                                return this.dayDateTime;
+                            case GattNativeCharacteristicUuid.DayofWeek:
+                                return this.dayOfWeek;
+                            case GattNativeCharacteristicUuid.ExactTime256:
+                                return this.exactTime256;
                             case GattNativeCharacteristicUuid.LocalTimeInformation:
                                 return this.localTimeInfo;
                             case GattNativeCharacteristicUuid.PnPID:
                                 return this.pPnPidParser;
                             case GattNativeCharacteristicUuid.PeripheralPreferredConnectionParameters:
                                 return this.ppConnParamParser;
+
 
                             // TODO create parsers
                             case GattNativeCharacteristicUuid.AlertCategoryIDBitMask:
@@ -94,19 +110,14 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                             case GattNativeCharacteristicUuid.BootMouseInputReport:
                             case GattNativeCharacteristicUuid.CSCFeature:
                             case GattNativeCharacteristicUuid.CSCMeasurement:
-                            case GattNativeCharacteristicUuid.CurrentTime:
                             case GattNativeCharacteristicUuid.CyclingPowerControlPoint:
                             case GattNativeCharacteristicUuid.CyclingPowerFeature:
                             case GattNativeCharacteristicUuid.CyclingPowerMeasurement:
                             case GattNativeCharacteristicUuid.CyclingPowerVector:
-                            case GattNativeCharacteristicUuid.DateTime:
-                            case GattNativeCharacteristicUuid.DayDateTime:
-                            case GattNativeCharacteristicUuid.DayofWeek:
                             case GattNativeCharacteristicUuid.DigitalInput:
                             case GattNativeCharacteristicUuid.DigitalOutput:
                             case GattNativeCharacteristicUuid.DSTOffset:
                             case GattNativeCharacteristicUuid.ExactTime100:
-                            case GattNativeCharacteristicUuid.ExactTime256:
                             case GattNativeCharacteristicUuid.GlucoseFeature:
                             case GattNativeCharacteristicUuid.GlucoseMeasurement:
                             case GattNativeCharacteristicUuid.GlucoseMeasurementContext:

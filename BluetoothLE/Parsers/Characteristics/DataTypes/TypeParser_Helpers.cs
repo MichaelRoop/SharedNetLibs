@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
+using VariousUtils.Net;
 
 namespace BluetoothLE.Net.Parsers.Characteristics.DataTypes {
 
@@ -45,6 +46,15 @@ namespace BluetoothLE.Net.Parsers.Characteristics.DataTypes {
             return value.ToString();
         }
 
+
+        public static string CurrentTimeAdjustReasonStr(this byte bitmap) {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("Manual Update:").Append(bitmap.IsBitSet(0) ? "Enabled" : "Disabled")
+              .Append("External Reference Cime Change:").Append(bitmap.IsBitSet(1) ? "Enabled" : "Disabled")
+              .Append("Time zone Change:").Append(bitmap.IsBitSet(2) ? "Enabled" : "Disabled")
+              .Append("DST Change:").Append(bitmap.IsBitSet(3) ? "Enabled" : "Disabled");
+            return sb.ToString();
+        }
 
 
     }

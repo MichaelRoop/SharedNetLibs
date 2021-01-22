@@ -6,7 +6,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
         protected override bool DoParse(byte[] data) {
             this.strValue = "";
             if (this.CopyToRawData(data, 1)) {
-                switch (data[0]) {
+                switch (this.RawData[0]) {
                     case 0:
                         this.strValue = "Simple Alert";
                         return true;
