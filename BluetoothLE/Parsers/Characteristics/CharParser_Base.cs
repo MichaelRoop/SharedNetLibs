@@ -17,16 +17,16 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
         #region ICharParser Properties and methods
 
-        public byte[] RawData { get; private set; } = new byte[0];
+        public abstract int RequiredBytes { get; protected set; }
 
-        public Type ImplementationType { get; private set; } = typeof(CharParser_Base);
+        public byte[] RawData { get; private set; } = new byte[0];
 
         public string DisplayString() {
             try {
-                return this.GetDisplayString();
+                return this.strValue;
             }
             catch (Exception e) {
-                this.baseLog.Exception(13601, "DisplayString", "Failed On DoDisplayString", e);
+                this.baseLog.Exception(13601, "DisplayString", "Failed On getting display string", e);
                 return "* FAILED *";
             }
         }
@@ -71,13 +71,6 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
         #region Virtual methods
 
-        /// <summary>Provides a string of the derived class parsed data for display</summary>
-        /// <returns>A display string</returns>
-        protected virtual string GetDisplayString() {
-            return this.strValue;
-        }
-
-
         /// <summary>
         /// Derived to reset their specific data propertis before parse. 
         /// Base sets its own. NOTE: need to set the base RawData with 
@@ -88,27 +81,12 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
         }
 
 
-        /// <summary>Override to provide type for future cast of specific data fields</summary>
-        /// <returns>The type of the derived class</returns>
-        protected virtual Type GetDerivedType() {
-            return this.GetType();
-        }
-
-
-        /// <summary>Override if a nested parser requires x number of bytes</summary>
-        /// <returns>The required number of bytes or 0 if not overriden</returns>
-        public virtual int RequiredBytes() {
-            return 0;
-        }
-
-
         #endregion
 
         #region Constructors
 
         public CharParser_Base() {
             WrapErr.ToErrorReportException(13610, "Failed on construction", () => {
-                this.ImplementationType = this.GetDerivedType();
                 this.RawData = new byte[0];
                 this.ResetMembers();
             });
@@ -117,7 +95,6 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
         public CharParser_Base(byte[] data) {
             WrapErr.ToErrorReportException(13611, "Failed on construction", () => {
-                this.ImplementationType = this.GetDerivedType();
                 this.Parse(data);
             });
         }
@@ -132,11 +109,11 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
         /// <param name="data">The data to copy</param>
         /// <param name="length">The length of data to copy</param>
         /// <returns>true on success, otherwise false on exception or if data null or smaller than length</returns>
-        protected bool CopyToRawData(byte[] data, int length) {
+        protected bool CopyToRawData(byte[] data) {
             try {
                 if (data != null) {
-                    if (data.Length >= length) {
-                        this.RawData = new byte[length];
+                    if (data.Length >= this.RequiredBytes) {
+                        this.RawData = new byte[this.RequiredBytes];
                         Array.Copy(data, this.RawData, this.RawData.Length);
                         this.baseLog.Info("CopyToRawData", () => string.Format("Data:{0}", this.RawData.ToHexByteString()));
                         return true;
@@ -144,7 +121,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                     else {
                         this.baseLog.Error(13615, "CopyToRawData",
                             () => string.Format("Data length:{0} smaller than requested:{1} Data '{2}'",
-                            data.Length, length, data.ToHexByteString()));
+                            data.Length, this.RequiredBytes, data.ToHexByteString()));
                     }
                 }
                 else {

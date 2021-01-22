@@ -3,9 +3,12 @@
 namespace BluetoothLE.Net.Parsers.Characteristics {
 
     public class CharParser_AlertCategoryID : CharParser_Base {
+
+        public override int RequiredBytes { get; protected set; } = 1;
+
         protected override bool DoParse(byte[] data) {
             this.strValue = "";
-            if (this.CopyToRawData(data, 1)) {
+            if (this.CopyToRawData(data)) {
                 switch (this.RawData[0]) {
                     case 0:
                         this.strValue = "Simple Alert";
@@ -42,8 +45,5 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
             return false;
         }
 
-        protected override Type GetDerivedType() {
-            return typeof(CharParser_AlertCategoryID);
-        }
     }
 }

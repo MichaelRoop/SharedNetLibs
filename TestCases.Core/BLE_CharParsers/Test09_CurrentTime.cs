@@ -60,7 +60,7 @@ namespace TestCases.Core.BLE_CharParsers {
             TestHelpersNet.CatchUnexpected(() => {
                 DateTime dt = new DateTime(year, month, day, hour, minutes, seconds, DateTimeKind.Local);
                 CharParser_CurrentTime parser = new CharParser_CurrentTime();
-                byte[] data = new byte[parser.RequiredBytes()];
+                byte[] data = new byte[parser.RequiredBytes];
                 int pos = 0;
                 year.WriteToBuffer(data, ref pos);
                 month.WriteToBuffer(data, ref pos);

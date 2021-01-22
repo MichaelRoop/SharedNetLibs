@@ -1,19 +1,18 @@
 ﻿using LogUtils.Net;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
 using VariousUtils.Net;
 
 namespace BluetoothLE.Net.Parsers.Characteristics.DataTypes {
 
     public class TypeParser_DateTime : CharParser_Base {
 
-        private const int REQUIRED_BYTES = 7;
         private ClassLog log = new ClassLog("TypeParser_DateTime");
 
+        public override int RequiredBytes { get; protected set; } = 7;
+
+
         protected override bool DoParse(byte[] data) {
-            if (this.CopyToRawData(data, REQUIRED_BYTES)) {
+            if (this.CopyToRawData(data)) {
                 int pos = 0;
                 ushort year = ByteHelpers.ToUint16(data, ref pos);
                 byte month = ByteHelpers.ToByte(data, ref pos);
@@ -46,12 +45,6 @@ namespace BluetoothLE.Net.Parsers.Characteristics.DataTypes {
         }
 
 
-        public override int RequiredBytes() {
-            return REQUIRED_BYTES;
-        }
-
-        #region Private
-
         private bool Validate(ushort year, byte month, byte day, byte hour, byte minutes, byte seconds) {
             if ((year > 1582 && year <= 9999) &&
                 (month > 0 && month < 13) &&
@@ -63,11 +56,6 @@ namespace BluetoothLE.Net.Parsers.Characteristics.DataTypes {
             }
             return false;
         }
-
-
-
-        #endregion
-
 
     }
 }

@@ -1,6 +1,5 @@
 ﻿using LogUtils.Net;
 using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace BluetoothLE.Net.Parsers.Characteristics {
@@ -9,8 +8,10 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
         ClassLog log = new ClassLog("CharParser_LocalTimeInformation");
 
+        public override int RequiredBytes { get; protected set; } = 2;
+
         protected override bool DoParse(byte[] data) {
-            if (this.CopyToRawData(data, 2)) {
+            if (this.CopyToRawData(data)) {
                 StringBuilder sb = new StringBuilder();
                 // org.bluetooth.characteristic.time_zone
                 // Time zone 15 minute increments / by 60 minutes gives UTC hour offset
@@ -59,9 +60,5 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
             return false;
         }
 
-        protected override Type GetDerivedType() {
-            return this.GetType();
-            ;
-        }
     }
 }

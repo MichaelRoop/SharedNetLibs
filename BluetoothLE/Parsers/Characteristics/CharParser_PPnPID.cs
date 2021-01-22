@@ -6,12 +6,11 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
     /// <summary>Parse the data fields of the PPnPID</summary>
     public class CharParser_PPnPID : CharParser_Base {
 
-        public CharParser_PPnPID() : base() { }
-        public CharParser_PPnPID(byte[] data) : base(data) { }
+        public override int RequiredBytes { get; protected set; } = 7;
 
 
         protected override bool DoParse(byte[] data) {
-            if (this.CopyToRawData(data, 7)) {
+            if (this.CopyToRawData(data)) {
                 // 7 bytes
                 //0x02,0x5E,0x04,0x17,0x08,0x31,0x01
                 // field1 - 1 byte uint8 source of Vendor ID
@@ -34,9 +33,6 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
             return false;
         }
 
-        protected override Type GetDerivedType() {
-            return this.GetType();
-        }
-
     }
+
 }

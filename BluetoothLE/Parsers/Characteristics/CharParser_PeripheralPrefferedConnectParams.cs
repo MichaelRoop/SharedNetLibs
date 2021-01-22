@@ -1,6 +1,5 @@
 ﻿using LogUtils.Net;
 using System;
-using System.Collections.Generic;
 using System.Text;
 using VariousUtils.Net;
 
@@ -10,9 +9,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
         private readonly ClassLog log = new ClassLog("CharParser_PeripheralPrefferedConnectParams");
 
-
-        public CharParser_PeripheralPrefferedConnectParams() : base() { }
-        public CharParser_PeripheralPrefferedConnectParams(byte[] data) : base(data) { }
+        public override int RequiredBytes { get; protected set; } = 8;
 
 
         protected override bool DoParse(byte[] data) {
@@ -22,7 +19,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
             // 2. Maximum Connect interval 6-3200
             // 3. Slave latency 0-1000
             // 4. Connection Supervisor Timeout Multiplier 10-3200
-            if (this.CopyToRawData(data, 8)) {
+            if (this.CopyToRawData(data)) {
                 StringBuilder sb = new StringBuilder();
                 sb
                     .Append("Min Connect Interval:")
@@ -43,8 +40,5 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
             return false;
         }
 
-        protected override Type GetDerivedType() {
-            return this.GetType();
-        }
     }
 }

@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
 using VariousUtils.Net;
 
 namespace BluetoothLE.Net.Parsers.Characteristics.DataTypes {
 
     public class TypeParser_DayOfWeek : CharParser_Base {
+
+        public override int RequiredBytes { get; protected set; } = 1;
+
         protected override bool DoParse(byte[] data) {
-            if (this.CopyToRawData(data, 1)) {
+            if (this.CopyToRawData(data)) {
                 byte day = ByteHelpers.ToByte(data, 0);
                 if (day == 0) {
                     this.strValue = "Unknown";
@@ -27,10 +27,6 @@ namespace BluetoothLE.Net.Parsers.Characteristics.DataTypes {
             return false;
         }
 
-
-        public override int RequiredBytes() {
-            return 1;
-        }
-
     }
+
 }

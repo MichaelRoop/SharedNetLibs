@@ -34,11 +34,10 @@ namespace TestCases.Core.BLE_CharParsers {
         #region Test classes
 
         class CharParserFailConstructor1 : CharParser_Base {
-            protected override bool DoParse(byte[] data) {
-                throw new NotImplementedException();
-            }
 
-            protected override Type GetDerivedType() {
+            public override int RequiredBytes { get; protected set; } = 5;
+
+            protected override bool DoParse(byte[] data) {
                 throw new NotImplementedException();
             }
 
@@ -48,43 +47,33 @@ namespace TestCases.Core.BLE_CharParsers {
         }
 
         class CharParserFailConstructor2 : CharParserFailConstructor1 {
-            protected override Type GetDerivedType() { return typeof(CharParserFailConstructor2); }
+            public override int RequiredBytes { get; protected set; } = 0;
             public CharParserFailConstructor2() : base() { }
             public CharParserFailConstructor2(byte[] data) : base(data) { }
         }
 
 
         class CharParserDisplayStrFaile : CharParserFailConstructor2 {
+            public override int RequiredBytes { get; protected set; } = 0;
             protected override bool DoParse(byte[] data) {
                 return true;
-            }
-            protected override string GetDisplayString() {
-                throw new NotImplementedException();
             }
             public CharParserDisplayStrFaile() : base() { }
             public CharParserDisplayStrFaile(byte[] data) : base(data) { }
         }
 
         class CharParserCopyRaw : CharParser_Base {
+            public override int RequiredBytes { get; protected set; } = 0;
+
             protected override bool DoParse(byte[] data) { return true; }
-            protected override Type GetDerivedType() { return typeof(CharParserCopyRaw); }
             public CharParserCopyRaw(byte[] data, int length) {
-                this.CopyToRawData(data, length);
+                this.RequiredBytes = length;
+                this.CopyToRawData(data);
             }
 
         }
 
         #endregion
-
-        //
-        [Test]
-        public void Err13601_GetDisplayStrException() {
-            TestHelpersNet.CatchUnexpected(() => {
-                CharParserDisplayStrFaile b = new CharParserDisplayStrFaile(new byte[5]);
-                this.logReader.Validate(13601, "CharParser_Base", "DisplayString", "Failed On DoDisplayString");
-            });
-        }
-
 
         [Test]
         public void Err13605_ParseZeroLength() {
@@ -115,13 +104,6 @@ namespace TestCases.Core.BLE_CharParsers {
             });
         }
 
-
-        [Test]
-        public void Err13610_FailOnConstruction() {
-            TestHelpersNet.CatchExpected(13610, "CharParser_Base", ".ctor", "Failed on construction", () => {
-                CharParserFailConstructor1 b = new CharParserFailConstructor1();
-            });
-        }
 
         [Test]
         public void Err13611_FailOnConstruction() {

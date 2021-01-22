@@ -1,5 +1,4 @@
 ﻿using LogUtils.Net;
-using System;
 using VariousUtils.Net;
 
 namespace BluetoothLE.Net.Parsers.Characteristics {
@@ -9,14 +8,13 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
         private readonly ClassLog log = new ClassLog("CharParser_Default");
 
- 
-        public CharParser_Default() : base() { }
-
-        public CharParser_Default(byte[] data) : base(data) { }
+        // This is variable. Set on parse
+        public override int RequiredBytes { get; protected set; } = 0;
 
 
         protected override bool DoParse(byte[] data) {
-            if (this.CopyToRawData(data, data.Length)) {
+            this.RequiredBytes = data.Length;
+            if (this.CopyToRawData(data)) {
                 this.strValue = this.RawData.ToFormatedByteString();
                 this.log.Info("DoParse", () => string.Format("NOT IMPLEMENTED Display:{0}", this.strValue));
                 return true;
@@ -24,10 +22,6 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
             return false;
         }
 
-
-        protected override Type GetDerivedType() {
-            return this.GetType();
-        }
-
     }
+
 }

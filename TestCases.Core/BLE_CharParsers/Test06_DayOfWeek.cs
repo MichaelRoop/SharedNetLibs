@@ -64,7 +64,7 @@ namespace TestCases.Core.BLE_CharParsers {
         private void Test(byte bleDay, int day) {
             TestHelpersNet.CatchUnexpected(() => {
                 TypeParser_DayOfWeek parser = new TypeParser_DayOfWeek();
-                byte[] data = new byte[parser.RequiredBytes()];
+                byte[] data = new byte[parser.RequiredBytes];
                 data[0] = bleDay;
                 string result = parser.Parse(data);
                 Assert.AreEqual(this.GetDay(day - 1), result, "Parse fail");

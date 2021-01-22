@@ -1,29 +1,24 @@
-﻿using LogUtils.Net;
-using System;
+﻿using System;
 
 namespace BluetoothLE.Net.Parsers.Characteristics {
 
     public class CharParser_BatteryLevel : CharParser_Base {
 
-        private readonly ClassLog log = new ClassLog("CharParser_BatteryLevel");
+        public override int RequiredBytes { get; protected set; } = 1;
 
-        public CharParser_BatteryLevel() : base() { }
-
+        // TODO - remove entirely
         public CharParser_BatteryLevel(byte[] data) : base(data) { }
+        public CharParser_BatteryLevel() : base() { }
 
 
         protected override bool DoParse(byte[] data) {
-            if (this.CopyToRawData(data, 1)) {
+            if (this.CopyToRawData(data)) {
                 // Will be 1 in length
                 int tmp = Convert.ToInt32(this.RawData[0].ToString());
                 this.strValue = tmp.ToString();
                 return true;
             }
             return false;
-        }
-
-        protected override Type GetDerivedType() {
-            return this.GetType();
         }
 
     }

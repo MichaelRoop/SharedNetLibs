@@ -9,14 +9,14 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
         private readonly ClassLog log = new ClassLog("CharParser_Appearance");
 
-        public CharParser_Appearance() : base() { }
-        public CharParser_Appearance(byte[] data) : base(data) { }
+        public override int RequiredBytes { get; protected set; } = 2;
+
 
         protected override bool DoParse(byte[] data) {
             //https://specificationrefs.bluetooth.com/assigned-values/Appearance%20Values.pdf
             //  6 bits = sub category - bits 0-5  - Mask 0000 0000 0011 1111 (63)
             // 10 bits = category     - bits 6-15 - Mask 1111 1111 1100 0000 (65,472)
-            if (this.CopyToRawData(data, 2)) {
+            if (this.CopyToRawData(data)) {
                 uint raw = (uint)BitConverter.ToUInt16(this.RawData);
                 uint catMask = 65472;
                 uint subMask = 63;
@@ -30,8 +30,5 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
             return false;
         }
 
-        protected override Type GetDerivedType() {
-            return this.GetType();
-        }
     }
 }
