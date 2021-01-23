@@ -120,6 +120,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                             case GattNativeCharacteristicUuid.AlertNotificationControlPoint:
                             case GattNativeCharacteristicUuid.AlertStatus:
                             case GattNativeCharacteristicUuid.AggregateInput:
+                            // TODO - the 0x2A58 - input is described as both input and output
                             case GattNativeCharacteristicUuid.AnalogInput:
                             case GattNativeCharacteristicUuid.AnalogOutput:
                             // TODO - what is battery level state
@@ -137,6 +138,8 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                             case GattNativeCharacteristicUuid.CyclingPowerFeature:
                             case GattNativeCharacteristicUuid.CyclingPowerMeasurement:
                             case GattNativeCharacteristicUuid.CyclingPowerVector:
+                            // 0x2A56 is the input. Can we also write out with it?
+                            // spec says is is used to expose and change
                             case GattNativeCharacteristicUuid.DigitalInput:
                             case GattNativeCharacteristicUuid.DigitalOutput:
                             case GattNativeCharacteristicUuid.ExactTime100:
