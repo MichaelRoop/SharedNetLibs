@@ -28,6 +28,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
         private CharParser_LocalTimeInformation localTimeInfo = new CharParser_LocalTimeInformation();
         private CharParser_PPnPID pPnPidParser = new CharParser_PPnPID();
         private CharParser_String stringParser = new CharParser_String();
+        private CharParser_TemperatureCelcius temperatureCelcius = new CharParser_TemperatureCelcius();
         private CharParser_TimeZone timeZone = new CharParser_TimeZone();
 
         private CharParser_PeripheralPrefferedConnectParams ppConnParamParser = new CharParser_PeripheralPrefferedConnectParams();
@@ -101,6 +102,8 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                                 return this.pPnPidParser;
                             case GattNativeCharacteristicUuid.PeripheralPreferredConnectionParameters:
                                 return this.ppConnParamParser;
+                            case GattNativeCharacteristicUuid.TemperatureinCelsius:
+                                return this.temperatureCelcius;
                             case GattNativeCharacteristicUuid.TimeZone:
                                 return this.timeZone;
                             #endregion
@@ -182,7 +185,6 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                             case GattNativeCharacteristicUuid.TimeUpdateState:
                             case GattNativeCharacteristicUuid.TimewithDST:
                             case GattNativeCharacteristicUuid.TxPowerLevel:
-                            case GattNativeCharacteristicUuid.TemperatureinCelsius:
                             case GattNativeCharacteristicUuid.TemperatureinFahrenheit:
                             case GattNativeCharacteristicUuid.TimeBroadcast:
                             case GattNativeCharacteristicUuid.UnreadAlertStatus:
