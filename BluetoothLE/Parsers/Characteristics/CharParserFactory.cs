@@ -25,8 +25,10 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
         private CharParser_DaylightSavingsTimeOffset dtsOffset = new CharParser_DaylightSavingsTimeOffset();
         private CharParser_Default defaultParser = new CharParser_Default();
         private TypeParser_ExactTime256 exactTime256 = new TypeParser_ExactTime256();
+        private CharParser_Humidity humidity = new CharParser_Humidity();
         private CharParser_LocalTimeInformation localTimeInfo = new CharParser_LocalTimeInformation();
         private CharParser_PPnPID pPnPidParser = new CharParser_PPnPID();
+        private CharParser_Pressure pressure = new CharParser_Pressure();
         private CharParser_String stringParser = new CharParser_String();
         private CharParser_TemperatureCelcius temperatureCelcius = new CharParser_TemperatureCelcius();
         private CharParser_TimeZone timeZone = new CharParser_TimeZone();
@@ -96,10 +98,14 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                                 return this.dtsOffset;
                             case GattNativeCharacteristicUuid.ExactTime256:
                                 return this.exactTime256;
+                            case GattNativeCharacteristicUuid.Humidity:
+                                return this.humidity;
                             case GattNativeCharacteristicUuid.LocalTimeInformation:
                                 return this.localTimeInfo;
                             case GattNativeCharacteristicUuid.PnPID:
                                 return this.pPnPidParser;
+                            case GattNativeCharacteristicUuid.Pressure:
+                                return this.pressure;
                             case GattNativeCharacteristicUuid.PeripheralPreferredConnectionParameters:
                                 return this.ppConnParamParser;
                             case GattNativeCharacteristicUuid.TemperatureinCelsius:
@@ -107,6 +113,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                             case GattNativeCharacteristicUuid.TimeZone:
                                 return this.timeZone;
                             #endregion
+
 
 
                             // TODO create parsers
