@@ -85,6 +85,11 @@ namespace BluetoothLE.Net.Parsers {
         }        
 
 
+        public static IDescParser GetDescriptorParser(Guid descriptorUuid) {
+            return factory.GetParser(descriptorUuid);
+        }
+
+
         public static string GetCharacteristicValueAsString(Guid characteristicUuid, byte[] data) {
             return charParseFactory.GetParsedValueAsString(characteristicUuid, data);
         }

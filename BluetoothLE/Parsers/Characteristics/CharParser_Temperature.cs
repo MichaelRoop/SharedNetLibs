@@ -3,7 +3,7 @@ using VariousUtils.Net;
 
 namespace BluetoothLE.Net.Parsers.Characteristics {
 
-    public class CharParser_TemperatureCelcius : CharParser_Base {
+    public class CharParser_Temperature : CharParser_Base {
 
         public override int RequiredBytes { get; protected set; } = 2;
 

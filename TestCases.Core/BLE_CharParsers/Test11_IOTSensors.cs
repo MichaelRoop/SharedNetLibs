@@ -66,7 +66,7 @@ namespace TestCases.Core.BLE_CharParsers {
         #region Helpers
         public void TestTemperature(short value, string expected) {
             TestHelpersNet.CatchUnexpected(() => {
-                CharParser_TemperatureCelcius parser = new CharParser_TemperatureCelcius();
+                CharParser_Temperature parser = new CharParser_Temperature();
                 byte[] data = new byte[sizeof(short)];
                 int pos = 0;
                 value.WriteToBuffer(data, ref pos);

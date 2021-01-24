@@ -15,13 +15,13 @@
         ValidRange = 0x2906,
         ExternalReportReference = 0x2907,
         ReportReference = 0x2908,
-        // NEW
         NumberOfDigitals = 0X2909,
         ValueTriggerSetting = 0X290A,
         EnvironmentalSensingConfiguration = 0X290B,
         EnvironmentalSensingMeasurement = 0X290C,
         EnvironmentalSensingTriggerSetting = 0X290D,
         TimeTriggerSetting = 0X290E,
+        CompleteBrEdrTransportBlockData = 0x290F,
     }
 
 }

@@ -1,4 +1,6 @@
 ﻿using BluetoothLE.Net.Enumerations;
+using BluetoothLE.Net.interfaces;
+using BluetoothLE.Net.Parsers.Descriptor;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,6 +17,7 @@ namespace BluetoothLE.Net.DataModels {
 
         public string DisplayName { get; set; } = "";
 
+        public IDescParser Parser { get; set; } = new DescParser_Default();
 
         public BLE_DescriptorDataModel() {
         }
