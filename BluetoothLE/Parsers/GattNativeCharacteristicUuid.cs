@@ -112,6 +112,8 @@ namespace BluetoothLE.Net.Parsers {
         PulseOximetryPulsatileEvent = 0x2A60,
         Pressure = 0x2A6D,
         Humidity = 0x2A6F,
+        Temperature = 0x2A6E,
+
         SimpleKeyState = 0xFFE1
     }
 }

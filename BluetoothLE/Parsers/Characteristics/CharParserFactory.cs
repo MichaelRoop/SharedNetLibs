@@ -109,6 +109,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                             case GattNativeCharacteristicUuid.PeripheralPreferredConnectionParameters:
                                 return this.ppConnParamParser;
                             case GattNativeCharacteristicUuid.TemperatureinCelsius:
+                            case GattNativeCharacteristicUuid.Temperature:
                                 return this.temperatureCelcius;
                             case GattNativeCharacteristicUuid.TimeZone:
                                 return this.timeZone;
