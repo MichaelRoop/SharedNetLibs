@@ -13,51 +13,13 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
         #region Data
 
         private ClassLog log = new ClassLog("CharParserFactory");
-        private CharParser_AlertCategoryID alertCategoryId = new CharParser_AlertCategoryID();
-        private CharParser_AlertCategoryIDBitmask alertCategoryIDBitmask = new CharParser_AlertCategoryIDBitmask();
-        private CharParser_AlertLevel alertLevel = new CharParser_AlertLevel();
-        private CharParser_Appearance appearanceParser = new CharParser_Appearance();
-        private CharParser_BatteryLevel batteryLevelParser = new CharParser_BatteryLevel();
-        private CharParser_CurrentTime currentTime = new CharParser_CurrentTime();
-        private TypeParser_DateTime dateTime = new TypeParser_DateTime();
-        private TypeParser_DayDateTime dayDateTime = new TypeParser_DayDateTime();
-        private TypeParser_DayOfWeek dayOfWeek = new TypeParser_DayOfWeek();
-        private CharParser_DaylightSavingsTimeOffset dtsOffset = new CharParser_DaylightSavingsTimeOffset();
-        private CharParser_Default defaultParser = new CharParser_Default();
-        private TypeParser_ExactTime256 exactTime256 = new TypeParser_ExactTime256();
-        private CharParser_Humidity humidity = new CharParser_Humidity();
-        private CharParser_LocalTimeInformation localTimeInfo = new CharParser_LocalTimeInformation();
-        private CharParser_PPnPID pPnPidParser = new CharParser_PPnPID();
-        private CharParser_Pressure pressure = new CharParser_Pressure();
-        private CharParser_String stringParser = new CharParser_String();
-        private CharParser_Temperature temperatureCelcius = new CharParser_Temperature();
-        private CharParser_TimeZone timeZone = new CharParser_TimeZone();
-
-        private CharParser_PeripheralPrefferedConnectParams ppConnParamParser = new CharParser_PeripheralPrefferedConnectParams();
-
 
         #endregion
 
 
-        public string GetParsedValueAsString(Guid characteristicUuid, byte[] data) {
-            try {
-                ICharParser parser = this.GetParser(characteristicUuid);
-                if (parser == null) {
-                    return "* Failed to retrieve parser *";
-                }
-                return parser.Parse(data);
-            }
-            catch (Exception e) {
-                this.log.Exception(9999, "GetParsedValueAsString", "", e);
-                return "* FAILED ON CHARACTERISTIC VALUE PARSE *";
-            }
-        }
-
-
         public ICharParser GetParser(Guid characteristicUuid) {
-            ICharParser parser = null;
             ErrReport report;
-            parser = WrapErr.ToErrReport<ICharParser>(out report, 9999,
+            ICharParser parser = WrapErr.ToErrReport<ICharParser>(out report, 9999,
                 () => string.Format("Failed to find characteristic parser"),
                 () => {
                     if (BLE_ParseHelpers.IsSigDefinedUuid(characteristicUuid)) {
@@ -73,46 +35,46 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                             case GattNativeCharacteristicUuid.FirmwareRevisionString:
                             case GattNativeCharacteristicUuid.SerialNumberString:
                             case GattNativeCharacteristicUuid.SoftwareRevisionString:
-                                return this.stringParser;
+                                return new CharParser_String();
                             #endregion
                             #region Assigned parsers
                             case GattNativeCharacteristicUuid.AlertCategoryID:
-                                return this.alertCategoryId;
+                                return new CharParser_AlertCategoryID();
                             case GattNativeCharacteristicUuid.AlertCategoryIDBitMask:
-                                return this.alertCategoryIDBitmask;
+                                return new CharParser_AlertCategoryIDBitmask();
                             case GattNativeCharacteristicUuid.AlertLevel:
-                                return this.alertLevel;
+                                return new CharParser_AlertLevel();
                             case GattNativeCharacteristicUuid.Appearance:
-                                return this.appearanceParser;
+                                return new CharParser_Appearance();
                             case GattNativeCharacteristicUuid.BatteryLevel:
-                                return this.batteryLevelParser;
+                                return new CharParser_BatteryLevel();
                             case GattNativeCharacteristicUuid.CurrentTime:
-                                return this.currentTime;
+                                return new CharParser_CurrentTime();
                             case GattNativeCharacteristicUuid.DateTime:
-                                return this.dateTime;
+                                return new TypeParser_DateTime();
                             case GattNativeCharacteristicUuid.DayDateTime:
-                                return this.dayDateTime;
+                                return new TypeParser_DayDateTime();
                             case GattNativeCharacteristicUuid.DayofWeek:
-                                return this.dayOfWeek;
+                                return new TypeParser_DayOfWeek();
                             case GattNativeCharacteristicUuid.DSTOffset:
-                                return this.dtsOffset;
+                                return new CharParser_DaylightSavingsTimeOffset();
                             case GattNativeCharacteristicUuid.ExactTime256:
-                                return this.exactTime256;
+                                return new TypeParser_ExactTime256();
                             case GattNativeCharacteristicUuid.Humidity:
-                                return this.humidity;
+                                return new CharParser_Humidity();
                             case GattNativeCharacteristicUuid.LocalTimeInformation:
-                                return this.localTimeInfo;
+                                return new CharParser_LocalTimeInformation();
                             case GattNativeCharacteristicUuid.PnPID:
-                                return this.pPnPidParser;
+                                return new CharParser_PPnPID();
                             case GattNativeCharacteristicUuid.Pressure:
-                                return this.pressure;
+                                return new CharParser_Pressure();
                             case GattNativeCharacteristicUuid.PeripheralPreferredConnectionParameters:
-                                return this.ppConnParamParser;
+                                return new CharParser_PeripheralPrefferedConnectParams();
                             //case GattNativeCharacteristicUuid.TemperatureinCelsius:
                             case GattNativeCharacteristicUuid.Temperature:
-                                return this.temperatureCelcius;
+                                return new CharParser_Temperature();
                             case GattNativeCharacteristicUuid.TimeZone:
-                                return this.timeZone;
+                                return new CharParser_TimeZone();
                             #endregion
 
 
@@ -445,17 +407,17 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
                             case GattNativeCharacteristicUuid.None:
                             default:
-                                return this.defaultParser;
+                                return new CharParser_Default();
                         }
                     }
                     else {
                         this.log.Error(9999, "GetParser", () =>
                             string.Format("Failed to parse out Guid:{0}", characteristicUuid.ToString()));
-                        return this.defaultParser;
+                        return new CharParser_Default();
                     }
                 });
 
-                return report.Code == 0 ? parser : null;
+                return report.Code == 0 ? parser : new CharParser_Default();
         }
     }
 }

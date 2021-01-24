@@ -1,5 +1,7 @@
 ﻿using BluetoothLE.Net.Enumerations;
+using BluetoothLE.Net.interfaces;
 using BluetoothLE.Net.Parsers;
+using BluetoothLE.Net.Parsers.Characteristics;
 using System;
 using System.Collections.Generic;
 
@@ -53,9 +55,11 @@ namespace BluetoothLE.Net.DataModels {
         // TODO - why a list? Can characteristic data have multiple formats?
         public List<BLE_PresentationFormat> PresentationFormats { get; set; } = new List<BLE_PresentationFormat>();
 
-
         /// <summary>The service that holds this characteristic</summary>
         public BLE_ServiceDataModel Service { get; set; }
+
+        /// <summary>The parser to get read values for the characteristic</summary>
+        public ICharParser Parser { get; set; } = new CharParser_Default();
 
 
         public bool IsReadable {

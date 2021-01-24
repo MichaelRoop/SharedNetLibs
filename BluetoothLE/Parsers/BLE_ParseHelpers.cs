@@ -1,4 +1,5 @@
-﻿using BluetoothLE.Net.Enumerations;
+﻿using BluetoothLE.Net.DataModels;
+using BluetoothLE.Net.Enumerations;
 using BluetoothLE.Net.interfaces;
 using BluetoothLE.Net.Parsers.Characteristics;
 using BluetoothLE.Net.Parsers.Descriptor;
@@ -47,10 +48,7 @@ namespace BluetoothLE.Net.Parsers {
             if (!string.IsNullOrEmpty(userDescription)) {
                 return userDescription;
             }
-
-            else {
-                return "Custom Characteristic: " + characteristicUuid;
-            }
+            return "Custom Characteristic: " + characteristicUuid;
         }
 
 
@@ -76,22 +74,17 @@ namespace BluetoothLE.Net.Parsers {
                     return descriptorName.ToString().CamelCaseToSpaces();
                 }
             }
-            return "Custom Descriptor: " + descriptorUuid;
+            return "Custom Descriptor: " + descriptorUuid.ToString();
         }
 
 
-        public static string GetDescriptorValueAsString(Guid descriptorUuid, byte[] value) {
-            return factory.GetParsedValueAsString(descriptorUuid, value);
-        }        
-
-
-        public static IDescParser GetDescriptorParser(Guid descriptorUuid) {
-            return factory.GetParser(descriptorUuid);
+        public static IDescParser GetDescriptorParser(Guid uuid) {
+            return factory.GetParser(uuid);
         }
 
 
-        public static string GetCharacteristicValueAsString(Guid characteristicUuid, byte[] data) {
-            return charParseFactory.GetParsedValueAsString(characteristicUuid, data);
+        public static ICharParser GetCharacteristicParser(Guid uuid) {
+            return charParseFactory.GetParser(uuid);
         }
 
 
