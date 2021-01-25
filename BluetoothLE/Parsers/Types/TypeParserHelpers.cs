@@ -107,6 +107,10 @@ namespace BluetoothLE.Net.Parsers.Types {
         }
 
 
+        public static string ActiveStateStr(this bool isActive) {
+            return isActive ? "active" : "not active";
+        }
+
 
     }
 }

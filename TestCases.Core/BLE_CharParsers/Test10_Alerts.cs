@@ -1,4 +1,5 @@
 ﻿using BluetoothLE.Net.Parsers.Characteristics;
+using BluetoothLE.Net.Parsers.Types;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -129,10 +130,21 @@ namespace TestCases.Core.BLE_CharParsers {
             this.TestAlertLeve(42, "ERR");
         }
 
+        #endregion
 
+        #region Alert status
+
+        [Test]
+        public void AlertStatusOnOff() {
+            byte data = 0;
+            data = BitTools.SetBit(data, 0, true);
+            data = BitTools.SetBit(data, 1, false);
+            this.TestAlertStatus(data, true, false);
+        }
 
 
         #endregion
+
 
         private void Test(byte[] data, string expected) {
             TestHelpersNet.CatchUnexpected(() => {
@@ -164,6 +176,27 @@ namespace TestCases.Core.BLE_CharParsers {
                 Assert.AreEqual(expected, result, "Parse fail");
             });
         }
+
+
+
+        private void TestAlertStatus(byte status, bool ringer, bool vibrate) {
+            TestHelpersNet.CatchUnexpected(() => {
+                byte[] data = new byte[1];
+                data[0] = status;
+                CharParser_AlertStatus parser = new CharParser_AlertStatus();
+                string result = parser.Parse(data);
+                LogUtils.Net.Log.Info("TestAlertStatus", "TestAlertStatus", result);
+
+                string expected = string.Format(
+                    "Ringer State:{0} Vibrate State:{1}",
+                    ringer.ActiveStateStr(), vibrate.ActiveStateStr());
+                Assert.AreEqual(expected, result, "Parse fail");
+                Assert.AreEqual(ringer, parser.RingerState, "Ringer");
+                Assert.AreEqual(vibrate, parser.VibrateState, "Vibrate");
+            });
+        }
+
+
 
     }
 }

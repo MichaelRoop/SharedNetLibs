@@ -75,13 +75,33 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                                 return new CharParser_Temperature();
                             case GattNativeCharacteristicUuid.TimeZone:
                                 return new CharParser_TimeZone();
+
+                            // will need to sort all of these
+                            case GattNativeCharacteristicUuid.DateOfBirth:
+                                return new CharParser_DateOfBirth();
+
+                            case GattNativeCharacteristicUuid.AlertStatus:
+                                return new CharParser_AlertStatus();
+
                             #endregion
 
+                            #region Uint8
+
+                            // These are exponent 0 - not sure what that means
+                            case GattNativeCharacteristicUuid.AerobicHeartRateUpperLimit:
+                            case GattNativeCharacteristicUuid.AerobicHeartRateLowerLimit:
+                            case GattNativeCharacteristicUuid.AerobicThreshold:
+                            case GattNativeCharacteristicUuid.AnaerobicHeartRateLowerLimit:
+                            case GattNativeCharacteristicUuid.AnaerobicHeartRateUpperLimit:
+                            case GattNativeCharacteristicUuid.AnaerobicThreshold:
+                            // regular uint8
+                            case GattNativeCharacteristicUuid.Age:
+                                return new CharParser_Uint8();
+                            #endregion
 
 
                             // TODO create parsers
                             case GattNativeCharacteristicUuid.AlertNotificationControlPoint:
-                            case GattNativeCharacteristicUuid.AlertStatus:
                             case GattNativeCharacteristicUuid.AggregateInput:
                             //case GattNativeCharacteristicUuid.AnalogInput:
                             //case GattNativeCharacteristicUuid.AnalogOutput:
@@ -176,14 +196,6 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                             case GattNativeCharacteristicUuid.HeatIndex:
                             case GattNativeCharacteristicUuid.DewPoint:
                             case GattNativeCharacteristicUuid.DescriptorValueChanged:
-                            case GattNativeCharacteristicUuid.AerobicHeartRateLowerLimit:
-                            case GattNativeCharacteristicUuid.AerobicThreshold:
-                            case GattNativeCharacteristicUuid.Age:
-                            case GattNativeCharacteristicUuid.AnaerobicHeartRateLowerLimit:
-                            case GattNativeCharacteristicUuid.AnaerobicHeartRateUpperLimit:
-                            case GattNativeCharacteristicUuid.AnaerobicThreshold:
-                            case GattNativeCharacteristicUuid.AerobicHeartRateUpperLimit:
-                            case GattNativeCharacteristicUuid.DateOfBirth:
                             case GattNativeCharacteristicUuid.DateOfThresholdAssessment:
                             case GattNativeCharacteristicUuid.EmailAddress:
                             case GattNativeCharacteristicUuid.FatBurnHeartRateLowerLimit:
