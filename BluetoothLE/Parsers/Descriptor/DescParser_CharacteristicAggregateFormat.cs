@@ -41,11 +41,6 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
         }
 
 
-        protected override Type GetDerivedType() {
-            return this.GetType();
-        }
-
-
         protected override void ResetMembers() {
             this.AttributeHandles = new List<ushort>();
         }

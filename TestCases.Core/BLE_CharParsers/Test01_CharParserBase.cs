@@ -79,7 +79,7 @@ namespace TestCases.Core.BLE_CharParsers {
             TestHelpersNet.CatchUnexpected(() => {
                 CharParser_BatteryLevel bl = new CharParser_BatteryLevel();
                 bl.Parse(new byte[0]);
-                this.logReader.Validate(13618, "BLEParserBase", "Parse", "byte[] is zero length");
+                this.logReader.Validate(13618, "BLEParserBase", "CopyToRawData", "byte[] is zero length");
             });
         }
 

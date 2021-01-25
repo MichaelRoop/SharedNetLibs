@@ -19,7 +19,7 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
 
         public byte ConvertedData { get; set; }
 
-        public override int RequiredBytes { get; set; } = BYTE_LEN;
+        public override int RequiredBytes { get; protected set; } = BYTE_LEN;
 
 
 
@@ -34,11 +34,6 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
         protected override void ResetMembers() {
             this.ConvertedData = 0;
             this.TypeOfReport = ReportType.Input;
-        }
-
-
-        protected override Type GetDerivedType() {
-            return this.GetType();
         }
 
 

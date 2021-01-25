@@ -11,17 +11,12 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
 
         public byte Number { get; set; }
 
-        public override int RequiredBytes { get; set; } = BYTE_LEN;
+        public override int RequiredBytes { get; protected set; } = BYTE_LEN;
 
         protected override void DoParse(byte[] data) {
             this.Number = data.ToByte(0);
             this.DisplayString = string.Format("Number of Digitals:{0}", this.Number);
             this.log.Info("DoParse", () => string.Format("Display:{0}", this.DisplayString));
-        }
-
-
-        protected override Type GetDerivedType() {
-            return this.GetType();
         }
 
 

@@ -58,11 +58,6 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
             this.ConvertedData = 0;
         }
 
-
-        protected override Type GetDerivedType() {
-            return this.GetType();
-        }
-
     }
 
 }

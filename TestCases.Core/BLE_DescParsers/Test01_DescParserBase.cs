@@ -34,7 +34,6 @@ namespace TestCases.BLE_DescParsers {
 
         public class BlowOnSetMembers : DescParser_Base {
             protected override void DoParse(byte[] data) { }
-            protected override Type GetDerivedType() { throw new NotImplementedException(); }
             protected override void ResetMembers() {
                 throw new NotImplementedException();
             }
@@ -42,7 +41,6 @@ namespace TestCases.BLE_DescParsers {
 
         public class BlowOnDoParse : DescParser_Base {
             protected override void DoParse(byte[] data) { throw new NotImplementedException(); }
-            protected override Type GetDerivedType() { return this.GetType(); }
             protected override void ResetMembers() { }
         }
 
@@ -50,49 +48,70 @@ namespace TestCases.BLE_DescParsers {
 
         #endregion
 
+
+        //BlowOnDoParse
+
         [Test]
-        public void Err13305_DataZeroLength() {
+        public void DerivedTypeTest() {
+            TestHelpersNet.CatchUnexpected(() => {
+                IDescParser p = new BlowOnDoParse();
+                //Assert.AreEqual(typeof(BlowOnDoParse).Name, p.ImplementationType.Name, "ImplementationType");
+
+                // p.GetType() returns <TestCases.BLE_DescParsers.Test01_DescParserBase+BlowOnDoParse>
+                //Assert.AreEqual(typeof(BlowOnDoParse).Name, p.GetType(), "GetType");
+                // Works
+                Assert.True(p is BlowOnDoParse, "p is BlowOnDoParse");
+
+            });
+
+
+        }
+
+
+
+        [Test]
+        public void Err13618_DataZeroLength() {
             TestHelpersNet.CatchUnexpected(() => {
                 IDescParser parser = new DescParser_PresentationFormat();
                 byte[] data = new byte[0];
                 parser.Parse(data);
-                this.logReader.Validate(13305, "DescParser_Base", "CopyToRawData", "byte[] is zero length");
+                this.logReader.Validate(13618, "BLEParserBase", "CopyToRawData", "byte[] is zero length");
             });
         }
 
 
         [Test]
-        public void Err13306_DataNull() {
+        public void Err13616_DataNull() {
             TestHelpersNet.CatchUnexpected(() => {
                 IDescParser parser = new DescParser_PresentationFormat();
                 parser.Parse(null);
-                this.logReader.Validate(13316, "DescParser_Base", "CopyToRawData", "Raw byte[] is null");
+                this.logReader.Validate(13616, "BLEParserBase", "CopyToRawData", "Raw byte[] is null");
             });
         }
 
 
         [Test]
-        public void Err13307_ExceptionOnDoParse() {
+        public void Err13607_ExceptionOnDoParse() {
             TestHelpersNet.CatchUnexpected(() => {
                 try {
                     IDescParser parser = new BlowOnDoParse();
                     parser.Parse(new byte[12]);
                 }
                 catch { }
-                this.logReader.Validate(13307, "DescParser_Base", "Parse",
+                this.logReader.Validate(13607, "BLEParserBase", "Parse",
                     "Failure on Parse");
             });
         }
 
 
         [Test]
-        public void Err13315_DataTooShort() {
+        public void Err13615_DataTooShort() {
             TestHelpersNet.CatchUnexpected(() => {
                 IDescParser parser = new DescParser_PresentationFormat();
                 byte[] data = new byte[1];
                 parser.Parse(data);
-                this.logReader.Validate(13315, 
-                    "DescParser_Base", 
+                this.logReader.Validate(13615, 
+                    "BLEParserBase", 
                     "CopyToRawData",
                     "Data length:1 smaller than requested:7 Data '0x00'");
             });
@@ -106,7 +125,7 @@ namespace TestCases.BLE_DescParsers {
                     IDescParser parser = new BlowOnSetMembers();
                 }
                 catch { }
-                this.logReader.Validate(13325, "DescParser_Base", ".ctor", "Failed on construction");
+                this.logReader.Validate(13325, "BLEParserBase", ".ctor", "Failed on construction");
             });
         }
 

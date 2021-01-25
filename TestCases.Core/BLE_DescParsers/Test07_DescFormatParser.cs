@@ -49,7 +49,7 @@ namespace TestCases.BLE_DescParsers {
 
                 string result = parser.Parse(data);
                 this.log.Info("FormatValuesChecked", () => string.Format("Display:{0}", result));
-                Assert.IsTrue(parser.ImplementationType == typeof(DescParser_PresentationFormat));
+                Assert.IsTrue(parser is DescParser_PresentationFormat);
                 DescParser_PresentationFormat impl = parser as DescParser_PresentationFormat;
                 Assert.IsNotNull(impl, "Is null on cast");
                 Assert.AreEqual(DataFormatEnum.unsigned_32bit_integer, impl.Format);

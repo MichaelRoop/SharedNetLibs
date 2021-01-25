@@ -1,4 +1,5 @@
 ﻿using BluetoothLE.Net.interfaces;
+using ChkUtils.Net;
 using LogUtils.Net;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,7 @@ namespace BluetoothLE.Net.Parsers {
             try {
                 this.RawData = new byte[0];
                 this.DisplayString = "";
+                this.ResetMembers();
                 if (this.CopyToRawData(data)) {
                     this.DoParse(this.RawData);
                 }
@@ -51,13 +53,19 @@ namespace BluetoothLE.Net.Parsers {
         /// <returns>true on success, otherwise false</returns>
         protected abstract void DoParse(byte[] data);
 
+        /// <summary>Derived to reset specific data properties before parse</summary>
+        protected virtual void ResetMembers() {}
+
         #endregion
 
         #region Constructors
 
         public BLEParserBase() {
-            this.RawData = new byte[0];
-            this.DisplayString = "";
+            WrapErr.ToErrorReportException(13325, "Failed on construction", () => {
+                this.RawData = new byte[0];
+                this.DisplayString = "";
+                this.ResetMembers();
+            });
         }
 
         #endregion
@@ -88,7 +96,7 @@ namespace BluetoothLE.Net.Parsers {
                             data.Length, this.RequiredBytes, data.ToHexByteString()));
                     }
                     else {
-                        this.baseLog.Error(13618, "Parse", "byte[] is zero length");
+                        this.baseLog.Error(13618, "CopyToRawData", "byte[] is zero length");
                     }
                 }
                 else {

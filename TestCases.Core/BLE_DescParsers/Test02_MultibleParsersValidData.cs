@@ -44,7 +44,7 @@ namespace TestCases.BLE_DescParsers {
                 for (ushort i = 0; i < 10; i++) {
                     Assert.AreEqual(i, parser.AttributeHandles[i]);
                 }
-                Assert.AreEqual(typeof(DescParser_CharacteristicAggregateFormat), parser.ImplementationType);
+                Assert.True(parser is DescParser_CharacteristicAggregateFormat);
             });
         }
 
@@ -54,7 +54,7 @@ namespace TestCases.BLE_DescParsers {
             TestHelpersNet.CatchUnexpected(() => {
                 DescParser_CharacteristicExtendedProperties parser = 
                     new DescParser_CharacteristicExtendedProperties();
-                Assert.AreEqual(typeof(DescParser_CharacteristicExtendedProperties), parser.ImplementationType);
+                Assert.True(parser is DescParser_CharacteristicExtendedProperties);
 
                 int pos = 0;
                 ushort value = 0;

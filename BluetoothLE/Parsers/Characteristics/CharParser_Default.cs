@@ -16,7 +16,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
             DescParser_PresentationFormat format = null;
 
             foreach (var desc in this.DescriptorParsers) {
-                if (desc.ImplementationType == typeof(DescParser_PresentationFormat)){
+                if (desc is DescParser_PresentationFormat){
                     format = desc as DescParser_PresentationFormat;
                 }
             }

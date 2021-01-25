@@ -18,7 +18,7 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
 
         public ushort ConvertedData { get; set; }
 
-        public override int RequiredBytes { get; set; } = UINT16_LEN;
+        public override int RequiredBytes { get; protected set; } = UINT16_LEN;
 
 
         /// <summary>
@@ -37,11 +37,6 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
         protected override void ResetMembers() {
             this.Broadcasts = EnabledDisabled.Disabled;
             this.ConvertedData = 0;
-        }
-
-
-        protected override Type GetDerivedType() {
-            return this.GetType();
         }
 
     }

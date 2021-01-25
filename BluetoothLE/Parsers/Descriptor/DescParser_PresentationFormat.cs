@@ -61,7 +61,7 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
         public ushort Description { get; set; }
 
 
-        public override int RequiredBytes { get; set; } = 7;
+        public override int RequiredBytes { get; protected set; } = 7;
 
         #endregion
 
@@ -85,11 +85,6 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
                     this.MeasurementUnitUShort,
                     this.Namespace == 1 ? "Bluetooth SIG (1)" : this.Namespace.ToString(),
                     this.Description);
-        }
-
-
-        protected override Type GetDerivedType() {
-            return this.GetType();
         }
 
 

@@ -21,7 +21,7 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
         public EnabledDisabled ReliableAuxiliary { get; set; } = EnabledDisabled.Disabled;
         public ushort ConvertedData { get; set; }
 
-        public override int RequiredBytes { get; set; } = UINT16_LEN;
+        public override int RequiredBytes { get; protected set; } = UINT16_LEN;
 
 
         /// <summary>
@@ -44,11 +44,6 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
             this.ReliableWrite = EnabledDisabled.Disabled;
             this.ReliableAuxiliary = EnabledDisabled.Disabled;
             this.ConvertedData = 0;
-        }
-
-
-        protected override Type GetDerivedType() {
-            return this.GetType();
         }
 
     }

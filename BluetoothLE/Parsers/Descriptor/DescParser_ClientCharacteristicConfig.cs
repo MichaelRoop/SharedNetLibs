@@ -23,7 +23,7 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
         public EnabledDisabled Indications { get; set; } = EnabledDisabled.Disabled;
         public ushort ConvertedData { get; set; }
 
-        public override int RequiredBytes { get; set; } = UINT16_LEN;
+        public override int RequiredBytes { get; protected set; } = UINT16_LEN;
 
 
         protected override void DoParse(byte[] data) {
@@ -36,11 +36,6 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
             this.DisplayString = string.Format("Notifications:{0}, Indications:{1}", 
                 this.Notifications.ToString(), this.Indications.ToString());
             this.log.Info("DoParse", () => string.Format("Display:{0}", this.DisplayString));
-        }
-
-
-        protected override Type GetDerivedType() {
-            return this.GetType();
         }
 
 

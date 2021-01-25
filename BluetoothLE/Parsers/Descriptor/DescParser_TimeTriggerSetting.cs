@@ -93,10 +93,6 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
         }
 
 
-        protected override Type GetDerivedType() {
-            return this.GetType();
-        }
-
         protected override void ResetMembers() {
             this.Condition = TimeTriggerCondition.None;
             this.Count = 0;
