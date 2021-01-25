@@ -32,7 +32,7 @@ namespace TestCases.Core.BLE_CharParsers {
         public void ValidAll() { this.Test(2021, 1, 1, 20, 15, 32); }
 
         [Test]
-        public void InvalidYear() { this.Test(1021, 1, 1, 20, 15, 32, "Invalid Date Time - 1021 1 1 20:15:32"); }
+        public void InvalidYear() { this.Test(1021, 1, 1, 20, 15, 32, "Out of range"); }
         [Test]
         public void InvalidMonth() { this.Test(2021, 13, 1, 20, 15, 32, "Invalid Date Time - 2021 13 1 20:15:32"); }
         [Test]

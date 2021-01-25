@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BluetoothLE.Net.Enumerations;
+using System;
 using System.Globalization;
 using System.Text;
 using VariousUtils.Net;
@@ -36,6 +37,20 @@ namespace BluetoothLE.Net.Parsers.Types {
         }
 
 
+        public static string GetMonthStr(this MonthOfYear month) {
+            return ((int)month).GetMonthStr();
+        }
+
+
+        public static string GetMonthStr(this int month) {
+            if (month == 0 || month > 12) {
+                return "Unknown Month";
+            }
+            return DateTimeFormatInfo.CurrentInfo.GetMonthName(month);
+        }
+
+
+
         public static int GetSecond256FragmentAsMs(this byte data) {
             // the number is 1/256th of a second
             // range is 0-255. Max would come to 996ms
@@ -56,6 +71,34 @@ namespace BluetoothLE.Net.Parsers.Types {
               .Append("DST Change:").Append(bitmap.IsBitSet(3) ? "Enabled" : "Disabled");
             return sb.ToString();
         }
+
+
+        public static bool IsYearValid(this ushort year) {
+            // 1528 - 9999
+            return year > 1581 && year < 1000;
+        }
+
+
+        public static bool IsMonthValid(this byte value) { 
+            return value > 0 && value < 13;
+        }
+
+        public static bool IsDayValid(this byte value) {
+            return value > 0 && value < 32;
+        }
+
+        public static bool IsHourValid(this byte value) {
+            return value >= 0 && value < 24;
+        }
+
+        public static bool IsMinuteValid(this byte value) {
+            return value >= 0 && value < 60;
+        }
+
+        public static bool IsSecondsValid(this byte value) {
+            return value >= 0 && value < 60;
+        }
+
 
 
     }
