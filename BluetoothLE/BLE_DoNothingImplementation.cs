@@ -52,6 +52,8 @@ namespace BluetoothLE.Net {
             this.DeviceUpdated?.Invoke(this, new NetPropertiesUpdateDataModel());
             this.DeviceDiscovered?.Invoke(this, new BluetoothLEDeviceInfo());
             this.DeviceUpdated?.Invoke(this, new NetPropertiesUpdateDataModel());
+            this.DeviceConnectResult?.Invoke(this, null);
+            this.CharacteristicReadValueChanged.Invoke(this, null);
         }
 
 

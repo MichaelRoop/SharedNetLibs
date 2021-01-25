@@ -1,4 +1,6 @@
-﻿using BluetoothLE.Net.Parsers.Types;
+﻿using BluetoothLE.Net.Enumerations;
+using BluetoothLE.Net.Parsers.Characteristics;
+using BluetoothLE.Net.Parsers.Types;
 using NUnit.Framework;
 using System;
 using TestCases.Core.TestToolSet;
@@ -32,7 +34,7 @@ namespace TestCases.Core.BLE_CharParsers {
         public void ValidAll() { this.Test(2021, 1, 1, 20, 15, 32); }
 
         [Test]
-        public void InvalidYear() { this.Test(1021, 1, 1, 20, 15, 32, "Out of range"); }
+        public void InvalidYear() { this.Test(1021, 1, 1, 20, 15, 32, ((ushort)0).GetYearStr()); }
         [Test]
         public void InvalidMonth() { this.Test(2021, 13, 1, 20, 15, 32, "Invalid Date Time - 2021 13 1 20:15:32"); }
         [Test]
@@ -55,6 +57,16 @@ namespace TestCases.Core.BLE_CharParsers {
                 string result = parser.Parse(data);
                 Assert.AreEqual("", result, "Parse fail");
             });
+        }
+
+        [Test]
+        public void BirthDayValid() {
+            this.TestDateOfBirth(2020, MonthOfYear.Feb, DayOfWeek.Monday);
+        }
+
+        [Test]
+        public void BirthDayInValidYear() {
+            this.TestDateOfBirth(120, MonthOfYear.Feb, DayOfWeek.Monday);
         }
 
 
@@ -80,9 +92,29 @@ namespace TestCases.Core.BLE_CharParsers {
                 string result = parser.Parse(data);
                 Assert.AreEqual(expected, result, "Parse fail");
             });
-
         }
 
+
+        private void TestDateOfBirth(ushort year, MonthOfYear month, DayOfWeek day) {
+            TestHelpersNet.CatchUnexpected(() => {
+                string expected = string.Format("{0}, {1}, {2}",
+                year.GetYearStr(), MonthOfYear.Feb.GetMonthStr(),
+                day.GetDayStr());
+
+                CharParser_DateOfBirth parser = new CharParser_DateOfBirth();
+                byte[] data = new byte[parser.RequiredBytes];
+                int pos = 0;
+                year.WriteToBuffer(data, ref pos);
+                ((byte)month).WriteToBuffer(data, ref pos);
+                day.GetBleDayByte().WriteToBuffer(data, ref pos);
+                string result = parser.Parse(data);
+                Assert.AreEqual(expected, result, "Parse fail");
+                Assert.AreEqual(year.IsYearValid() ? year : 0, parser.Year);
+                Assert.AreEqual(month, parser.Month);
+                Assert.AreEqual(day, parser.Day);
+            });
+
+        }
 
 
     }

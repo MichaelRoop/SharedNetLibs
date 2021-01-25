@@ -72,10 +72,17 @@ namespace BluetoothLE.Net.Parsers.Types {
             return sb.ToString();
         }
 
+        public static string GetYearStr(this ushort year) {
+            if (year.IsYearValid()) {
+                return year.ToString();
+            }
+            return "Year Out of range";
+        }
+
 
         public static bool IsYearValid(this ushort year) {
             // 1528 - 9999
-            return year > 1581 && year < 1000;
+            return year > 1581 && year < 10000;
         }
 
 

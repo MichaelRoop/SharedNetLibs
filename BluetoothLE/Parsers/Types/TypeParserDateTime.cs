@@ -57,7 +57,6 @@ namespace BluetoothLE.Net.Parsers.Types {
             base.ResetMembers();
         }
 
-        //TypeParserHelpers.is
 
         private bool Validate(byte month, byte day, byte hour, byte minutes, byte seconds) {
             if (month.IsMonthValid() &&

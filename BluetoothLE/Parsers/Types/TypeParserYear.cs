@@ -11,13 +11,7 @@ namespace BluetoothLE.Net.Parsers.Types {
         public override int RequiredBytes { get; protected set; } = UINT16_LEN;
 
         protected override void DoParse(byte[] data) {
-            this.Validate(data.ToUint16(0));
-            if (this.IsValid) {
-                this.DisplayString = this.Year.ToString();
-            }
-            else {
-                this.DisplayString = "Out of range";
-            }
+            this.Process(data.ToUint16(0));
         }
 
 
@@ -28,13 +22,11 @@ namespace BluetoothLE.Net.Parsers.Types {
         }
 
 
-        private void Validate(ushort year) {
+        private void Process(ushort year) {
             LogUtils.Net.Log.Info("----------", "----YEAR-----", year.ToString());
-
-            if (year > 1582 && year <= 9999) {
-                this.IsValid = true;
-                this.Year = year;
-            }
+            this.IsValid = year.IsYearValid();
+            this.Year = (this.IsValid) ? year : (ushort)0;
+            this.DisplayString = year.GetYearStr();
         }
 
     }
