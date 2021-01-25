@@ -94,6 +94,7 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
             this.MeasurementUnitUShort = 0;
             this.Namespace = 0;
             this.Description = 0;
+            base.ResetMembers();
         }
 
         #endregion

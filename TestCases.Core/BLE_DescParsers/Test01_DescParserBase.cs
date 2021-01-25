@@ -41,7 +41,9 @@ namespace TestCases.BLE_DescParsers {
 
         public class BlowOnDoParse : DescParser_Base {
             protected override void DoParse(byte[] data) { throw new NotImplementedException(); }
-            protected override void ResetMembers() { }
+            protected override void ResetMembers() {
+                base.ResetMembers();
+            }
         }
 
 

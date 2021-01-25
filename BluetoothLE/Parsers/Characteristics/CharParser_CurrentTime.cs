@@ -1,4 +1,4 @@
-﻿using BluetoothLE.Net.Parsers.Characteristics.DataTypes;
+﻿using BluetoothLE.Net.Parsers.Types;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,7 +8,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
     public class CharParser_CurrentTime : CharParser_Base {
 
-        private TypeParser_ExactTime256 timeParser = new TypeParser_ExactTime256();
+        private TypeParserExactTime256 timeParser = new TypeParserExactTime256();
 
         public override int RequiredBytes { get; protected set; } = 0;
 

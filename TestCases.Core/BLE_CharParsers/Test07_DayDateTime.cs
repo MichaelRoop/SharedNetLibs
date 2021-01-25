@@ -1,9 +1,6 @@
-﻿using BluetoothLE.Net.Parsers.Characteristics.DataTypes;
+﻿using BluetoothLE.Net.Parsers.Types;
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
 using TestCases.Core.TestToolSet;
 using VariousUtils.Net;
 
@@ -63,7 +60,7 @@ namespace TestCases.Core.BLE_CharParsers {
         private void Test(ushort year, byte month, byte day, byte hour, byte minutes, byte seconds, string expected) {
             TestHelpersNet.CatchUnexpected(() => {
                 DateTime dt = new DateTime(year, month, day, hour, minutes, seconds, DateTimeKind.Local);
-                TypeParser_DayDateTime parser = new TypeParser_DayDateTime();
+                TypeParserDayDateTime parser = new TypeParserDayDateTime();
                 byte[] data = new byte[parser.RequiredBytes];
                 int pos = 0;
                 year.WriteToBuffer(data, ref pos);

@@ -56,6 +56,7 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
             this.Min = 0;
             this.Max = 0;
             this.ConvertedData = 0;
+            base.ResetMembers();
         }
 
     }

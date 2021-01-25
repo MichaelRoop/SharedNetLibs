@@ -1,16 +1,23 @@
-﻿using System.Text;
+﻿using BluetoothLE.Net.Parsers.Characteristics;
+using System;
+using System.Text;
 using VariousUtils.Net;
 
-namespace BluetoothLE.Net.Parsers.Characteristics.DataTypes {
+namespace BluetoothLE.Net.Parsers.Types {
 
-    public class TypeParser_DayDateTime : CharParser_Base {
+    public class TypeParserDayDateTime : CharParser_Base {
 
-        TypeParser_DateTime dateTime = new TypeParser_DateTime();
-        TypeParser_DayOfWeek dayOfWeek = new TypeParser_DayOfWeek();
+        private TypeParserDateTime dateTime = new TypeParserDateTime();
+        private TypeParserDayOfWeek dayOfWeek = new TypeParserDayOfWeek();
 
-        public override int RequiredBytes { get; protected set; } = 0;
+        public DayOfWeek Day { get {  return this.dayOfWeek.Day; } }
 
-        public TypeParser_DayDateTime() : base() { this.Setup(); }
+        public DateTime DateAndTime { get { return this.dateTime.Value; } }
+
+
+        public TypeParserDayDateTime() : base() { 
+            this.Setup(); 
+        }
 
 
         protected override void DoParse(byte[] data) {
@@ -29,6 +36,6 @@ namespace BluetoothLE.Net.Parsers.Characteristics.DataTypes {
             this.RequiredBytes = this.dateTime.RequiredBytes + this.dayOfWeek.RequiredBytes;
         }
 
-
     }
+
 }

@@ -28,6 +28,7 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
 
         protected override void ResetMembers() {
             this.ByteString = "";
+            base.ResetMembers();
         }
 
         #endregion

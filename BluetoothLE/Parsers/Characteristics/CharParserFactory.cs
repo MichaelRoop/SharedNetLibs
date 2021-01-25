@@ -1,5 +1,5 @@
 ﻿using BluetoothLE.Net.interfaces;
-using BluetoothLE.Net.Parsers.Characteristics.DataTypes;
+using BluetoothLE.Net.Parsers.Types;
 using ChkUtils.Net;
 using ChkUtils.Net.ErrObjects;
 using LogUtils.Net;
@@ -51,15 +51,15 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                             case GattNativeCharacteristicUuid.CurrentTime:
                                 return new CharParser_CurrentTime();
                             case GattNativeCharacteristicUuid.DateTime:
-                                return new TypeParser_DateTime();
+                                return new TypeParserDateTime();
                             case GattNativeCharacteristicUuid.DayDateTime:
-                                return new TypeParser_DayDateTime();
+                                return new TypeParserDayDateTime();
                             case GattNativeCharacteristicUuid.DayofWeek:
-                                return new TypeParser_DayOfWeek();
+                                return new TypeParserDayOfWeek();
                             case GattNativeCharacteristicUuid.DSTOffset:
                                 return new CharParser_DaylightSavingsTimeOffset();
                             case GattNativeCharacteristicUuid.ExactTime256:
-                                return new TypeParser_ExactTime256();
+                                return new TypeParserExactTime256();
                             case GattNativeCharacteristicUuid.Humidity:
                                 return new CharParser_Humidity();
                             case GattNativeCharacteristicUuid.LocalTimeInformation:

@@ -3,9 +3,9 @@ using System.Globalization;
 using System.Text;
 using VariousUtils.Net;
 
-namespace BluetoothLE.Net.Parsers.Characteristics.DataTypes {
+namespace BluetoothLE.Net.Parsers.Types {
 
-    public static class TypeParser_Helpers {
+    public static class TypeParserHelpers {
 
         public static byte GetBleDayByte(this DayOfWeek day) {
             switch (day) {
@@ -28,13 +28,15 @@ namespace BluetoothLE.Net.Parsers.Characteristics.DataTypes {
             }
         }
 
-
+        /// <summary>Culture dependent day of week name</summary>
+        /// <param name="day">The day enum</param>
+        /// <returns>Localized day string</returns>
         public static string GetDayStr(this DayOfWeek day) {
             return DateTimeFormatInfo.CurrentInfo.GetDayName(day);
         }
 
 
-        public static string Get256Fragment(this byte data) {
+        public static int GetSecond256FragmentAsMs(this byte data) {
             // the number is 1/256th of a second
             // range is 0-255. Max would come to 996ms
             // if we devide by 255.2 it comes to 999ms 
@@ -42,7 +44,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics.DataTypes {
             if (value > 9999) {
                 value = 9999;
             }
-            return value.ToString();
+            return value;
         }
 
 

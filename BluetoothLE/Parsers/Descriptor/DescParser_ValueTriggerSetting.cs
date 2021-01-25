@@ -72,7 +72,7 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
 
 
         protected override void ResetMembers() {
-            throw new NotImplementedException();
+            base.ResetMembers();
         }
 
 

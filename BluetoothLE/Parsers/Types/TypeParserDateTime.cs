@@ -1,12 +1,15 @@
-﻿using LogUtils.Net;
+﻿using BluetoothLE.Net.Parsers.Characteristics;
+using LogUtils.Net;
 using System;
 using VariousUtils.Net;
 
-namespace BluetoothLE.Net.Parsers.Characteristics.DataTypes {
+namespace BluetoothLE.Net.Parsers.Types {
 
-    public class TypeParser_DateTime : CharParser_Base {
+    public class TypeParserDateTime : CharParser_Base {
 
         private ClassLog log = new ClassLog("TypeParser_DateTime");
+
+        public DateTime Value { get; private set; } = DateTime.Now;
 
         public override int RequiredBytes { get; protected set; } = 7;
 
@@ -21,8 +24,10 @@ namespace BluetoothLE.Net.Parsers.Characteristics.DataTypes {
             byte seconds = ByteHelpers.ToByte(data, ref pos);
             if (this.Validate(year, month, day, hour, minutes, seconds)) {
                 try {
-                    DateTime dt = new DateTime(year, month, day, hour, minutes, seconds, DateTimeKind.Local);
-                    this.DisplayString = string.Format("{0} {1}", dt.ToLongDateString(), dt.ToLongTimeString());
+                    this.Value = new DateTime(year, month, day, hour, minutes, seconds, DateTimeKind.Local);
+                    this.DisplayString = 
+                        string.Format("{0} {1}", 
+                        this.Value.ToLongDateString(), this.Value.ToLongTimeString());
                 }
                 catch (Exception e) {
                     this.log.Exception(9999, "DoParse", "", e);
@@ -36,6 +41,12 @@ namespace BluetoothLE.Net.Parsers.Characteristics.DataTypes {
                     "Invalid Date Time - {0} {1} {2} {3}:{4}:{5}",
                     year, month, day, hour, minutes, seconds);
             }
+        }
+
+
+        protected override void ResetMembers() {
+            this.Value = DateTime.Now;
+            base.ResetMembers();
         }
 
 

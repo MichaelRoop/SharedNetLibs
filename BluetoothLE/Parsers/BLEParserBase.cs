@@ -2,12 +2,10 @@
 using ChkUtils.Net;
 using LogUtils.Net;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using VariousUtils.Net;
 
 namespace BluetoothLE.Net.Parsers {
-    
+
     public abstract class BLEParserBase : IBLEParser {
 
         #region Data
@@ -15,18 +13,25 @@ namespace BluetoothLE.Net.Parsers {
         private ClassLog baseLog = new ClassLog("BLEParserBase");
         private byte[] RawData { get; set; } = new byte[0];
 
+        /// <summary>Number of bytes in byte field</summary>
+        protected const int BYTE_LEN = 1;
+        /// <summary>Number of bytes for uint16 field</summary>
+        protected const int UINT16_LEN = 2;
+        /// <summary>Number of bytes for uint32 field</summary>
+        protected const int UINT32_LEN = 4;
+        /// <summary>Number of bytes for time second field</summary>
+        protected const int TIMESECOND_LEN = 3; // 3 bytes, 24bit
+
         #endregion
 
         #region ICharParser Properties and methods
 
-        public virtual int RequiredBytes { get; protected set; }
+        public virtual int RequiredBytes { get; protected set; } = 0;
 
         public string DisplayString { get; protected set; } = "";
 
         public string Parse(byte[] data) {
             try {
-                this.RawData = new byte[0];
-                this.DisplayString = "";
                 this.ResetMembers();
                 if (this.CopyToRawData(data)) {
                     this.DoParse(this.RawData);
@@ -54,7 +59,10 @@ namespace BluetoothLE.Net.Parsers {
         protected abstract void DoParse(byte[] data);
 
         /// <summary>Derived to reset specific data properties before parse</summary>
-        protected virtual void ResetMembers() {}
+        protected virtual void ResetMembers() {
+            this.RawData = new byte[0];
+            this.DisplayString = "";
+        }
 
         #endregion
 
@@ -62,8 +70,6 @@ namespace BluetoothLE.Net.Parsers {
 
         public BLEParserBase() {
             WrapErr.ToErrorReportException(13325, "Failed on construction", () => {
-                this.RawData = new byte[0];
-                this.DisplayString = "";
                 this.ResetMembers();
             });
         }

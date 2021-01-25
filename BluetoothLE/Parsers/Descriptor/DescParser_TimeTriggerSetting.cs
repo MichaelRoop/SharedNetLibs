@@ -99,6 +99,7 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
             this.TimeInterval = 0;
             this.NoneValue = 0;
             this.IsValid = false;
+            base.ResetMembers();
         }
 
     }

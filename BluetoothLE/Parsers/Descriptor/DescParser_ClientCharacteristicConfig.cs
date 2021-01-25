@@ -43,6 +43,7 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
             this.Notifications = EnabledDisabled.Disabled;
             this.Indications = EnabledDisabled.Disabled;
             this.ConvertedData = 0;
+            base.ResetMembers();
         }
 
     }

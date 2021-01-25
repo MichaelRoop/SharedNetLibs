@@ -34,6 +34,7 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
         protected override void ResetMembers() {
             this.ConvertedData = 0;
             this.TypeOfReport = ReportType.Input;
+            base.ResetMembers();
         }
 
 

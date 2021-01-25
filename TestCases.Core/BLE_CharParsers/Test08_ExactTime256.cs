@@ -1,10 +1,6 @@
-﻿using BluetoothLE.Net.Parsers.Characteristics;
-using BluetoothLE.Net.Parsers.Characteristics.DataTypes;
-using BluetoothLE.Net.Parsers.Descriptor;
+﻿using BluetoothLE.Net.Parsers.Types;
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using TestCases.Core.TestToolSet;
 using VariousUtils.Net;
 
@@ -45,7 +41,7 @@ namespace TestCases.Core.BLE_CharParsers {
         private void Test(ushort year, byte month, byte day, byte hour, byte minutes, byte seconds, byte fragment) {
             DateTime dt = new DateTime(year, month, day, hour, minutes, seconds, DateTimeKind.Local);
             string expected = string.Format("{0} {1} {2}.{3}",
-                dt.DayOfWeek.GetDayStr(), dt.ToLongDateString(), dt.ToLongTimeString(), fragment.Get256Fragment());
+                dt.DayOfWeek.GetDayStr(), dt.ToLongDateString(), dt.ToLongTimeString(), fragment.GetSecond256FragmentAsMs());
             this.Test(year, month, day, hour, minutes, seconds, fragment, expected);
         }
 
@@ -53,7 +49,7 @@ namespace TestCases.Core.BLE_CharParsers {
         private void Test(ushort year, byte month, byte day, byte hour, byte minutes, byte seconds, byte fragment, string expected) {
             TestHelpersNet.CatchUnexpected(() => {
                 DateTime dt = new DateTime(year, month, day, hour, minutes, seconds, DateTimeKind.Local);
-                TypeParser_ExactTime256 parser = new TypeParser_ExactTime256();
+                TypeParserExactTime256 parser = new TypeParserExactTime256();
                 byte[] data = new byte[parser.RequiredBytes];
                 int pos = 0;
                 year.WriteToBuffer(data, ref pos);

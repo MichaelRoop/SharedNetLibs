@@ -43,6 +43,7 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
 
         protected override void ResetMembers() {
             this.AttributeHandles = new List<ushort>();
+            base.ResetMembers();
         }
 
     }

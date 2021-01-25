@@ -1,19 +1,19 @@
-﻿using System.Globalization;
-using VariousUtils.Net;
+﻿using BluetoothLE.Net.Parsers.Types;
 
 namespace BluetoothLE.Net.Parsers.Characteristics {
 
     public class CharParser_Humidity : CharParser_Base {
 
-        public override int RequiredBytes { get; protected set; } = 2;
+        TypeParserUint16Exp2 parser = new TypeParserUint16Exp2();
+
+        public double Value { get { return this.parser.Value; } }
+
+        public override int RequiredBytes { get; protected set; } =  new TypeParserUint16Exp2().RequiredBytes;
 
 
         protected override void DoParse(byte[] data) {
-            // Each unit is 0.01 percentate - multiply to get real value with 2 decimal exponent 
-            double temp = data.ToUint16(0) * 0.01;
-            // Moved '%' out of the 'ToString' because it killed format
-            this.DisplayString = string.Format("{0}%",
-                temp.ToString("#######0.00", CultureInfo.CurrentCulture));
+            parser.Parse(data);
+            this.DisplayString = string.Format("{0}%", parser.DisplayString);
         }
     }
 

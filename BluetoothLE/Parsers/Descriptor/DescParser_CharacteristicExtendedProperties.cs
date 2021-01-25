@@ -44,6 +44,7 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
             this.ReliableWrite = EnabledDisabled.Disabled;
             this.ReliableAuxiliary = EnabledDisabled.Disabled;
             this.ConvertedData = 0;
+            base.ResetMembers();
         }
 
     }

@@ -22,6 +22,7 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
 
         protected override void ResetMembers() {
             this.Number = 0;
+            base.ResetMembers();
         }
 
     }

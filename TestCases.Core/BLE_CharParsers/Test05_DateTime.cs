@@ -1,10 +1,6 @@
-﻿using BluetoothLE.Net.Parsers.Characteristics;
-using BluetoothLE.Net.Parsers.Characteristics.DataTypes;
+﻿using BluetoothLE.Net.Parsers.Types;
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
 using TestCases.Core.TestToolSet;
 using VariousUtils.Net;
 
@@ -54,7 +50,7 @@ namespace TestCases.Core.BLE_CharParsers {
         [Test]
           public void InsufficientBytes() {
             TestHelpersNet.CatchUnexpected(() => {
-                TypeParser_DateTime parser = new TypeParser_DateTime();
+                TypeParserDateTime parser = new TypeParserDateTime();
                 byte[] data = new byte[4];
                 string result = parser.Parse(data);
                 Assert.AreEqual("", result, "Parse fail");
@@ -72,7 +68,7 @@ namespace TestCases.Core.BLE_CharParsers {
 
         private void Test(ushort year, byte month, byte day, byte hour, byte minutes, byte seconds, string expected) {
             TestHelpersNet.CatchUnexpected(() => {
-                TypeParser_DateTime parser = new TypeParser_DateTime();
+                TypeParserDateTime parser = new TypeParserDateTime();
                 byte[] data = new byte[parser.RequiredBytes];
                 int pos = 0;
                 year.WriteToBuffer(data, ref pos);

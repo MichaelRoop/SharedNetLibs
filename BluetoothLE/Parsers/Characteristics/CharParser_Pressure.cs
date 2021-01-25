@@ -1,19 +1,20 @@
-﻿using System.Globalization;
-using VariousUtils.Net;
+﻿using BluetoothLE.Net.Parsers.Types;
 
 namespace BluetoothLE.Net.Parsers.Characteristics {
 
+    /// <summary>Parse value of 0.1 pascal units from bytes</summary>
     public class CharParser_Pressure : CharParser_Base {
 
-        // uint32
-        public override int RequiredBytes { get; protected set; } = 4;
+        private TypeParserUint32Exp1 parser = new TypeParserUint32Exp1();
 
-        // Note that Arduinos uint are only 16bits. They must be set to unsigned long
+        public double Value { get { return this.parser.Value; } }
+
+        public override int RequiredBytes { get; protected set; } = new TypeParserUint32Exp1().RequiredBytes;
+
 
         protected override void DoParse(byte[] data) {
-            // Each unit is 0.1 pascals - multiply to get real value with 1 decimal exponent 
-            double temp = data.ToUint32(0) * 0.1;
-            this.DisplayString = temp.ToString("#######0.0", CultureInfo.CurrentCulture);
+            this.parser.Parse(data);
+            this.DisplayString = parser.DisplayString;
         }
 
     }

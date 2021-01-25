@@ -40,31 +40,31 @@ namespace TestCases.Core.BLE_CharParsers {
         public void Temperature_3930() {
             // Each value is .01 degrees celcius
             // 3930 * 0.01 == 39.30 Celcius
-            this.TestTemperature(3930, this.GetValueFromZeroPointZeroOneUnits(3930));
+            this.TestTemperature(3930, 39.30, this.GetValueFromZeroPointZeroOneUnits(3930));
         }
 
         [Test]
         public void Temperature_Minus2231() {
-            this.TestTemperature(-2231, this.GetValueFromZeroPointZeroOneUnits(-2231));
+            this.TestTemperature(-2231, -22.31, this.GetValueFromZeroPointZeroOneUnits(-2231));
         }
 
 
         [Test]
         public void Humidity_3801() {
-            this.TestHumidity(3801, this.GetValueFromZeroPointZeroOneUnits(3801)+"%");
+            this.TestHumidity(3801, 38.01, this.GetValueFromZeroPointZeroOneUnits(3801)+"%");
         }
 
 
         [Test]
         public void Pressure_111101() {
-            this.TestPressure(111101, this.GetValueFromZeroPointOneUnits(111101));
+            this.TestPressure(111101, 11110.1, this.GetValueFromZeroPointOneUnits(111101));
         }
 
 
 
         #endregion
         #region Helpers
-        public void TestTemperature(short value, string expected) {
+        public void TestTemperature(short value, double expectedValue, string expected) {
             TestHelpersNet.CatchUnexpected(() => {
                 CharParser_Temperature parser = new CharParser_Temperature();
                 byte[] data = new byte[sizeof(short)];
@@ -73,10 +73,11 @@ namespace TestCases.Core.BLE_CharParsers {
                 string result = parser.Parse(data);
                 LogUtils.Net.Log.Info("TestIOTSensors", "TestTemperature", result);
                 Assert.AreEqual(expected, result, "Parse fail");
+                Assert.AreEqual(expectedValue, parser.Value, "Double value");
             });
         }
 
-        public void TestHumidity(ushort value, string expected) {
+        public void TestHumidity(ushort value, double expectedValue, string expected) {
             TestHelpersNet.CatchUnexpected(() => {
                 CharParser_Humidity parser = new CharParser_Humidity();
                 byte[] data = new byte[sizeof(short)];
@@ -85,10 +86,11 @@ namespace TestCases.Core.BLE_CharParsers {
                 string result = parser.Parse(data);
                 LogUtils.Net.Log.Info("TestIOTSensors", "TestHumidity", result);
                 Assert.AreEqual(expected, result, "Parse fail");
+                Assert.AreEqual(expectedValue, parser.Value, "Double value");
             });
         }
 
-        public void TestPressure(uint value, string expected) {
+        public void TestPressure(uint value, double expectedValue, string expected) {
             TestHelpersNet.CatchUnexpected(() => {
                 CharParser_Pressure parser = new CharParser_Pressure();
                 byte[] data = new byte[sizeof(uint)];
@@ -97,6 +99,7 @@ namespace TestCases.Core.BLE_CharParsers {
                 string result = parser.Parse(data);
                 LogUtils.Net.Log.Info("TestIOTSensors", "TestPressure", result);
                 Assert.AreEqual(expected, result, "Parse fail");
+                Assert.AreEqual(expectedValue, parser.Value, "Double value");
             });
         }
 

@@ -1,4 +1,4 @@
-﻿using BluetoothLE.Net.Parsers.Characteristics.DataTypes;
+﻿using BluetoothLE.Net.Parsers.Types;
 using NUnit.Framework;
 using System;
 using System.Globalization;
@@ -63,7 +63,7 @@ namespace TestCases.Core.BLE_CharParsers {
 
         private void Test(byte bleDay, int day) {
             TestHelpersNet.CatchUnexpected(() => {
-                TypeParser_DayOfWeek parser = new TypeParser_DayOfWeek();
+                TypeParserDayOfWeek parser = new TypeParserDayOfWeek();
                 byte[] data = new byte[parser.RequiredBytes];
                 data[0] = bleDay;
                 string result = parser.Parse(data);

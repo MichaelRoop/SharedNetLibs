@@ -37,6 +37,7 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
         protected override void ResetMembers() {
             this.Broadcasts = EnabledDisabled.Disabled;
             this.ConvertedData = 0;
+            base.ResetMembers();
         }
 
     }
