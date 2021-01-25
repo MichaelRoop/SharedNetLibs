@@ -11,50 +11,26 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
     /// </summary>
     public class DescParser_ServerCharacteristicConfig : DescParser_Base {
 
-        #region Data
-
         private ClassLog log = new ClassLog("DescParser_ServerCharacteristicConfig");
 
-        #endregion
-
-        #region Properties
 
         public EnabledDisabled Broadcasts { get; set; } = EnabledDisabled.Disabled;
+
         public ushort ConvertedData { get; set; }
 
-        #endregion
+        public override int RequiredBytes { get; set; } = UINT16_LEN;
 
-        #region Constructors
-
-        public DescParser_ServerCharacteristicConfig() : base() { }
-
-        public DescParser_ServerCharacteristicConfig(byte[] data) : base(data) { }
-
-        #endregion
-
-        #region Overrides from DescParser_Base
 
         /// <summary>
         /// Reset the object with values parsed from the 2 bytes of data retrieved from the Descriptor
         /// </summary>
         /// <param name="data">The 2 bytes of data returned from the OS descriptor</param>
-        protected override bool DoParse(byte[] data) {
-            if (this.CopyToRawData(data, UINT16_LEN)) {
-                this.ConvertedData = BitConverter.ToUInt16(this.RawData, 0);
-                //   Bit 0 - Broadcasts. Others reserved
-                this.Broadcasts = (this.ConvertedData.IsBitSet(0)) ? EnabledDisabled.Enabled : EnabledDisabled.Disabled;
-                this.log.Info("Reset", () => string.Format("Display:{0}", this.DisplayString()));
-                return true;
-            }
-            return false;
-        }
-
-
-        /// <summary>Assemble a string which displays the results of the parsed values</summary>
-        /// <example>"Broadcasts:Enabled"</example>
-        /// <returns>A display string</returns>
-        protected override string DoDisplayString() {
-            return string.Format("Broadcasts:{0}", this.Broadcasts.ToString());
+        protected override void DoParse(byte[] data) {
+            this.ConvertedData = data.ToUint16(0);
+            //   Bit 0 - Broadcasts. Others reserved
+            this.Broadcasts = (this.ConvertedData.IsBitSet(0)) ? EnabledDisabled.Enabled : EnabledDisabled.Disabled;
+            this.DisplayString = string.Format("Broadcasts:{0}", this.Broadcasts.ToString());
+            this.log.Info("Reset", () => string.Format("Display:{0}", this.DisplayString));
         }
 
 
@@ -68,6 +44,6 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
             return this.GetType();
         }
 
-        #endregion
     }
+
 }

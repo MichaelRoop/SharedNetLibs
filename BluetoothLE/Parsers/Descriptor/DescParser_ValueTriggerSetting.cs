@@ -1,6 +1,7 @@
 ﻿
 using BluetoothLE.Net.Enumerations;
 using System;
+using VariousUtils.Net;
 
 namespace BluetoothLE.Net.Parsers.Descriptor {
 
@@ -33,37 +34,40 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
     /// </remarks>
     public class DescParser_ValueTriggerSetting : DescParser_Base {
 
-
-        #region Properties
-
         public ValueTriggerCondition Condition { get; set; }
 
-        #endregion
-
-        #region Constructors
-
-        public DescParser_ValueTriggerSetting() : base() { }
-        public DescParser_ValueTriggerSetting(byte[] data) : base(data) { }
-
-        #endregion
+        protected override bool IsDataVariableLength { get; set; } = true;
 
 
-        protected override string DoDisplayString() {
-            return "";
-        }
-
-        protected override bool DoParse(byte[] data) {
-            if (this.CopyToRawData(data, 1)) {
-                byte condition = this.RawData[0];
-                if (condition.IsValueTriggerEnum()) {
-                    this.Condition = this.RawData[0].AsValueTriggerEnum();
-                    // TODO - complete parse switch
-                    //switch (this.Condition) {
-                    //}
-
+        protected override void DoParse(byte[] data) {
+            // TODO IMPLEMENT
+            int pos = 0;
+            byte tmp = data.ToByte(ref pos);
+            if (tmp <= (byte)ValueTriggerCondition.NoneNoValueTriggerEvenIfChanged) {
+                this.Condition = tmp.AsValueTriggerEnum();
+                switch (this.Condition) {
+                    case ValueTriggerCondition.None:
+                        break;
+                    case ValueTriggerCondition.AnalogCrossedBoundry:
+                        break;
+                    case ValueTriggerCondition.AnalogReturnedToBoundry:
+                        break;
+                    case ValueTriggerCondition.AnalogStateChanged:
+                        break;
+                    case ValueTriggerCondition.BitMask:
+                        break;
+                    case ValueTriggerCondition.AnalogIntervalInsideOutsideBoundries:
+                        break;
+                    case ValueTriggerCondition.AnalogIntervalOnBoundry:
+                        break;
+                    case ValueTriggerCondition.NoneNoValueTriggerEvenIfChanged:
+                        break;
                 }
+                this.DisplayString = "Not implemented";
             }
-            return false;
+            else {
+                this.DisplayString = "Not handled";
+            }
         }
 
         protected override Type GetDerivedType() {

@@ -1,47 +1,22 @@
 ﻿using LogUtils.Net;
 using System;
+using VariousUtils.Net;
 
 namespace BluetoothLE.Net.Parsers.Descriptor {
 
-    /// <summary>
-    /// Number of Digitals
-    /// (0x2909) Data type: uint8
-    /// </summary>
+    /// <summary> Number of Digitals (0x2909) Data type: uint8 </summary>
     public class DescParser_NumberDigitals : DescParser_Base {
-
-        #region Data
 
         private readonly ClassLog log = new ClassLog("DescParser_NumberDecimals");
 
-        #endregion
-
-        #region Constructors
-
-        public DescParser_NumberDigitals() : base() { }
-        public DescParser_NumberDigitals(byte[] data) : base(data) { }
-
-        #endregion
-
-        #region Properties
-
         public byte Number { get; set; }
 
-        #endregion
+        public override int RequiredBytes { get; set; } = BYTE_LEN;
 
-        #region DescParser_Base overrides
-
-        protected override string DoDisplayString() {
-            return string.Format("Number of Digitals:{0}", this.Number);
-        }
-
-
-        protected override bool DoParse(byte[] data) {
-            if (this.CopyToRawData(data, BYTE_LEN)) {
-                this.Number = this.RawData[0];
-                this.log.Info("DoParse", () => string.Format("Display:{0}", this.DisplayString()));
-                return true;
-            }
-            return false;
+        protected override void DoParse(byte[] data) {
+            this.Number = data.ToByte(0);
+            this.DisplayString = string.Format("Number of Digitals:{0}", this.Number);
+            this.log.Info("DoParse", () => string.Format("Display:{0}", this.DisplayString));
         }
 
 
@@ -54,6 +29,6 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
             this.Number = 0;
         }
 
-        #endregion
     }
+
 }

@@ -14,55 +14,29 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
     /// </remarks>
     public class DescParser_CharacteristicExtendedProperties : DescParser_Base {
 
-        #region Data
-
         private ClassLog log = new ClassLog("DescParser_CharacteristicExtendedProperties");
 
-        #endregion
-
-        #region Properties
 
         public EnabledDisabled ReliableWrite { get; set; } = EnabledDisabled.Disabled;
         public EnabledDisabled ReliableAuxiliary { get; set; } = EnabledDisabled.Disabled;
         public ushort ConvertedData { get; set; }
 
-        #endregion
+        public override int RequiredBytes { get; set; } = UINT16_LEN;
 
-        #region Constructors
-
-        public DescParser_CharacteristicExtendedProperties() : base() { }
-
-
-        public DescParser_CharacteristicExtendedProperties(byte[] data) : base(data) { }
-
-        #endregion
-
-        #region Overrides from DescParser_Base
 
         /// <summary>
         /// Reset the object with values parsed from the 2 bytes of data retrieved from the Descriptor
         /// </summary>
         /// <param name="data">The 2 bytes of data returned from the OS descriptor</param>
-        protected override bool DoParse(byte[] data) {
-            if (this.CopyToRawData(data, UINT16_LEN)) {
-                this.ConvertedData = BitConverter.ToUInt16(this.RawData, 0);
-
-                //   Bit 0 - Reliable Write. Bit 1 Reliable Auxiliary. Others reserved
-                this.ReliableWrite = (this.ConvertedData.IsBitSet(0)) ? EnabledDisabled.Enabled : EnabledDisabled.Disabled;
-                this.ReliableAuxiliary = (this.ConvertedData.IsBitSet(1)) ? EnabledDisabled.Enabled : EnabledDisabled.Disabled;
-                this.log.Info("Reset", () => string.Format("Display:{0}", this.DisplayString()));
-                return true;
-            }
-            return false;
-        }
-
-
-        /// <summary>Assemble a string which displays the results of the parsed values</summary>
-        /// <example>"Broadcasts:Enabled"</example>
-        /// <returns>A display string</returns>
-        protected override string DoDisplayString() {
-            return string.Format("Reliable Write:{0} Reliable Auxiliary:{1}", 
+        protected override void DoParse(byte[] data) {
+            this.ConvertedData = data.ToUint16(0);
+            //   Bit 0 - Reliable Write. Bit 1 Reliable Auxiliary. Others reserved
+            this.ReliableWrite = (this.ConvertedData.IsBitSet(0)) ? EnabledDisabled.Enabled : EnabledDisabled.Disabled;
+            this.ReliableAuxiliary = (this.ConvertedData.IsBitSet(1)) ? EnabledDisabled.Enabled : EnabledDisabled.Disabled;
+            this.DisplayString = 
+                string.Format("Reliable Write:{0} Reliable Auxiliary:{1}",
                 this.ReliableWrite.ToString(), this.ReliableAuxiliary.ToString());
+            this.log.Info("Reset", () => string.Format("Display:{0}", this.DisplayString));
         }
 
 
@@ -77,7 +51,6 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
             return this.GetType();
         }
 
-        #endregion
-
     }
+
 }

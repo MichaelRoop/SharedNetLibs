@@ -33,23 +33,16 @@ namespace TestCases.BLE_DescParsers {
         #region Bogus Test Classes To Provoke exceptions
 
         public class BlowOnSetMembers : DescParser_Base {
-            protected override string DoDisplayString() { return ""; }
-            protected override bool DoParse(byte[] data) { return true; }
+            protected override void DoParse(byte[] data) { }
             protected override Type GetDerivedType() { throw new NotImplementedException(); }
-            public BlowOnSetMembers() : base() { }
-            public BlowOnSetMembers(byte[] data) : base(data) { }
-
             protected override void ResetMembers() {
                 throw new NotImplementedException();
             }
         }
 
         public class BlowOnDoParse : DescParser_Base {
-            protected override string DoDisplayString() { throw new NotImplementedException(); }
-            protected override bool DoParse(byte[] data) { throw new NotImplementedException(); }
+            protected override void DoParse(byte[] data) { throw new NotImplementedException(); }
             protected override Type GetDerivedType() { return this.GetType(); }
-            public BlowOnDoParse() : base() { }
-            public BlowOnDoParse(byte[] data) : base(data) { }
             protected override void ResetMembers() { }
         }
 
@@ -57,29 +50,13 @@ namespace TestCases.BLE_DescParsers {
 
         #endregion
 
-
-        [Test]
-        public void Err13300_ExceptionOnDisplayString() {
-            TestHelpersNet.CatchUnexpected(() => {
-                try {
-                    IDescParser parser = new BlowOnDoParse(new byte[12]);
-                    string result = parser.DisplayString();
-                    Assert.AreEqual("* FAILED *", result);
-                }
-                catch { }
-                this.logReader.Validate(13300, "DescParser_Base", "DisplayString",
-                    "Failed On DoDisplayString");
-            });
-        }
-
-
         [Test]
         public void Err13305_DataZeroLength() {
             TestHelpersNet.CatchUnexpected(() => {
                 IDescParser parser = new DescParser_PresentationFormat();
                 byte[] data = new byte[0];
                 parser.Parse(data);
-                this.logReader.Validate(13305, "DescParser_Base", "Parse", "byte[] is zero length");
+                this.logReader.Validate(13305, "DescParser_Base", "CopyToRawData", "byte[] is zero length");
             });
         }
 
@@ -89,7 +66,7 @@ namespace TestCases.BLE_DescParsers {
             TestHelpersNet.CatchUnexpected(() => {
                 IDescParser parser = new DescParser_PresentationFormat();
                 parser.Parse(null);
-                this.logReader.Validate(13306, "DescParser_Base", "Parse", "Raw byte[] is null");
+                this.logReader.Validate(13316, "DescParser_Base", "CopyToRawData", "Raw byte[] is null");
             });
         }
 
@@ -132,24 +109,6 @@ namespace TestCases.BLE_DescParsers {
                 this.logReader.Validate(13325, "DescParser_Base", ".ctor", "Failed on construction");
             });
         }
-
-        [Test]
-        public void Err13326_ExceptionOnConstructionWithParams() {
-            TestHelpersNet.CatchUnexpected(() => {
-                try {
-                    IDescParser parser = new BlowOnSetMembers(new byte[12]);
-                }
-                catch { }
-                this.logReader.Validate(13326, "DescParser_Base", ".ctor", "Failed on construction");
-            });
-        }
-
-
-
-
-        //BlowOnSetMembers
-
-
 
     }
 }

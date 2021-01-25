@@ -1,8 +1,8 @@
 ﻿using LogUtils.Net;
 using System;
+using VariousUtils.Net;
 
 namespace BluetoothLE.Net.Parsers.Descriptor {
-
 
     /// <summary>
     /// Parse value returned from Valid Range Descriptor
@@ -13,73 +13,42 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
     /// ex: 0x020x0D == 2-13
     /// ex: 0x58 0x02 0x20 0x1C == 600 - 7,200 seconds
     /// see: https://www.bluetooth.com/xml-viewer/?src=https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Descriptors/org.bluetooth.descriptor.valid_range.xml
-    /// 
-    /// 
     /// </remarks>
     public class DescParser_ValidRange : DescParser_Base {
 
-        #region Data
-
         private ClassLog log = new ClassLog("DescParser_ValidRange");
 
-        #endregion
-
-        #region Properties
 
         public ushort Min { get; set; } = 0;
         public ushort Max { get; set; } = 0;
         public uint ConvertedData { get; set; }
-
-        #endregion
-
-        #region Constructors
-
-        public DescParser_ValidRange() {
-            this.ResetMembers();
-        }
+        protected override bool IsDataVariableLength { get; set; } = true;
 
 
-        public DescParser_ValidRange(byte[] data) {
-            this.Parse(data);
-        }
-
-        #endregion
-
-        #region Overrides from DescParser_Base
-
-        protected override bool DoParse(byte[] data) {
-            this.ResetMembers();
-
+        protected override void DoParse(byte[] data) {
             // TODO - revisit this. Seems that each of the two values are based on the kind of 
             // Characteristic it is attached to
             // Hex values 2 or 4 bytes
             // ex: 0x020x0D == 2-13
             // ex: 0x58 0x02 0x20 0x1C == 600 - 7,200 seconds
             // see: https://www.bluetooth.com/xml-viewer/?src=https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Descriptors/org.bluetooth.descriptor.valid_range.xml
-            int count = (data.Length >= UINT32_LEN) ? UINT32_LEN : UINT16_LEN;
-            if (this.CopyToRawData(data, count)) {
-                if (count == UINT32_LEN) {
-                    this.ConvertedData = BitConverter.ToUInt32(this.RawData, 0);
-                    // TODO convert from hex
-                    this.Min = BitConverter.ToUInt16(this.RawData, 0);
-                    this.Max = BitConverter.ToUInt16(this.RawData, 2);
-                    // TODO - lot more work to do. Exponents lookup etc. see spec
-                    this.log.Info("DoParse", () => string.Format("Display:{0}", this.DisplayString()));
-                }
-                else {
-                    // Two 1 byte numbers
-                    this.ConvertedData = BitConverter.ToUInt16(this.RawData, 0);
-                    this.Min = this.RawData[0];
-                    this.Max = this.RawData[1];
-                }
-                return true;
+            int pos = 0;
+            if (data.Length >= UINT32_LEN) {
+                this.ConvertedData = data.ToUint32(0);
+                // TODO convert from hex
+                this.Min = data.ToUint16(ref pos);
+                this.Max = data.ToUint16(ref pos);
+                // TODO - lot more work to do. Exponents lookup etc. see spec
             }
-            return false;
-        }
+            else {
+                // Two 1 byte numbers
+                this.ConvertedData = data.ToUint16(0);
+                this.Min = data.ToByte(ref pos);
+                this.Max = data.ToByte(ref pos);
+            }
 
-
-        protected override string DoDisplayString() {
-            return string.Format("Min:{0} Max:{1}", this.Min, this.Max);
+            this.DisplayString = string.Format("Min:{0} Max:{1}", this.Min, this.Max);
+            this.log.Info("DoParse", () => string.Format("Display:{0}", this.DisplayString));
         }
 
 
@@ -94,7 +63,6 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
             return this.GetType();
         }
 
-        #endregion
-
     }
+
 }

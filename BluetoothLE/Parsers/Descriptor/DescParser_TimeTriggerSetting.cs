@@ -1,6 +1,7 @@
 ﻿using BluetoothLE.Net.Enumerations;
 using LogUtils.Net;
 using System;
+using VariousUtils.Net;
 
 namespace BluetoothLE.Net.Parsers.Descriptor {
 
@@ -35,16 +36,12 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
 
         public bool IsValid { get; set; } = false;
 
-        #endregion
-
-        #region Constructors
-
-        public DescParser_TimeTriggerSetting() : base() { }
-        public DescParser_TimeTriggerSetting(byte[] data) : base(data) { }
+        protected override bool IsDataVariableLength { get; set; } = true;
 
         #endregion
 
-        protected override string DoDisplayString() {
+
+        private string BuildDisplayString() {
             if (this.IsValid) {
                 switch (this.Condition) {
                     case TimeTriggerCondition.None:
@@ -63,25 +60,38 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
             }
         }
 
-        protected override bool DoParse(byte[] data) {
+        protected override void DoParse(byte[] data) {
             // first need to read the condition to determine the values size
-            if (this.CopyToRawData(data, BYTE_LEN)) {
-                int readSize = BYTE_LEN;
-                if (this.RawData[0] <= (byte)TimeTriggerCondition.Count) {
-                    this.Condition = (TimeTriggerCondition)this.RawData[0];
-                    readSize += this.GetValueSize(this.Condition);
-                    if (this.CopyToRawData(data, readSize)) {
-                        this.SetValue(this.Condition, data);
-                        this.IsValid = true;
-                        return true;
-                    }
-                }
-                else {
-                    this.log.Error(9999, "", () => string.Format("Condition {0} not handled", this.RawData[0]));
-                }
+            int pos = 0;
+            byte tmp = data.ToByte(ref pos);
+            if (tmp > (byte)TimeTriggerCondition.Count) {
+                this.DisplayString = "Trigger condition not handled";
+                return;
             }
-            return false;
+            this.Condition = (TimeTriggerCondition)tmp;
+            switch (this.Condition) {
+                case TimeTriggerCondition.Count:
+                    this.Count = data.ToUint16(ref pos);
+                    this.IsValid = true;
+                    break;
+                case TimeTriggerCondition.None:
+                    this.NoneValue = data.ToByte(ref pos);
+                    this.IsValid = true;
+                    break;
+                case TimeTriggerCondition.TimeIntervalContinuousAfterSettableTime:
+                case TimeTriggerCondition.TimeIntervalOnTimeExpiredOrDifferentState:
+                    // TODO How to copy the 3 bytes for the BLE seconds time data
+                    this.TimeInterval = 9999;
+                    this.IsValid = true;
+                    break;
+                default:
+                    // should never happen. just to satisfy compiler
+                    break;
+            }
+
+            this.DisplayString = this.BuildDisplayString();
         }
+
 
         protected override Type GetDerivedType() {
             return this.GetType();
@@ -95,43 +105,6 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
             this.IsValid = false;
         }
 
-
-        private int GetValueSize(TimeTriggerCondition triggerType) {
-            switch (triggerType) {
-                case TimeTriggerCondition.Count:
-                    return UINT16_LEN;
-                case TimeTriggerCondition.None:
-                    return BYTE_LEN;
-                case TimeTriggerCondition.TimeIntervalContinuousAfterSettableTime:
-                case TimeTriggerCondition.TimeIntervalOnTimeExpiredOrDifferentState:
-                    return TIMESECOND_LEN;
-                default:
-                    // should never happen. just to satisfy compiler
-                    return BYTE_LEN;
-            }
-        }
-
-
-        private void SetValue(TimeTriggerCondition triggerType, byte[] data) {
-            switch (triggerType) {
-                case TimeTriggerCondition.Count:
-                    this.Count = BitConverter.ToUInt16(data, 1);
-                    break;
-                case TimeTriggerCondition.None:
-                    this.NoneValue = data[1];
-                    break;
-                case TimeTriggerCondition.TimeIntervalContinuousAfterSettableTime:
-                case TimeTriggerCondition.TimeIntervalOnTimeExpiredOrDifferentState:
-                    // TODO How to copy the 3 bytes for the BLE seconds time data
-                    this.TimeInterval = 9999;
-                    break;
-                default:
-                    // should never happen. just to satisfy compiler
-                    break;
-            }
-        }
-
-
-
     }
+
 }

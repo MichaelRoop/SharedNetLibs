@@ -12,37 +12,33 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
         private ClassLog baseLog = new ClassLog("DescParser_Base");
 
         /// <summary>Number of bytes in byte field</summary>
-        protected readonly int BYTE_LEN = 1;
+        protected const int BYTE_LEN = 1;
         /// <summary>Number of bytes for uint16 field</summary>
-        protected readonly int UINT16_LEN = sizeof(ushort);
+        protected const int UINT16_LEN = sizeof(ushort);
         /// <summary>Number of bytes for uint32 field</summary>
-        protected readonly int UINT32_LEN = sizeof(uint);
+        protected const int UINT32_LEN = sizeof(uint);
         /// <summary>Number of bytes for time second field</summary>
-        protected readonly int TIMESECOND_LEN = 3; // 3 bytes, 24bit
-
+        protected const int TIMESECOND_LEN = 3; // 3 bytes, 24bit
 
         #endregion
 
-        #region IDescParser Propertis and methods
-
         /// <summary>Raw bytes as returned from Descriptor retrieval</summary>
-        public byte[] RawData { get; private set; } = new byte[0];
+        private byte[] RawData { get; set; } = new byte[0];
+
+        protected virtual bool IsDataVariableLength { get; set; } = false;
+
+
+        #region IDescParser Propertis and methods
 
         /// <summary>Type of derived class to determine cast for specific Property with data</summary>
         public Type ImplementationType { get; private set; } = typeof(DescParser_Base);
 
 
-        /// <summary>Provides a string of the parsed data for display</summary>
-        /// <returns>A display string</returns>
-        public string DisplayString() {
-            try {
-                return this.DoDisplayString();
-            }
-            catch(Exception e) {
-                this.baseLog.Exception(13300, "DisplayString", "Failed On DoDisplayString", e);
-                return "* FAILED *";
-            }
-        }
+        /// <summary>The number of bytes the parser requires</summary>
+        public virtual int RequiredBytes { get; set; } = 0;
+
+        /// <summary>User friendly display of descriptor value(s)</summary>
+        public string DisplayString { get; set; } = "";
 
 
         /// <summary>Parse out the bytes returned from querying Descriptor</summary>
@@ -53,26 +49,18 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
             try {
                 // Make sure zero out raw value. 
                 this.RawData = new byte[0];
+                this.DisplayString = "";
                 // Do not need to reset type. Done on construction
                 this.ResetMembers();
-                if (data != null) {
-                    if (data.Length > 0) {
-                        if (this.DoParse(data)) {
-                            return this.DisplayString();
-                        }
-                    }
-                    else {
-                        this.baseLog.Error(13305, "Parse", "byte[] is zero length");
-                    }
+                if (this.CopyToRawData(data)) {
+                    this.DoParse(this.RawData);
                 }
-                else {
-                    this.baseLog.Error(13306, "Parse", "Raw byte[] is null");
-                }
+                return this.DisplayString;
             }
             catch (Exception e) {
                 this.baseLog.Exception(13307, "Parse", "Failure on Parse", e);
+                return "ERR";
             }
-            return "* N/A *";
         }
 
         #endregion
@@ -87,13 +75,6 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
             });
         }
 
-        public DescParser_Base(byte[] data) {
-            WrapErr.ToErrorReportException(13326, "Failed on construction", () => {
-                this.ImplementationType = this.GetDerivedType();
-                this.Parse(data);
-            });
-        }
-
         #endregion
 
 
@@ -103,19 +84,25 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
         /// <param name="data">The data to copy</param>
         /// <param name="length">The length of data to copy</param>
         /// <returns>true on success, otherwise false on exception or if data null or smaller than length</returns>
-        protected bool CopyToRawData(byte[] data, int length) {
+        private bool CopyToRawData(byte[] data) {
             try {
                 if (data != null) {
-                    if (data.Length >= length) {
-                        this.RawData = new byte[length];
-                        Array.Copy(data, this.RawData, this.RawData.Length);
-                        this.baseLog.Info("CopyToRawData", () => string.Format("Data:{0}", this.RawData.ToHexByteString()));
-                        return true;
+                    if (data.Length > 0) {
+                        this.SetDataLengthIfVariable(data);
+                        if (data.Length >= this.RequiredBytes) {
+                            this.RawData = new byte[this.RequiredBytes];
+                            Array.Copy(data, this.RawData, this.RawData.Length);
+                            this.baseLog.Info("CopyToRawData", () => string.Format("Data:{0}", this.RawData.ToHexByteString()));
+                            return true;
+                        }
+
+                        this.baseLog.Error(13315, "CopyToRawData",
+                            () => string.Format("Data length:{0} smaller than requested:{1} Data '{2}'",
+                            data.Length, this.RequiredBytes, data.ToHexByteString()));
                     }
                     else {
-                        this.baseLog.Error(13315, "CopyToRawData", 
-                            () => string.Format("Data length:{0} smaller than requested:{1} Data '{2}'", 
-                            data.Length, length, data.ToHexByteString()));
+                        // Change in the xml
+                        this.baseLog.Error(13305, "CopyToRawData", "byte[] is zero length");
                     }
                 }
                 else {
@@ -124,8 +111,16 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
             }
             catch (Exception e) {
                 this.baseLog.Exception(13317, "CopyToRawData", "Failed on CopyToRaw", e);
+                this.DisplayString = "ERR";
             }
             return false;
+        }
+
+
+        private void SetDataLengthIfVariable(byte[] data) {
+            if (this.IsDataVariableLength) {
+                this.RequiredBytes = data.Length;
+            }
         }
 
 
@@ -133,8 +128,7 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
 
         /// <summary>Parse data according to derived. Null and zero length data checked</summary>
         /// <param name="data">The data to parse</param>
-        /// <returns>true on success, otherwise false</returns>
-        protected abstract bool DoParse(byte[] data);
+        protected abstract void DoParse(byte[] data);
 
 
         /// <summary>
@@ -148,12 +142,6 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
         /// <summary>Override to provide type for future cast of specific data fields</summary>
         /// <returns>The type of the derived class</returns>
         protected abstract Type GetDerivedType();
-
-
-        /// <summary>Provides a string of the derived class parsed data for display</summary>
-        /// <returns>A display string</returns>
-        protected abstract string DoDisplayString();
-
 
         #endregion
 

@@ -60,47 +60,31 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
         /// </summary>
         public ushort Description { get; set; }
 
-        #endregion
 
-        #region Constructors
-
-        public DescParser_PresentationFormat() : base() { }
-        public DescParser_PresentationFormat(byte[] data) : base(data) { }
+        public override int RequiredBytes { get; set; } = 7;
 
         #endregion
 
         #region DescParser_Base overrides
 
-        protected override string DoDisplayString() {
-            return string.Format(
-                "Format:{0} Exponent:{1} Unit:{2} (0x{3:X4}) Namespace:{4} Description Enum:{5}",
-                this.Format, 
-                this.Exponent, 
-                this.MeasurementUnitsEnum.ToString().CamelCaseToSpaces(),
-                this.MeasurementUnitUShort, 
-                this.Namespace == 1 ? "Bluetooth SIG (1)" : this.Namespace.ToString(), 
-                this.Description);
-        }
+        protected override void DoParse(byte[] data) {
+            int pos = 0;
+            this.Format = this.GetFormat(ByteHelpers.ToByte(data, ref pos));
+            this.Exponent = data.ToSByte(ref pos);
+            this.MeasurementUnitUShort = data.ToUint16(ref pos);
+            this.MeasurementUnitsEnum = this.GetUnitOfMeasurement(this.MeasurementUnitUShort);
+            this.Namespace = data.ToByte(ref pos);
+            this.Description = data.ToUint16(ref pos);
 
-
-        protected override bool DoParse(byte[] data) {
-            // Length of 5 fields
-            int len = 
-                BYTE_LEN +      // Format
-                BYTE_LEN +      // Exponent
-                UINT16_LEN +    // Unit
-                BYTE_LEN +      // Namespace
-                UINT16_LEN;     // Description
-            if (this.CopyToRawData(data, len)) {
-                this.Format = this.GetFormat(this.RawData[0]);
-                this.Exponent = (sbyte)this.RawData[1];
-                this.MeasurementUnitUShort = BitConverter.ToUInt16(this.RawData, 2);
-                this.MeasurementUnitsEnum = this.GetUnitOfMeasurement(this.MeasurementUnitUShort);
-                this.Namespace = this.RawData[4];
-                this.Description = BitConverter.ToUInt16(this.RawData, 5);
-                return true;
-            }
-            return false;
+            this.DisplayString = 
+                string.Format(
+                    "Format:{0} Exponent:{1} Unit:{2} (0x{3:X4}) Namespace:{4} Description Enum:{5}",
+                    this.Format,
+                    this.Exponent,
+                    this.MeasurementUnitsEnum.ToString().CamelCaseToSpaces(),
+                    this.MeasurementUnitUShort,
+                    this.Namespace == 1 ? "Bluetooth SIG (1)" : this.Namespace.ToString(),
+                    this.Description);
         }
 
 
@@ -126,7 +110,7 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
                 this.log.Error(13340, "GetFormat", () => string.Format("Format:{0} not handled", value));
                 return DataFormatEnum.Unhandled;
             }
-            return (DataFormatEnum)this.RawData[0];
+            return (DataFormatEnum)value;
         }
 
 
@@ -140,8 +124,8 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
             return UnitsOfMeasurement.NOT_HANDLED;
         }
 
-
         #endregion
 
     }
+
 }

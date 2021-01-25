@@ -1,6 +1,7 @@
 ﻿using BluetoothLE.Net.Enumerations;
 using LogUtils.Net;
 using System;
+using VariousUtils.Net;
 
 namespace BluetoothLE.Net.Parsers.Descriptor {
 
@@ -11,42 +12,22 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
     /// </summary>
     public class DescParser_ReportReference : DescParser_Base {
 
-        #region Data
-
         private ClassLog log = new ClassLog("DescParser_ReportReference");
 
-        #endregion
-
-        #region Properties
 
         public ReportType TypeOfReport { get; set; } = ReportType.Input;
+
         public byte ConvertedData { get; set; }
 
-        #endregion
-
-        #region Constructors
-
-        public DescParser_ReportReference() : base() { }
+        public override int RequiredBytes { get; set; } = BYTE_LEN;
 
 
-        public DescParser_ReportReference(byte[] data) : base(data) { }
 
-        #endregion
-
-        #region Overrides from DescParser_Base
-
-        protected override bool DoParse(byte[] data) {
-            if (this.CopyToRawData(data, BYTE_LEN)) {
-                this.ConvertedData = this.RawData[0];
-                this.TypeOfReport = this.GetReportType(this.ConvertedData);
-                this.log.Info("Parse", () => string.Format("Display:{0}", this.DisplayString()));
-                return true;
-            }
-            return false;
-        }
-
-        protected override string DoDisplayString() {
-            return this.TypeOfReport.ToString();
+        protected override void DoParse(byte[] data) {
+            this.ConvertedData = data.ToByte(0);
+            this.TypeOfReport = this.GetReportType(this.ConvertedData);
+            this.DisplayString = this.TypeOfReport.ToString();
+            this.log.Info("Parse", () => string.Format("Display:{0}", this.DisplayString));
         }
 
 
@@ -60,9 +41,6 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
             return this.GetType();
         }
 
-        #endregion
-
-        #region Private
 
         private ReportType GetReportType(byte value) {
             // Report ID   uint8  0-255 - report ID and Type
@@ -79,7 +57,6 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
             }
         }
 
-        #endregion
-
     }
+
 }
