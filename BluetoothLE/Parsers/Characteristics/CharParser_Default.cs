@@ -1,4 +1,5 @@
-﻿using LogUtils.Net;
+﻿using BluetoothLE.Net.Parsers.Descriptor;
+using LogUtils.Net;
 using VariousUtils.Net;
 
 namespace BluetoothLE.Net.Parsers.Characteristics {
@@ -12,6 +13,17 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
 
         protected override void DoParse(byte[] data) {
+            DescParser_PresentationFormat format = null;
+
+            foreach (var desc in this.DescriptorParsers) {
+                if (desc.ImplementationType == typeof(DescParser_PresentationFormat)){
+                    format = desc as DescParser_PresentationFormat;
+                }
+            }
+
+            // Use the format descriptor for data display format.Format
+
+
             this.DisplayString = data.ToFormatedByteString();
             this.log.Info("DoParse", () => string.Format("NOT IMPLEMENTED Display:{0}", this.DisplayString));
         }

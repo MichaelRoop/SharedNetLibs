@@ -2,6 +2,7 @@
 using ChkUtils.Net;
 using LogUtils.Net;
 using System;
+using System.Collections.Generic;
 using VariousUtils.Net;
 
 namespace BluetoothLE.Net.Parsers.Characteristics {
@@ -22,8 +23,15 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
         protected virtual bool IsDataVariableLength { get; set; } = false;
 
+        protected List<IDescParser> DescriptorParsers { get; private set; }
 
         public string DisplayString { get; protected set; } = "";
+
+
+        public void SetDescriptorParsers(List<IDescParser> descParsers) {
+            this.DescriptorParsers = descParsers;
+        }
+
 
         public string Parse(byte[] data) {
             try {
@@ -110,7 +118,6 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                 this.RequiredBytes = data.Length;
             }
         }
-
 
         #endregion
 
