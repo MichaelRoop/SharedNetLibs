@@ -96,36 +96,6 @@ namespace TestCases.BLE_DescParsers {
 
 
 
-        [Test]
-        public void WithDefaultChar_FormatString() {
-            TestHelpersNet.CatchUnexpected(() => {
-                IDescParser parser = new DescParser_PresentationFormat();
-                byte[] data = this.GetBlock(DataFormatEnum.UTF8_String, UnitsOfMeasurement.Unitless);
-                string result = parser.Parse(data);
-                this.log.Info("WithDefaultChar_FormatString", 
-                    () => string.Format("Format Desc Display:{0}", result));
-
-                List<IDescParser> descriptors = new List<IDescParser>();
-                descriptors.Add(parser);
-
-                ICharParser charParser = new CharParser_Default();
-                charParser.SetDescriptorParsers(descriptors);
-
-                string str = "This is a sample string for formating";
-                result = charParser.Parse(Encoding.UTF8.GetBytes(str));
-                this.log.Info("WithDefaultChar_FormatString", 
-                    () => string.Format("Default Char Display '{0}'", result));
-                Assert.AreEqual(str, result);
-
-            });
-        }
-
-
-
-
-
-
-
         #region GetBlock
 
         private byte[] GetBlock() {
