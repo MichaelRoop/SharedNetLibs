@@ -69,7 +69,7 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
 
         protected override void DoParse(byte[] data) {
             int pos = 0;
-            this.Format = this.GetFormat(ByteHelpers.ToByte(data, ref pos));
+            this.Format = this.GetFormat(data.ToByte(ref pos));
             this.Exponent = data.ToSByte(ref pos);
             this.MeasurementUnitUShort = data.ToUint16(ref pos);
             this.MeasurementUnitsEnum = this.GetUnitOfMeasurement(this.MeasurementUnitUShort);

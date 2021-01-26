@@ -145,6 +145,14 @@ namespace VariousUtils.Net {
         }
 
 
+        public static float ToFloat32(this byte[] data, int pos) {
+            if (BitConverter.IsLittleEndian) {
+                return BitConverter.ToSingle(data, pos);
+            }
+            return BitConverter.ToSingle(data, pos).ReverseBytes();
+        }
+
+
         public static byte[] ToByteArray(this byte[] data, int length, int pos) {
             byte[] block = new byte[length];
             Array.Copy(data, pos, block, 0, block.Length);
@@ -208,6 +216,12 @@ namespace VariousUtils.Net {
         public static Int64 ToInt64(this byte[] data, ref int pos) {
             Int64 tmp = data.ToInt64(pos);
             pos += sizeof(Int64);
+            return tmp;
+        }
+
+        public static float ToFloat32(this byte[] data, ref int pos) {
+            float tmp = data.ToFloat32(pos);
+            pos += sizeof(float);
             return tmp;
         }
 
@@ -299,6 +313,11 @@ namespace VariousUtils.Net {
 
         public static Int32 ReverseBytes(this Int32 value) {
             return (Int32)((UInt32)value).ReverseBytes();
+        }
+
+
+        public static float ReverseBytes(this float value) {
+            return (float)((UInt32)value).ReverseBytes();
         }
 
 
