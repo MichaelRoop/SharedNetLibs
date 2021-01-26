@@ -35,6 +35,9 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                             case GattNativeCharacteristicUuid.FirmwareRevisionString:
                             case GattNativeCharacteristicUuid.SerialNumberString:
                             case GattNativeCharacteristicUuid.SoftwareRevisionString:
+                            case GattNativeCharacteristicUuid.FirstName:
+                            case GattNativeCharacteristicUuid.Language:
+                            case GattNativeCharacteristicUuid.LocationName:
                                 return new CharParser_String();
                             #endregion
                             #region Assigned parsers
@@ -50,8 +53,12 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                                 return new CharParser_BatteryLevel();
                             case GattNativeCharacteristicUuid.CurrentTime:
                                 return new CharParser_CurrentTime();
+                            
                             case GattNativeCharacteristicUuid.DateTime:
+                            case GattNativeCharacteristicUuid.ObjectFirstCreated:
+                            case GattNativeCharacteristicUuid.ObjectLastModified:
                                 return new TypeParserDateTime();
+
                             case GattNativeCharacteristicUuid.DayDateTime:
                                 return new TypeParserDayDateTime();
                             case GattNativeCharacteristicUuid.DayofWeek:
@@ -79,9 +86,10 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                             // will need to sort all of these
                             case GattNativeCharacteristicUuid.DateOfBirth:
                                 return new CharParser_DateOfBirth();
-
                             case GattNativeCharacteristicUuid.AlertStatus:
                                 return new CharParser_AlertStatus();
+                            case GattNativeCharacteristicUuid.Altitude:
+                                return new CharParser_Uint16();
 
                             #endregion
 
@@ -96,6 +104,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                             case GattNativeCharacteristicUuid.AnaerobicThreshold:
                             // regular uint8
                             case GattNativeCharacteristicUuid.Age:
+                            case GattNativeCharacteristicUuid.FloorNumber:
                                 return new CharParser_Uint8();
                             #endregion
 
@@ -200,7 +209,6 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                             case GattNativeCharacteristicUuid.EmailAddress:
                             case GattNativeCharacteristicUuid.FatBurnHeartRateLowerLimit:
                             case GattNativeCharacteristicUuid.FatBurnHeartRateUpperLimit:
-                            case GattNativeCharacteristicUuid.FirstName:
                             case GattNativeCharacteristicUuid.FiveZoneHeartRateLimits:
                             case GattNativeCharacteristicUuid.Gender:
                             case GattNativeCharacteristicUuid.HeartRateMax:
@@ -224,7 +232,6 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                             case GattNativeCharacteristicUuid.UserControlPoint:
                             case GattNativeCharacteristicUuid.MagneticFluxDensity2d:
                             case GattNativeCharacteristicUuid.MagneticFluxDensity3d:
-                            case GattNativeCharacteristicUuid.Language:
                             case GattNativeCharacteristicUuid.BarometricPressureTrend:
                             case GattNativeCharacteristicUuid.BondManagementControlPoint:
                             case GattNativeCharacteristicUuid.BondManagementFeature:
@@ -240,10 +247,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                             case GattNativeCharacteristicUuid.Longitude:
                             case GattNativeCharacteristicUuid.LocalNorthCoordinate:
                             case GattNativeCharacteristicUuid.LocalEastCoordinate:
-                            case GattNativeCharacteristicUuid.FloorNumber:
-                            case GattNativeCharacteristicUuid.Altitude:
                             case GattNativeCharacteristicUuid.Uncertainty:
-                            case GattNativeCharacteristicUuid.LocationName:
                             case GattNativeCharacteristicUuid.Uri:
                             case GattNativeCharacteristicUuid.HttpPHeaders:
                             case GattNativeCharacteristicUuid.HttpStatusCode:
@@ -255,8 +259,6 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                             case GattNativeCharacteristicUuid.ObjectName:
                             case GattNativeCharacteristicUuid.ObjectType:
                             case GattNativeCharacteristicUuid.ObjectSize:
-                            case GattNativeCharacteristicUuid.ObjectFirstCreated:
-                            case GattNativeCharacteristicUuid.ObjectLastModified:
                             case GattNativeCharacteristicUuid.ObjectId:
                             case GattNativeCharacteristicUuid.ObjectProperties:
                             case GattNativeCharacteristicUuid.ObjectActionControlPoint:
