@@ -251,6 +251,71 @@ namespace VariousUtils.Net {
 
         #region Write to buffer
 
+        //----------------------------------------------------------------------------------------------------
+
+        public static void WriteToBuffer(this byte value, byte[] buffer, int pos) {
+            // BitConverter will cast to 16 bit value
+            buffer[pos] = value;
+        }
+
+
+        public static void WriteToBuffer(this sbyte value, byte[] buffer, int pos) {
+            // BitConverter will cast to 16 bit value
+            buffer[pos] = (byte)value;
+        }
+
+
+        public static void WriteToBuffer(this UInt16 value, byte[] buffer, int pos) {
+            byte[] block = BitConverter.GetBytes(value);
+            Array.Copy(block, 0, buffer, pos, block.Length);
+        }
+
+
+        public static void WriteToBuffer(this Int16 value, byte[] buffer, int pos) {
+            byte[] block = BitConverter.GetBytes(value);
+            Array.Copy(block, 0, buffer, pos, block.Length);
+        }
+
+
+        public static void WriteToBuffer(this UInt32 value, byte[] buffer, int pos) {
+            byte[] block = BitConverter.GetBytes(value);
+            Array.Copy(block, 0, buffer, pos, block.Length);
+        }
+
+
+        public static void WriteToBuffer(this Int32 value, byte[] buffer, int pos) {
+            byte[] block = BitConverter.GetBytes(value);
+            Array.Copy(block, 0, buffer, pos, block.Length);
+        }
+
+
+        public static void WriteToBuffer(this UInt64 value, byte[] buffer, int pos) {
+            byte[] block = BitConverter.GetBytes(value);
+            Array.Copy(block, 0, buffer, pos, block.Length);
+        }
+
+
+        public static void WriteToBuffer(this Int64 value, byte[] buffer, int pos) {
+            byte[] block = BitConverter.GetBytes(value);
+            Array.Copy(block, 0, buffer, pos, block.Length);
+        }
+
+
+        public static void WriteToBuffer(this float value, byte[] buffer, int pos) {
+            byte[] block = BitConverter.GetBytes(value);
+            Array.Copy(block, 0, buffer, pos, block.Length);
+        }
+
+
+        public static void WriteToBuffer(this double value, byte[] buffer, int pos) {
+            byte[] block = BitConverter.GetBytes(value);
+            Array.Copy(block, 0, buffer, pos, block.Length);
+        }
+
+        //----------------------------------------------------------------------------------------------------
+
+
+
         public static void WriteToBuffer(this byte value, byte[] buffer, ref int pos) {
             // BitConverter will cast to 16 bit value
             buffer[pos] = value;
