@@ -21,6 +21,8 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
             foreach (var desc in this.DescriptorParsers) {
                 if (desc is DescParser_PresentationFormat){
                     format = desc as DescParser_PresentationFormat;
+                    // Not handling multiple presentation format descriptors and aggregage formating
+                    break;
                 }
             }
 
@@ -63,23 +65,23 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                 case Enumerations.DataFormatEnum.UInt_4bit:
                     return ((byte)(((int)data.ToByte(0)) & 0xF)).ToString();
                 case Enumerations.DataFormatEnum.UInt_8bit:
-                    return data.ToByte(0).ToString();
+                    return data.ToByte(0).Calculate(exp, exp).ToStr(exp);
                 case Enumerations.DataFormatEnum.UInt_12bit:
-                    return ((ushort)(((int)data.ToUint16(0)) & 0xFFF)).ToString();
+                    return ((ushort)(((int)data.ToUint16(0)) & 0xFFF)).Calculate(exp, exp).ToStr(exp);
                 case Enumerations.DataFormatEnum.UInt_16bit:
-                    return data.ToUint16(0).ToString();
+                    return data.ToUint16(0).Calculate(exp, exp).ToStr(exp);
                 case Enumerations.DataFormatEnum.UInt_24bit:
                     tmp = new byte[4];
                     Array.Copy(data, 0, tmp, 0, 3);
-                    return ((uint)(((int)tmp.ToUint32(0)) & 0xFFFFFF)).ToString();
+                    return ((uint)(((int)tmp.ToUint32(0)) & 0xFFFFFF)).Calculate(exp, exp).ToStr(exp);
                 case Enumerations.DataFormatEnum.UInt_32bit:
                     return data.ToUint32(0).Calculate(exp, exp).ToStr(exp);
                 case Enumerations.DataFormatEnum.UInt_48bit:
                     tmp = new byte[8];
                     Array.Copy(data, 0, tmp, 0, 6);
-                    return ((UInt64)((tmp.ToUint64(0)) & 0xFFFFFFFFFFFF)).ToString();
+                    return ((UInt64)((tmp.ToUint64(0)) & 0xFFFFFFFFFFFF)).Calculate(exp, exp).ToStr(exp);
                 case Enumerations.DataFormatEnum.UInt_64bit:
-                    return data.ToUint64(0).ToString();
+                    return data.ToUint64(0).Calculate(exp, exp).ToStr(exp);
                 case Enumerations.DataFormatEnum.UInt_128bit:
                     // Will not support this
                     return data.ToFormatedByteString();
@@ -87,7 +89,8 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                 //------------------------------------------------------
                 // Signed values
                 case Enumerations.DataFormatEnum.Int_8bit:
-                    return data.ToSByte(0).ToString();
+                    return data.ToSByte(0).Calculate(exp, exp).ToStr(exp);
+                    //return data.ToSByte(0).ToString();
                 case Enumerations.DataFormatEnum.Int_12bit:
                     tmp = new byte[2];
                     Array.Copy(data, 0, tmp, 0, 2);

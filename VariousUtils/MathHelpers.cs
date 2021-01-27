@@ -12,6 +12,13 @@ namespace VariousUtils.Net {
         }
 
 
+        public static double Calculate(this byte value, double exponent, int digits) {
+            return Calculate((double)value, exponent, digits);
+        }
+
+        public static double Calculate(this sbyte value, double exponent, int digits) {
+            return Calculate((double)value, exponent, digits);
+        }
 
 
         public static double Calculate(this UInt16 value, double exponent, int digits) {
@@ -30,6 +37,13 @@ namespace VariousUtils.Net {
             return Calculate((double)value, exponent, digits);
         }
 
+        public static double Calculate(this long value, double exponent, int digits) {
+            return Calculate((double)value, exponent, digits);
+        }
+
+        public static double Calculate(this ulong value, double exponent, int digits) {
+            return Calculate((double)value, exponent, digits);
+        }
 
     }
 }
