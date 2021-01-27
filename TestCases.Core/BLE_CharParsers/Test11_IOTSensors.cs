@@ -40,7 +40,7 @@ namespace TestCases.Core.BLE_CharParsers {
         public void Temperature_3930() {
             // Each value is .01 degrees celcius
             // 3930 * 0.01 == 39.30 Celcius
-            this.TestTemperature(3930, 39.30, this.GetValueFromZeroPointZeroOneUnits(3930));
+            this.TestTemperature(3930, 39.3, this.GetValueFromZeroPointZeroOneUnits(3930));
         }
 
         [Test]

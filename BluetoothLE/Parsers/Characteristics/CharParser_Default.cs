@@ -66,6 +66,8 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                 case Enumerations.DataFormatEnum.UInt_12bit:
                     return ((ushort)(((int)data.ToUint16(0)) & 0xFFF)).ToString();
                 case Enumerations.DataFormatEnum.UInt_16bit:
+
+
                     return data.ToUint16(0).ToString();
                 case Enumerations.DataFormatEnum.UInt_24bit:
                     tmp = new byte[4];
@@ -141,6 +143,9 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                     Array.Copy(data, 0, tmp, 0, 2);
                     return ((float)(((int)tmp.ToFloat32(0)) & 0xFFFFFF)).ToString();
                 case Enumerations.DataFormatEnum.IEEE_11073_32bit_FLOAT:
+                    // https://docs.particle.io/tutorials/device-os/bluetooth-le/
+
+
                     return data.ToFloat32(0).ToString(); // ****** NOT SURE OR IEEE
 
                 //------------------------------------------------------

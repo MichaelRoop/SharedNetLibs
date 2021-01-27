@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -67,6 +68,24 @@ namespace VariousUtils.Net {
 
         public static string UnderlineToSpaces(this string data) {
             return data.Replace('_', ' ');
+        }
+
+
+        /// <summary>Culture specific rendering of double</summary>
+        /// <param name="value">The double source</param>
+        /// <param name="format">Format string of output</param>
+        /// <returns>Formated string conforming to culture</returns>
+        public static string ToStr(this double value, string format) {
+            return value.ToString(format, CultureInfo.CurrentCulture);
+        }
+
+
+        /// <summary>Culture specific rendering of double</summary>
+        /// <param name="value">The double source</param>
+        /// <param name="format">Format string of output</param>
+        /// <returns>Formated string conforming to culture</returns>
+        public static string ToStr(this float value, string format) {
+            return value.ToString(format, CultureInfo.CurrentCulture);
         }
 
 

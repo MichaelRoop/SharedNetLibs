@@ -1,20 +1,19 @@
-﻿using BluetoothLE.Net.Parsers.Types;
+﻿using VariousUtils.Net;
 
 namespace BluetoothLE.Net.Parsers.Characteristics {
 
     /// <summary>Parse value of 0.1 pascal units from bytes</summary>
     public class CharParser_Pressure : CharParser_Base {
 
-        private TypeParserUint32Exp1 parser = new TypeParserUint32Exp1();
+        public double Value { get; private set; }
 
-        public double Value { get { return this.parser.Value; } }
-
-        public override int RequiredBytes { get; protected set; } = new TypeParserUint32Exp1().RequiredBytes;
+        public override int RequiredBytes { get; protected set; } = UINT32_LEN;
 
 
         protected override void DoParse(byte[] data) {
-            this.parser.Parse(data);
-            this.DisplayString = parser.DisplayString;
+            // Spec exponent -1 resolution 0.1
+            this.Value = data.ToUint32(0).Calculate(-1, 1);
+            this.DisplayString = this.Value.ToStr("#######0.0");
         }
 
     }
