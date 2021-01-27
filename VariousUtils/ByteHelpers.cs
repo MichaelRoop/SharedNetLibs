@@ -153,6 +153,15 @@ namespace VariousUtils.Net {
         }
 
 
+        public static double ToDouble64(this byte[] data, int pos) {
+            if (BitConverter.IsLittleEndian) {
+                return BitConverter.ToDouble(data, pos);
+            }
+            return BitConverter.ToDouble(data, pos).ReverseBytes();
+        }
+
+
+
         public static byte[] ToByteArray(this byte[] data, int length, int pos) {
             byte[] block = new byte[length];
             Array.Copy(data, pos, block, 0, block.Length);
@@ -225,6 +234,12 @@ namespace VariousUtils.Net {
             return tmp;
         }
 
+        public static double ToDouble64(this byte[] data, ref int pos) {
+            double tmp = data.ToDouble64(pos);
+            pos += sizeof(double);
+            return tmp;
+        }
+
 
         public static byte[] ToByteArray(this byte[] data, int length, ref int pos) {
             byte[] block = data.ToByteArray(length, pos);
@@ -286,6 +301,24 @@ namespace VariousUtils.Net {
 
 
         public static void WriteToBuffer(this Int64 value, byte[] buffer, ref int pos) {
+            //if (!BitConverter.IsLittleEndian) {
+            //    value.ReverseBytes();
+            //}
+
+            byte[] block = BitConverter.GetBytes(value);
+            Array.Copy(block, 0, buffer, pos, block.Length);
+            pos += block.Length;
+        }
+
+
+        public static void WriteToBuffer(this float value, byte[] buffer, ref int pos) {
+            byte[] block = BitConverter.GetBytes(value);
+            Array.Copy(block, 0, buffer, pos, block.Length);
+            pos += block.Length;
+        }
+
+
+        public static void WriteToBuffer(this double value, byte[] buffer, ref int pos) {
             byte[] block = BitConverter.GetBytes(value);
             Array.Copy(block, 0, buffer, pos, block.Length);
             pos += block.Length;
@@ -332,6 +365,14 @@ namespace VariousUtils.Net {
         public static Int64 ReverseBytes(this Int64 value) {
             return (Int64)((UInt64)value).ReverseBytes();
         }
+
+
+        public static double ReverseBytes(this double value) {
+            // TODO - test this
+            return (double)ReverseBytes((UInt64)value);
+        }
+
+
 
         #endregion
 

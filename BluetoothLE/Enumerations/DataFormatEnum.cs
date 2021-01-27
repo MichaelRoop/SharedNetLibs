@@ -24,6 +24,7 @@ namespace BluetoothLE.Net.Enumerations {
         Int_48bit = 17,
         Int_64bit = 18,
         Int_128bit = 19,
+        // 754 is the currently supported in MS
         IEEE_754_32bit_floating_point = 20,
         IEEE_754_64bit_floating_point = 21,
         IEEE_11073_16bit_SFLOAT = 22,
@@ -51,8 +52,13 @@ namespace BluetoothLE.Net.Enumerations {
                 // This is generic data type - no size specified
                 case DataFormatEnum.IEEE_20601_format:
                 case DataFormatEnum.OpaqueStructure:
+                case DataFormatEnum.Int_24bit:
+                case DataFormatEnum.Int_48bit:
                 case DataFormatEnum.Int_128bit:
                 case DataFormatEnum.UInt_128bit:
+                // Not sure what the IEEE float is. 754 is the current MS
+                case Enumerations.DataFormatEnum.IEEE_11073_16bit_SFLOAT:
+                case Enumerations.DataFormatEnum.IEEE_11073_32bit_FLOAT:
                 case DataFormatEnum.Unhandled:
                     return false;
                 default:
@@ -79,7 +85,6 @@ namespace BluetoothLE.Net.Enumerations {
 
         public static int BytesRequired(this DataFormatEnum value) {
             switch (value) {
-                // Do ** NOT ** change order. Int lines up with MS enum
                 case DataFormatEnum.Boolean:
                 case DataFormatEnum.UInt_2bit:
                 case DataFormatEnum.UInt_4bit:

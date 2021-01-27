@@ -1,10 +1,9 @@
-﻿using BluetoothLE.Net.Parsers.Descriptor;
+﻿using BluetoothLE.Net.Enumerations;
+using BluetoothLE.Net.Parsers.Descriptor;
 using LogUtils.Net;
 using System;
 using System.Text;
 using VariousUtils.Net;
-using System.Linq;
-using BluetoothLE.Net.Enumerations;
 
 namespace BluetoothLE.Net.Parsers.Characteristics {
 
@@ -38,7 +37,11 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
         private string Process(DescParser_PresentationFormat desc, byte[] data) {
             if (!desc.Format.IsHandled()) {
-                return string .Format("Unhandled:{0}", data.ToFormatedByteString());
+                if (desc.Format == DataFormatEnum.Unhandled) {
+                    return string.Format("Unhandled:{0}", data.ToFormatedByteString());
+                }
+                return string.Format("Unhandled - {0}:{1}", 
+                    desc.Format.ToString().UnderlineToSpaces(), data.ToFormatedByteString());
             }
 
             int required = desc.Format.BytesRequired();
@@ -91,49 +94,34 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                 case Enumerations.DataFormatEnum.Int_16bit:
                     return data.ToInt16(0).ToString();
                 case Enumerations.DataFormatEnum.Int_24bit:
-                    tmp = new byte[4];
-                    Array.Copy(data, 0, tmp, 0, 3);
-                    if (data[2] == 0xFF) {
-                        tmp[3] = 0xFF;
-                    }
-                    return tmp.ToInt32(0).ToString();
-
-
-
-
-
-                    //int x = tmp.ToInt32(0).ReverseBytes();
-                    //int y = (x & 0xFFFFFF);
-
-                    //int z = x |= 0x800000;
-
-
-                    //return y.ToString();
-
-                    //return (x & 0xFFFFFF).ToString();
-
-                    //return ((value & 0xFFFFFF)) tmp.ToInt32(0).ToString();
-
+                    //tmp = new byte[4];
+                    //Array.Copy(data, 0, tmp, 0, 3);
+                    //if (data[2] == 0xFF) {
+                    //    tmp[3] = 0xFF;
+                    //}
+                    //return tmp.ToInt32(0).ToString();
+                    return data.ToFormatedByteString();
 
                 //return ((int)(((int)tmp.ToInt32(0)) & 0xFFFFFF)).ToString();
 
                 case Enumerations.DataFormatEnum.Int_32bit:
                     return data.ToInt32(0).ToString();
                 case Enumerations.DataFormatEnum.Int_48bit:
-                    tmp = new byte[8];
-                    Array.Copy(data, 0, tmp, 0, 6);
-                    //if (tmp[5] == 0xFF) {
-                    //    tmp[6] = 0xFF;
-                    //    tmp[7] = 0xFF;
-                    //}
+                    //tmp = new byte[8];
+                    //Array.Copy(data, 0, tmp, 0, 6);
+                    ////if (tmp[5] == 0xFF) {
+                    ////    tmp[6] = 0xFF;
+                    ////    tmp[7] = 0xFF;
+                    ////}
 
-                    long val = tmp.ToInt64(0);
-                    //long val2 = (val & 0xFFFFFFFFFFFF);
-                    string r = val.ToString();
-                    return r;
+                    //long val = tmp.ToInt64(0);
+                    ////long val2 = (val & 0xFFFFFFFFFFFF);
+                    //string r = val.ToString();
+                    //return r;
+                    return data.ToFormatedByteString();
 
-                    //return (tmp.ToInt64(0) & 0xFFFFFFFFFFFF).ToString();
-                    //return ((long)(tmp.ToInt64(0) & 0xFFFFFFFFFFFF)).ToString();
+                //return (tmp.ToInt64(0) & 0xFFFFFFFFFFFF).ToString();
+                //return ((long)(tmp.ToInt64(0) & 0xFFFFFFFFFFFF)).ToString();
                 case Enumerations.DataFormatEnum.Int_64bit:
                     return data.ToInt64(0).ToString();
                 case Enumerations.DataFormatEnum.Int_128bit:
@@ -141,11 +129,13 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                     return data.ToFormatedByteString();
 
                 //------------------------------------------------------
-                // Floats
+                // Floats 754 is current MS
                 case Enumerations.DataFormatEnum.IEEE_754_32bit_floating_point:
-                    return data.ToFloat32(0).ToString(); // ****** NOT SURE OR IEEE
+                    return data.ToFloat32(0).ToString();
                 case Enumerations.DataFormatEnum.IEEE_754_64bit_floating_point:
-                    return data.ToFormatedByteString(); // TODO ****
+                    return data.ToDouble64(0).ToString();
+
+                // Not supporting for now
                 case Enumerations.DataFormatEnum.IEEE_11073_16bit_SFLOAT:
                     tmp = new byte[4];
                     Array.Copy(data, 0, tmp, 0, 2);
