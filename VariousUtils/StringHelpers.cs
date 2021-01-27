@@ -75,8 +75,8 @@ namespace VariousUtils.Net {
         /// <param name="value">The double source</param>
         /// <param name="format">Format string of output</param>
         /// <returns>Formated string conforming to culture</returns>
-        public static string ToStr(this double value, string format) {
-            return value.ToString(format, CultureInfo.CurrentCulture);
+        public static string ToStr(this double value, int digits) {
+            return value.ToString(digits.ToExpFormat(), CultureInfo.CurrentCulture);
         }
 
 
@@ -84,9 +84,36 @@ namespace VariousUtils.Net {
         /// <param name="value">The double source</param>
         /// <param name="format">Format string of output</param>
         /// <returns>Formated string conforming to culture</returns>
-        public static string ToStr(this float value, string format) {
-            return value.ToString(format, CultureInfo.CurrentCulture);
+        public static string ToStr(this float value, int digits) {
+            return value.ToString(digits.ToExpFormat(), CultureInfo.CurrentCulture);
         }
+
+
+        public static string ToExpFormat(this int exponent) {
+            switch (Math.Abs(exponent)) {
+                case 1:
+                    return "#######0.0";
+                case 2:
+                    return "#######0.00";
+                case 3:
+                    return "#######0.000";
+                case 4:
+                    return "#######0.0000";
+                case 5:
+                    return "#######0.00000";
+                case 6:
+                    return "#######0.000000";
+                case 7:
+                    return "#######0.0000000";
+                case 8:
+                    return "#######0.00000000";
+                case 9:
+                    return "#######0.000000000";
+                default:
+                    return "0";
+            }
+        }
+
 
 
     }
