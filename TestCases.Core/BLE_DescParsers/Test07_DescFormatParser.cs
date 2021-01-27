@@ -39,7 +39,7 @@ namespace TestCases.BLE_DescParsers {
             TestHelpersNet.CatchUnexpected(() => {
                 IDescParser parser = new DescParser_PresentationFormat();
                 byte[] data = new byte[7];
-                byte format = DataFormatEnum.unsigned_32bit_integer.ToByte();
+                byte format = DataFormatEnum.UInt_32bit.ToByte();
                 byte exponent = 33;
                 byte nameSpace = 1;
                 ushort description = 0x221A;
@@ -55,7 +55,7 @@ namespace TestCases.BLE_DescParsers {
                 Assert.IsTrue(parser is DescParser_PresentationFormat);
                 DescParser_PresentationFormat impl = parser as DescParser_PresentationFormat;
                 Assert.IsNotNull(impl, "Is null on cast");
-                Assert.AreEqual(DataFormatEnum.unsigned_32bit_integer, impl.Format);
+                Assert.AreEqual(DataFormatEnum.UInt_32bit, impl.Format);
                 Assert.AreEqual(exponent, impl.Exponent);
                 Assert.AreEqual(UnitsOfMeasurement.LengthMetre, impl.MeasurementUnitsEnum);
                 Assert.AreEqual(UnitsOfMeasurement.LengthMetre.ToUint16(), impl.MeasurementUnitUShort);
@@ -99,7 +99,7 @@ namespace TestCases.BLE_DescParsers {
         #region GetBlock
 
         private byte[] GetBlock() {
-            return this.GetBlock(DataFormatEnum.unsigned_32bit_integer, UnitsOfMeasurement.LengthMetre);
+            return this.GetBlock(DataFormatEnum.UInt_32bit, UnitsOfMeasurement.LengthMetre);
         }
 
 

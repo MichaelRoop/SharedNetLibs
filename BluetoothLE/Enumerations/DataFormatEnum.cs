@@ -1,34 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace BluetoothLE.Net.Enumerations {
 
-
-    /// <summary>Used in the format presenter descriptor
-    /// 
-    /// </summary>
+    /// <summary>Used in the format presenter descriptor</summary>
     public enum DataFormatEnum : byte {
+        // Do * NOT * change order. Lines up with spec
         Reserved = 0,
         Boolean = 1,
-        Unsigned_2bit_integer = 2,
-        unsigned_4bit_integer = 3,
-        unsigned_8bit_integer = 4,
-        unsigned_12bit_integer = 5,
-        unsigned_16bit_integer = 6,
-        unsigned_24bit_integer = 7,
-        unsigned_32bit_integer = 8,
-        unsigned_48bit_integer = 9,
-        unsigned_64bit_integer = 10,
-        unsigned_128bit_integer = 11,
-        signed_8bit_integer = 12,
-        signed_12bit_integer = 13,
-        signed_16bit_integer = 14,
-        signed_24bit_integer = 15,
-        signed_32bit_integer = 16,
-        signed_48bit_integer = 17,
-        signed_64bit_integer = 18,
-        signed_128bit_integer = 19,
+        UInt_2bit = 2,
+        UInt_4bit = 3,
+        UInt_8bit = 4,
+        UInt_12bit = 5,
+        UInt_16bit = 6,
+        UInt_24bit = 7,
+        UInt_32bit = 8,
+        UInt_48bit = 9,
+        UInt_64bit = 10,
+        UInt_128bit = 11,
+        Int_8bit = 12,
+        Int_12bit = 13,
+        Int_16bit = 14,
+        Int_24bit = 15,
+        Int_32bit = 16,
+        Int_48bit = 17,
+        Int_64bit = 18,
+        Int_128bit = 19,
         IEEE_754_32bit_floating_point = 20,
         IEEE_754_64bit_floating_point = 21,
         IEEE_11073_16bit_SFLOAT = 22,
@@ -47,6 +42,91 @@ namespace BluetoothLE.Net.Enumerations {
         public static byte ToByte(this DataFormatEnum value) {
             return (byte)value;
         }
+
+
+
+        public static bool IsHandled(this DataFormatEnum value) {
+            switch (value) {
+                case DataFormatEnum.Reserved:
+                // This is generic data type - no size specified
+                case DataFormatEnum.IEEE_20601_format:
+                case DataFormatEnum.OpaqueStructure:
+                case DataFormatEnum.Int_128bit:
+                case DataFormatEnum.UInt_128bit:
+                case DataFormatEnum.Unhandled:
+                    return false;
+                default:
+                    return true;
+            }
+        }
+
+
+        public static bool HasLengthRequirement(this DataFormatEnum value) {
+            switch (value) {
+                case DataFormatEnum.Reserved:
+                // This is generic data type - no size specified
+                case DataFormatEnum.IEEE_20601_format:
+                case DataFormatEnum.UTF8_String:
+                case DataFormatEnum.UTF16_String:
+                case DataFormatEnum.OpaqueStructure:
+                case DataFormatEnum.Unhandled:
+                    return false;
+                default:
+                    return true;
+            }
+        }
+
+
+        public static int BytesRequired(this DataFormatEnum value) {
+            switch (value) {
+                // Do ** NOT ** change order. Int lines up with MS enum
+                case DataFormatEnum.Boolean:
+                case DataFormatEnum.UInt_2bit:
+                case DataFormatEnum.UInt_4bit:
+                case DataFormatEnum.UInt_8bit:
+                case DataFormatEnum.Int_8bit:
+                    return 1;
+                case DataFormatEnum.UInt_12bit:
+                case DataFormatEnum.Int_12bit:
+                case DataFormatEnum.UInt_16bit:
+                case DataFormatEnum.Int_16bit:
+                case DataFormatEnum.IEEE_11073_16bit_SFLOAT:
+                    return 2;
+                case DataFormatEnum.UInt_24bit:
+                case DataFormatEnum.Int_24bit:
+                    return 3;
+                case DataFormatEnum.UInt_32bit:
+                case DataFormatEnum.Int_32bit:
+                case DataFormatEnum.IEEE_754_32bit_floating_point:
+                case DataFormatEnum.IEEE_11073_32bit_FLOAT:
+                    return 4;
+                case DataFormatEnum.UInt_48bit:
+                case DataFormatEnum.Int_48bit:
+                    return 6;
+                case DataFormatEnum.UInt_64bit:
+                case DataFormatEnum.Int_64bit:
+                case DataFormatEnum.IEEE_754_64bit_floating_point:
+                    return 8;
+                case DataFormatEnum.UInt_128bit:
+                case DataFormatEnum.Int_128bit:
+                    return 16;
+
+                // You will use the HasLengthRequirement before calling this
+                case DataFormatEnum.UTF8_String:
+                case DataFormatEnum.UTF16_String:
+
+                // This is generic data type - no size specified
+                case DataFormatEnum.IEEE_20601_format:
+                case DataFormatEnum.OpaqueStructure:
+                case DataFormatEnum.Reserved:
+                case DataFormatEnum.Unhandled:
+                default:
+                    return 9999;
+            }
+        }
+
+
+
     }
 
 }

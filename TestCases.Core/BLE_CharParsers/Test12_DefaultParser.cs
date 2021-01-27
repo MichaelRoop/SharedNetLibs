@@ -68,40 +68,246 @@ namespace TestCases.Core.BLE_CharParsers {
 
         [Test]
         public void Uint2Bit() {
-            this.TestByteBits(this.GetByteArray(3), "3", DataFormatEnum.Unsigned_2bit_integer);
+            this.TestByteBits(this.GetByteArray(3), "3", DataFormatEnum.UInt_2bit);
         }
 
 
         [Test]
         public void Uint2BitBitsMaskedOut() {
-            this.TestByteBits(this.GetByteArray(15), "3", DataFormatEnum.Unsigned_2bit_integer);
+            this.TestByteBits(this.GetByteArray(15), "3", DataFormatEnum.UInt_2bit);
         }
 
 
         [Test]
         public void Uint4Bit() {
-            this.TestByteBits(this.GetByteArray(14), "14", DataFormatEnum.unsigned_4bit_integer);
+            this.TestByteBits(this.GetByteArray(14), "14", DataFormatEnum.UInt_4bit);
         }
 
         [Test]
         public void Uint4BitBitsMaskedOut() {
-            this.TestByteBits(this.GetByteArray(255), "15", DataFormatEnum.unsigned_4bit_integer);
+            this.TestByteBits(this.GetByteArray(255), "15", DataFormatEnum.UInt_4bit);
         }
 
         [Test]
-        public void Uint24BitNotEnoughBytes() {
-            this.TestByteBits(this.GetByteArray(100), "ERR", DataFormatEnum.unsigned_24bit_integer);
+        public void Uint8Bit() {
+            this.TestByteBits(this.GetByteArray(222), "222", DataFormatEnum.UInt_8bit);
+        }
+
+
+        [Test]
+        public void Uint12Bit() {
+            this.TestByteBits(this.GetU16ByteArray(4094), "4094", DataFormatEnum.UInt_16bit);
+        }
+
+
+        [Test]
+        public void Uint12BitMasked() {
+            this.TestByteBits(this.GetU16ByteArray(0xAFFF), "4095", DataFormatEnum.UInt_12bit);
         }
 
 
 
-        // Not yet implemented
+        [Test]
+        public void Uint16Bit() {
+            this.TestByteBits(this.GetU16ByteArray(62022), "62022", DataFormatEnum.UInt_16bit);
+        }
+
+        [Test]
+        public void Uint16BitNotEnoughBytes() {
+            this.TestByteBits(this.GetByteArray(100), "1 byte(s) Data. Requires 2", DataFormatEnum.UInt_16bit);
+        }
+
+
+        [Test]
+        public void Uint24Bit() {
+            this.TestByteBits(this.GetU32ByteArray(0xFFFFF1), "16777201", DataFormatEnum.UInt_24bit);
+        }
+
+
+        [Test]
+        public void Uint24BitNotEnoughBytes() {
+            this.TestByteBits(this.GetByteArray(100), "1 byte(s) Data. Requires 3", DataFormatEnum.UInt_24bit);
+        }
+
+
+        [Test]
+        public void Uint24BitMasked() {
+            this.TestByteBits(this.GetU32ByteArray(0xFFFFFFFF), "16777215", DataFormatEnum.UInt_24bit);
+        }
+
+        [Test]
+        public void Uint32() {
+            this.TestByteBits(this.GetU32ByteArray(4294967290), "4294967290", DataFormatEnum.UInt_32bit);
+        }
+
+        [Test]
+        public void Uint48() {
+            this.TestByteBits(this.GetU64ByteArray(14294967295), "14294967295", DataFormatEnum.UInt_48bit);
+        }
+
+        [Test]
+        public void Uint48Masked() {
+            this.TestByteBits(this.GetU64ByteArray(0xFFFFFFFFFFFFFF), "281474976710655", DataFormatEnum.UInt_48bit);
+        }
+
+
+        [Test]
+        public void Uint64() {
+            this.TestByteBits(this.GetU64ByteArray(9994294967290), "9994294967290", DataFormatEnum.UInt_64bit);
+        }
+
+
+        // Not supported
         //[Test]
-        //public void Int12Bit() {
-        //    this.TestByteBits(this.GetSByteArray(-53), "-53", DataFormatEnum.signed_12bit_integer);
+        //public void Uint128() {
+        //    this.TestByteBits(this.GetU64ByteArray(9994294967290), "9994294967290", DataFormatEnum.UInt_128bit);
+        //}
+
+        //------------------------------------------------------------------------
+        //
+
+
+        [Test]
+        public void Iint8BitFullRange() {
+            this.TestByteBits(this.GetSByteArray(sbyte.MinValue), sbyte.MinValue.ToString(), DataFormatEnum.Int_8bit);
+            this.TestByteBits(this.GetSByteArray(0), "0", DataFormatEnum.Int_8bit);
+            this.TestByteBits(this.GetSByteArray(sbyte.MaxValue), sbyte.MaxValue.ToString(), DataFormatEnum.Int_8bit);
+        }
+
+
+        [Test]
+        public void Int12BitFullRange() {
+            this.TestByteBits(this.GetI16ByteArray(-4096), "-4096", DataFormatEnum.Int_12bit);
+            this.TestByteBits(this.GetI16ByteArray(0), "0", DataFormatEnum.Int_12bit);
+            this.TestByteBits(this.GetI16ByteArray(4095), "4095", DataFormatEnum.Int_12bit);
+        }
+
+
+        [Test]
+        public void Int12BitMasked() {
+            this.TestByteBits(this.GetI16ByteArray(0xFFF), "4095", DataFormatEnum.Int_12bit);
+        }
+
+
+
+        [Test]
+        public void Iint16BitFullRange() {
+            this.TestByteBits(this.GetI16ByteArray(31022), "31022", DataFormatEnum.Int_16bit);
+            this.TestByteBits(this.GetI16ByteArray(0), "0", DataFormatEnum.Int_16bit);
+            this.TestByteBits(this.GetI16ByteArray(-31022), "-31022", DataFormatEnum.Int_16bit);
+        }
+
+
+        [Test]
+        public void Int16BitNotEnoughBytes() {
+            this.TestByteBits(this.GetByteArray(100), "1 byte(s) Data. Requires 2", DataFormatEnum.Int_16bit);
+        }
+
+
+        [Test]
+        public void Int24BitFullRange() {
+            // −8,388,608 to 8,388,607
+            this.TestByteBits(this.Get24BitByteArray(0), "0", DataFormatEnum.Int_24bit);
+
+            this.TestByteBits(this.Get24BitByteArray(838), "838", DataFormatEnum.Int_24bit);
+            this.TestByteBits(this.Get24BitByteArray(-838), "-838", DataFormatEnum.Int_24bit);
+
+
+
+
+            //16777215
+            //16777214), "16777214"
+            this.TestByteBits(this.Get24BitByteArray(32767), "32767", DataFormatEnum.Int_24bit);
+            this.TestByteBits(this.Get24BitByteArray(-32767), "-32767", DataFormatEnum.Int_24bit);
+
+
+            //8,388,607
+            this.TestByteBits(this.Get24BitByteArray(8388607), "8388607", DataFormatEnum.Int_24bit);
+            this.TestByteBits(this.Get24BitByteArray(-8388605), "-8388605", DataFormatEnum.Int_24bit);
+
+
+
+            //                     16777215
+            //this.Get24BitByteArray(838860);
+            //this.Get24BitByteArray(-838860);
+
+            //this.Get24BitByteArray(838);
+            //this.Get24BitByteArray(-838);
+
+
+        }
+
+
+        [Test]
+        public void Int24BitNotEnoughBytes() {
+            this.TestByteBits(this.GetByteArray(100), "1 byte(s) Data. Requires 3", DataFormatEnum.Int_24bit);
+        }
+
+
+        [Test]
+        public void Int24BitMasked() {
+            this.TestByteBits(this.GetI32ByteArray(0xFFFFFFF), "16777215", DataFormatEnum.Int_24bit);
+        }
+
+        [Test]
+        public void Int32() {
+            //-2,147,483,648 to 2,147,483,647
+            this.TestByteBits(this.GetI32ByteArray(2147483645), "2147483645", DataFormatEnum.Int_32bit);
+        }
+
+        [Test]
+        public void Int32Minus() {
+            //-2,147,483,648 to 2,147,483,647
+            this.TestByteBits(this.GetI32ByteArray(-2147483642), "-2147483642", DataFormatEnum.Int_32bit);
+        }
+
+        [Test]
+        public void Int48() {
+            //this.TestByteBits(this.GetI64ByteArray(14294967295), "14294967295", DataFormatEnum.Int_48bit);
+            //this.TestByteBits(this.GetI64ByteArray(142), "142", DataFormatEnum.Int_48bit);
+
+            //long value = -140737488355328;
+            //for (long i = -140737488355328; i < 140737488355329; i++) {
+            //    this.TestByteBits(this.GetI64ByteArray(i), i.ToString(), DataFormatEnum.Int_48bit);
+            //}
+
+
+
+        }
+
+        [Test]
+        public void Int48Minus() {
+            //this.TestByteBits(this.GetI64ByteArray(-14294967295), "-14294967295", DataFormatEnum.Int_48bit);
+            this.TestByteBits(this.GetI64ByteArray(-142), "-142", DataFormatEnum.Int_48bit);
+        }
+
+        [Test]
+        public void Int48Masked() {
+            this.TestByteBits(this.GetI64ByteArray(0xFFFFFFFFFFFFFF), "1099511627775", DataFormatEnum.Int_48bit);
+        }
+
+
+        [Test]
+        public void Int64() {
+            this.TestByteBits(this.GetI64ByteArray(9994294), "9994294", DataFormatEnum.Int_64bit);
+        }
+
+        [Test]
+        public void Int64Minus() {
+            this.TestByteBits(this.GetI64ByteArray(-9994294), "-9994294", DataFormatEnum.Int_64bit);
+        }
+
+
+        // Not supported
+        //[Test]
+        //public void Uint128() {
+        //    this.TestByteBits(this.GetI64ByteArray(9994294967290), "9994294967290", DataFormatEnum.Int_128bit);
         //}
 
 
+
+
+        //--------------------------------
 
         public void TestByteBits(byte[] data, string expected, DataFormatEnum format) {
             TestHelpersNet.CatchUnexpected(() => {
@@ -132,7 +338,7 @@ namespace TestCases.Core.BLE_CharParsers {
         #region GetBlock
 
         private byte[] GetBlock() {
-            return this.GetBlock(DataFormatEnum.unsigned_32bit_integer, UnitsOfMeasurement.LengthMetre);
+            return this.GetBlock(DataFormatEnum.UInt_32bit, UnitsOfMeasurement.LengthMetre);
         }
 
 
@@ -167,6 +373,9 @@ namespace TestCases.Core.BLE_CharParsers {
             return data;
         }
 
+        #endregion
+
+        #region GetByteArray
 
         byte[] GetByteArray(byte value) {
             int pos = 0;
@@ -183,9 +392,94 @@ namespace TestCases.Core.BLE_CharParsers {
         }
 
 
+        byte[] GetU16ByteArray(ushort value) {
+            int pos = 0;
+            byte[] data = new byte[2];
+            value.WriteToBuffer(data, ref pos);
+            return data;
+        }
+
+        byte[] GetI16ByteArray(short value) {
+            int pos = 0;
+            byte[] data = new byte[2];
+            value.WriteToBuffer(data, ref pos);
+            return data;
+        }
+
+        byte[] GetU32ByteArray(uint value) {
+            int pos = 0;
+            byte[] data = new byte[4];
+            value.WriteToBuffer(data, ref pos);
+            return data;
+        }
+
+        byte[] GetI32ByteArray(int value) {
+            int pos = 0;
+            byte[] data = new byte[4];
+            value.WriteToBuffer(data, ref pos);
+            return data;
+        }
+
+        byte[] Get24BitByteArray(int value) {
+            byte[] tmp = new byte[4];
+            //////https://stackoverflow.com/questions/12549197/are-there-any-int24-implementations-in-c
+            ////// only works for unsigned   
+            //data[0] = (byte)((value) & 0xFF);
+            //data[1] = (byte)((value >> 8) & 0xFF);
+            //data[2] = (byte)((value >> 16) & 0xFF);
+
+            byte[] data = new byte[3];
+
+
+            int pos = 0;
+            value.WriteToBuffer(tmp, ref pos);
+            Array.Copy(tmp, 0, data, 0, 3);
+
+            //----------------------------------
+            //int four = tmp.ToInt32(0);
+            ////int three = 
+
+            //byte[] otherEnd = new byte[4];
+            //Array.Copy(data, 0, otherEnd, 0, 3);
+            //if (data[2] == 0xFF) {
+            //    otherEnd[3] = 0xFF;
+            //}
+            //pos = 0;
+            //// works!!
+            //int reconvert = otherEnd.ToInt32(ref pos);
+            //----------------------------------
+
+
+
+
+            //−8,388,608 to 8,388,607
+
+            //int tmp = value;
+            //if (value < 0) {
+            //    tmp = (value << 12);
+            //}
+
+            //(value & 0xFFFFFF).WriteToBuffer(data, ref pos);
+            return data;
+        }
+
+
+
+        byte[] GetU64ByteArray(ulong value) {
+            int pos = 0;
+            byte[] data = new byte[8];
+            value.WriteToBuffer(data, ref pos);
+            return data;
+        }
+
+        byte[] GetI64ByteArray(long value) {
+            int pos = 0;
+            byte[] data = new byte[8];
+            value.WriteToBuffer(data, ref pos);
+            return data;
+        }
+
         #endregion
-
-
 
     }
 

@@ -4,6 +4,7 @@ using System;
 using System.Text;
 using VariousUtils.Net;
 using System.Linq;
+using BluetoothLE.Net.Enumerations;
 
 namespace BluetoothLE.Net.Parsers.Characteristics {
 
@@ -36,54 +37,111 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
 
         private string Process(DescParser_PresentationFormat desc, byte[] data) {
-            
+            if (!desc.Format.IsHandled()) {
+                return string .Format("Unhandled:{0}", data.ToFormatedByteString());
+            }
+
+            int required = desc.Format.BytesRequired();
+            if (desc.Format.HasLengthRequirement() && required > data.Length) {
+                return string.Format("{0} byte(s) Data. Requires {1}", data.Length, required);
+            }
+
             // TODO - use the exponent on numerics
             // TODO - user unit
             byte[] tmp = null;
             switch (desc.Format) {
                 case Enumerations.DataFormatEnum.Boolean:
                     return ((bool)(data.ToByte(0) >  0)).ToString();
-                case Enumerations.DataFormatEnum.Unsigned_2bit_integer:
+                //------------------------------------------------------
+                // Unsigned
+                case Enumerations.DataFormatEnum.UInt_2bit:
                     return ((byte)(((int)data.ToByte(0)) & 0x3)).ToString();
-                case Enumerations.DataFormatEnum.unsigned_4bit_integer:
+                case Enumerations.DataFormatEnum.UInt_4bit:
                     return ((byte)(((int)data.ToByte(0)) & 0xF)).ToString();
-                case Enumerations.DataFormatEnum.unsigned_8bit_integer:
+                case Enumerations.DataFormatEnum.UInt_8bit:
                     return data.ToByte(0).ToString();
-                case Enumerations.DataFormatEnum.unsigned_12bit_integer:
+                case Enumerations.DataFormatEnum.UInt_12bit:
                     return ((ushort)(((int)data.ToUint16(0)) & 0xFFF)).ToString();
-                case Enumerations.DataFormatEnum.unsigned_16bit_integer:
+                case Enumerations.DataFormatEnum.UInt_16bit:
                     return data.ToUint16(0).ToString();
-                case Enumerations.DataFormatEnum.unsigned_24bit_integer:
+                case Enumerations.DataFormatEnum.UInt_24bit:
                     tmp = new byte[4];
                     Array.Copy(data, 0, tmp, 0, 3);
                     return ((uint)(((int)tmp.ToUint32(0)) & 0xFFFFFF)).ToString();
-                case Enumerations.DataFormatEnum.unsigned_32bit_integer:
+                case Enumerations.DataFormatEnum.UInt_32bit:
                     return data.ToUint32(0).ToString();
-                case Enumerations.DataFormatEnum.unsigned_48bit_integer:
+                case Enumerations.DataFormatEnum.UInt_48bit:
                     tmp = new byte[8];
                     Array.Copy(data, 0, tmp, 0, 6);
-                    return ((UInt64)((tmp.ToUint64(0)) & 0xFFFFFFFF)).ToString();
-                case Enumerations.DataFormatEnum.unsigned_64bit_integer:
+                    return ((UInt64)((tmp.ToUint64(0)) & 0xFFFFFFFFFFFF)).ToString();
+                case Enumerations.DataFormatEnum.UInt_64bit:
                     return data.ToUint64(0).ToString();
-                case Enumerations.DataFormatEnum.unsigned_128bit_integer:
-                    // 16 bytes
-                    return data.ToFormatedByteString(); // TODO ****
-                case Enumerations.DataFormatEnum.signed_8bit_integer:
+                case Enumerations.DataFormatEnum.UInt_128bit:
+                    // Will not support this
+                    return data.ToFormatedByteString();
+
+                //------------------------------------------------------
+                // Signed values
+                case Enumerations.DataFormatEnum.Int_8bit:
                     return data.ToSByte(0).ToString();
-                case Enumerations.DataFormatEnum.signed_12bit_integer:
-                    return data.ToFormatedByteString(); // TODO ****
-                case Enumerations.DataFormatEnum.signed_16bit_integer:
+                case Enumerations.DataFormatEnum.Int_12bit:
+                    tmp = new byte[2];
+                    Array.Copy(data, 0, tmp, 0, 2);
+                    return tmp.ToInt16(0).ToString();
+                case Enumerations.DataFormatEnum.Int_16bit:
                     return data.ToInt16(0).ToString();
-                case Enumerations.DataFormatEnum.signed_24bit_integer:
-                    return data.ToFormatedByteString(); // TODO ****
-                case Enumerations.DataFormatEnum.signed_32bit_integer:
+                case Enumerations.DataFormatEnum.Int_24bit:
+                    tmp = new byte[4];
+                    Array.Copy(data, 0, tmp, 0, 3);
+                    if (data[2] == 0xFF) {
+                        tmp[3] = 0xFF;
+                    }
+                    return tmp.ToInt32(0).ToString();
+
+
+
+
+
+                    //int x = tmp.ToInt32(0).ReverseBytes();
+                    //int y = (x & 0xFFFFFF);
+
+                    //int z = x |= 0x800000;
+
+
+                    //return y.ToString();
+
+                    //return (x & 0xFFFFFF).ToString();
+
+                    //return ((value & 0xFFFFFF)) tmp.ToInt32(0).ToString();
+
+
+                //return ((int)(((int)tmp.ToInt32(0)) & 0xFFFFFF)).ToString();
+
+                case Enumerations.DataFormatEnum.Int_32bit:
                     return data.ToInt32(0).ToString();
-                case Enumerations.DataFormatEnum.signed_48bit_integer:
-                    return data.ToFormatedByteString(); // TODO ****
-                case Enumerations.DataFormatEnum.signed_64bit_integer:
+                case Enumerations.DataFormatEnum.Int_48bit:
+                    tmp = new byte[8];
+                    Array.Copy(data, 0, tmp, 0, 6);
+                    //if (tmp[5] == 0xFF) {
+                    //    tmp[6] = 0xFF;
+                    //    tmp[7] = 0xFF;
+                    //}
+
+                    long val = tmp.ToInt64(0);
+                    //long val2 = (val & 0xFFFFFFFFFFFF);
+                    string r = val.ToString();
+                    return r;
+
+                    //return (tmp.ToInt64(0) & 0xFFFFFFFFFFFF).ToString();
+                    //return ((long)(tmp.ToInt64(0) & 0xFFFFFFFFFFFF)).ToString();
+                case Enumerations.DataFormatEnum.Int_64bit:
                     return data.ToInt64(0).ToString();
-                case Enumerations.DataFormatEnum.signed_128bit_integer:
-                    return data.ToFormatedByteString(); // TODO ****
+                case Enumerations.DataFormatEnum.Int_128bit:
+                    // Will not support this
+                    return data.ToFormatedByteString();
+
+                //------------------------------------------------------
+                // Floats
                 case Enumerations.DataFormatEnum.IEEE_754_32bit_floating_point:
                     return data.ToFloat32(0).ToString(); // ****** NOT SURE OR IEEE
                 case Enumerations.DataFormatEnum.IEEE_754_64bit_floating_point:
@@ -94,13 +152,17 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                     return ((float)(((int)tmp.ToFloat32(0)) & 0xFFFFFF)).ToString();
                 case Enumerations.DataFormatEnum.IEEE_11073_32bit_FLOAT:
                     return data.ToFloat32(0).ToString(); // ****** NOT SURE OR IEEE
-                case Enumerations.DataFormatEnum.IEEE_20601_format:
-                    return data.ToFormatedByteString(); // TODO ****
+
+                //------------------------------------------------------
+                // Strings
                 case Enumerations.DataFormatEnum.UTF8_String:
                     return Encoding.UTF8.GetString(data);
                 case Enumerations.DataFormatEnum.UTF16_String:
                     return Encoding.Unicode.GetString(data);
 
+                //------------------------------------------------------
+                // Not handled
+                case Enumerations.DataFormatEnum.IEEE_20601_format: // Non defined data
                 case Enumerations.DataFormatEnum.OpaqueStructure:
                 case Enumerations.DataFormatEnum.Unhandled:
                 case Enumerations.DataFormatEnum.Reserved:
