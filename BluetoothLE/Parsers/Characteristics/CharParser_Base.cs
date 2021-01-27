@@ -5,7 +5,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
     public abstract class CharParser_Base : BLEParserBase, ICharParser {
 
-        protected List<IDescParser> DescriptorParsers { get; private set; }
+        protected List<IDescParser> DescriptorParsers { get; private set; } = new List<IDescParser>();
 
 
         public void SetDescriptorParsers(List<IDescParser> descParsers) {
