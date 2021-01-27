@@ -140,9 +140,25 @@ namespace TestCases.Core.BLE_CharParsers {
         }
 
         [Test]
-        public void Uint32() {
+        public void Uint32FullRange() {
+            this.TestByteBits(this.GetU32ByteArray(0), "0", DataFormatEnum.UInt_32bit);
             this.TestByteBits(this.GetU32ByteArray(4294967290), "4294967290", DataFormatEnum.UInt_32bit);
         }
+
+
+        [Test]
+        public void Uint32Exponent() {
+            uint value = 4294967;
+            this.TestExp(value, -1);
+            this.TestExp(value, -2);
+            this.TestExp(value, -3);
+            this.TestExp(value, -4);
+            this.TestExp(value, 1);
+            this.TestExp(value, 2);
+            this.TestExp(value, 3);
+            this.TestExp(value, 4);
+        }
+
 
         [Test]
         public void Uint48() {
@@ -308,6 +324,19 @@ namespace TestCases.Core.BLE_CharParsers {
         }
 
 
+        public void TestByteBits(byte[] data, string expected, DataFormatEnum format, sbyte exponent) {
+            TestHelpersNet.CatchUnexpected(() => {
+                IDescParser parser = new DescParser_PresentationFormat();
+                byte[] descBlock = this.GetBlock(format, UnitsOfMeasurement.Unitless);
+                this.SetExponent(descBlock, exponent);
+                this.SetFormatDesc(descBlock);
+                string result = this.defaultCharParser.Parse(data);
+                this.log.Info("TestByteBits", () => string.Format("Value:'{0}'", result));
+                Assert.AreEqual(expected, result);
+            });
+        }
+
+
         #endregion
 
         #region Helpers
@@ -321,16 +350,39 @@ namespace TestCases.Core.BLE_CharParsers {
             this.defaultCharParser.SetDescriptorParsers(descriptors);
         }
 
+        #region Exponent tester
+
+        private void TestExp(uint value, sbyte exponent) {
+            string expected = value.Calculate(exponent, exponent).ToStr(exponent);
+            this.TestByteBits(this.GetU32ByteArray(value), expected, DataFormatEnum.UInt_32bit, exponent);
+        }
+
+        private void TestExp(int value, sbyte exponent) {
+            string expected = value.Calculate(exponent, exponent).ToStr(exponent);
+            this.TestByteBits(this.GetI32ByteArray(value), expected, DataFormatEnum.Int_32bit, exponent);
+        }
+
+        private void TestExp(short value, sbyte exponent) {
+            string expected = value.Calculate(exponent, exponent).ToStr(exponent);
+            this.TestByteBits(this.GetI16ByteArray(value), expected, DataFormatEnum.Int_16bit, exponent);
+        }
+
+        private void TestExp(ushort value, sbyte exponent) {
+            string expected = value.Calculate(exponent, exponent).ToStr(exponent);
+            this.TestByteBits(this.GetU16ByteArray(value), expected, DataFormatEnum.UInt_16bit, exponent);
+        }
+
+        #endregion
 
         #region GetBlock
 
         private byte[] GetBlock() {
-            return this.GetBlock(DataFormatEnum.UInt_32bit, UnitsOfMeasurement.LengthMetre);
+            return this.GetBlock(DataFormatEnum.UInt_32bit, UnitsOfMeasurement.Unitless);
         }
 
 
         private byte[] GetBlock(DataFormatEnum formatEnum) {
-            return this.GetBlock(formatEnum, UnitsOfMeasurement.LengthMetre, 0);
+            return this.GetBlock(formatEnum, UnitsOfMeasurement.Unitless);
         }
 
 
@@ -339,26 +391,35 @@ namespace TestCases.Core.BLE_CharParsers {
         }
 
 
-        private byte[] GetBlock(DataFormatEnum formatEnum, UnitsOfMeasurement units, byte exponent) {
+        private byte[] GetBlock(DataFormatEnum formatEnum, UnitsOfMeasurement units, sbyte exponent) {
             return this.GetBlock(formatEnum, units, exponent, 1, 0x221A);
         }
 
 
-        private byte[] GetBlock(DataFormatEnum formatEnum, UnitsOfMeasurement units, byte exponent, byte nameSpace) {
+        private byte[] GetBlock(DataFormatEnum formatEnum, UnitsOfMeasurement units, sbyte exponent, byte nameSpace) {
             return this.GetBlock(formatEnum, units, exponent, nameSpace, 0x221A);
         }
 
-        private byte[] GetBlock(DataFormatEnum formatEnum, UnitsOfMeasurement units, byte exponent, byte nameSpace, ushort description) {
+        private byte[] GetBlock(DataFormatEnum formatEnum, UnitsOfMeasurement units, sbyte exponent, byte nameSpace, ushort description) {
             byte[] data = new byte[7];
-            //ushort description = 0x221A;
             int pos = 0;
-            formatEnum.ToByte().WriteToBuffer(data, ref pos);
-            exponent.WriteToBuffer(data, ref pos);
-            UnitsOfMeasurement.LengthMetre.ToUint16().WriteToBuffer(data, ref pos);
-            nameSpace.WriteToBuffer(data, ref pos); // namespace
-            description.WriteToBuffer(data, ref pos);
+            formatEnum.ToByte().WriteToBuffer(data, ref pos);   // 0
+            exponent.WriteToBuffer(data, ref pos);              // 1
+            units.ToUint16().WriteToBuffer(data, ref pos);      // 2
+            nameSpace.WriteToBuffer(data, ref pos);// namespace    4
+            description.WriteToBuffer(data, ref pos);           // 5
             return data;
         }
+
+        private void SetExponent(byte[] data, sbyte exp) {
+            exp.WriteToBuffer(data, 1);
+        }
+
+        private void SetUnits(byte[] data, UnitsOfMeasurement units) {
+            units.ToUint16().WriteToBuffer(data, 2);
+        }
+
+
 
         #endregion
 

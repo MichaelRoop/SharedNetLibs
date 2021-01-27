@@ -52,6 +52,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
             // TODO - use the exponent on numerics
             // TODO - user unit
             byte[] tmp = null;
+            int exp = desc.Exponent;
             switch (desc.Format) {
                 case Enumerations.DataFormatEnum.Boolean:
                     return ((bool)(data.ToByte(0) >  0)).ToString();
@@ -66,15 +67,13 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                 case Enumerations.DataFormatEnum.UInt_12bit:
                     return ((ushort)(((int)data.ToUint16(0)) & 0xFFF)).ToString();
                 case Enumerations.DataFormatEnum.UInt_16bit:
-
-
                     return data.ToUint16(0).ToString();
                 case Enumerations.DataFormatEnum.UInt_24bit:
                     tmp = new byte[4];
                     Array.Copy(data, 0, tmp, 0, 3);
                     return ((uint)(((int)tmp.ToUint32(0)) & 0xFFFFFF)).ToString();
                 case Enumerations.DataFormatEnum.UInt_32bit:
-                    return data.ToUint32(0).ToString();
+                    return data.ToUint32(0).Calculate(exp, exp).ToStr(exp);
                 case Enumerations.DataFormatEnum.UInt_48bit:
                     tmp = new byte[8];
                     Array.Copy(data, 0, tmp, 0, 6);
