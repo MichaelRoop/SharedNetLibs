@@ -138,9 +138,283 @@ namespace BluetoothLE.Net.Enumerations {
 
 
     public static class UnitsOfMeasurementExtensions {
+
         public static UInt16 ToUint16(this UnitsOfMeasurement value) {
             return (UInt16)value;
         }
+
+
+        public static string ToStr(this UnitsOfMeasurement units) {
+            switch (units) {
+                case UnitsOfMeasurement.LengthMetre:
+                    return "m";
+                #region Mass
+                case UnitsOfMeasurement.MassKilogram:
+                    return "kg";
+                case UnitsOfMeasurement.MassConcentrationKilogramPerCubicMetre:
+                    return "";
+                case UnitsOfMeasurement.MassTonne:
+                    return "t";
+                case UnitsOfMeasurement.MassDensityMilligramPerDecilitre:
+                    return "";
+                case UnitsOfMeasurement.MassDensityMillimolePerLitre:
+                    return "";
+                case UnitsOfMeasurement.MassPound:
+                    return "lb";
+                case UnitsOfMeasurement.MassFlowGramPerSecond:
+                    return "";
+                #endregion
+                #region Time
+                case UnitsOfMeasurement.TimeSecond:
+                    return "s";
+                case UnitsOfMeasurement.TimeMinute:
+                    return "m";
+                case UnitsOfMeasurement.TimeHour:
+                    return "h";
+                case UnitsOfMeasurement.TimeDay:
+                    return "d";
+                case UnitsOfMeasurement.TimeYear:
+                    return "y";
+                case UnitsOfMeasurement.TimeMmonth:
+                    return "";
+                #endregion
+                #region Speed
+                case UnitsOfMeasurement.VelocityKnot:
+                    return "kn";
+                case UnitsOfMeasurement.VelocityKilometrePerHour:
+                    return "kph";
+                case UnitsOfMeasurement.VelocityMilePerHour:
+                    return "mph";
+                #endregion
+                #region Length
+                case UnitsOfMeasurement.LengthYard:
+                    return "yd";
+                case UnitsOfMeasurement.LengthParsec:
+                    return "";
+                case UnitsOfMeasurement.LengthInch:
+                    return "in";
+                case UnitsOfMeasurement.LengthFoot:
+                    return "ft";
+                case UnitsOfMeasurement.LengthMile:
+                    return "";
+                #endregion
+                #region Velocity
+                case UnitsOfMeasurement.VelocityMetresPerSecond:
+                    return "m/s";
+                case UnitsOfMeasurement.AngularVelocityRradianPerSecond:
+                    return "rad/s";
+                case UnitsOfMeasurement.AngularVelocityRevolutionPerMinute:
+                    return "rpm";
+                #endregion
+
+                case UnitsOfMeasurement.ElectricCurrentAampere:
+                    return "A";
+                case UnitsOfMeasurement.ThermodynamicTemperatureKelvin:
+                    return "K";
+                case UnitsOfMeasurement.AmountOfSubstanceMole:
+                    return "mol";
+                case UnitsOfMeasurement.LuminousIntensityCandela:
+                    return "cd";
+                case UnitsOfMeasurement.AreaSquareMetres:
+                    return "m2";
+                case UnitsOfMeasurement.VolumeCubicMetres:
+                    return "m3";
+                case UnitsOfMeasurement.AccelerationMetresPerSecondSquared:
+                    return "m/s2";
+                case UnitsOfMeasurement.DensityKilogramPerCubicMetre:
+                    return "kg/m3";
+                case UnitsOfMeasurement.SurfaceDensityKilogramPerSquareMetre:
+                    return "kg/m2";
+                case UnitsOfMeasurement.SpecificVolumeCubicMetrePerKilogram:
+                    return "m3/kg";
+                case UnitsOfMeasurement.AmountConcentrationMolePerCubicMetre:
+                    return "mol/m3";
+                case UnitsOfMeasurement.LuminanceCandelaPerSquareMetre:
+                    return "cd/m2";
+                case UnitsOfMeasurement.FrequencyHhertz:
+                    return "Hz";
+                case UnitsOfMeasurement.ForceNewton:
+                    return "N";
+                case UnitsOfMeasurement.PressurePascal:
+                    return "Pa";
+                case UnitsOfMeasurement.EnergyJoule:
+                    return "J";
+                case UnitsOfMeasurement.PowerWatt:
+                    return "W";
+                case UnitsOfMeasurement.ElectricChargeCoulomb:
+                    return "C";
+                case UnitsOfMeasurement.ElectricPotentialDifferenceVolt:
+                    return "V";
+                case UnitsOfMeasurement.CapacitanceFarad:
+                    return "F";
+                case UnitsOfMeasurement.ElectricResistanceOhm:
+                    // ALT-234 - not working. turn off mouse keys?
+                    return "Ω";
+                case UnitsOfMeasurement.ElectricConductanceSiemens:
+                    return "S";
+                case UnitsOfMeasurement.InductanceHenry:
+                    return "H";
+                case UnitsOfMeasurement.IlluminanceLlux:
+                    return "lx";
+                case UnitsOfMeasurement.ActivityReferredToARadionuclideBecquerel:
+                    return "Bq";
+                case UnitsOfMeasurement.AbsorbedDoseGray:
+                    return "Gy";
+                case UnitsOfMeasurement.DoseEquivalentSievert:
+                    return "Sv";
+                case UnitsOfMeasurement.VolumeLitre:
+                    return "l";
+                case UnitsOfMeasurement.EnergyKilowattHour:
+                    return "kWh";
+                case UnitsOfMeasurement.ThermodynamicTemperatureDegreeFahrenheit:
+                    return "F";
+                case UnitsOfMeasurement.Percentage:
+                    return "%";
+                case UnitsOfMeasurement.PlaneAngleRadian:
+                    return "rad";
+                case UnitsOfMeasurement.SolidAangleSteradian:
+                    return "sr";
+                case UnitsOfMeasurement.MagneticFluxWeber:
+                    return "Wb";
+                case UnitsOfMeasurement.MagneticFluxDensityTesla:
+                    return "T";
+                case UnitsOfMeasurement.CatalyticActivityKatal:
+                    return "kat";
+                case UnitsOfMeasurement.WavenumberReciprocalMetre:
+                    return "m−1";
+                case UnitsOfMeasurement.MagneticFieldStrengthAmperePerMetre:
+                    return "A/m";
+                case UnitsOfMeasurement.CurrentDensityAmperePerSquareMetre:
+                    return "A/m2";
+                case UnitsOfMeasurement.DynamicViscosityPascalSecond:
+                    return "Pa-s";
+                case UnitsOfMeasurement.MomentOfForceNewtonMetre:
+                    return "N-m";
+                case UnitsOfMeasurement.SurfaceTensionNewtonPerMetre:
+                    return "N/m";
+                case UnitsOfMeasurement.AngularAccelerationRradianPerSecondSquared:
+                    return "rad/s2";
+                case UnitsOfMeasurement.HeatFluxDensityWattPerSquareMetre:
+                    return "W/m2";
+                case UnitsOfMeasurement.HeatCapacityJoulePerKelvin:
+                    return "J/K";
+                case UnitsOfMeasurement.SpecificHeatCapacityJoulePerKilogramKelvin:
+                    return "J/(kg⋅K)";
+                case UnitsOfMeasurement.SpecificEnergyJoulePerKilogram:
+                    return "J/kg";
+                case UnitsOfMeasurement.ThermalConductivityWattPerMetreKelvin:
+                    return "W/(m⋅K)";
+                case UnitsOfMeasurement.EnergyDensityJoulePerCubicMetre:
+                    return "J/m3";
+                case UnitsOfMeasurement.ElectricFieldStrengthVoltPerMetre:
+                    return "V/m";
+                case UnitsOfMeasurement.ElectricChargeDensityCoulombPerCubicMetre:
+                    return "C/m3";
+                case UnitsOfMeasurement.SurfaceChargeDensityCoulombPerSquareMetre:
+                    return "C/m2";
+                case UnitsOfMeasurement.ElectricFluxDensityCoulombPerSquareMetre:
+                    return "C/m2";
+                case UnitsOfMeasurement.PermittivityFaradPerMetre:
+                    return "F/m";
+                case UnitsOfMeasurement.PermeabilityHenryPerMetre:
+                    return "H/m";
+                case UnitsOfMeasurement.MolarEnergyJoulePerMole:
+                    return "J/mol";
+                case UnitsOfMeasurement.MolarEntropyJoulePerMoleKelvin:
+                    return "J/(mol⋅K)";
+                case UnitsOfMeasurement.ExposureCoulombPerKilogram:
+                    return "C/kg";
+                case UnitsOfMeasurement.AbsorbedDoseRateGrayPerSecond:
+                    return "Gy/s";
+                case UnitsOfMeasurement.RadiantIntensityWattPerSteradian:
+                    return "W/sr";
+                case UnitsOfMeasurement.RadianceWattPerSquareMetreSteradian:
+                    return "W/(m2⋅sr)";
+                case UnitsOfMeasurement.CatalyticActivityConcentrationKatalPerCubicMetre:
+                    return "kat/m3";
+                case UnitsOfMeasurement.AreaHectare:
+                    return "ha";
+                case UnitsOfMeasurement.PlaneAngleDegree:
+                    return "°";
+                case UnitsOfMeasurement.PlaneAngleMinute:
+                    return "′";
+                case UnitsOfMeasurement.PlaneAngleSecond:
+                    return "″";
+                case UnitsOfMeasurement.LogarithmicRadioQuantityNneper:
+                    return "Np";
+                case UnitsOfMeasurement.LogarithmicRadioQuantityBel:
+                    return "B";
+                case UnitsOfMeasurement.SoundPressureDecibel:
+                    return "dB";
+                case UnitsOfMeasurement.LuminousFluxLlumen:
+                    return "lm";
+                case UnitsOfMeasurement.LuminousExposureLuxHour:
+                    return "lx/h";
+                case UnitsOfMeasurement.IrradianceWwattPerSquareMetre:
+                    return "W/m2";
+
+
+                case UnitsOfMeasurement.RefractiveIndex:
+                    return "";
+                case UnitsOfMeasurement.RelativePermeability:
+                    return "";
+                case UnitsOfMeasurement.CelsiusTemperatureDegreeCelsius:
+                    return "";
+                case UnitsOfMeasurement.PressureBar:
+                    return "";
+                case UnitsOfMeasurement.PressureMillimetreOfMercury:
+                    return "";
+                case UnitsOfMeasurement.LengthÅngström:
+                    return "";
+                case UnitsOfMeasurement.LengthNauticalMile:
+                    return "";
+                case UnitsOfMeasurement.AreaBarn:
+                    return "";
+                case UnitsOfMeasurement.PressurePoundForcePerSquareInch:
+                    return "";
+                case UnitsOfMeasurement.EnergyGramCalorie:
+                    return "";
+                case UnitsOfMeasurement.EnergyKilogramCalorie:
+                    return "";
+                case UnitsOfMeasurement.PerMille:
+                    return "";
+                case UnitsOfMeasurement.PeriodBeatsPerMinute:
+                    return "";
+                case UnitsOfMeasurement.ElectricChargeAmpereHours:
+                    return "";
+                case UnitsOfMeasurement.ConcentrationCountPerCubicMetre:
+                    return "";
+                case UnitsOfMeasurement.MilliliterPerKilogramPerMinute:
+                    return "";
+                case UnitsOfMeasurement.MetabolicEquivalent:
+                    return "";
+                case UnitsOfMeasurement.StepPerMinute:
+                    return "";
+                case UnitsOfMeasurement.StrokePerMinute:
+                    return "";
+                case UnitsOfMeasurement.PaceKilometrePerMinute:
+                    return "";
+                case UnitsOfMeasurement.LuminousEfficacyLlumenPerWatt:
+                    return "";
+                case UnitsOfMeasurement.LuminousEnergyLumenHour:
+                    return "";
+                case UnitsOfMeasurement.VolumeFlowLlitrePerSecond:
+                    return "";
+                case UnitsOfMeasurement.ConcentrationPartsPerMillion:
+                    return "";
+                case UnitsOfMeasurement.ConcentrationPartsPerBillion:
+                    return "";
+                case UnitsOfMeasurement.Unitless:
+                case UnitsOfMeasurement.NOT_HANDLED:
+                default:
+                    return "";
+            }
+
+
+            return "";
+        }
+
+
     }
 
 

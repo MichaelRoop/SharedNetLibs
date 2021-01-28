@@ -51,7 +51,6 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                 return string.Format("{0} byte(s) Data. Requires {1}", data.Length, required);
             }
 
-            // TODO - use the exponent on numerics
             // TODO - user unit
             byte[] tmp = null;
             int exp = desc.Exponent;
