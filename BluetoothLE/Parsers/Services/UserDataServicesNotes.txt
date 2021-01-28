@@ -1,0 +1,32 @@
+﻿
+Allowed characteristics
+
+​​​First Name 
+​Last Name​ 
+​Email Address 
+​Age 
+​Date of Birth 
+​Gender 
+​Weight 
+​Height 
+​VO2 Max 
+​Heart Rate Max​
+​Resting Heart Rate 
+​Maximum Recommended Heart Rate​ 
+Aerobic Threshold 
+​Anaerobic Threshold 
+Sport Type for Aerobic and Anaerobic Thresholds 
+Date of Threshold Assessment 
+Waist Circumference 
+Hip Circumference 
+Fat Burn Heart Rate Lower Limit 
+Fat Burn Heart Rate Upper Limit 
+Aerobic Heart Rate Lower Limit 
+Aerobic Heart Rate Upper Limit 
+Anaerobic Heart Rate Lower Limit 
+​Anaerobic Heart Rate Upper Limit 
+Five Zone Heart Rate Limits​ 
+Three Zone Heart Rate Limits 
+Two Zone Heart Rate Limits 
+​Language 
+Registered User Characteristic

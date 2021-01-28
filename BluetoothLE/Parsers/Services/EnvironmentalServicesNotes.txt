@@ -1,0 +1,26 @@
+﻿
+
+
+
+Only Characteristics allowed according to Spec
+
+Elevation 
+Pressure ​
+Temperature 
+Humidity 
+True Wind Speed 
+True Wind Direction 
+Apparent Wind Speed 
+Apparent Wind Direction 
+Gust Factor 
+Pollen Concentration 
+UV Index 
+Irradiance 
+Rainfall 
+Wind Chill 
+Heat Index 
+Dew Point ​
+Barometric Pressure Trend 
+Magnetic Declination 
+Magnetic Flux Density – 2D 
+Magnetic Flux Density – 3D 
