@@ -29,7 +29,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
             // Use the format descriptor for data display format.Format
             if (format == null) {
                 this.DisplayString = data.ToFormatedByteString();
-                this.log.Info("DoParse", () => string.Format("NOT IMPLEMENTED Display:{0}", this.DisplayString));
+                this.log.Info("DoParse", () => string.Format("NO Format Descriptor Value:{0}", this.DisplayString));
             }
             else {
                 this.DisplayString = Process(format, data);

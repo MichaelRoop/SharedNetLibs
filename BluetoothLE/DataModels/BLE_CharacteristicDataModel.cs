@@ -67,8 +67,7 @@ namespace BluetoothLE.Net.DataModels {
             foreach (var des in this.Descriptors) {
                 descParsers.Add(des.Parser);
             }
-
-
+            this.Parser.SetDescriptorParsers(descParsers);
         }
 
 
