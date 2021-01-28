@@ -298,6 +298,16 @@ namespace TestCases.Core.BLE_CharParsers {
             this.TestByteBits(this.Get24BitByteArray(-8388605), "Unhandled - Int 24bit:0x03,0x00,0x80", DataFormatEnum.Int_24bit);
         }
 
+        // Signed 24 bit not supported
+        //[Test]
+        //public void Int24Exponent() {
+        //    int value = 225411;
+        //    this.TestExp24Bit(value, -1);
+        //    this.TestExp24Bit(value, -2);
+        //    this.TestExp24Bit(value, 1);
+        //    this.TestExp24Bit(value, 2);
+        //}
+
         [Test]
         public void Int24BitNotEnoughBytes() {
             this.TestByteBits(this.GetByteArray(100), "Unhandled - Int 24bit:0x64", DataFormatEnum.Int_24bit);
@@ -318,6 +328,15 @@ namespace TestCases.Core.BLE_CharParsers {
 
 
         [Test]
+        public void Int32Exponent() {
+            int value = 222;
+            this.TestExp(value, -1);
+            this.TestExp(value, -2);
+            this.TestExp(value, 1);
+            this.TestExp(value, 2);
+        }
+
+        [Test]
         public void Int48FullRange() {
             this.TestByteBits(this.GetI64ByteArray(0), "Unhandled - Int 48bit:0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00", DataFormatEnum.Int_48bit);
             this.TestByteBits(this.GetI64ByteArray(14294967295), "Unhandled - Int 48bit:0xFF,0xE3,0x0B,0x54,0x03,0x00,0x00,0x00", DataFormatEnum.Int_48bit);
@@ -336,6 +355,15 @@ namespace TestCases.Core.BLE_CharParsers {
             this.TestByteBits(this.GetI64ByteArray(0), "0", DataFormatEnum.Int_64bit);
             this.TestByteBits(this.GetI64ByteArray(9994294), "9994294", DataFormatEnum.Int_64bit);
             this.TestByteBits(this.GetI64ByteArray(-9994294), "-9994294", DataFormatEnum.Int_64bit);
+        }
+
+        [Test]
+        public void Int64Exponent() {
+            long value = 2224444499999;
+            this.TestExp(value, -1);
+            this.TestExp(value, -2);
+            this.TestExp(value, 1);
+            this.TestExp(value, 2);
         }
 
 

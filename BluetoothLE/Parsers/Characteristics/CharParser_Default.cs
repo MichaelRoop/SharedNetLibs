@@ -56,8 +56,11 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
             byte[] tmp = null;
             int exp = desc.Exponent;
             switch (desc.Format) {
+
                 case Enumerations.DataFormatEnum.Boolean:
                     return ((bool)(data.ToByte(0) >  0)).ToString();
+
+                #region Unsigned types
                 //------------------------------------------------------
                 // Unsigned
                 case Enumerations.DataFormatEnum.UInt_2bit:
@@ -85,12 +88,13 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                 case Enumerations.DataFormatEnum.UInt_128bit:
                     // Will not support this
                     return data.ToFormatedByteString();
+                #endregion
 
+                #region Signed types
                 //------------------------------------------------------
                 // Signed values
                 case Enumerations.DataFormatEnum.Int_8bit:
                     return data.ToSByte(0).Calculate(exp, exp).ToStr(exp);
-                    //return data.ToSByte(0).ToString();
                 case Enumerations.DataFormatEnum.Int_12bit:
                     tmp = new byte[2];
                     Array.Copy(data, 0, tmp, 0, 2);
@@ -109,7 +113,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                 //return ((int)(((int)tmp.ToInt32(0)) & 0xFFFFFF)).ToString();
 
                 case Enumerations.DataFormatEnum.Int_32bit:
-                    return data.ToInt32(0).ToString();
+                    return data.ToInt32(0).Calculate(exp, exp).ToStr(exp);
                 case Enumerations.DataFormatEnum.Int_48bit:
                     //tmp = new byte[8];
                     //Array.Copy(data, 0, tmp, 0, 6);
@@ -127,10 +131,14 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                 //return (tmp.ToInt64(0) & 0xFFFFFFFFFFFF).ToString();
                 //return ((long)(tmp.ToInt64(0) & 0xFFFFFFFFFFFF)).ToString();
                 case Enumerations.DataFormatEnum.Int_64bit:
-                    return data.ToInt64(0).ToString();
+                    return data.ToInt64(0).Calculate(exp, exp).ToStr(exp);
                 case Enumerations.DataFormatEnum.Int_128bit:
                     // Will not support this
                     return data.ToFormatedByteString();
+
+                #endregion
+
+                #region Floating types
 
                 //------------------------------------------------------
                 // Floats 754 is current MS
@@ -150,12 +158,18 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
                     return data.ToFloat32(0).ToString(); // ****** NOT SURE OR IEEE
 
-                //------------------------------------------------------
-                // Strings
+                #endregion
+
+                #region Strings
+
                 case Enumerations.DataFormatEnum.UTF8_String:
                     return Encoding.UTF8.GetString(data);
                 case Enumerations.DataFormatEnum.UTF16_String:
                     return Encoding.Unicode.GetString(data);
+
+                #endregion
+
+                #region Unhandled types
 
                 //------------------------------------------------------
                 // Not handled
@@ -165,6 +179,8 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                 case Enumerations.DataFormatEnum.Reserved:
                 default:
                     return data.ToFormatedByteString();
+
+                #endregion
             }
 
         }
