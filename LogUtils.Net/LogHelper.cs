@@ -86,7 +86,7 @@ namespace LogUtils.Net {
                     this.currentDate = err.TimeStamp;
                 }
 
-                this.EveryMsgEvent?.Invoke(this, err.Msg);
+                this.EveryMsgEvent?.Invoke(this, Log.GetMsgFormatNoTimestamp(level, err));
                 this.RawCurrentVerbotsityMsgInfoEvent?.Invoke(level, err);
 
                 string msg = Log.GetMsgFormat1(level, err);

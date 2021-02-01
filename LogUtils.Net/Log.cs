@@ -116,17 +116,43 @@ namespace LogUtils.Net {
                 err.Msg);
         }
 
-        #endregion
 
-        #region Info Calls
+        public static string GetMsgFormatNoTimestamp(MsgLevel level, ErrReport err) {
+            if (err.StackTrace.Length > 0) {
+                return String.Format(
+                    "{0} {1}{2}.{3}:{4}{5}{6}",
+                    LogLevelShort(level),
+                    err.Code.ToString().PadLeft(6, ' '),
+                    err.AtClass,
+                    err.AtMethod,
+                    err.Msg,
+                    Environment.NewLine,
+                    err.StackTrace);
+            }
+            else {
+                return String.Format(
+                    "{0} {1}{2}.{3}:{4}",
+                    LogLevelShort(level),
+                    err.Code.ToString().PadLeft(6, ' '),
+                    err.AtClass,
+                    err.AtMethod,
+                    err.Msg);
+            }
+        }
 
-        /// <summary>
-        /// Log an Info level message
-        /// </summary>
-        /// <param name="atClass">The class of origine</param>
-        /// <param name="atMethod">The method of origine</param>
-        /// <param name="msg">The message to log</param>
-        public static void Info(string atClass, string atMethod, string msg) {
+
+
+            #endregion
+
+            #region Info Calls
+
+            /// <summary>
+            /// Log an Info level message
+            /// </summary>
+            /// <param name="atClass">The class of origine</param>
+            /// <param name="atMethod">The method of origine</param>
+            /// <param name="msg">The message to log</param>
+            public static void Info(string atClass, string atMethod, string msg) {
             Log.LogMsg(MsgLevel.Info, 0, atClass, atMethod, msg);
         }
 
