@@ -1,12 +1,12 @@
 ﻿using BluetoothLE.Net.Enumerations;
+using BluetoothLE.Net.interfaces;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace BluetoothLE.Net.DataModels {
 
     /// <summary>Cross platform data model for essential BLE Service info</summary>
-    public class BLE_ServiceDataModel {
+    public class BLE_ServiceDataModel : IUniquelyIdentifiable {
 
         public ushort AttributeHandle { get; set; } = 0;
 

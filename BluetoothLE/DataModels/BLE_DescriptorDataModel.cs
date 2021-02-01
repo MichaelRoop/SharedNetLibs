@@ -2,12 +2,10 @@
 using BluetoothLE.Net.interfaces;
 using BluetoothLE.Net.Parsers.Descriptor;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BluetoothLE.Net.DataModels {
 
-    public class BLE_DescriptorDataModel {
+    public class BLE_DescriptorDataModel : IUniquelyIdentifiable {
 
         public ushort AttributeHandle { get; set; } = 0;
 

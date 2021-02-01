@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace BluetoothLE.Net.DataModels {
 
     /// <summary>Cross platform holder of BLE Characteristic information</summary>
-    public class BLE_CharacteristicDataModel {
+    public class BLE_CharacteristicDataModel : IUniquelyIdentifiable {
 
         // TODO need event to get the value read at the OS level Characteristic
         // TODO need to expose something so we can write to the OS level Characteristic
@@ -96,7 +96,6 @@ namespace BluetoothLE.Net.DataModels {
         /// <summary>Used by the OS to push up characteristic read data</summary>
         /// <param name="data">The data read</param>
         public void PushReadDataEvent(byte[] data, string strValue) {
-           LogUtils.Net.Log.InfoEntry("BLE_CharacteristicDataModel",  "PushReadDataEvent");
             this.CharValue = strValue;
             this.OnReadValueChanged?.Invoke(this, new BLE_CharacteristicReadResult() {
                 Status = BLE_CharacteristicCommunicationStatus.Success,
