@@ -124,6 +124,7 @@ namespace LanguageFactory.Net.Languages.ar {
             this.AddMsg(MsgCode.RemoteService, "الخدمة البعيد");
             this.AddMsg(MsgCode.Clear, "مسح");
             this.AddMsg(MsgCode.ResetAll, "إعادة تعيين الكل");
+            this.AddMsg(MsgCode.Disconnected, "غير متصل");
 
 
             //this.AddMsg(MsgCode., "");

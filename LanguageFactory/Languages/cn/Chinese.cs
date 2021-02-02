@@ -119,6 +119,7 @@ namespace LanguageFactory.Net.Languages.cn {
             this.AddMsg(MsgCode.RemoteService, "远程服务");
             this.AddMsg(MsgCode.Clear, "清除");
             this.AddMsg(MsgCode.ResetAll, "全部重置");
+            this.AddMsg(MsgCode.Disconnected, "已断开连接");
 
             //this.AddMsg(MsgCode., "");
 

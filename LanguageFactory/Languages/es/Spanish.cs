@@ -120,6 +120,7 @@ namespace LanguageFactory.Net.Languages.es {
             this.AddMsg(MsgCode.RemoteService, "Servicio remoto");
             this.AddMsg(MsgCode.Clear, "Borrar");
             this.AddMsg(MsgCode.ResetAll, "Restaurar todo");
+            this.AddMsg(MsgCode.Disconnected, "Desconectado");
 
 
             //this.AddMsg(MsgCode., "");

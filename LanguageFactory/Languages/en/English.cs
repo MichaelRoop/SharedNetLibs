@@ -28,6 +28,7 @@ namespace LanguageFactory.Net.Languages.en {
             this.AddMsg(MsgCode.Search, "Search");
             this.AddMsg(MsgCode.connect, "Connect");
             this.AddMsg(MsgCode.Connected, "Connected");
+            this.AddMsg(MsgCode.Disconnected, "Disconnected");
             this.AddMsg(MsgCode.ConnectionFailure, "Connection Failure");
             this.AddMsg(MsgCode.Disconnect, "Disconnect");
             this.AddMsg(MsgCode.NotConnected, "Not Connected");

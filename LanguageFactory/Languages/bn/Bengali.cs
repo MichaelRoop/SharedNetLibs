@@ -122,6 +122,7 @@ namespace LanguageFactory.Net.Languages.bn {
             this.AddMsg(MsgCode.RemoteService, "রিমোট পরিষেবার");
             this.AddMsg(MsgCode.Clear, "পরিষ্কার করুন");
             this.AddMsg(MsgCode.ResetAll, "সকল ডিফল্ট পুনরায় সেট করুন");
+            this.AddMsg(MsgCode.Disconnected, "সংযোগ বিচ্ছিন্ন");
 
 
             //this.AddMsg(MsgCode., "");

@@ -119,6 +119,7 @@ namespace LanguageFactory.Net.Languages.ja {
             this.AddMsg(MsgCode.RemoteService, "リモート サービス");
             this.AddMsg(MsgCode.Clear, "解除");
             this.AddMsg(MsgCode.ResetAll, "すべて元に戻す");
+            this.AddMsg(MsgCode.Disconnected, "接続解除済み");
 
 
             //this.AddMsg(MsgCode., "");

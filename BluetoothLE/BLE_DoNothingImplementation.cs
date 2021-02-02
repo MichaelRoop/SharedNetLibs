@@ -16,6 +16,8 @@ namespace BluetoothLE.Net {
         public event EventHandler<byte[]> MsgReceivedEvent;
         public event EventHandler<BLEGetInfoStatus> DeviceConnectResult;
         public event EventHandler<BLE_CharacteristicReadResult> CharacteristicReadValueChanged;
+        public event EventHandler<BLE_ConnectStatusChangeInfo> ConnectionStatusChanged;
+
 
         public void Connect(BluetoothLEDeviceInfo deviceInfo) {
             // nothing at the moment
@@ -54,6 +56,7 @@ namespace BluetoothLE.Net {
             this.DeviceUpdated?.Invoke(this, new NetPropertiesUpdateDataModel());
             this.DeviceConnectResult?.Invoke(this, null);
             this.CharacteristicReadValueChanged.Invoke(this, null);
+            this.ConnectionStatusChanged?.Invoke(this, null);
         }
 
 

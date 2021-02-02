@@ -131,6 +131,7 @@
         RemoteService,
         Clear,
         ResetAll,
+        Disconnected,
 
         // Composite - no direct lookup
         ReadTimeout,

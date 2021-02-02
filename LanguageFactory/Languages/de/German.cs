@@ -122,6 +122,7 @@ namespace LanguageFactory.Net.Languages.de {
             this.AddMsg(MsgCode.RemoteService, "Remotedienst");
             this.AddMsg(MsgCode.Clear, "Löschen");
             this.AddMsg(MsgCode.ResetAll, "Alle zurücksetzen");
+            this.AddMsg(MsgCode.Disconnected, "Verbindung getrennt");
 
 
             //this.AddMsg(MsgCode., "");

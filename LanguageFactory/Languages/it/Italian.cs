@@ -121,6 +121,7 @@ namespace LanguageFactory.Net.Languages.it {
             this.AddMsg(MsgCode.RemoteService, "Servizio remoto");
             this.AddMsg(MsgCode.Clear, "Cancella");
             this.AddMsg(MsgCode.ResetAll, "Reimposta tutto");
+            this.AddMsg(MsgCode.Disconnected, "Disconnesso");
 
             //this.AddMsg(MsgCode., "");
         }

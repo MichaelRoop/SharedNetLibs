@@ -119,6 +119,7 @@ namespace LanguageFactory.Net.Languages.fr {
             this.AddMsg(MsgCode.RemoteService, "Service distant");
             this.AddMsg(MsgCode.Clear, "Effacer");
             this.AddMsg(MsgCode.ResetAll, "Réinitialiser tout");
+            this.AddMsg(MsgCode.Disconnected, "Déconnecté");
 
             //this.AddMsg(MsgCode., "");
         }

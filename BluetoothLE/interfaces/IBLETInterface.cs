@@ -31,6 +31,8 @@ namespace BluetoothLE.Net.interfaces {
         /// <summary>Raised when a characteristic read value changes</summary>
         event EventHandler<BLE_CharacteristicReadResult> CharacteristicReadValueChanged;
 
+        /// <summary>Used to track device provoked disconnection after connection</summary>
+        event EventHandler<BLE_ConnectStatusChangeInfo> ConnectionStatusChanged;
 
         /// <summary>Start or restart the device discovery</summary>
         void DiscoverDevices();

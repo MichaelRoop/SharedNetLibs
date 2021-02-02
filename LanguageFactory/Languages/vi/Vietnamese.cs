@@ -120,6 +120,7 @@ namespace LanguageFactory.Net.Languages.vi {
             this.AddMsg(MsgCode.RemoteService, "Dịch vụ từ xa");
             this.AddMsg(MsgCode.Clear, "Xóa");
             this.AddMsg(MsgCode.ResetAll, "Đặt lại Tất cả");
+            this.AddMsg(MsgCode.Disconnected, "Đã ngắt kết nối");
 
 
             //this.AddMsg(MsgCode., "");

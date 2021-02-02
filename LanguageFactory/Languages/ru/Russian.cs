@@ -124,6 +124,7 @@ namespace LanguageFactory.Net.Languages.ru {
             this.AddMsg(MsgCode.RemoteService, "Удаленная служба");
             this.AddMsg(MsgCode.Clear, "Очистить");
             this.AddMsg(MsgCode.ResetAll, "Сбросить все");
+            this.AddMsg(MsgCode.Disconnected, "Связь завершена");
 
             //this.AddMsg(MsgCode., "");
         }
