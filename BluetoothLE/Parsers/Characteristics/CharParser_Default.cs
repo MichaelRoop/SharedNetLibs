@@ -54,8 +54,8 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
             // TODO - user unit
             byte[] tmp = null;
             int exp = desc.Exponent;
+            this.DataType = ((uint)EnumHelpers.ToByte(desc.Format)).ToEnum<BLE_DataType>();
             switch (desc.Format) {
-
                 case Enumerations.DataFormatEnum.Boolean:
                     return ((bool)(data.ToByte(0) >  0)).ToString();
 

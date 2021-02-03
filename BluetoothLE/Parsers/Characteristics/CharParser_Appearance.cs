@@ -1,4 +1,5 @@
-﻿using LogUtils.Net;
+﻿using BluetoothLE.Net.Enumerations;
+using LogUtils.Net;
 using System;
 using System.Text;
 using VariousUtils.Net;
@@ -9,8 +10,9 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
         private readonly ClassLog log = new ClassLog("CharParser_Appearance");
 
-        public override int RequiredBytes { get; protected set; } = 2;
+        public override int RequiredBytes { get; protected set; } = UINT16_LEN;
 
+        public override BLE_DataType DataType => BLE_DataType.UInt_16bit;
 
         protected override void DoParse(byte[] data) {
             //https://specificationrefs.bluetooth.com/assigned-values/Appearance%20Values.pdf

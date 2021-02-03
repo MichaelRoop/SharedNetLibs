@@ -1,4 +1,6 @@
-﻿namespace BluetoothLE.Net.interfaces {
+﻿using BluetoothLE.Net.Enumerations;
+
+namespace BluetoothLE.Net.interfaces {
 
     public interface IBLEParser {
 
@@ -7,6 +9,9 @@
 
         /// <summary>User friendly display of descriptor value(s)</summary>
         string DisplayString { get; }
+
+        /// <summary>The data type for the characteristic</summary>
+        BLE_DataType DataType { get; }
 
 
         /// <summary>Parse out the variable values from the read bytes</summary>

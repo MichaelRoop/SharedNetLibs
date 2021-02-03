@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using BluetoothLE.Net.Enumerations;
 
 namespace BluetoothLE.Net.Parsers.Characteristics {
 
     public class CharParser_AlertLevel : CharParser_Base {
 
-        public override int RequiredBytes { get; protected set; } = 1;
+        public override int RequiredBytes { get; protected set; } = BYTE_LEN;
+
+        public override BLE_DataType DataType => BLE_DataType.UInt_8bit;
 
         protected override void DoParse(byte[] data) {
             switch (data[0]) {

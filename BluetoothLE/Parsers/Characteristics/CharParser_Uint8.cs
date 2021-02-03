@@ -1,22 +1,26 @@
-﻿using BluetoothLE.Net.Parsers.Types;
+﻿using BluetoothLE.Net.Enumerations;
 
 namespace BluetoothLE.Net.Parsers.Characteristics {
 
     public class CharParser_Uint8 : CharParser_Base {
 
-        private TypeParserUint8 parser = new TypeParserUint8();
+        public byte Value { get; private set; }
 
-        byte Value { get { return this.parser.Value; } }
+        public override int RequiredBytes { get; protected set; } = BYTE_LEN;
 
-        public CharParser_Uint8() {
-            this.RequiredBytes = this.parser.RequiredBytes;
-        }
+        public override BLE_DataType DataType => BLE_DataType.UInt_8bit;
 
 
         protected override void DoParse(byte[] data) {
-            this.parser.Parse(data);
-            this.DisplayString = this.parser.DisplayString;
-
+            this.Value = data[0];
+            this.DisplayString = this.Value.ToString();
         }
+
+
+        protected override void ResetMembers() {
+            this.Value = 0;
+            base.ResetMembers();
+        }
+
     }
 }

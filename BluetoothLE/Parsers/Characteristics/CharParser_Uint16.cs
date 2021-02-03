@@ -1,10 +1,14 @@
-﻿using VariousUtils.Net;
+﻿using BluetoothLE.Net.Enumerations;
+using VariousUtils.Net;
 
 namespace BluetoothLE.Net.Parsers.Characteristics {
 
     public class CharParser_Uint16 : CharParser_Base {
 
         public override int RequiredBytes { get; protected set; } = UINT16_LEN;
+
+        public override BLE_DataType DataType => BLE_DataType.UInt_16bit;
+
 
         public ushort Value { get; private set; }
 

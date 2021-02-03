@@ -1,11 +1,15 @@
-﻿using System;
+﻿using BluetoothLE.Net.Enumerations;
+using System;
 using System.Text;
 
 namespace BluetoothLE.Net.Parsers.Characteristics {
 
     public class CharParser_DaylightSavingsTimeOffset : CharParser_Base {
 
-        public override int RequiredBytes { get; protected set; } = 1;
+        public override int RequiredBytes { get; protected set; } = BYTE_LEN;
+
+        public override BLE_DataType DataType => BLE_DataType.UInt_8bit;
+
 
         protected override void DoParse(byte[] data) {
             StringBuilder sb = new StringBuilder();

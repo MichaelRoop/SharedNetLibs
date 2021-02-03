@@ -1,4 +1,5 @@
-﻿using BluetoothLE.Net.Parsers.Types;
+﻿using BluetoothLE.Net.Enumerations;
+using BluetoothLE.Net.Parsers.Types;
 using VariousUtils.Net;
 
 namespace BluetoothLE.Net.Parsers.Characteristics {
@@ -6,6 +7,8 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
     public class CharParser_AlertStatus : CharParser_Base {
 
         public override int RequiredBytes { get; protected set; } = BYTE_LEN;
+
+        public override BLE_DataType DataType => BLE_DataType.UInt_8bit;
 
         public bool RingerState { get; set; } = false;
         public bool VibrateState { get; set; } = false;

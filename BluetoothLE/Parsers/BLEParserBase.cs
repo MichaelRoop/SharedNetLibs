@@ -1,4 +1,5 @@
-﻿using BluetoothLE.Net.interfaces;
+﻿using BluetoothLE.Net.Enumerations;
+using BluetoothLE.Net.interfaces;
 using ChkUtils.Net;
 using LogUtils.Net;
 using System;
@@ -29,6 +30,9 @@ namespace BluetoothLE.Net.Parsers {
         public virtual int RequiredBytes { get; protected set; } = 0;
 
         public string DisplayString { get; protected set; } = "";
+
+        public virtual BLE_DataType DataType { get; protected set; } = BLE_DataType.Reserved;
+
 
         public string Parse(byte[] data) {
             try {

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace BluetoothLE.Net.Enumerations {
-    public enum BLE_DataType : int {
+
+    public enum BLE_DataType : uint {
 
         // First entries are taken from the descriptor data type. Do not change
         Reserved = DataFormatEnum.Reserved,

@@ -1,4 +1,5 @@
-﻿using LogUtils.Net;
+﻿using BluetoothLE.Net.Enumerations;
+using LogUtils.Net;
 using System.Text;
 using VariousUtils.Net;
 
@@ -8,7 +9,10 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
         ClassLog log = new ClassLog("CharParser_TimeZone");
 
-        public override int RequiredBytes { get; protected set; } = 1;
+        public override int RequiredBytes { get; protected set; } = BYTE_LEN;
+
+        public override BLE_DataType DataType => BLE_DataType.UInt_8bit;
+
 
         protected override void DoParse(byte[] data) {
             StringBuilder sb = new StringBuilder();
