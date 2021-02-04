@@ -101,6 +101,7 @@ namespace BluetoothLE.Net.Enumerations {
                 case DataFormatEnum.UInt_16bit:
                 case DataFormatEnum.Int_16bit:
                 case DataFormatEnum.IEEE_11073_16bit_SFLOAT:
+                case DataFormatEnum.IEEE_20601_format:
                     return 2;
                 case DataFormatEnum.UInt_24bit:
                 case DataFormatEnum.Int_24bit:
@@ -125,8 +126,6 @@ namespace BluetoothLE.Net.Enumerations {
                 case DataFormatEnum.UTF8_String:
                 case DataFormatEnum.UTF16_String:
 
-                // This is generic data type - no size specified
-                case DataFormatEnum.IEEE_20601_format:
                 case DataFormatEnum.OpaqueStructure:
                 case DataFormatEnum.Reserved:
                 case DataFormatEnum.Unhandled:

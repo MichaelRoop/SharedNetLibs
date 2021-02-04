@@ -45,4 +45,190 @@ namespace BluetoothLE.Net.Enumerations {
 
 
     }
+
+
+    public static class BLE_DataTypeExtensions {
+
+        public static string ToStr(this BLE_DataType dataType) {
+            switch (dataType) {
+                case BLE_DataType.Bool:
+                    return "Bool";
+                case BLE_DataType.UInt_2bit:
+                    return "2 bit Unsigned Int";
+                case BLE_DataType.UInt_4bit:
+                    return "4 bit Unsigned Int";
+                case BLE_DataType.UInt_8bit:
+                    return "8 bit Unsigned Int";
+                case BLE_DataType.UInt_12bit:
+                    return "12 bit Unsigned Int";
+                case BLE_DataType.UInt_16bit:
+                    return "16 bit Unsigned Int";
+                case BLE_DataType.UInt_24bit:
+                    return "24 bit Unsigned Int";
+                case BLE_DataType.UInt_32bit:
+                    return "32 bit Unsigned Int";
+                case BLE_DataType.UInt_48bit:
+                    return "48 bit Unsigned Int";
+                case BLE_DataType.UInt_64bit:
+                    return "64 bit Unsigned Int";
+                case BLE_DataType.UInt_128bit:
+                    return "128 bit Unsigned Int";
+                case BLE_DataType.Int_8bit:
+                    return "8 bit Integer";
+                case BLE_DataType.Int_12bit:
+                    return "12 bit Integer";
+                case BLE_DataType.Int_16bit:
+                    return "16 bit Integer";
+                case BLE_DataType.Int_24bit:
+                    return "24 bit Integer";
+                case BLE_DataType.Int_32bit:
+                    return "32 bit Integer";
+                case BLE_DataType.Int_48bit:
+                    return "48 bit Integer";
+                case BLE_DataType.Int_64bit:
+                    return "64 bit Integer";
+                case BLE_DataType.Int_128bit:
+                    return "128 bit Integer";
+                case BLE_DataType.IEEE_754_32bit_floating_point:
+                    return "32 bit float";
+                case BLE_DataType.IEEE_754_64bit_floating_point:
+                    return "64 bit float";
+                case BLE_DataType.IEEE_11073_16bit_SFLOAT:
+                    return "16 bit float";
+                case BLE_DataType.IEEE_11073_32bit_FLOAT:
+                    return "32 bit float";
+                case BLE_DataType.IEEE_20601_format:
+                    return "Two 16 bit unsigned integers";
+                case BLE_DataType.UTF8_String:
+                    return "UTF8 String";
+                case BLE_DataType.UTF16_String:
+                    return "UTF 16 String (Unicode)";
+                case BLE_DataType.OpaqueStructure:
+                case BLE_DataType.Reserved:
+                default:
+                    return "Not handled";
+
+                    // TODO add as needed
+            }
+        }
+
+
+        public static int BytesRequired(this BLE_DataType value) {
+            switch (value) {
+                case BLE_DataType.Bool:
+                case BLE_DataType.UInt_2bit:
+                case BLE_DataType.UInt_4bit:
+                case BLE_DataType.UInt_8bit:
+                case BLE_DataType.Int_8bit:
+                    return 1;
+                case BLE_DataType.UInt_12bit:
+                case BLE_DataType.Int_12bit:
+                case BLE_DataType.UInt_16bit:
+                case BLE_DataType.Int_16bit:
+                case BLE_DataType.IEEE_11073_16bit_SFLOAT:
+                case BLE_DataType.IEEE_20601_format:
+                    return 2;
+                case BLE_DataType.UInt_24bit:
+                case BLE_DataType.Int_24bit:
+                    return 3;
+                case BLE_DataType.UInt_32bit:
+                case BLE_DataType.Int_32bit:
+                case BLE_DataType.IEEE_754_32bit_floating_point:
+                case BLE_DataType.IEEE_11073_32bit_FLOAT:
+                    return 4;
+                case BLE_DataType.UInt_48bit:
+                case BLE_DataType.Int_48bit:
+                    return 6;
+                case BLE_DataType.UInt_64bit:
+                case BLE_DataType.Int_64bit:
+                case BLE_DataType.IEEE_754_64bit_floating_point:
+                    return 8;
+                case BLE_DataType.UInt_128bit:
+                case BLE_DataType.Int_128bit:
+                    return 16;
+
+                case BLE_DataType.UTF8_String:
+                case BLE_DataType.UTF16_String:
+                case BLE_DataType.OpaqueStructure:
+                case BLE_DataType.Reserved:
+                default:
+                    return 9999;
+            }
+        }
+
+
+
+
+        //public static uint Size(this BLE_DataType dataType) {
+        //    switch (dataType) {
+        //        case BLE_DataType.Reserved:
+        //            break;
+        //        case BLE_DataType.Bool:
+        //            break;
+        //        case BLE_DataType.UInt_2bit:
+        //            break;
+        //        case BLE_DataType.UInt_4bit:
+        //            break;
+        //        case BLE_DataType.UInt_8bit:
+        //            break;
+        //        case BLE_DataType.UInt_12bit:
+        //            break;
+        //        case BLE_DataType.UInt_16bit:
+        //            break;
+        //        case BLE_DataType.UInt_24bit:
+        //            break;
+        //        case BLE_DataType.UInt_32bit:
+        //            break;
+        //        case BLE_DataType.UInt_48bit:
+        //            break;
+        //        case BLE_DataType.UInt_64bit:
+        //            break;
+        //        case BLE_DataType.UInt_128bit:
+        //            break;
+        //        case BLE_DataType.Int_8bit:
+        //            break;
+        //        case BLE_DataType.Int_12bit:
+        //            break;
+        //        case BLE_DataType.Int_16bit:
+        //            break;
+        //        case BLE_DataType.Int_24bit:
+        //            break;
+        //        case BLE_DataType.Int_32bit:
+        //            break;
+        //        case BLE_DataType.Int_48bit:
+        //            break;
+        //        case BLE_DataType.Int_64bit:
+        //            break;
+        //        case BLE_DataType.Int_128bit:
+        //            break;
+        //        case BLE_DataType.IEEE_754_32bit_floating_point:
+        //            break;
+        //        case BLE_DataType.IEEE_754_64bit_floating_point:
+        //            break;
+        //        case BLE_DataType.IEEE_11073_16bit_SFLOAT:
+        //            break;
+        //        case BLE_DataType.IEEE_11073_32bit_FLOAT:
+        //            break;
+        //        case BLE_DataType.IEEE_20601_format:
+        //            break;
+        //        case BLE_DataType.UTF8_String:
+        //            break;
+        //        case BLE_DataType.UTF16_String:
+        //            break;
+        //        case BLE_DataType.OpaqueStructure:
+        //            break;
+        //    }
+
+
+
+
+
+
+
+        //}
+
+
+
+    }
+
 }
