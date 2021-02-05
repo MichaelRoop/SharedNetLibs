@@ -84,7 +84,7 @@ namespace BluetoothLE.Net.Tools {
                     case BLE_DataType.UInt_32bit:
                         return ValidateUint32Range(result, 0, UInt32.MaxValue);
                     case BLE_DataType.UInt_48bit:
-                        return ValidateUint64Range(result, 0, 281474976710655);
+                        return ValidateUint48Range(result, 0, 281474976710655);
                     case BLE_DataType.UInt_64bit:
                         return ValidateUint64Range(result, 0, UInt64.MaxValue);
                     case BLE_DataType.UInt_128bit:
@@ -284,6 +284,29 @@ namespace BluetoothLE.Net.Tools {
             result.Message = result.Status.ToString().CamelCaseToSpaces();
             return result;
         }
+
+
+        private static RangeValidationResult ValidateUint48Range(RangeValidationResult result, UInt64 min, UInt64 max) {
+            UInt64 val;
+            if (UInt64.TryParse(result.UserEntryString, out val)) {
+                if (val >= min && val <= max) {
+                    result.Status = BLE_DataValidationStatus.Success;
+                    byte[] tmp = new byte[8];
+                    val.WriteToBuffer(tmp, 0);
+                    Array.Copy(tmp, result.Payload, 6);
+                }
+                else {
+                    result.Status = BLE_DataValidationStatus.OutOfRange;
+                }
+            }
+            else {
+                result.Status = BLE_DataValidationStatus.InvalidInput;
+            }
+            result.Message = result.Status.ToString().CamelCaseToSpaces();
+            return result;
+        }
+
+
 
 
         private static RangeValidationResult ValidateUint64Range(RangeValidationResult result, UInt64 min, UInt64 max) {
