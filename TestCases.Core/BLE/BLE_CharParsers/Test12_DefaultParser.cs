@@ -10,7 +10,7 @@ using System.Text;
 using TestCases.Core.TestToolSet;
 using VariousUtils.Net;
 
-namespace TestCases.Core.BLE_CharParsers {
+namespace TestCases.Core.BLE.BLE_CharParsers {
 
     [TestFixture]
     class Test12_DefaultParser : TestCaseBase {

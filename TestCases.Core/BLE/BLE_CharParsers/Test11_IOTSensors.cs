@@ -1,14 +1,11 @@
 ﻿using BluetoothLE.Net.Parsers.Characteristics;
 using LogUtils.Net;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
 using TestCases.Core.TestToolSet;
 using VariousUtils.Net;
 
-namespace TestCases.Core.BLE_CharParsers {
+namespace TestCases.Core.BLE.BLE_CharParsers {
 
     [TestFixture]
     public class Test11_IOTSensors : TestCaseBase {

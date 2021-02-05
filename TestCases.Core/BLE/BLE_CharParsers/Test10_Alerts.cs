@@ -1,13 +1,10 @@
 ﻿using BluetoothLE.Net.Parsers.Characteristics;
 using BluetoothLE.Net.Parsers.Types;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using TestCases.Core.TestToolSet;
 using VariousUtils.Net;
 
-namespace TestCases.Core.BLE_CharParsers {
+namespace TestCases.Core.BLE.BLE_CharParsers {
 
     [TestFixture]
     public class Test10_Alerts : TestCaseBase {

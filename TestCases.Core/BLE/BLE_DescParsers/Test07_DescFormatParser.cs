@@ -9,7 +9,7 @@ using System.Text;
 using TestCases.Core.TestToolSet;
 using VariousUtils.Net;
 
-namespace TestCases.BLE_DescParsers {
+namespace TestCases.Core.BLE.BLE_DescParsers {
 
     [TestFixture]
     public class Test07_DescFormatParser : TestCaseBase {

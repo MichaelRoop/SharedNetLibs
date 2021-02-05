@@ -3,7 +3,7 @@ using NUnit.Framework;
 using System;
 using TestCases.Core.TestToolSet;
 
-namespace TestCases.Core.BLE_CharParsers {
+namespace TestCases.Core.BLE.BLE_CharParsers {
 
     [TestFixture]
     public class Test03_CharParserAppearance : TestCaseBase {

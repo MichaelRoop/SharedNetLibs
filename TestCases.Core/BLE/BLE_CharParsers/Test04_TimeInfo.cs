@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using TestCases.Core.TestToolSet;
 
-namespace TestCases.Core.BLE_CharParsers {
+namespace TestCases.Core.BLE.BLE_CharParsers {
 
     [TestFixture]
     public class Test04_TimeInfo : TestCaseBase {

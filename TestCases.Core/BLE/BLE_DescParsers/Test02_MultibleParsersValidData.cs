@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using TestCases.Core.TestToolSet;
 using VariousUtils.Net;
 
-namespace TestCases.BLE_DescParsers {
+namespace TestCases.Core.BLE.BLE_DescParsers {
 
     [TestFixture]
     public class Test02_MultibleParsersValidData : TestCaseBase {

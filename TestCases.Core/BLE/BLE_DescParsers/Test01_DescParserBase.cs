@@ -5,7 +5,7 @@ using NUnit.Framework;
 using System;
 using TestCases.Core.TestToolSet;
 
-namespace TestCases.BLE_DescParsers {
+namespace TestCases.Core.BLE.BLE_DescParsers {
 
     [TestFixture]
     public class Test01_DescParserBase : TestCaseBase {

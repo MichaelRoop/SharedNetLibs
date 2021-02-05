@@ -3,14 +3,10 @@ using BluetoothLE.Net.Tools;
 using LogUtils.Net;
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Numerics;
-using System.Text;
 using TestCases.Core.TestToolSet;
 using VariousUtils.Net;
 
-namespace TestCases.Core.BLE_DataInput {
+namespace TestCases.Core.BLE.BLE_DataInput {
 
     [TestFixture]
     public class T001_RangeMinMax : TestCaseBase {

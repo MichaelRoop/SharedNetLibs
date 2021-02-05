@@ -5,7 +5,7 @@ using System;
 using TestCases.Core.TestToolSet;
 using VariousUtils.Net;
 
-namespace TestCases.Core.BLE_CharParsers {
+namespace TestCases.Core.BLE.BLE_CharParsers {
 
     [TestFixture]
     public class Test09_CurrentTime : TestCaseBase {
