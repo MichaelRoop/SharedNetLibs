@@ -71,34 +71,38 @@ namespace TestCases.Core.BLE_CharParsers {
         #region UInt
 
         [Test]
-        public void Uint2Bit() {
+        public void Uint02_FullRange() {
+            this.TestByteBits(this.GetByteArray(0), "0", DataFormatEnum.UInt_2bit);
+            this.TestByteBits(this.GetByteArray(1), "1", DataFormatEnum.UInt_2bit);
             this.TestByteBits(this.GetByteArray(3), "3", DataFormatEnum.UInt_2bit);
         }
 
 
         [Test]
-        public void Uint2BitBitsMaskedOut() {
+        public void Uint02_BitsMaskedOut() {
             this.TestByteBits(this.GetByteArray(15), "3", DataFormatEnum.UInt_2bit);
         }
 
 
         [Test]
-        public void Uint4Bit() {
-            this.TestByteBits(this.GetByteArray(14), "14", DataFormatEnum.UInt_4bit);
+        public void Uint04_FullRange() {
+            this.TestByteBits(this.GetByteArray(0), "0", DataFormatEnum.UInt_4bit);
+            this.TestByteBits(this.GetByteArray(15), "15", DataFormatEnum.UInt_4bit);
         }
 
         [Test]
-        public void Uint4BitBitsMaskedOut() {
+        public void Uint04_BitsMaskedOut() {
             this.TestByteBits(this.GetByteArray(255), "15", DataFormatEnum.UInt_4bit);
         }
 
         [Test]
-        public void Uint8Bit() {
-            this.TestByteBits(this.GetByteArray(222), "222", DataFormatEnum.UInt_8bit);
+        public void Uint08_FullRange() {
+            this.TestByteBits(this.GetByteArray(Byte.MinValue), Byte.MinValue.ToString(), DataFormatEnum.UInt_8bit);
+            this.TestByteBits(this.GetByteArray(Byte.MaxValue), Byte.MaxValue.ToString(), DataFormatEnum.UInt_8bit);
         }
 
         [Test]
-        public void Uint8Exponent() {
+        public void Uint08_Exponent() {
             sbyte value = 112;
             this.TestExp(value, -1);
             this.TestExp(value, -2);
@@ -108,12 +112,13 @@ namespace TestCases.Core.BLE_CharParsers {
 
 
         [Test]
-        public void Uint12Bit() {
-            this.TestByteBits(this.GetU16ByteArray(4094), "4094", DataFormatEnum.UInt_16bit);
+        public void Uint12_FullRange() {
+            this.TestByteBits(this.GetU16ByteArray(0), "0", DataFormatEnum.UInt_16bit);
+            this.TestByteBits(this.GetU16ByteArray(4095), "4095", DataFormatEnum.UInt_16bit);
         }
 
         [Test]
-        public void Uint12Exponent() {
+        public void Uint12_Exponent() {
             ushort value = 222;
             this.TestExp12Bit(value, -1);
             this.TestExp12Bit(value, -2);
@@ -122,17 +127,19 @@ namespace TestCases.Core.BLE_CharParsers {
         }
 
         [Test]
-        public void Uint12BitMasked() {
+        public void Uint12_BitMasked() {
             this.TestByteBits(this.GetU16ByteArray(0xAFFF), "4095", DataFormatEnum.UInt_12bit);
         }
 
         [Test]
-        public void Uint16Bit() {
+        public void Uint16_FullRange() {
+            this.TestByteBits(this.GetU16ByteArray(0), "0", DataFormatEnum.UInt_16bit);
             this.TestByteBits(this.GetU16ByteArray(62022), "62022", DataFormatEnum.UInt_16bit);
+            this.TestByteBits(this.GetU16ByteArray(UInt16.MaxValue), UInt16.MaxValue.ToString(), DataFormatEnum.UInt_16bit);
         }
 
         [Test]
-        public void Uint16Exponent() {
+        public void Uint16_Exponent() {
             ushort value = 12192;
             this.TestExp(value, -1);
             this.TestExp(value, -2);
@@ -143,18 +150,18 @@ namespace TestCases.Core.BLE_CharParsers {
 
 
         [Test]
-        public void Uint16BitNotEnoughBytes() {
+        public void Uint16_NotEnoughBytes() {
             this.TestByteBits(this.GetByteArray(100), "1 byte(s) Data. Requires 2", DataFormatEnum.UInt_16bit);
         }
 
 
         [Test]
-        public void Uint24Bit() {
+        public void Uint24_Valid() {
             this.TestByteBits(this.GetU32ByteArray(0xFFFFF1), "16777201", DataFormatEnum.UInt_24bit);
         }
 
         [Test]
-        public void Uint24Exponent() {
+        public void Uint24_Exponent() {
             uint value = 225462;
             this.TestExp24Bit(value, -1);
             this.TestExp24Bit(value, -2);
@@ -163,25 +170,25 @@ namespace TestCases.Core.BLE_CharParsers {
         }
 
         [Test]
-        public void Uint24BitNotEnoughBytes() {
+        public void Uint24_NotEnoughBytes() {
             this.TestByteBits(this.GetByteArray(100), "1 byte(s) Data. Requires 3", DataFormatEnum.UInt_24bit);
         }
 
 
         [Test]
-        public void Uint24BitMasked() {
+        public void Uint24_Masked() {
             this.TestByteBits(this.GetU32ByteArray(0xFFFFFFFF), "16777215", DataFormatEnum.UInt_24bit);
         }
 
         [Test]
-        public void Uint32FullRange() {
+        public void Uint32_FullRange() {
             this.TestByteBits(this.GetU32ByteArray(0), "0", DataFormatEnum.UInt_32bit);
             this.TestByteBits(this.GetU32ByteArray(4294967290), "4294967290", DataFormatEnum.UInt_32bit);
         }
 
 
         [Test]
-        public void Uint32Exponent() {
+        public void Uint32_Exponent() {
             uint value = 4294967;
             this.TestExp(value, -1);
             this.TestExp(value, -2);
@@ -195,12 +202,12 @@ namespace TestCases.Core.BLE_CharParsers {
 
 
         [Test]
-        public void Uint48() {
+        public void Uint48_Valid() {
             this.TestByteBits(this.GetU64ByteArray(14294967295), "14294967295", DataFormatEnum.UInt_48bit);
         }
 
         [Test]
-        public void Uint48Exponent() {
+        public void Uint48_Exponent() {
             ulong value = 22546987872;
             this.TestExp48(value, -1);
             this.TestExp48(value, -2);
@@ -211,26 +218,26 @@ namespace TestCases.Core.BLE_CharParsers {
 
 
         [Test]
-        public void Uint48Masked() {
+        public void Uint48_Masked() {
             this.TestByteBits(this.GetU64ByteArray(0xFFFFFFFFFFFFFF), "281474976710655", DataFormatEnum.UInt_48bit);
         }
 
 
         [Test]
-        public void Uint64() {
+        public void Uint64_Valid() {
             this.TestByteBits(this.GetU64ByteArray(9994294967290), "9994294967290", DataFormatEnum.UInt_64bit);
         }
 
 
         // Not supported
         //[Test]
-        public void Uint128() {
+        public void Uint128_Valid() {
             this.TestByteBits(this.GetU64ByteArray(9994294967290), "9994294967290", DataFormatEnum.UInt_128bit);
         }
 
 
         [Test]
-        public void Uint64Exponent() {
+        public void Uint64_Exponent() {
             ulong value = 22546987872;
             this.TestExp(value, -1);
             this.TestExp(value, -2);
@@ -244,7 +251,7 @@ namespace TestCases.Core.BLE_CharParsers {
         #region Int
 
         [Test]
-        public void Iint8BitFullRange() {
+        public void Iint08_FullRange() {
             this.TestByteBits(this.GetSByteArray(sbyte.MinValue), sbyte.MinValue.ToString(), DataFormatEnum.Int_8bit);
             this.TestByteBits(this.GetSByteArray(0), "0", DataFormatEnum.Int_8bit);
             this.TestByteBits(this.GetSByteArray(sbyte.MaxValue), sbyte.MaxValue.ToString(), DataFormatEnum.Int_8bit);
@@ -252,7 +259,7 @@ namespace TestCases.Core.BLE_CharParsers {
 
 
         [Test]
-        public void Int8Exponent() {
+        public void Int08_Exponent() {
             byte value = 222;
             this.TestExp(value, -1);
             this.TestExp(value, -2);
@@ -262,7 +269,7 @@ namespace TestCases.Core.BLE_CharParsers {
 
 
         [Test]
-        public void Int12BitFullRange() {
+        public void Int12_FullRange() {
             this.TestByteBits(this.GetI16ByteArray(-4096), "-4096", DataFormatEnum.Int_12bit);
             this.TestByteBits(this.GetI16ByteArray(0), "0", DataFormatEnum.Int_12bit);
             this.TestByteBits(this.GetI16ByteArray(4095), "4095", DataFormatEnum.Int_12bit);
@@ -270,14 +277,14 @@ namespace TestCases.Core.BLE_CharParsers {
 
 
         [Test]
-        public void Int12BitMasked() {
+        public void Int12_Masked() {
             this.TestByteBits(this.GetI16ByteArray(0xFFF), "4095", DataFormatEnum.Int_12bit);
         }
 
 
 
         [Test]
-        public void Iint16BitFullRange() {
+        public void Iint16_FullRange() {
             this.TestByteBits(this.GetI16ByteArray(31022), "31022", DataFormatEnum.Int_16bit);
             this.TestByteBits(this.GetI16ByteArray(0), "0", DataFormatEnum.Int_16bit);
             this.TestByteBits(this.GetI16ByteArray(-31022), "-31022", DataFormatEnum.Int_16bit);
@@ -285,13 +292,13 @@ namespace TestCases.Core.BLE_CharParsers {
 
 
         [Test]
-        public void Int16BitNotEnoughBytes() {
+        public void Int16_NotEnoughBytes() {
             this.TestByteBits(this.GetByteArray(100), "1 byte(s) Data. Requires 2", DataFormatEnum.Int_16bit);
         }
 
 
         [Test]
-        public void Int24BitFullRange() {
+        public void Int24_FullRange() {
             // −8,388,608 to 8,388,607
             this.TestByteBits(this.Get24BitByteArray(0), "Unhandled - Int 24bit:0x00,0x00,0x00", DataFormatEnum.Int_24bit);
             this.TestByteBits(this.Get24BitByteArray(8388607), "Unhandled - Int 24bit:0xFF,0xFF,0x7F", DataFormatEnum.Int_24bit);
@@ -309,17 +316,17 @@ namespace TestCases.Core.BLE_CharParsers {
         //}
 
         [Test]
-        public void Int24BitNotEnoughBytes() {
+        public void Int24_NotEnoughBytes() {
             this.TestByteBits(this.GetByteArray(100), "Unhandled - Int 24bit:0x64", DataFormatEnum.Int_24bit);
         }
 
         [Test]
-        public void Int24BitMasked() {
+        public void Int24_Masked() {
             this.TestByteBits(this.GetI32ByteArray(0xFFFFFFF), "Unhandled - Int 24bit:0xFF,0xFF,0xFF,0x0F", DataFormatEnum.Int_24bit);
         }
 
         [Test]
-        public void Int32FullRange() {
+        public void Int32_FullRange() {
             //-2,147,483,648 to 2,147,483,647
             this.TestByteBits(this.GetI32ByteArray(0), "0", DataFormatEnum.Int_32bit);
             this.TestByteBits(this.GetI32ByteArray(2147483645), "2147483645", DataFormatEnum.Int_32bit);
@@ -328,7 +335,7 @@ namespace TestCases.Core.BLE_CharParsers {
 
 
         [Test]
-        public void Int32Exponent() {
+        public void Int32_Exponent() {
             int value = 222;
             this.TestExp(value, -1);
             this.TestExp(value, -2);
@@ -337,7 +344,7 @@ namespace TestCases.Core.BLE_CharParsers {
         }
 
         [Test]
-        public void Int48FullRange() {
+        public void Int48_FullRange() {
             this.TestByteBits(this.GetI64ByteArray(0), "Unhandled - Int 48bit:0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00", DataFormatEnum.Int_48bit);
             this.TestByteBits(this.GetI64ByteArray(14294967295), "Unhandled - Int 48bit:0xFF,0xE3,0x0B,0x54,0x03,0x00,0x00,0x00", DataFormatEnum.Int_48bit);
             this.TestByteBits(this.GetI64ByteArray(-14294967295), "Unhandled - Int 48bit:0x01,0x1C,0xF4,0xAB,0xFC,0xFF,0xFF,0xFF", DataFormatEnum.Int_48bit);
@@ -345,20 +352,20 @@ namespace TestCases.Core.BLE_CharParsers {
 
 
         [Test]
-        public void Int48Masked() {
+        public void Int48_Masked() {
             this.TestByteBits(this.GetI64ByteArray(0xFFFFFFFFFFFFFF), "Unhandled - Int 48bit:0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0x00", DataFormatEnum.Int_48bit);
         }
 
 
         [Test]
-        public void Int64FullRange() {
+        public void Int64_FullRange() {
             this.TestByteBits(this.GetI64ByteArray(0), "0", DataFormatEnum.Int_64bit);
             this.TestByteBits(this.GetI64ByteArray(9994294), "9994294", DataFormatEnum.Int_64bit);
             this.TestByteBits(this.GetI64ByteArray(-9994294), "-9994294", DataFormatEnum.Int_64bit);
         }
 
         [Test]
-        public void Int64Exponent() {
+        public void Int64_Exponent() {
             long value = 2224444499999;
             this.TestExp(value, -1);
             this.TestExp(value, -2);
@@ -368,7 +375,7 @@ namespace TestCases.Core.BLE_CharParsers {
 
 
         [Test]
-        public void Int128() {
+        public void Int128_Valid() {
             this.TestByteBits(this.GetI64ByteArray(9994294967290), "Unhandled - Int 128bit:0xFA,0xBB,0x66,0xFA,0x16,0x09,0x00,0x00", DataFormatEnum.Int_128bit);
         }
 
@@ -377,7 +384,7 @@ namespace TestCases.Core.BLE_CharParsers {
         #region Float Double
 
         [Test]
-        public void Float32BitFullRange() {
+        public void Float32_FullRange() {
             this.TestByteBits(this.GetFloat32ByteArray(float.MinValue), float.MinValue.ToString(), DataFormatEnum.IEEE_754_32bit_floating_point);
             this.TestByteBits(this.GetFloat32ByteArray(0), "0", DataFormatEnum.IEEE_754_32bit_floating_point);
             this.TestByteBits(this.GetFloat32ByteArray(float.MaxValue), float.MaxValue.ToString(), DataFormatEnum.IEEE_754_32bit_floating_point);
@@ -385,7 +392,7 @@ namespace TestCases.Core.BLE_CharParsers {
 
 
         [Test]
-        public void Double64BitFullRange() {
+        public void Float64_FullRange() {
             this.TestByteBits(this.GetDouble64ByteArray(double.MinValue), double.MinValue.ToString(), DataFormatEnum.IEEE_754_64bit_floating_point);
             this.TestByteBits(this.GetDouble64ByteArray(0), "0", DataFormatEnum.IEEE_754_64bit_floating_point);
             this.TestByteBits(this.GetDouble64ByteArray(double.MaxValue), double.MaxValue.ToString(), DataFormatEnum.IEEE_754_64bit_floating_point);
@@ -393,19 +400,19 @@ namespace TestCases.Core.BLE_CharParsers {
 
 
         [Test]
-        public void Float32Bit_IEEE_11073() {
+        public void Float32_IEEE_11073() {
             this.TestByteBits(this.GetFloat32ByteArray(0), "Unhandled - IEEE 11073 32bit FLOAT:0x00,0x00,0x00,0x00", DataFormatEnum.IEEE_11073_32bit_FLOAT);
         }
 
 
         [Test]
-        public void Float16Bit_IEEE_11073() {
+        public void Float16_IEEE_11073() {
             this.TestByteBits(this.GetU16ByteArray(0), "Unhandled - IEEE 11073 16bit SFLOAT:0x00,0x00", DataFormatEnum.IEEE_11073_16bit_SFLOAT);
         }
 
 
         [Test]
-        public void IEE20601FullRange() {
+        public void IEE20601_FullRange() {
             // Two 16 bit uints in one 32 bit uint package
             this.TestByteBits(GetIEE60201ByteArray(UInt16.MinValue, UInt16.MinValue), "0|0", DataFormatEnum.IEEE_20601_format);
             this.TestByteBits(GetIEE60201ByteArray(UInt16.MaxValue, UInt16.MaxValue), 
