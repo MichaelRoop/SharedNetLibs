@@ -126,7 +126,6 @@ namespace BluetoothLE.Net.Enumerations {
                 case BLE_DataType.UInt_16bit:
                 case BLE_DataType.Int_16bit:
                 case BLE_DataType.IEEE_11073_16bit_SFLOAT:
-                case BLE_DataType.IEEE_20601_format:
                     return 2;
                 case BLE_DataType.UInt_24bit:
                 case BLE_DataType.Int_24bit:
@@ -135,6 +134,7 @@ namespace BluetoothLE.Net.Enumerations {
                 case BLE_DataType.Int_32bit:
                 case BLE_DataType.IEEE_754_32bit_floating_point:
                 case BLE_DataType.IEEE_11073_32bit_FLOAT:
+                case BLE_DataType.IEEE_20601_format:
                     return 4;
                 case BLE_DataType.UInt_48bit:
                 case BLE_DataType.Int_48bit:

@@ -1,6 +1,7 @@
 ﻿using BluetoothLE.Net.Enumerations;
+using LogUtils.Net;
 using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using VariousUtils.Net;
 
@@ -8,7 +9,10 @@ namespace BluetoothLE.Net.Tools {
 
     public static class RangeTools {
 
-        #region Range objects
+        #region Data
+
+        private static ClassLog log = new ClassLog("RangetTools");
+
         // Unsigned integers
         private static RangeMinMax boolRange = new RangeMinMax(BLE_DataType.Bool, "0", "1");
         private static RangeMinMax uint2Range = new RangeMinMax(BLE_DataType.UInt_2bit, "0", "3");
@@ -41,256 +45,103 @@ namespace BluetoothLE.Net.Tools {
         private static RangeMinMax utf16String = new RangeMinMax(BLE_DataType.UTF16_String, "1", "variable");
         // this is 2 Uint16 in one block
         // TODO - need to handle both pieces as UINT16
-        private static RangeMinMax twoUint16 = new RangeMinMax(BLE_DataType.IEEE_20601_format, "0", UInt32.MaxValue.ToString());
+        private static RangeMinMax twoUint16 = new RangeMinMax(
+            BLE_DataType.IEEE_20601_format, 
+            string.Format("{0}|{0}", UInt16.MinValue),
+            string.Format("{0}|{0}", UInt16.MaxValue));
 
         // Unhandled
         private static RangeMinMax unhandledRange = new RangeMinMax(BLE_DataType.Reserved, "0", "0");
 
-
-
         #endregion
 
-
-        public static RangeValidationResult Validate(string value1, string value2, BLE_DataType dataType) {
-            RangeValidationResult result = new RangeValidationResult();
-            result.IsValid = false;
-            result.UserEntryString = string.Format("{0}|{1}", value1, value2);
-            if (dataType == BLE_DataType.IEEE_20601_format) {
-                // Same value for each 
-                RangeMinMax minMax = GetMinMaxDisplay(BLE_DataType.UInt_16bit);
-                minMax.DataType = dataType.ToStr();
-                minMax.Min = string.Format("{0}|{0}", minMax.Min);
-                minMax.Max = string.Format("{0}|{0}", minMax.Max);
-                ushort val;
-                if (UInt16.TryParse(value1, out val)) {
-                    if (val >= UInt16.MinValue && val <= UInt16.MaxValue) {
-                        if (UInt16.TryParse(value2, out val)) {
-                            if (val >= UInt16.MinValue && val <= UInt16.MaxValue) {
-                                result.IsValid = true;
-                            }
-                        }
-                    }
-                }
-            }
-            return result;
-        }
-
-
-        private static bool ValidateByteRange(RangeValidationResult result, byte min, byte max) {
-            byte val;
-            if (Byte.TryParse(result.UserEntryString, out val)) {
-                if (val >= min && val <= max) {
-                    result.IsValid = true;
-                    val.WriteToBuffer(result.Payload, 0);
-                    return true;
-                }
-            }
-            return false;
-        }
-
-
-        private static bool ValidateUint16Range(RangeValidationResult result, UInt16 min, UInt16 max) {
-            UInt16 val;
-            if (UInt16.TryParse(result.UserEntryString, out val)) {
-                if (val >= min && val <= max) {
-                    result.IsValid = true;
-                    val.WriteToBuffer(result.Payload, 0);
-                    return true;
-                }
-            }
-            return false;
-        }
-
-
-        private static bool ValidateUint32Range(RangeValidationResult result, UInt32 min, UInt32 max) {
-            UInt32 val;
-            if (UInt32.TryParse(result.UserEntryString, out val)) {
-                if (val >= min && val <= max) {
-                    result.IsValid = true;
-                    val.WriteToBuffer(result.Payload, 0);
-                    return true;
-                }
-            }
-            return false;
-        }
-
-
-        private static bool ValidateUint64Range(RangeValidationResult result, UInt64 min, UInt64 max) {
-            UInt64 val;
-            if (UInt64.TryParse(result.UserEntryString, out val)) {
-                if (val >= min && val <= max) {
-                    result.IsValid = true;
-                    val.WriteToBuffer(result.Payload, 0);
-                    return true;
-                }
-            }
-            return false;
-        }
-
-
-        //////////////////
-        ///
-
-        private static bool Validateint16Range(RangeValidationResult result, Int16 min, Int16 max) {
-            Int16 val;
-            if (Int16.TryParse(result.UserEntryString, out val)) {
-                if (val >= min && val <= max) {
-                    result.IsValid = true;
-                    val.WriteToBuffer(result.Payload, 0);
-                    return true;
-                }
-            }
-            return false;
-        }
-
-
-        private static bool Validateint32Range(RangeValidationResult result, Int32 min, Int32 max) {
-            Int32 val;
-            if (Int32.TryParse(result.UserEntryString, out val)) {
-                if (val >= min && val <= max) {
-                    result.IsValid = true;
-                    val.WriteToBuffer(result.Payload, 0);
-                    return true;
-                }
-            }
-            return false;
-        }
-
-
-        private static bool Validateint64Range(RangeValidationResult result, Int64 min, Int64 max) {
-            Int64 val;
-            if (Int64.TryParse(result.UserEntryString, out val)) {
-                if (val >= min && val <= max) {
-                    result.IsValid = true;
-                    val.WriteToBuffer(result.Payload, 0);
-                    return true;
-                }
-            }
-            return false;
-        }
-
-
-
-        ////////////////////////////
-
-
-
+        #region Public
 
         /// <summary>Validate user entry from UI</summary>
         /// <param name="value">The value as string entered by the user</param>
         /// <param name="bleType">The type this applies to on conversion</param>
         /// <returns></returns>
         public static RangeValidationResult Validate(string value, BLE_DataType bleType) {
-            // check for range
-            // check for valid string for type
-            RangeValidationResult result = new RangeValidationResult();
-            result.UserEntryString = value;
-            result.IsValid = false;
-            result.Payload = new byte[bleType.BytesRequired()];
-            result.Range = GetMinMaxDisplay(bleType);
-            switch (bleType) {
-                case BLE_DataType.Bool:
-                    if (!ValidateByteRange(result, 0, 1)) {
-                        bool bVal;
-                        if (Boolean.TryParse(value, out bVal)) {
-                            result.IsValid = true;
-                            result.Payload[0] = (bVal == true) ? (byte)1 : (byte)0;
-                        }
-                    }
-                    break;
-                case BLE_DataType.UInt_2bit:
-                    ValidateByteRange(result, 0, 3);
-                    break;
-                case BLE_DataType.UInt_4bit:
-                    ValidateByteRange(result, 0, 15);
-                    break;
-                case BLE_DataType.UInt_8bit:
-                    ValidateByteRange(result, 0, Byte.MaxValue);
-                    break;
-                case BLE_DataType.UInt_12bit:
-                    ValidateUint16Range(result, 0, 4095);
-                    break;
-                case BLE_DataType.UInt_16bit:
-                    ValidateUint16Range(result, 0, UInt16.MaxValue);
-                    break;
-                case BLE_DataType.UInt_24bit:
-                    ValidateUint32Range(result, 0, 16777215);
-                    break;
-                case BLE_DataType.UInt_32bit:
-                    ValidateUint32Range(result, 0, UInt32.MaxValue);
-                    break;
-                case BLE_DataType.UInt_48bit:
-                    ValidateUint64Range(result, 0, 281474976710655);
-                    break;
-                case BLE_DataType.UInt_64bit:
-                    ValidateUint64Range(result, 0, UInt64.MaxValue);
-                    break;
-                case BLE_DataType.UInt_128bit:
-                    // TODO - not currently handled
-                    break;
-                case BLE_DataType.Int_8bit:
-                    sbyte val;
-                    if (SByte.TryParse(result.UserEntryString, out val)) {
-                        if (val >= SByte.MinValue && val <= SByte.MaxValue) {
-                            result.IsValid = true;
-                            val.WriteToBuffer(result.Payload, 0);
-                        }
-                    }
-                    break;
-                case BLE_DataType.Int_12bit:
-                    Validateint16Range(result, -2048, 2047);
-                    break;
-                case BLE_DataType.Int_16bit:
-                    Validateint16Range(result, Int16.MinValue, Int16.MaxValue);
-                    break;
-                case BLE_DataType.Int_24bit:
-                    Validateint32Range(result, -8388608, 8388607);
-                    break;
-                case BLE_DataType.Int_32bit:
-                    Validateint32Range(result, Int32.MinValue, Int32.MaxValue);
-                    break;
-                case BLE_DataType.Int_48bit:
-                    break;
-                case BLE_DataType.Int_64bit:
-                    break;
-                case BLE_DataType.Int_128bit:
-                    break;
-                case BLE_DataType.IEEE_754_32bit_floating_point:
-                    break;
-                case BLE_DataType.IEEE_754_64bit_floating_point:
-                    break;
-                case BLE_DataType.IEEE_11073_16bit_SFLOAT:
-                    break;
-                case BLE_DataType.IEEE_11073_32bit_FLOAT:
-                    break;
-                case BLE_DataType.IEEE_20601_format:
-                    break;
-                case BLE_DataType.UTF8_String:
-                    if (value.Length > 0) {
-                        result.IsValid = true;
-                        result.Payload = Encoding.UTF8.GetBytes(value);
-                    }
-                    break;
-                case BLE_DataType.UTF16_String:
-                    if (value.Length > 0) {
-                        result.IsValid = true;
-                        result.Payload = Encoding.Unicode.GetBytes(value);
-                    }
-                    break;
-                case BLE_DataType.OpaqueStructure:
-                case BLE_DataType.Reserved:
-                    result.Payload = new byte[0];
-                    break;
+            try {
+                RangeValidationResult result = new RangeValidationResult(value);
+                result.Payload = new byte[bleType.BytesRequired()];
+                result.Range = GetMinMaxDisplay(bleType);
+                switch (bleType) {
+                    case BLE_DataType.Bool:
+                        return ValidateByteRange(result, 0, 1);
+                    case BLE_DataType.UInt_2bit:
+                        return ValidateByteRange(result, 0, 3);
+                    case BLE_DataType.UInt_4bit:
+                        return ValidateByteRange(result, 0, 15);
+                    case BLE_DataType.UInt_8bit:
+                        return ValidateByteRange(result, 0, Byte.MaxValue);
+                    case BLE_DataType.UInt_12bit:
+                        return ValidateUint16Range(result, 0, 4095);
+                    case BLE_DataType.UInt_16bit:
+                        return ValidateUint16Range(result, 0, UInt16.MaxValue);
+                    case BLE_DataType.UInt_24bit:
+                        return ValidateUint32Range(result, 0, 16777215);
+                    case BLE_DataType.UInt_32bit:
+                        return ValidateUint32Range(result, 0, UInt32.MaxValue);
+                    case BLE_DataType.UInt_48bit:
+                        return ValidateUint64Range(result, 0, 281474976710655);
+                    case BLE_DataType.UInt_64bit:
+                        return ValidateUint64Range(result, 0, UInt64.MaxValue);
+                    case BLE_DataType.UInt_128bit:
+                        return RangeNotHandled(result);
+                    case BLE_DataType.Int_8bit:
+                        return ValidateInt8Range(result, SByte.MinValue, SByte.MaxValue);
+                    case BLE_DataType.Int_12bit:
+                        return Validateint16Range(result, -2048, 2047);
+                    case BLE_DataType.Int_16bit:
+                        return Validateint16Range(result, Int16.MinValue, Int16.MaxValue);
+                    case BLE_DataType.Int_24bit:
+                        return Validateint32Range(result, -8388608, 8388607);
+                    case BLE_DataType.Int_32bit:
+                        return Validateint32Range(result, Int32.MinValue, Int32.MaxValue);
+                    case BLE_DataType.Int_48bit:
+                        return Validateint64Range(result, -140737488355328, 140737488355327);
+                    case BLE_DataType.Int_64bit:
+                        return Validateint64Range(result, Int64.MinValue, Int64.MaxValue);
+                    case BLE_DataType.Int_128bit:
+                        return RangeNotHandled(result);
+                    case BLE_DataType.IEEE_754_32bit_floating_point:
+                        return Validateint32Float(result, Single.MinValue, Single.MaxValue);
+                    case BLE_DataType.IEEE_754_64bit_floating_point:
+                        return Validateint64Double(result, Double.MinValue, Double.MaxValue);
+                    case BLE_DataType.IEEE_11073_16bit_SFLOAT:
+                        return RangeNotHandled(result);
+                    case BLE_DataType.IEEE_11073_32bit_FLOAT:
+                        return RangeNotHandled(result);
+                    case BLE_DataType.IEEE_20601_format:
+                        return ValidateIEEE20601(result);
+                    case BLE_DataType.UTF8_String:
+                        return ValidateUTF8String(result);
+                    case BLE_DataType.UTF16_String:
+                        return ValidateUTF16String(result);
+                    case BLE_DataType.OpaqueStructure:
+                    case BLE_DataType.Reserved:
+                        return RangeNotHandled(result);
+                    default:
+                        return RangeNotHandled(result);
+                }
             }
-
-
-            return result;
+            catch(Exception e) {
+                log.Exception(9999, "RangeValidationResult", "", e);
+                return new RangeValidationResult() {
+                    UserEntryString = value,
+                    Message = BLE_DataValidationStatus.UnhandledError.ToString(),
+                    Range = new RangeMinMax(BLE_DataType.Reserved, "0", "0"),
+                    Payload = new byte[0],
+                    Status = BLE_DataValidationStatus.UnhandledError,
+                };
+            }
         }
 
 
-
-
-
+        /// <summary>Get the min and max value for the data type</summary>
+        /// <param name="dataType">The BLE data type</param>
+        /// <returns>A min max range object</returns>
         public static RangeMinMax GetMinMaxDisplay(BLE_DataType dataType) {
             switch (dataType) {
                 case BLE_DataType.Bool:
@@ -352,7 +203,269 @@ namespace BluetoothLE.Net.Tools {
             }
         }
 
+        #endregion
 
+        #region Private validate methods
+
+        private static RangeValidationResult ValidateByteRange(RangeValidationResult result, byte min, byte max) {
+            byte val;
+            if (Byte.TryParse(result.UserEntryString, out val)) {
+                if (val >= min && val <= max) {
+                    result.Status = BLE_DataValidationStatus.Success;
+                    val.WriteToBuffer(result.Payload, 0);
+                }
+                else {
+                    result.Status = BLE_DataValidationStatus.OutOfRange;
+                }
+            }
+            else {
+                result.Status = BLE_DataValidationStatus.InvalidInput;
+            }
+            result.Message = result.Status.ToString().CamelCaseToSpaces();
+            return result;
+        }
+
+
+        private static RangeValidationResult ValidateUint16Range(RangeValidationResult result, UInt16 min, UInt16 max) {
+            UInt16 val;
+            if (UInt16.TryParse(result.UserEntryString, out val)) {
+                if (val >= min && val <= max) {
+                    result.Status = BLE_DataValidationStatus.Success;
+                    val.WriteToBuffer(result.Payload, 0);
+                }
+                else {
+                    result.Status = BLE_DataValidationStatus.OutOfRange;
+                }
+            }
+            else {
+                result.Status = BLE_DataValidationStatus.InvalidInput;
+            }
+            result.Message = result.Status.ToString().CamelCaseToSpaces();
+            return result;
+        }
+
+
+        private static RangeValidationResult ValidateUint32Range(RangeValidationResult result, UInt32 min, UInt32 max) {
+            UInt32 val;
+            if (UInt32.TryParse(result.UserEntryString, out val)) {
+                if (val >= min && val <= max) {
+                    result.Status = BLE_DataValidationStatus.Success;
+                    val.WriteToBuffer(result.Payload, 0);
+                }
+                else {
+                    result.Status = BLE_DataValidationStatus.OutOfRange;
+                }
+            }
+            else {
+                result.Status = BLE_DataValidationStatus.InvalidInput;
+            }
+            result.Message = result.Status.ToString().CamelCaseToSpaces();
+            return result;
+        }
+
+
+        private static RangeValidationResult ValidateUint64Range(RangeValidationResult result, UInt64 min, UInt64 max) {
+            UInt64 val;
+            if (UInt64.TryParse(result.UserEntryString, out val)) {
+                if (val >= min && val <= max) {
+                    result.Status = BLE_DataValidationStatus.Success;
+                    val.WriteToBuffer(result.Payload, 0);
+                }
+                else {
+                    result.Status = BLE_DataValidationStatus.OutOfRange;
+                }
+            }
+            else {
+                result.Status = BLE_DataValidationStatus.InvalidInput;
+            }
+            result.Message = result.Status.ToString().CamelCaseToSpaces();
+            return result;
+        }
+
+
+        private static RangeValidationResult ValidateInt8Range(RangeValidationResult result, sbyte min, sbyte max) {
+            sbyte val;
+            if (SByte.TryParse(result.UserEntryString, out val)) {
+                if (val >= min && val <= max) {
+                    result.Status = BLE_DataValidationStatus.Success;
+                    val.WriteToBuffer(result.Payload, 0);
+                }
+                else {
+                    result.Status = BLE_DataValidationStatus.OutOfRange;
+                }
+            }
+            else {
+                result.Status = BLE_DataValidationStatus.InvalidInput;
+            }
+            result.Message = result.Status.ToString().CamelCaseToSpaces();
+            return result;
+        }
+
+
+        private static RangeValidationResult Validateint16Range(RangeValidationResult result, Int16 min, Int16 max) {
+            Int16 val;
+            if (Int16.TryParse(result.UserEntryString, out val)) {
+                if (val >= min && val <= max) {
+                    result.Status = BLE_DataValidationStatus.Success;
+                    val.WriteToBuffer(result.Payload, 0);
+                }
+                else {
+                    result.Status = BLE_DataValidationStatus.OutOfRange;
+                }
+            }
+            else {
+                result.Status = BLE_DataValidationStatus.InvalidInput;
+            }
+            result.Message = result.Status.ToString().CamelCaseToSpaces();
+            return result;
+        }
+
+
+        private static RangeValidationResult Validateint32Range(RangeValidationResult result, Int32 min, Int32 max) {
+            Int32 val;
+            if (Int32.TryParse(result.UserEntryString, out val)) {
+                if (val >= min && val <= max) {
+                    result.Status = BLE_DataValidationStatus.Success;
+                    val.WriteToBuffer(result.Payload, 0);
+                }
+                else {
+                    result.Status = BLE_DataValidationStatus.OutOfRange;
+                }
+            }
+            else {
+                result.Status = BLE_DataValidationStatus.InvalidInput;
+            }
+            result.Message = result.Status.ToString().CamelCaseToSpaces();
+            return result;
+        }
+
+
+        private static RangeValidationResult Validateint64Range(RangeValidationResult result, Int64 min, Int64 max) {
+            Int64 val;
+            if (Int64.TryParse(result.UserEntryString, out val)) {
+                if (val >= min && val <= max) {
+                    result.Status = BLE_DataValidationStatus.Success;
+                    val.WriteToBuffer(result.Payload, 0);
+                }
+                else {
+                    result.Status = BLE_DataValidationStatus.OutOfRange;
+                }
+            }
+            else {
+                result.Status = BLE_DataValidationStatus.InvalidInput;
+            }
+            result.Message = result.Status.ToString().CamelCaseToSpaces();
+            return result;
+        }
+
+
+        private static RangeValidationResult Validateint32Float(RangeValidationResult result, Single min, Single max) {
+            Single val;
+            if (Single.TryParse(result.UserEntryString, out val)) {
+                if (val >= min && val <= max) {
+                    result.Status = BLE_DataValidationStatus.Success;
+                    val.WriteToBuffer(result.Payload, 0);
+                }
+                else {
+                    result.Status = BLE_DataValidationStatus.OutOfRange;
+                }
+            }
+            else {
+                result.Status = BLE_DataValidationStatus.InvalidInput;
+            }
+            result.Message = result.Status.ToString().CamelCaseToSpaces();
+            return result;
+        }
+
+
+        private static RangeValidationResult Validateint64Double(RangeValidationResult result, Double min, Double max) {
+            Double val;
+            if (Double.TryParse(result.UserEntryString, out val)) {
+                if (val >= min && val <= max) {
+                    result.Status = BLE_DataValidationStatus.Success;
+                    val.WriteToBuffer(result.Payload, 0);
+                }
+                else {
+                    result.Status = BLE_DataValidationStatus.OutOfRange;
+                }
+            }
+            else {
+                result.Status = BLE_DataValidationStatus.InvalidInput;
+            }
+            result.Message = result.Status.ToString().CamelCaseToSpaces();
+            return result;
+        }
+
+
+        private static RangeValidationResult ValidateIEEE20601(RangeValidationResult result) {
+            // Input supposed to be delimited as 0xFF|0xFF
+            string[] parts = result.UserEntryString.Split('|');
+            if (parts.Count() < 2) {
+                result.Status = BLE_DataValidationStatus.InvalidInput;
+                return result;
+            }
+
+            if (ValidateIEEE20601Part(result, parts[0]) &&
+                ValidateIEEE20601Part(result, parts[1])) { 
+                // Copy over each portion to buffer. 
+                // Use Parser - already validated
+                UInt16 val1 = UInt16.Parse(parts[0]);
+                UInt16 val2 = UInt16.Parse(parts[1]);
+                int pos = 0;
+                val1.WriteToBuffer(result.Payload, ref pos);
+                val2.WriteToBuffer(result.Payload, ref pos);
+                result.Status = BLE_DataValidationStatus.Success;
+            }
+            result.Message = result.Status.ToString().CamelCaseToSpaces();
+            return result;
+        }
+
+
+        private static bool ValidateIEEE20601Part(RangeValidationResult result, string value) {
+            RangeValidationResult tmp = new RangeValidationResult(value);
+            ValidateUint16Range(tmp, UInt16.MinValue, UInt16.MaxValue);
+            if (tmp.Status != BLE_DataValidationStatus.Success) {
+                result.Status = tmp.Status;
+                return false;
+            }
+            return true;
+        }
+
+
+        public static RangeValidationResult ValidateUTF8String(RangeValidationResult result) {
+            if (result.UserEntryString.Length > 0) {
+                result.Status = BLE_DataValidationStatus.Success;
+                result.Payload = Encoding.UTF8.GetBytes(result.UserEntryString);
+            }
+            else {
+                result.Status = BLE_DataValidationStatus.Empty;
+            }
+            result.Message = result.Status.ToString().CamelCaseToSpaces();
+            return result;
+        }
+
+
+        public static RangeValidationResult ValidateUTF16String(RangeValidationResult result) {
+            if (result.UserEntryString.Length > 0) {
+                result.Status = BLE_DataValidationStatus.Success;
+                result.Payload = Encoding.Unicode.GetBytes(result.UserEntryString);
+            }
+            else {
+                result.Status = BLE_DataValidationStatus.Empty;
+            }
+            result.Message = result.Status.ToString().CamelCaseToSpaces();
+            return result;
+        }
+
+
+        public static RangeValidationResult RangeNotHandled(RangeValidationResult result) {
+            result.Status = BLE_DataValidationStatus.NotHandled;
+            result.Payload = new byte[0];
+            result.Message = result.Status.ToString().CamelCaseToSpaces();
+            return result;
+        }
+
+        #endregion
 
     }
 

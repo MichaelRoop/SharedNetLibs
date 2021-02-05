@@ -157,6 +157,11 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
                     return data.ToFloat32(0).ToString(); // ****** NOT SURE OR IEEE
 
+                case Enumerations.DataFormatEnum.IEEE_20601_format: // Non defined data
+                    int pos = 0;
+                    ushort val1 = data.ToUint16(ref pos);
+                    ushort val2 = data.ToUint16(ref pos);
+                    return string.Format("{0}|{1}", val1, val2);
                 #endregion
 
                 #region Strings
@@ -165,6 +170,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                     return Encoding.UTF8.GetString(data);
                 case Enumerations.DataFormatEnum.UTF16_String:
                     return Encoding.Unicode.GetString(data);
+                
 
                 #endregion
 
@@ -172,7 +178,6 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
                 //------------------------------------------------------
                 // Not handled
-                case Enumerations.DataFormatEnum.IEEE_20601_format: // Non defined data
                 case Enumerations.DataFormatEnum.OpaqueStructure:
                 case Enumerations.DataFormatEnum.Unhandled:
                 case Enumerations.DataFormatEnum.Reserved:

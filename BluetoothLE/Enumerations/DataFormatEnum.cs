@@ -54,8 +54,6 @@ namespace BluetoothLE.Net.Enumerations {
         public static bool IsHandled(this DataFormatEnum value) {
             switch (value) {
                 case DataFormatEnum.Reserved:
-                // This is generic data type - no size specified
-                case DataFormatEnum.IEEE_20601_format:
                 case DataFormatEnum.OpaqueStructure:
                 case DataFormatEnum.Int_24bit:
                 case DataFormatEnum.Int_48bit:
@@ -75,8 +73,6 @@ namespace BluetoothLE.Net.Enumerations {
         public static bool HasLengthRequirement(this DataFormatEnum value) {
             switch (value) {
                 case DataFormatEnum.Reserved:
-                // This is generic data type - no size specified
-                case DataFormatEnum.IEEE_20601_format:
                 case DataFormatEnum.UTF8_String:
                 case DataFormatEnum.UTF16_String:
                 case DataFormatEnum.OpaqueStructure:
@@ -101,7 +97,6 @@ namespace BluetoothLE.Net.Enumerations {
                 case DataFormatEnum.UInt_16bit:
                 case DataFormatEnum.Int_16bit:
                 case DataFormatEnum.IEEE_11073_16bit_SFLOAT:
-                case DataFormatEnum.IEEE_20601_format:
                     return 2;
                 case DataFormatEnum.UInt_24bit:
                 case DataFormatEnum.Int_24bit:
@@ -110,6 +105,7 @@ namespace BluetoothLE.Net.Enumerations {
                 case DataFormatEnum.Int_32bit:
                 case DataFormatEnum.IEEE_754_32bit_floating_point:
                 case DataFormatEnum.IEEE_11073_32bit_FLOAT:
+                case DataFormatEnum.IEEE_20601_format:
                     return 4;
                 case DataFormatEnum.UInt_48bit:
                 case DataFormatEnum.Int_48bit:

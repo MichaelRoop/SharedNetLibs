@@ -403,6 +403,16 @@ namespace TestCases.Core.BLE_CharParsers {
             this.TestByteBits(this.GetU16ByteArray(0), "Unhandled - IEEE 11073 16bit SFLOAT:0x00,0x00", DataFormatEnum.IEEE_11073_16bit_SFLOAT);
         }
 
+
+        [Test]
+        public void IEE20601FullRange() {
+            // Two 16 bit uints in one 32 bit uint package
+            this.TestByteBits(GetIEE60201ByteArray(UInt16.MinValue, UInt16.MinValue), "0|0", DataFormatEnum.IEEE_20601_format);
+            this.TestByteBits(GetIEE60201ByteArray(UInt16.MaxValue, UInt16.MaxValue), 
+                string.Format("{0}|{1}", UInt16.MaxValue, UInt16.MaxValue), DataFormatEnum.IEEE_20601_format);
+            this.TestByteBits(GetIEE60201ByteArray(30021, 16201), "30021|16201", DataFormatEnum.IEEE_20601_format);
+        }
+
         #endregion
 
         #region Actual NUnit tests
@@ -617,6 +627,17 @@ namespace TestCases.Core.BLE_CharParsers {
             value.WriteToBuffer(data, ref pos);
             return data;
         }
+
+
+        byte[] GetIEE60201ByteArray(UInt16 value1, UInt16 value2) {
+            int pos = 0;
+            byte[] data = new byte[4];
+            value1.WriteToBuffer(data, ref pos);
+            value2.WriteToBuffer(data, ref pos);
+            return data;
+        }
+
+
 
         byte[] Get24BitByteArray(int value) {
             byte[] tmp = new byte[4];
