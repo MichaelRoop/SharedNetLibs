@@ -93,6 +93,12 @@ namespace BluetoothLE.Net.DataModels {
         }
 
 
+        public void Write(byte[] data) {
+            // The binder will pick up this event and pass the data to the OS Characteristic Write
+            this.WriteRequestEvent?.Invoke(this, data);
+        }
+
+
         /// <summary>Used by the OS to push up characteristic read data</summary>
         /// <param name="data">The data read</param>
         public void PushReadDataEvent(byte[] data, string strValue) {
