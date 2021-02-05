@@ -142,6 +142,45 @@ namespace TestCases.Core.BLE_DataInput {
         }
         #endregion
 
+        #region Uint32
+
+        [Test]
+        public void UInt24bitValidateValid() {
+            this.ValidateUint32("0", BLE_DataValidationStatus.Success, 0, BLE_DataType.UInt_24bit);
+            this.ValidateUint32("16777215", BLE_DataValidationStatus.Success, 16777215, BLE_DataType.UInt_24bit);
+        }
+
+        [Test]
+        public void UInt24bitValidateInvalidMinus() {
+            this.ValidateUint32("-1", BLE_DataValidationStatus.InvalidInput, 0, BLE_DataType.UInt_24bit);
+        }
+
+
+        [Test]
+        public void UInt24bitValidateInvalidPlus() {
+            this.ValidateUint32("16779000", BLE_DataValidationStatus.OutOfRange, 0, BLE_DataType.UInt_24bit);
+        }
+
+        [Test]
+        public void UInt32bitValidateValid() {
+            this.ValidateUint32(UInt32.MinValue.ToString(), BLE_DataValidationStatus.Success, UInt32.MinValue, BLE_DataType.UInt_32bit);
+            this.ValidateUint32(UInt32.MaxValue.ToString(), BLE_DataValidationStatus.Success, UInt32.MaxValue, BLE_DataType.UInt_32bit);
+        }
+
+        [Test]
+        public void UInt32bitValidateInvalidMinus() {
+            this.ValidateUint32("-1", BLE_DataValidationStatus.InvalidInput, 0, BLE_DataType.UInt_32bit);
+        }
+
+
+        [Test]
+        public void UInt32bitValidateInvalidPlus() {
+            long val = UInt32.MaxValue;
+            val += 100;
+            this.ValidateUint32(val.ToString(), BLE_DataValidationStatus.InvalidInput, 0, BLE_DataType.UInt_32bit);
+        }
+
+        #endregion
 
         #region Helpers
 
@@ -161,6 +200,23 @@ namespace TestCases.Core.BLE_DataInput {
                 Assert.AreEqual(val, result.Payload.ToUint16(0));
             });
         }
+
+
+        public void ValidateUint32(string sVal, BLE_DataValidationStatus status, UInt32 val, BLE_DataType dataType) {
+            TestHelpersNet.CatchUnexpected(() => {
+                RangeValidationResult result = RangeTools.Validate(sVal, dataType);
+                Assert.AreEqual(status, result.Status);
+                if (dataType == BLE_DataType.UInt_24bit) {
+                    byte[] data = new byte[4];
+                    Array.Copy(result.Payload, data, 3);
+                    Assert.AreEqual(val, data.ToUint32(0));
+                }
+                else {
+                    Assert.AreEqual(val, result.Payload.ToUint32(0));
+                }
+            });
+        }
+
 
         #endregion
 
