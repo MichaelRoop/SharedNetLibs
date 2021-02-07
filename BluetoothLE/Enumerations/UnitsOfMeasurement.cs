@@ -409,9 +409,6 @@ namespace BluetoothLE.Net.Enumerations {
                 default:
                     return "";
             }
-
-
-            return "";
         }
 
 

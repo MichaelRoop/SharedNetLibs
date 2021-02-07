@@ -18,7 +18,7 @@ namespace BluetoothLE.Net.Tools {
         /// <summary>Provide holder for translated message at higher level</summary>
         public string Message { get; set; }
 
-        public RangeMinMax Range { get; set; }
+        public DataTypeDisplay Range { get; set; }
 
 
         public RangeValidationResult() { }

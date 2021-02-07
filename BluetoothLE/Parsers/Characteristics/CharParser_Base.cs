@@ -10,6 +10,12 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
         public void SetDescriptorParsers(List<IDescParser> descParsers) {
             this.DescriptorParsers = descParsers;
+            this.OnDescriptorsAdded();
+        }
+
+        protected virtual void OnDescriptorsAdded() {
+            // By default we do nothing. The default Parser can use this to determine its
+            // type if it has a format descriptor
         }
 
     }

@@ -11,23 +11,27 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
     public class CharParser_Default : CharParser_Base {
 
         private readonly ClassLog log = new ClassLog("CharParser_Default");
+        private DescParser_PresentationFormat format = null;
 
         protected override bool IsDataVariableLength { get; set; } = true;
 
 
-        protected override void DoParse(byte[] data) {
-            DescParser_PresentationFormat format = null;
-
+        protected override void OnDescriptorsAdded() {
             foreach (var desc in this.DescriptorParsers) {
-                if (desc is DescParser_PresentationFormat){
-                    format = desc as DescParser_PresentationFormat;
+                if (desc is DescParser_PresentationFormat) {
+                    this.format = desc as DescParser_PresentationFormat;
                     // Not handling multiple presentation format descriptors and aggregage formating
+                    this.DataType = this.format.DataType;
                     break;
                 }
             }
+        }
 
+
+        protected override void DoParse(byte[] data) {
             // Use the format descriptor for data display format.Format
-            if (format == null) {
+            if (this.format == null) {
+                // We will display bytes for any format not supported
                 this.DisplayString = data.ToFormatedByteString();
                 this.log.Info("DoParse", () => string.Format("NO Format Descriptor Value:{0}", this.DisplayString));
             }

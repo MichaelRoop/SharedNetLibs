@@ -2,6 +2,7 @@
 using BluetoothLE.Net.interfaces;
 using BluetoothLE.Net.Parsers;
 using BluetoothLE.Net.Parsers.Characteristics;
+using BluetoothLE.Net.Tools;
 using System;
 using System.Collections.Generic;
 
@@ -13,6 +14,12 @@ namespace BluetoothLE.Net.DataModels {
         // TODO need event to get the value read at the OS level Characteristic
         // TODO need to expose something so we can write to the OS level Characteristic
         // UWP characteristic has a ValueChangedEvent - reads bytes. Need to translate to string? or data type?
+
+        #region Data
+
+        BLERangeValidator validator = new BLERangeValidator();
+
+        #endregion
 
         #region Events
 
@@ -93,9 +100,35 @@ namespace BluetoothLE.Net.DataModels {
         }
 
 
+        /// <summary>Get data type and range information to display to user</summary>
+        /// <returns>The data type display info for the Characteristic</returns>
+        public DataTypeDisplay GetDataDisplayInfo() {
+            return this.validator.GetRange(this.Parser.DataType);
+        }
+
+
+        public bool Read() {
+            if (this.IsReadable) {
+                this.ReadRequestEvent?.Invoke(this, new EventArgs());
+            }
+            return false;
+        }
+
+
         public void Write(byte[] data) {
             // The binder will pick up this event and pass the data to the OS Characteristic Write
             this.WriteRequestEvent?.Invoke(this, data);
+        }
+
+        // Rather 
+        public RangeValidationResult Write(string msg) {
+            // Parse according to data type. On error return the code. On success proceed
+            //this.Parser.DataType
+            RangeValidationResult result = this.validator.Validate(msg, this.Parser.DataType);
+            if (result.Status == BLE_DataValidationStatus.Success) {
+                this.Write(result.Payload);
+            }
+            return result;
         }
 
 

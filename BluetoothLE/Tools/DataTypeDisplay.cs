@@ -4,7 +4,7 @@ namespace BluetoothLE.Net.Tools {
 
 
     /// <summary>Information build range user messages</summary>
-    public class RangeMinMax {
+    public class DataTypeDisplay {
 
         /// <summary>To use higher up for any language conversion</summary>
         public BLE_DataType DataTypeEnum { get; set; } = BLE_DataType.Reserved;
@@ -19,10 +19,10 @@ namespace BluetoothLE.Net.Tools {
         public string Max { get; set; } = "0";
 
 
-        public RangeMinMax() { }
+        public DataTypeDisplay() { }
 
 
-        public RangeMinMax(BLE_DataType dataType, string min, string max) {
+        public DataTypeDisplay(BLE_DataType dataType, string min, string max) {
             this.DataTypeEnum = dataType;
             this.DataType = dataType.ToStr();
             this.Min = min;
