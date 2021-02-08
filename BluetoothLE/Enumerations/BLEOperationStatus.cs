@@ -12,6 +12,7 @@ namespace BluetoothLE.Net.Enumerations {
         AggregateFormatMissingFormats,
         AggregateFormatDuplicateFormats,
         AggregateFormatHandleNotFormatType,
+        // Default characteristic with no aggregate and more than one format descriptor
         RedundantFormatDescriptorsDiscarded,
         Failed,
         UnhandledError,

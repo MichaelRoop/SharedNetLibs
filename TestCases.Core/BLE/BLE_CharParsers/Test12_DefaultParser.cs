@@ -40,6 +40,22 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
         #endregion
 
+        [Test]
+        public void DiscardedRedundantFormat() {
+            TestHelpersNet.CatchUnexpected(() => {
+                IDescParser formatParser = new DescParser_PresentationFormat();
+                formatParser.Parse(this.GetBlock(DataFormatEnum.UInt_8bit));
+                List<IDescParser> descriptors = new List<IDescParser>();
+                descriptors.Add(formatParser);
+                IDescParser formatParser2 = new DescParser_PresentationFormat();
+                formatParser2.Parse(this.GetBlock(DataFormatEnum.UInt_8bit));
+                descriptors.Add(formatParser2);
+                BLEOperationStatus status = this.defaultCharParser.SetDescriptorParsers(descriptors);
+                Assert.AreEqual(BLEOperationStatus.RedundantFormatDescriptorsDiscarded, status, "On set descriptor parsers");
+            });
+        }
+
+
         #region Strings
 
         [Test]
@@ -238,7 +254,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
         [Test]
         public void Uint64_Exponent() {
-            ulong value = 22546987872;
+            ulong value = 987872;
             this.TestExp(value, -1);
             this.TestExp(value, -2);
             this.TestExp(value, 1);
@@ -366,7 +382,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
         [Test]
         public void Int64_Exponent() {
-            long value = 2224444499999;
+            long value = 99999;
             this.TestExp(value, -1);
             this.TestExp(value, -2);
             this.TestExp(value, 1);
@@ -544,31 +560,31 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
         #region GetBlock
 
-        private byte[] GetBlock() {
+        public byte[] GetBlock() {
             return this.GetBlock(DataFormatEnum.UInt_32bit, UnitsOfMeasurement.Unitless);
         }
 
 
-        private byte[] GetBlock(DataFormatEnum formatEnum) {
+        public byte[] GetBlock(DataFormatEnum formatEnum) {
             return this.GetBlock(formatEnum, UnitsOfMeasurement.Unitless);
         }
 
 
-        private byte[] GetBlock(DataFormatEnum formatEnum, UnitsOfMeasurement units) {
+        public byte[] GetBlock(DataFormatEnum formatEnum, UnitsOfMeasurement units) {
             return this.GetBlock(formatEnum, units, 0);
         }
 
 
-        private byte[] GetBlock(DataFormatEnum formatEnum, UnitsOfMeasurement units, sbyte exponent) {
+        public byte[] GetBlock(DataFormatEnum formatEnum, UnitsOfMeasurement units, sbyte exponent) {
             return this.GetBlock(formatEnum, units, exponent, 1, 0x221A);
         }
 
 
-        private byte[] GetBlock(DataFormatEnum formatEnum, UnitsOfMeasurement units, sbyte exponent, byte nameSpace) {
+        public byte[] GetBlock(DataFormatEnum formatEnum, UnitsOfMeasurement units, sbyte exponent, byte nameSpace) {
             return this.GetBlock(formatEnum, units, exponent, nameSpace, 0x221A);
         }
 
-        private byte[] GetBlock(DataFormatEnum formatEnum, UnitsOfMeasurement units, sbyte exponent, byte nameSpace, ushort description) {
+        public byte[] GetBlock(DataFormatEnum formatEnum, UnitsOfMeasurement units, sbyte exponent, byte nameSpace, ushort description) {
             byte[] data = new byte[7];
             int pos = 0;
             formatEnum.ToByte().WriteToBuffer(data, ref pos);   // 0

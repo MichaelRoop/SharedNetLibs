@@ -184,7 +184,17 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                     pos += 6;
                     return ((UInt64)((tmp.ToUint64(0)) & 0xFFFFFFFFFFFF)).Calculate(exp, exp).ToStr(exp);
                 case Enumerations.DataFormatEnum.UInt_64bit:
-                    return data.ToUint64(ref pos).Calculate(exp, exp).ToStr(exp);
+                    UInt64 ret = data.ToUint64(ref pos);
+                    if ((exp != 0) && (ret > Double.MinValue && ret < Double.MaxValue)) {
+                        // TODO - hack until I can get the exponent figured out for the full value
+                        return ret.Calculate(exp, exp).ToStr(exp);
+                    }
+                    else {
+                        // Since we are only sending back strings we can just add
+                        // the appropriate 00 for positive exponent or the . or , form minus
+                        return ret.ToString();
+                    }
+                    //return data.ToUint64(ref pos).Calculate(exp, exp).ToStr(exp);
                 case Enumerations.DataFormatEnum.UInt_128bit:
                     // Will not support this - still need to manually increment 16 bytes
                     pos += 16;
@@ -239,7 +249,15 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                 //return (tmp.ToInt64(0) & 0xFFFFFFFFFFFF).ToString();
                 //return ((long)(tmp.ToInt64(0) & 0xFFFFFFFFFFFF)).ToString();
                 case Enumerations.DataFormatEnum.Int_64bit:
-                    return data.ToInt64(ref pos).Calculate(exp, exp).ToStr(exp);
+                    Int64 ret2 = data.ToInt64(ref pos);
+                    if ((exp != 0) && (ret2 > Double.MinValue && ret2 < Double.MaxValue)) {
+                        // TODO - hack until I can get the exponent figured out for the full value
+                        return ret2.Calculate(exp, exp).ToStr(exp);
+                    }
+                    else {
+                        return ret2.ToString();
+                    }
+                    //return data.ToInt64(ref pos).Calculate(exp, exp).ToStr(exp);
                 case Enumerations.DataFormatEnum.Int_128bit:
                     // Will not support this. Still need to move the pointer
                     pos += 16;

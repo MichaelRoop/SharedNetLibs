@@ -42,6 +42,8 @@ namespace VariousUtils.Net {
         }
 
         public static double Calculate(this ulong value, double exponent, int digits) {
+            // TODO - figure out a way to calculate exponents of values above the Double min max
+            // to avoid looking precision
             return Calculate((double)value, exponent, digits);
         }
 
