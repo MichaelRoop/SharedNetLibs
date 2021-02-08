@@ -6,6 +6,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 using VariousUtils.Net;
+using BluetoothLE.Net.Parsers.Types;
 
 namespace BluetoothLE.Net.Parsers.Characteristics {
 
@@ -160,9 +161,9 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                 //------------------------------------------------------
                 // Unsigned
                 case Enumerations.DataFormatEnum.UInt_2bit:
-                    return ((byte)(((int)data.ToByte(ref pos)) & 0x3)).ToString();
+                    return Uint02.GetNew(data, ref pos).ToString();
                 case Enumerations.DataFormatEnum.UInt_4bit:
-                    return ((byte)(((int)data.ToByte(ref pos)) & 0xF)).ToString();
+                    return Uint04.GetNew(data, ref pos).ToString();
                 case Enumerations.DataFormatEnum.UInt_8bit:
                     return data.ToByte(ref pos).Calculate(exp, exp).ToStr(exp);
                 case Enumerations.DataFormatEnum.UInt_12bit:
