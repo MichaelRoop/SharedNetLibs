@@ -78,13 +78,13 @@ namespace BluetoothLE.Net.Parsers {
         }
 
 
-        public static IDescParser GetDescriptorParser(Guid uuid) {
-            return factory.GetParser(uuid);
+        public static IDescParser GetDescriptorParser(Guid uuid, UInt16 handle) {
+            return factory.GetParser(uuid, handle);
         }
 
 
-        public static ICharParser GetCharacteristicParser(Guid uuid) {
-            return charParseFactory.GetParser(uuid);
+        public static ICharParser GetCharacteristicParser(Guid uuid, UInt16 handle) {
+            return charParseFactory.GetParser(uuid, handle);
         }
 
 

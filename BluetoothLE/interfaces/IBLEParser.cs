@@ -1,8 +1,13 @@
 ﻿using BluetoothLE.Net.Enumerations;
+using System;
 
 namespace BluetoothLE.Net.interfaces {
 
     public interface IBLEParser {
+
+        /// <summary>Unique GATT identifier from the item it parses for</summary>
+        UInt16 AttributeHandle { get; set; }
+
 
         /// <summary>The number of bytes the parser requires</summary>
         int RequiredBytes { get; }

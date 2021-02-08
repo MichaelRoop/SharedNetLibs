@@ -15,21 +15,7 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
         #endregion
 
 
-        public string GetParsedValueAsString(Guid descriptorUuid, byte[] value) {
-            IDescParser parser = this.GetParser(descriptorUuid);
-            if (parser == null) {
-                return "* Failed to retrieve parser *";
-            }
-            try {
-                return parser.Parse(value);
-            }
-            catch(Exception e) {
-                this.log.Exception(9999, "GetParsedValueAsString", "", e);
-                return "* FAILED ON DESCRIPTOR VALUE PARSE *";
-            }
-        }
-
-        public IDescParser GetParser(Guid descriptorUuid) {
+        public IDescParser GetParser(Guid descriptorUuid, UInt16 handle) {
             ErrReport report;
             IDescParser parser = WrapErr.ToErrReport<IDescParser>(out report, 9999, 
                 () => string.Format("Failed to find descriptor parser"), 
@@ -82,7 +68,11 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
                         return new DescParser_Default();
                     }
                 });
-            return report.Code == 0 ? parser : new DescParser_Default();
+            if (report.Code == 0) {
+                parser.AttributeHandle = handle;
+                return parser;
+            }
+            return new DescParser_Default();
         }
     }
 }

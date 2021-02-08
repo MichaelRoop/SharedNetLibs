@@ -27,6 +27,9 @@ namespace BluetoothLE.Net.Parsers {
 
         #region ICharParser Properties and methods
 
+        public UInt16 AttributeHandle { get; set; } = 0;
+
+
         public virtual int RequiredBytes { get; protected set; } = 0;
 
         public string DisplayString { get; protected set; } = "";

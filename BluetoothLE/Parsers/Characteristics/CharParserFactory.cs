@@ -17,7 +17,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
         #endregion
 
 
-        public ICharParser GetParser(Guid characteristicUuid) {
+        public ICharParser GetParser(Guid characteristicUuid, UInt16 handle) {
             ErrReport report;
             ICharParser parser = WrapErr.ToErrReport<ICharParser>(out report, 9999,
                 () => string.Format("Failed to find characteristic parser"),
@@ -53,7 +53,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                                 return new CharParser_BatteryLevel();
                             case GattNativeCharacteristicUuid.CurrentTime:
                                 return new CharParser_CurrentTime();
-                            
+
                             case GattNativeCharacteristicUuid.DateTime:
                             case GattNativeCharacteristicUuid.ObjectFirstCreated:
                             case GattNativeCharacteristicUuid.ObjectLastModified:
@@ -430,8 +430,11 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                         return new CharParser_Default();
                     }
                 });
-
-                return report.Code == 0 ? parser : new CharParser_Default();
+            if (report.Code == 0) {
+                parser.AttributeHandle = handle;
+                return parser;
+            }
+            return new CharParser_Default() { AttributeHandle = handle };
         }
     }
 }
