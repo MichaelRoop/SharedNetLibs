@@ -2,6 +2,7 @@
 using BluetoothLE.Net.Parsers.Descriptor;
 using LogUtils.Net;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 using VariousUtils.Net;
@@ -18,41 +19,82 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
         protected override bool IsDataVariableLength { get; set; } = true;
 
-        // TODO - if we have an Aggreagate Format Descriptor, then there should be
-        // multiple Presentation Format Descriptor (found by handle) in the order
-        // that the byte data comes in.
 
-
-        protected override void OnDescriptorsAdded() {
+        protected override BLEOperationStatus OnDescriptorsAdded() {
+            BLEOperationStatus status = BLEOperationStatus.Success;
             this.formats.Clear();
-            bool isAggregate = false;
+
+            DescParser_CharacteristicAggregateFormat aggregate = null;
             foreach (var desc in this.DescriptorParsers) {
                 if (desc is DescParser_CharacteristicAggregateFormat) {
-                    isAggregate = true;
+                    aggregate = desc as DescParser_CharacteristicAggregateFormat;
                     break;
                 }
             }
 
-            if (isAggregate) {
-                // TODO - Get the handles from the Agregate and use this to find the format descriptors
-                foreach (var desc in this.DescriptorParsers) {
-                    if (desc is DescParser_PresentationFormat) {
-                        this.formats.Add(desc as DescParser_PresentationFormat);
+            if (aggregate != null) {
+                // If we have an Aggreagate Format Descriptor, then there can be
+                // multiple Presentation Format Descriptor (found by handle) in the order
+                // that the byte data comes in.
+                foreach (var handle in aggregate.AttributeHandles) {
+                    // Check for duplicates or missing
+                    int count = this.DescriptorParsers.Count(y => y.AttributeHandle == handle);
+                    if (count == 1) {
+                        // Found Descriptro, now check if Format Descriptor type
+                        DescParser_PresentationFormat desc = this.DescriptorParsers.Find(
+                            x => x.AttributeHandle == handle) as DescParser_PresentationFormat;
+                        if (desc == null) {
+                            status = BLEOperationStatus.AggregateFormatHandleNotFormatType;
+                            break;
+                        }
+                        else {
+                            this.formats.Add(desc);
+                        }
+                    }
+                    else if (count == 0) {
+                        // Spec says it is legal to have aggregate and no format descriptors
+                        // but in this case there is a handle for a format that is not found
+                        status = BLEOperationStatus.AggregateFormatMissingFormats;
+                        break;
+                    }
+                    else if (count > 1) {
+                        status = BLEOperationStatus.AggregateFormatDuplicateFormats;
+                        break;
                     }
                 }
-                switch (this.formats.Count) {
-                    case 0:
-                        this.DataType = BLE_DataType.Reserved;
-                        break;
-                    case 1:
-                        this.DataType = this.formats[0].DataType;
-                        break;
-                    default:
-                        this.DataType = BLE_DataType.OpaqueStructure;
-                        break;
+
+                // Now validate the total count if no other error
+                if (status == BLEOperationStatus.Success) {
+                    switch (this.formats.Count) {
+                        case 0:
+                            // According to spec 0 Format Desc is legal
+                            // Mark as Reserved to display byte hex values
+                            this.DataType = BLE_DataType.Reserved;
+                            break;
+                        case 1:
+                            // Just assume the type of the one data type present
+                            this.DataType = this.formats[0].DataType;
+                            break;
+                        default:
+                            // We will display the results in a comma delimited string
+                            this.DataType = BLE_DataType.OpaqueStructure;
+                            break;
+                    }
                 }
             }
             else {
+                // Check for multiple formats. Only first accepted
+                int count = 0;
+                foreach (var desc in this.DescriptorParsers) {
+                    if (desc is DescParser_PresentationFormat) {
+                        count++;
+                    }
+                }
+                if (count > 1) {
+                    // Flag error but keep processing
+                    status = BLEOperationStatus.RedundantFormatDescriptorsDiscarded;
+                }
+
                 foreach (var desc in this.DescriptorParsers) {
                     if (desc is DescParser_PresentationFormat) {
                         DescParser_PresentationFormat f = desc as DescParser_PresentationFormat;
@@ -63,6 +105,9 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                     }
                 }
             }
+
+
+            return status;
         }
 
 

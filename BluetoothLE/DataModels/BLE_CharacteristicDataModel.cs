@@ -69,12 +69,12 @@ namespace BluetoothLE.Net.DataModels {
         public ICharParser Parser { get; set; } = new CharParser_Default();
 
         /// <summary>Bind the Characteristic parser with Descriptor parsers after both set</summary>
-        public void SetDescriptorParsers() {
+        public BLEOperationStatus SetDescriptorParsers() {
             List<IDescParser> descParsers = new List<IDescParser>();
             foreach (var des in this.Descriptors) {
                 descParsers.Add(des.Parser);
             }
-            this.Parser.SetDescriptorParsers(descParsers);
+            return this.Parser.SetDescriptorParsers(descParsers);
         }
 
 

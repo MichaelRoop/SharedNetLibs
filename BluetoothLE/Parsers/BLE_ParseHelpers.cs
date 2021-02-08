@@ -18,14 +18,6 @@ namespace BluetoothLE.Net.Parsers {
     /// </remarks>
     public static class BLE_ParseHelpers {
 
-        #region Data
-
-        private static IDescParserFactory factory = new DescParserFactory();
-        private static ICharParserFactory charParseFactory = new CharParserFactory();
-
-        #endregion
-
-
         public static string GetServiceName(Guid serviceUuid) {
             if (IsSigDefinedUuid(serviceUuid)) {
                 GattNativeServiceUuid serviceName;
@@ -75,16 +67,6 @@ namespace BluetoothLE.Net.Parsers {
                 }
             }
             return "Custom Descriptor: " + descriptorUuid.ToString();
-        }
-
-
-        public static IDescParser GetDescriptorParser(Guid uuid, UInt16 handle) {
-            return factory.GetParser(uuid, handle);
-        }
-
-
-        public static ICharParser GetCharacteristicParser(Guid uuid, UInt16 handle) {
-            return charParseFactory.GetParser(uuid, handle);
         }
 
 

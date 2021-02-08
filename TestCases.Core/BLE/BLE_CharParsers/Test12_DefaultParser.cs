@@ -458,7 +458,8 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
             this.log.Info("SetFormatDesc", () => string.Format("Format Desc Display:{0}", result));
             List<IDescParser> descriptors = new List<IDescParser>();
             descriptors.Add(formatParser);
-            this.defaultCharParser.SetDescriptorParsers(descriptors);
+            BLEOperationStatus status = this.defaultCharParser.SetDescriptorParsers(descriptors);
+            Assert.AreEqual(BLEOperationStatus.Success, status, "On set descriptor parsers");
         }
 
         #region Exponent tester

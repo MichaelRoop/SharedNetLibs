@@ -8,7 +8,11 @@ namespace BluetoothLE.Net.Enumerations {
         NotFound,
         NoServices,
         GetServicesFailed,
-
+        /// <summary>Used when validating the Format descriptors for the Aggregate format</summary>
+        AggregateFormatMissingFormats,
+        AggregateFormatDuplicateFormats,
+        AggregateFormatHandleNotFormatType,
+        RedundantFormatDescriptorsDiscarded,
         Failed,
         UnhandledError,
         UnknownError,

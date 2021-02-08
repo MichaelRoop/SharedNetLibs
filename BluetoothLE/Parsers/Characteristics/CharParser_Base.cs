@@ -1,4 +1,5 @@
-﻿using BluetoothLE.Net.interfaces;
+﻿using BluetoothLE.Net.Enumerations;
+using BluetoothLE.Net.interfaces;
 using System.Collections.Generic;
 
 namespace BluetoothLE.Net.Parsers.Characteristics {
@@ -8,14 +9,15 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
         protected List<IDescParser> DescriptorParsers { get; private set; } = new List<IDescParser>();
 
 
-        public void SetDescriptorParsers(List<IDescParser> descParsers) {
+        public BLEOperationStatus SetDescriptorParsers(List<IDescParser> descParsers) {
             this.DescriptorParsers = descParsers;
-            this.OnDescriptorsAdded();
+            return this.OnDescriptorsAdded();
         }
 
-        protected virtual void OnDescriptorsAdded() {
+        protected virtual BLEOperationStatus OnDescriptorsAdded() {
             // By default we do nothing. The default Parser can use this to determine its
             // type if it has a format descriptor
+            return BLEOperationStatus.Success;
         }
 
     }

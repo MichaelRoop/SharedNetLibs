@@ -34,6 +34,9 @@ namespace BluetoothLE.Net.interfaces {
         /// <summary>Used to track device provoked disconnection after connection</summary>
         event EventHandler<BLE_ConnectStatusChangeInfo> ConnectionStatusChanged;
 
+        /// <summary>Raised on BLE operation error</summary>
+        event EventHandler<BLEOperationStatus> BLE_Error;
+
         /// <summary>Start or restart the device discovery</summary>
         void DiscoverDevices();
 

@@ -7,7 +7,7 @@ using System;
 
 namespace BluetoothLE.Net.Parsers.Characteristics {
 
-    /// <summary>Factory to process Characteristic byte read</summary>
+    /// <summary>Factory to retrieve Characteristic read values</summary>
     public class CharParserFactory : ICharParserFactory {
 
         #region Data

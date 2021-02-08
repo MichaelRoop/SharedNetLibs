@@ -6,6 +6,7 @@ using System;
 
 namespace BluetoothLE.Net.Parsers.Descriptor {
 
+    /// <summary>Delivers the appropriate parser for descriptor values</summary>
     public class DescParserFactory : IDescParserFactory {
 
         #region Data

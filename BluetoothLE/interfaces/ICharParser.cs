@@ -1,4 +1,5 @@
 ﻿
+using BluetoothLE.Net.Enumerations;
 using System.Collections.Generic;
 
 namespace BluetoothLE.Net.interfaces {
@@ -8,8 +9,9 @@ namespace BluetoothLE.Net.interfaces {
     public interface ICharParser : IBLEParser {
 
         /// <summary>Allows Characteristic parser to Descriptor info</summary>
-        /// <param name="descParsers"></param>
-        void SetDescriptorParsers(List<IDescParser> descParsers);
+        /// <param name="descParsers">The list of descriptors for the characteristic</param>
+        /// <return>BLEOperationStatus.Success or an error code</return>
+        BLEOperationStatus SetDescriptorParsers(List<IDescParser> descParsers);
 
     }
 
