@@ -167,11 +167,11 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
         [Test]
         public void aaTestUint02() {
             TestHelpersNet.CatchUnexpected(() => {
-                Uint02 val = Uint02.GetNew(2);
+                UInt02 val = UInt02.GetNew(2);
                 Assert.AreEqual(2, val.Value);
                 Assert.True(val == 2, "== operator");
-                Assert.AreEqual(0, Uint02.MinValue);
-                Assert.AreEqual(3, Uint02.MaxValue);
+                Assert.AreEqual(0, UInt02.MinValue);
+                Assert.AreEqual(3, UInt02.MaxValue);
             });
         }
 

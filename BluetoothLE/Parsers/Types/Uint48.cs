@@ -96,7 +96,7 @@ namespace BluetoothLE.Net.Parsers.Types {
 
         #region IComparable
         public int CompareTo(object obj) {
-            Uint24 u = (Uint24)obj;
+            UInt24 u = (UInt24)obj;
             return CompareTo(u);
         }
         #endregion

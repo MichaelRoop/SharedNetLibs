@@ -161,17 +161,17 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                 //------------------------------------------------------
                 // Unsigned
                 case Enumerations.DataFormatEnum.UInt_2bit:
-                    return Uint02.GetNew(data, ref pos).ToString();
+                    return UInt02.GetNew(data, ref pos).ToString();
                 case Enumerations.DataFormatEnum.UInt_4bit:
-                    return Uint04.GetNew(data, ref pos).ToString();
+                    return UInt04.GetNew(data, ref pos).ToString();
                 case Enumerations.DataFormatEnum.UInt_8bit:
                     return data.ToByte(ref pos).Calculate(exp, exp).ToStr(exp);
                 case Enumerations.DataFormatEnum.UInt_12bit:
-                    return Uint12.GetNew(data, ref pos).Value.Calculate(exp, exp).ToStr(exp);
+                    return UInt12.GetNew(data, ref pos).Value.Calculate(exp, exp).ToStr(exp);
                 case Enumerations.DataFormatEnum.UInt_16bit:
                     return data.ToUint16(ref pos).Calculate(exp, exp).ToStr(exp);
                 case Enumerations.DataFormatEnum.UInt_24bit:
-                    return Uint24.GetNew(data, ref pos).Value.Calculate(exp, exp).ToStr(exp);
+                    return UInt24.GetNew(data, ref pos).Value.Calculate(exp, exp).ToStr(exp);
                 case Enumerations.DataFormatEnum.UInt_32bit:
                     return data.ToUint32(ref pos).Calculate(exp, exp).ToStr(exp);
                 case Enumerations.DataFormatEnum.UInt_48bit:

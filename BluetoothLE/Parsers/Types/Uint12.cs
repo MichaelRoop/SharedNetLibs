@@ -3,7 +3,7 @@ using VariousUtils.Net;
 
 namespace BluetoothLE.Net.Parsers.Types {
 
-    public class Uint12 : IComparable, IComparable<Uint12>, IConvertible, IEquatable<Uint12>, IFormattable {
+    public class UInt12 : IComparable, IComparable<UInt12>, IConvertible, IEquatable<UInt12>, IFormattable {
 
         #region Data
 
@@ -21,18 +21,18 @@ namespace BluetoothLE.Net.Parsers.Types {
 
         #region Constructors
 
-        public static Uint12 GetNew(UInt16 val) {
-            return new Uint12(val);
+        public static UInt12 GetNew(UInt16 val) {
+            return new UInt12(val);
         }
 
-        public static Uint12 GetNew(byte[] data, ref int pos) {
+        public static UInt12 GetNew(byte[] data, ref int pos) {
             // Will do masking up front when reading from byte array
-            return new Uint12((UInt16)(data.ToUint16(ref pos) & 0x0FFF));
+            return new UInt12((UInt16)(data.ToUint16(ref pos) & 0x0FFF));
         }
 
-        public Uint12(UInt16 val) {
-            if (val > Uint12.MaxValue) {
-                throw new ArgumentOutOfRangeException(string.Format("Max value {0}", Uint12.MaxValue));
+        public UInt12(UInt16 val) {
+            if (val > UInt12.MaxValue) {
+                throw new ArgumentOutOfRangeException(string.Format("Max value {0}", UInt12.MaxValue));
             }
             this.value = (UInt16)(val & 0xFFF);
         }
@@ -41,14 +41,14 @@ namespace BluetoothLE.Net.Parsers.Types {
 
         #region Operators
 
-        public static bool operator ==(Uint12 u1, Uint12 u2) {
+        public static bool operator ==(UInt12 u1, UInt12 u2) {
             if (object.ReferenceEquals(u1, u2)) { return true; }
             if (object.ReferenceEquals(u1, null)) { return false; }
             if (object.ReferenceEquals(u2, null)) { return false; }
             return u1.Equals(u2);
         }
 
-        public static bool operator !=(Uint12 u1, Uint12 u2) {
+        public static bool operator !=(UInt12 u1, UInt12 u2) {
             if (object.ReferenceEquals(u1, u2)) { return false; }
             if (object.ReferenceEquals(u1, null)) { return true; }
             if (object.ReferenceEquals(u2, null)) { return true; }
@@ -56,12 +56,12 @@ namespace BluetoothLE.Net.Parsers.Types {
         }
 
 
-        public static bool operator ==(Uint12 u1, UInt16 u2) {
+        public static bool operator ==(UInt12 u1, UInt16 u2) {
             if (object.ReferenceEquals(u2, null)) { return false; }
             return u1.Value == u2;
         }
 
-        public static bool operator !=(Uint12 u1, UInt16 u2) {
+        public static bool operator !=(UInt12 u1, UInt16 u2) {
             if (object.ReferenceEquals(u2, null)) { return true; }
             return u1.Value != u2;
         }
@@ -70,7 +70,7 @@ namespace BluetoothLE.Net.Parsers.Types {
 
         #region overrides
         public override bool Equals(object obj) {
-            Uint12 u = obj as Uint12;
+            UInt12 u = obj as UInt12;
             if (u != null) {
                 return this.Equals(u);
             }
@@ -89,13 +89,13 @@ namespace BluetoothLE.Net.Parsers.Types {
 
         #region IComparable
         public int CompareTo(object obj) {
-            Uint12 u = (Uint12)obj;
+            UInt12 u = (UInt12)obj;
             return CompareTo(u);
         }
         #endregion
 
         #region IComparable<Uint12>
-        public int CompareTo(Uint12 other) {
+        public int CompareTo(UInt12 other) {
             if (this.value < other.value) {
                 return 1;
             }
@@ -111,7 +111,7 @@ namespace BluetoothLE.Net.Parsers.Types {
 
         #region IEquitable
 
-        public bool Equals(Uint12 other) {
+        public bool Equals(UInt12 other) {
             if (other != null) {
                 return this.value == other.value;
             }
