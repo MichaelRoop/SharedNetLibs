@@ -21,7 +21,33 @@ namespace BluetoothLE.Net.Parsers.Types {
 
         #region Constructors
 
-        public static Int24 GetNew(Int16 val) {
+        /// <summary>Convert a 32 bit int to a 24bit int in a byte array</summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static byte[] GetBytes(Int32 value) {
+            // Could just set them to min or max
+            if (value < Int24.MinValue || value > Int24.MaxValue) {
+                throw new ArgumentOutOfRangeException("value",
+                    string.Format("{0} out or range {1} to {2}",
+                    value, Int24.MinValue, Int24.MaxValue));
+            }
+
+            bool negative = value < 0;
+            // Filter out the third byte
+            value = value & 0xFFFFFF;
+            if (negative) {
+                // Set the bit for negative
+                value = value | 0x800000;
+            }
+            byte[] resultData = new byte[3];
+            byte[] tmp = new byte[4];
+            value.WriteToBuffer(tmp, 0);
+            Array.Copy(tmp, 0, resultData, 0, 3);
+            return resultData;
+        }
+
+
+        public static Int24 GetNew(Int32 val) {
             return new Int24(val);
         }
 
@@ -82,15 +108,19 @@ namespace BluetoothLE.Net.Parsers.Types {
             //    //                          0xFF000000
             //    ? (Int32)((uint)val | (uint)0xFF000000)
             //    : (Int32)val;
+            int z = 55;
+
+            int x = val >> 24;
 
 
-
-            //this.Value = val;
-            if ((val & 0x800000) > 0) {
+            // Need to check if int24 signed pos on AND Top bytes 0x000
+            //if ((val & 0x800000) > 0) {
+            if (((val & 0x800000) > 0) && (val >> 24) == 0) {
                 val = (Int32)(val | 0xFF000000);
             }
             this.Value = val;
 
+            // This will not catch out of range +
             if (val < Int24.MinValue || val > Int24.MaxValue) {
                 throw new ArgumentOutOfRangeException(
                     "val", string.Format(
