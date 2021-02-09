@@ -52,19 +52,7 @@ namespace BluetoothLE.Net.Parsers.Types {
         }
 
         public static Int24 GetNew(byte[] data, ref int pos) {
-            //byte[] tmp = new byte[4];
-            //Array.Copy(data, pos, tmp, 0, 3);
-            //pos += 3;
-            //return new Int24(BitConverter.ToInt32(new ReadOnlySpan<byte>(tmp)));
-
-            //byte[] tmp = new byte[4];
-            //Array.Copy(data, pos, tmp, 0, 3);
-            //pos += 3;
-            //return new Int24(tmp.ToInt32(0));
-
-
             /*
-            
             // This works. But we will just send the full 4 bytes and shift after
             byte[] tmp = new byte[4];
             if (data[2].IsBitSet(7)) {
@@ -76,17 +64,37 @@ namespace BluetoothLE.Net.Parsers.Types {
             */
 
 
+            /*
+            // Also works but bringing the masking in here since the int constructor
+            // will handle the ints differently and do some sign swapping with known int
             byte[] tmp = new byte[4];
             Array.Copy(data, pos, tmp, 0, 3);
             pos += 3;
             return new Int24(tmp.ToInt32(0));
+            */
 
-            //val |= data[pos + 2];
-            //pos += 3;
+            // Copy the 3 bytes into the least significant position of 4 byte array
+            byte[] tmp = new byte[4];
+            Array.Copy(data, pos, tmp, 0, 3);
+            pos += 3;
+            // Create uint and mask accordingly
 
-            //return new Int24(val);
+            int value = tmp.ToInt32(0);
 
+            // Need to check if int24 signed pos on AND Top bytes 0x000
+            //if ((val & 0x800000) > 0) {
+            if (((value & 0x800000) > 0) && (value >> 24) == 0) {
+                value = (Int32)(value | 0xFF000000);
+            }
+            return new Int24() {
+                Value = value,
+            };
         }
+
+
+        public Int24() {
+        }
+
 
 
         public Int24(Int32 val) {
@@ -108,17 +116,18 @@ namespace BluetoothLE.Net.Parsers.Types {
             //    //                          0xFF000000
             //    ? (Int32)((uint)val | (uint)0xFF000000)
             //    : (Int32)val;
-            int z = 55;
+            //int z = 55;
 
-            int x = val >> 24;
+            //int x = val >> 24;
 
-
+            /*
             // Need to check if int24 signed pos on AND Top bytes 0x000
             //if ((val & 0x800000) > 0) {
             if (((val & 0x800000) > 0) && (val >> 24) == 0) {
                 val = (Int32)(val | 0xFF000000);
             }
             this.Value = val;
+            */
 
             // This will not catch out of range +
             if (val < Int24.MinValue || val > Int24.MaxValue) {
@@ -128,6 +137,8 @@ namespace BluetoothLE.Net.Parsers.Types {
                         val, Int24.MinValue, Int24.MaxValue));
             }
 
+            // Do we need to swap the sign? If we stay in range will the  
+            this.Value = val;
 
 
             //if (val > UInt12.MaxValue) {

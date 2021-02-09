@@ -31,27 +31,28 @@ namespace TestCases.Core.BLE.BLE_Types {
 
         [Ignore("Very long")]
         [Test]
-        public void T00_FullRange() {
+        public void T00_FullRangeFromBytes() {
             for(int i = Int24.MinValue; i <= Int24.MaxValue; i++) {
                 this.TestValidValuesFromBytes(i);
             }
         }
 
 
+        [Ignore("Very long")]
         [Test]
-        public void T01_FromInt32_Signed_ValidnRange() {
-            this.TestValidValues(Int24.MinValue);
-            this.TestValidValues(0);
-            this.TestValidValues(Int24.MaxValue);
+        public void T00_FullRangeFromInt() {
+            for (int i = Int24.MinValue; i <= Int24.MaxValue; i++) {
+                this.TestValidValuesFromInt(i);
+            }
+        }
 
 
-            //TestHelpersNet.CatchUnexpected(() => {
-            //    Int32 expected = -22416;
-            //    Int24 val = Int24.GetNew(expected);
-            //    Assert.AreEqual(expected, val.Value, "On Set with Int32");
 
-
-            //});
+        [Test]
+        public void T01_FromInt32_SignedInt_ValidnRange() {
+            this.TestValidValuesFromInt(Int24.MinValue);
+            this.TestValidValuesFromInt(0);
+            this.TestValidValuesFromInt(Int24.MaxValue);
         }
 
 
@@ -59,25 +60,11 @@ namespace TestCases.Core.BLE.BLE_Types {
         [Test]
         public void T02_FromInt32_Signed_OutOfRangeMinus() {
             this.TestOutOfRange(Int24.MinValue - 1);
-
-            //TestHelpersNet.CatchUnexpected(() => {
-            //    Assert.Throws<ArgumentOutOfRangeException>(() => {
-            //        Int32 expected = Int24.MinValue - 1;
-            //        Int24 val = Int24.GetNew(expected);
-            //    });
-            //});
         }
 
         [Test]
         public void T03_FromInt32_Signed_OutOfRangePlus() {
-            //this.TestOutOfRange(Int24.MaxValue + 100);
-
-            TestHelpersNet.CatchUnexpected(() => {
-                Assert.Throws<ArgumentOutOfRangeException>(() => {
-                    Int32 expected = Int24.MaxValue + 1;
-                    Int24 val = Int24.GetNew(expected);
-                });
-            });
+            this.TestOutOfRange(Int24.MaxValue + 1);
         }
 
 
@@ -86,17 +73,16 @@ namespace TestCases.Core.BLE.BLE_Types {
                 byte[] buffer = Int24.GetBytes(value);
                 int pos = 0;
                 Int24 val = Int24.GetNew(buffer, ref pos);
-                //Int24 val = Int24.GetNew(value);
                 Assert.AreEqual(value, val.Value, string.Format("On Set with Int32", buffer.ToHexByteString()));
             });
         }
 
 
 
-        public void TestValidValues(Int32 value ) {
+        public void TestValidValuesFromInt(Int32 value ) {
             TestHelpersNet.CatchUnexpected(() => {
                 Int24 val = Int24.GetNew(value);
-                Assert.AreEqual(value, val.Value, "On Set with Int32");
+                Assert.AreEqual(value, val.Value, string.Format("On Set with Int32:{0}", value));
             });
         }
 
