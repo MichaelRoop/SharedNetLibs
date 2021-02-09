@@ -672,45 +672,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
 
         byte[] Get24BitByteArray(int value) {
-            /*
-            byte[] tmp = new byte[4];
-
-
-            byte[] data = new byte[3];
-            bool negative = value < 0;
-            // Clean out bits above 24
-            //value = value & 0xFFFFFF;
-            value.WriteToBuffer(tmp, 0);
-            Array.Copy(tmp, 0, data, 0, 3);
-            if (negative) {
-                //data[2] = BitTools.SetBit(data[2], 8, true);
-                data[2] = (byte)(data[2] | 0x80); 
-            }
-
-
-            return data;
-            */
-
-            Assert.True(value >= Int24.MinValue && value <= Int24.MaxValue,
-                string.Format("{0} out or range {1} to {2}", 
-                value, Int24.MinValue, Int24.MaxValue));
-
-
-            bool negative = value < 0;
-            // Filter out the third byte
-            value = value & 0xFFFFFF;
-
-            if (negative) {
-                // Set the bit for negative
-                value = value | 0x800000;
-            }
-            byte[] resultData = new byte[3];
-            byte[] tmp = new byte[4];
-            value.WriteToBuffer(tmp, 0);
-            Array.Copy(tmp, 0, resultData, 0, 3);
-            return resultData;
-            
-
+            return Int24.GetBytes(value);
         }
 
 

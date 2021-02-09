@@ -1,8 +1,6 @@
 ﻿using BluetoothLE.Net.Parsers.Types;
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using TestCases.Core.TestToolSet;
 using VariousUtils.Net;
 

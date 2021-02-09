@@ -1,31 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using VariousUtils.Net;
 
 namespace BluetoothLE.Net.Parsers.Types {
 
     public class Int24 : IComparable, IComparable<Int24>, IConvertible, IEquatable<Int24>, IFormattable {
 
-        #region Data
-
-        #endregion
-
         #region Properties
 
+        /// <summary>Int24 bit value held in Int32</summary>
         public Int32 Value { get; private set; } = 0;
+
+        /// <summary>Maximum allowed value for Int24</summary>
         public static Int32 MaxValue { get { return 8388607; } }
+
+        /// <summary>Minimum allowed value for Int24</summary>
         public static Int32 MinValue { get { return -8388608; } }
 
         #endregion
 
-        #region Constructors
+        #region Static methods
 
-        /// <summary>Convert a 32 bit int to a 24bit int in a byte array</summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <summary>Convert a 32 bit int to a 3 byte 24bit int</summary>
+        /// <param name="value">The Int32 that holds the Int24 value</param>
+        /// <exception cref="ArgumentOutOfRangeException">If value exceeds Int24 range</exception>
+        /// <returns>3 byte array with 24bit Int</returns>
         public static byte[] GetBytes(Int32 value) {
-            // Could just set them to min or max
             if (value < Int24.MinValue || value > Int24.MaxValue) {
                 throw new ArgumentOutOfRangeException("value",
                     string.Format("{0} out or range {1} to {2}",
@@ -33,10 +32,10 @@ namespace BluetoothLE.Net.Parsers.Types {
             }
 
             bool negative = value < 0;
-            // Filter out the third byte
+            // Filter out anything over 24 bits (4th byte) of incoming Int32
             value = value & 0xFFFFFF;
             if (negative) {
-                // Set the bit for negative
+                // Set the Int24 sign bit
                 value = value | 0x800000;
             }
             byte[] resultData = new byte[3];
@@ -47,43 +46,32 @@ namespace BluetoothLE.Net.Parsers.Types {
         }
 
 
-        public static Int24 GetNew(Int32 val) {
-            return new Int24(val);
+        /// <summary>Create an Int24 bit object with value from Int32</summary>
+        /// <param name="value">The value to convert</param>
+        /// <exception cref="ArgumentOutOfRangeException">If value exceeds Int24 range</exception>
+        /// <returns>An Int24 bit object with converted value</returns>
+        public static Int24 GetNew(Int32 value) {
+            return new Int24(value);
         }
 
+
+        /// <summary>Create an Int24 object with value from 3 bytes in array</summary>
+        /// <param name="data">The byte array</param>
+        /// <param name="pos">Position to read and increment from</param>
+        /// <returns>An Int24 object with value from byte array</returns>
         public static Int24 GetNew(byte[] data, ref int pos) {
-            /*
-            // This works. But we will just send the full 4 bytes and shift after
-            byte[] tmp = new byte[4];
-            if (data[2].IsBitSet(7)) {
-                tmp[3] = 0xFF;
-            }
-            Array.Copy(data, pos, tmp, 0, 3);
-            pos += 3;
-            return new Int24(tmp.ToInt32(0));
-            */
-
-
-            /*
-            // Also works but bringing the masking in here since the int constructor
-            // will handle the ints differently and do some sign swapping with known int
-            byte[] tmp = new byte[4];
-            Array.Copy(data, pos, tmp, 0, 3);
-            pos += 3;
-            return new Int24(tmp.ToInt32(0));
-            */
-
             // Copy the 3 bytes into the least significant position of 4 byte array
             byte[] tmp = new byte[4];
             Array.Copy(data, pos, tmp, 0, 3);
             pos += 3;
-            // Create uint and mask accordingly
 
+            // Create uint and mask accordingly
             int value = tmp.ToInt32(0);
 
-            // Need to check if int24 signed pos on AND Top bytes 0x000
-            //if ((val & 0x800000) > 0) {
-            if (((value & 0x800000) > 0) && (value >> 24) == 0) {
+            // 24th bit is int24 signed indicator
+            // 1000 0000 0000 0000 0000 0000
+            if ((value & 0x800000) > 0) {
+                // Signed Int24 so set bits 25-32 which are Uint32 sign indicator
                 value = (Int32)(value | 0xFF000000);
             }
             return new Int24() {
@@ -91,61 +79,27 @@ namespace BluetoothLE.Net.Parsers.Types {
             };
         }
 
+        #endregion
 
+        #region Constructors
+
+        /// <summary>Default constructor</summary>
         public Int24() {
         }
 
 
-
+        /// <summary>Constructor with value from Int32</summary>
+        /// <param name="value">The value to convert</param>
+        /// <exception cref="ArgumentOutOfRangeException">If value exceeds Int24 range</exception>
         public Int24(Int32 val) {
-            //https://stackoverflow.com/questions/10876265/convert-12-bit-int-to-16-or-32-bits
-            //// if first bit to third byte is set
-            //this.Value = ((val & 0x0800) > 0) 
-            //    ?  (Int16)(val | 0xF000) 
-            //    : val;
-
-            //var v = 0xF0000000;
-
-            //uint32 rVal = 0xF12343; //24Bit value
-            //int32_t adcValue32 = rVal & 0x800000 ? 0xff000000 | rVal : rVal;
-
-
-            //this.Value = val;
-
-            //this.Value = BitTools.IsBitSet(val, 24)
-            //    //                          0xFF000000
-            //    ? (Int32)((uint)val | (uint)0xFF000000)
-            //    : (Int32)val;
-            //int z = 55;
-
-            //int x = val >> 24;
-
-            /*
-            // Need to check if int24 signed pos on AND Top bytes 0x000
-            //if ((val & 0x800000) > 0) {
-            if (((val & 0x800000) > 0) && (val >> 24) == 0) {
-                val = (Int32)(val | 0xFF000000);
-            }
-            this.Value = val;
-            */
-
-            // This will not catch out of range +
+            // If we filter on range, the sign bit for int24 will always be set
             if (val < Int24.MinValue || val > Int24.MaxValue) {
                 throw new ArgumentOutOfRangeException(
                     "val", string.Format(
                         "{0} out or range {1} to {2}", 
                         val, Int24.MinValue, Int24.MaxValue));
             }
-
-            // Do we need to swap the sign? If we stay in range will the  
             this.Value = val;
-
-
-            //if (val > UInt12.MaxValue) {
-            //    throw new ArgumentOutOfRangeException(string.Format("Max value {0}", Int12.MaxValue));
-            //}
-            //// Check if masking works
-            //this.value = (Int16)(val & 0x03);
         }
 
         #endregion
