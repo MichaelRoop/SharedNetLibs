@@ -26,6 +26,16 @@
             return (value & (1 << pos)) != 0;
         }
 
+        public static bool IsBitSet(this short value, int pos) {
+            // TODO check limit of bit shift
+            return (value & (1 << pos)) != 0;
+        }
+
+        public static bool IsBitSet(this int value, int pos) {
+            // TODO check limit of bit shift
+            return (value & (1 << pos)) != 0;
+        }
+
         #region SetMask
 
 

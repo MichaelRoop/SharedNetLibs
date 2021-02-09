@@ -200,27 +200,13 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                 case Enumerations.DataFormatEnum.Int_8bit:
                     return data.ToSByte(ref pos).Calculate(exp, exp).ToStr(exp);
                 case Enumerations.DataFormatEnum.Int_12bit:
-                    tmp = new byte[2];
-                    Array.Copy(data, pos, tmp, 0, 2);
-                    // only copying 2 bytes from main
-                    pos += 2;
-                    return tmp.ToInt16(0).ToString();
+                    // TODO exponent stuff when figure out the sign
+                    return Int12.GetNew(data, ref pos).ToString();
                 case Enumerations.DataFormatEnum.Int_16bit:
                     return data.ToInt16(ref pos).ToString();
                 case Enumerations.DataFormatEnum.Int_24bit:
-                    //tmp = new byte[4];
-                    //Array.Copy(data, 0, tmp, 0, 3);
-                    //if (data[2] == 0xFF) {
-                    //    tmp[3] = 0xFF;
-                    //}
-                    //return tmp.ToInt32(0).ToString();
-
-                    // Still increment count of 3 bytes
-                    pos += 3;
-                    return data.ToFormatedByteString();
-
-                //return ((int)(((int)tmp.ToInt32(0)) & 0xFFFFFF)).ToString();
-
+                    // TODO exponent stuff when figure out the sign
+                    return Int24.GetNew(data, ref pos).ToString();
                 case Enumerations.DataFormatEnum.Int_32bit:
                     return data.ToInt32(ref pos).Calculate(exp, exp).ToStr(exp);
                 case Enumerations.DataFormatEnum.Int_48bit:

@@ -297,9 +297,9 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
         [Test]
         public void Int12_FullRange() {
-            this.TestByteBits(this.GetI16ByteArray(-4096), "-4096", DataFormatEnum.Int_12bit);
+            this.TestByteBits(this.GetI16ByteArray(Int12.MinValue), Int12.MinValue.ToString(), DataFormatEnum.Int_12bit);
             this.TestByteBits(this.GetI16ByteArray(0), "0", DataFormatEnum.Int_12bit);
-            this.TestByteBits(this.GetI16ByteArray(4095), "4095", DataFormatEnum.Int_12bit);
+            this.TestByteBits(this.GetI16ByteArray(Int12.MaxValue), Int12.MaxValue.ToString(), DataFormatEnum.Int_12bit);
         }
 
 
@@ -326,10 +326,11 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
         [Test]
         public void Int24_FullRange() {
-            // −8,388,608 to 8,388,607
-            this.TestByteBits(this.Get24BitByteArray(0), "Unhandled - Int 24bit:0x00,0x00,0x00", DataFormatEnum.Int_24bit);
-            this.TestByteBits(this.Get24BitByteArray(8388607), "Unhandled - Int 24bit:0xFF,0xFF,0x7F", DataFormatEnum.Int_24bit);
-            this.TestByteBits(this.Get24BitByteArray(-8388605), "Unhandled - Int 24bit:0x03,0x00,0x80", DataFormatEnum.Int_24bit);
+            this.TestByteBits(this.Get24BitByteArray(Int24.MaxValue), Int24.MaxValue.ToString(), DataFormatEnum.Int_24bit);
+            this.TestByteBits(this.Get24BitByteArray(3320), "3320", DataFormatEnum.Int_24bit);
+            this.TestByteBits(this.Get24BitByteArray(0), "0", DataFormatEnum.Int_24bit);
+            this.TestByteBits(this.Get24BitByteArray(-3320), "-3320", DataFormatEnum.Int_24bit);
+            this.TestByteBits(this.Get24BitByteArray(Int24.MinValue), Int24.MinValue.ToString(), DataFormatEnum.Int_24bit);
         }
 
         // Signed 24 bit not supported
@@ -344,13 +345,9 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
         [Test]
         public void Int24_NotEnoughBytes() {
-            this.TestByteBits(this.GetByteArray(100), "Unhandled - Int 24bit:0x64", DataFormatEnum.Int_24bit);
+            this.TestByteBits(this.GetByteArray(100), "1 byte(s) Data. Requires 3", DataFormatEnum.Int_24bit);
         }
 
-        [Test]
-        public void Int24_Masked() {
-            this.TestByteBits(this.GetI32ByteArray(0xFFFFFFF), "Unhandled - Int 24bit:0xFF,0xFF,0xFF,0x0F", DataFormatEnum.Int_24bit);
-        }
 
         [Test]
         public void Int32_FullRange() {
@@ -675,46 +672,45 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
 
         byte[] Get24BitByteArray(int value) {
+            /*
             byte[] tmp = new byte[4];
-            //////https://stackoverflow.com/questions/12549197/are-there-any-int24-implementations-in-c
-            ////// only works for unsigned   
-            //data[0] = (byte)((value) & 0xFF);
-            //data[1] = (byte)((value >> 8) & 0xFF);
-            //data[2] = (byte)((value >> 16) & 0xFF);
+
 
             byte[] data = new byte[3];
-
-
-            int pos = 0;
-            value.WriteToBuffer(tmp, ref pos);
+            bool negative = value < 0;
+            // Clean out bits above 24
+            //value = value & 0xFFFFFF;
+            value.WriteToBuffer(tmp, 0);
             Array.Copy(tmp, 0, data, 0, 3);
-
-            //----------------------------------
-            //int four = tmp.ToInt32(0);
-            ////int three = 
-
-            //byte[] otherEnd = new byte[4];
-            //Array.Copy(data, 0, otherEnd, 0, 3);
-            //if (data[2] == 0xFF) {
-            //    otherEnd[3] = 0xFF;
-            //}
-            //pos = 0;
-            //// works!!
-            //int reconvert = otherEnd.ToInt32(ref pos);
-            //----------------------------------
+            if (negative) {
+                //data[2] = BitTools.SetBit(data[2], 8, true);
+                data[2] = (byte)(data[2] | 0x80); 
+            }
 
 
-
-
-            //−8,388,608 to 8,388,607
-
-            //int tmp = value;
-            //if (value < 0) {
-            //    tmp = (value << 12);
-            //}
-
-            //(value & 0xFFFFFF).WriteToBuffer(data, ref pos);
             return data;
+            */
+
+            Assert.True(value >= Int24.MinValue && value <= Int24.MaxValue,
+                string.Format("{0} out or range {1} to {2}", 
+                value, Int24.MinValue, Int24.MaxValue));
+
+
+            bool negative = value < 0;
+            // Filter out the third byte
+            value = value & 0xFFFFFF;
+
+            if (negative) {
+                // Set the bit for negative
+                value = value | 0x800000;
+            }
+            byte[] resultData = new byte[3];
+            byte[] tmp = new byte[4];
+            value.WriteToBuffer(tmp, 0);
+            Array.Copy(tmp, 0, resultData, 0, 3);
+            return resultData;
+            
+
         }
 
 

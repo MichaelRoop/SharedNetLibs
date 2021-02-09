@@ -55,7 +55,6 @@ namespace BluetoothLE.Net.Enumerations {
             switch (value) {
                 case DataFormatEnum.Reserved:
                 case DataFormatEnum.OpaqueStructure:
-                case DataFormatEnum.Int_24bit:
                 case DataFormatEnum.Int_48bit:
                 case DataFormatEnum.Int_128bit:
                 case DataFormatEnum.UInt_128bit:
