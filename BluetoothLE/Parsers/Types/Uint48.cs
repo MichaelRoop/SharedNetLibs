@@ -1,57 +1,61 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using VariousUtils.Net;
+
 
 namespace BluetoothLE.Net.Parsers.Types {
 
-    public class Uint24 : IComparable, IComparable<Uint24>, IConvertible, IEquatable<Uint24>, IFormattable {
+    public class UInt48 : IComparable, IComparable<UInt48>, IConvertible, IEquatable<UInt48>, IFormattable {
 
         #region Data
 
-        private UInt32 value = 0;
+        private UInt64 value = 0;
 
         #endregion
 
         #region Properties
 
-        public UInt32 Value { get { return this.value; } }
-        public static UInt32 MaxValue { get { return 16777215; } }
-        public static UInt32 MinValue { get { return 0; } }
+        public UInt64 Value { get { return this.value; } }
+        public static UInt64 MaxValue { get { return 281474976710655; } }
+        public static UInt64 MinValue { get { return 0; } }
 
         #endregion
 
         #region Constructors
 
-        public static Uint24 GetNew(UInt32 val) {
-            return new Uint24(val);
+        public static UInt48 GetNew(UInt32 val) {
+            return new UInt48(val);
         }
 
-        public static Uint24 GetNew(byte[] data, ref int pos) {
-            byte[] tmp = new byte[4];
-            Array.Copy(data, pos, tmp, 0, 3);
-            // Only copying 3 bytes from buffer. Manually increment pointer
-            pos += 3;
-            return new Uint24((tmp.ToUint32(0) & 0xFFFFFF));
+        public static UInt48 GetNew(byte[] data, ref int pos) {
+            byte[] tmp = new byte[8];
+            // Only copying 6 bytes from buffer. Manually increment pointer
+            Array.Copy(data, pos, tmp, 0, 6);
+            pos += 6;
+            return new UInt48(tmp.ToUint64(0) & 0xFFFFFFFFFFFF);
         }
 
-        public Uint24(UInt32 val) {
-            if (val > Uint24.MaxValue) {
-                throw new ArgumentOutOfRangeException(string.Format("Max value {0}", Uint24.MaxValue));
+
+        public UInt48(UInt64 val) {
+            if (val > UInt48.MaxValue) {
+                throw new ArgumentOutOfRangeException(string.Format("Max value {0}", UInt48.MaxValue));
             }
-            this.value = (UInt32)(val & 0xFFFFFF);
+            this.value = (UInt64)(val & 0xFFFFFFFFFFFF);
         }
 
         #endregion
 
         #region Operators
 
-        public static bool operator ==(Uint24 u1, Uint24 u2) {
+        public static bool operator ==(UInt48 u1, UInt48 u2) {
             if (object.ReferenceEquals(u1, u2)) { return true; }
             if (object.ReferenceEquals(u1, null)) { return false; }
             if (object.ReferenceEquals(u2, null)) { return false; }
             return u1.Equals(u2);
         }
 
-        public static bool operator !=(Uint24 u1, Uint24 u2) {
+        public static bool operator !=(UInt48 u1, UInt48 u2) {
             if (object.ReferenceEquals(u1, u2)) { return false; }
             if (object.ReferenceEquals(u1, null)) { return true; }
             if (object.ReferenceEquals(u2, null)) { return true; }
@@ -59,12 +63,12 @@ namespace BluetoothLE.Net.Parsers.Types {
         }
 
 
-        public static bool operator ==(Uint24 u1, UInt32 u2) {
+        public static bool operator ==(UInt48 u1, UInt64 u2) {
             if (object.ReferenceEquals(u2, null)) { return false; }
             return u1.Value == u2;
         }
 
-        public static bool operator !=(Uint24 u1, UInt32 u2) {
+        public static bool operator !=(UInt48 u1, UInt64 u2) {
             if (object.ReferenceEquals(u2, null)) { return true; }
             return u1.Value != u2;
         }
@@ -73,7 +77,7 @@ namespace BluetoothLE.Net.Parsers.Types {
 
         #region overrides
         public override bool Equals(object obj) {
-            Uint24 u = obj as Uint24;
+            UInt48 u = obj as UInt48;
             if (u != null) {
                 return this.Equals(u);
             }
@@ -98,7 +102,7 @@ namespace BluetoothLE.Net.Parsers.Types {
         #endregion
 
         #region IComparable<Uint24>
-        public int CompareTo(Uint24 other) {
+        public int CompareTo(UInt48 other) {
             if (this.value < other.value) {
                 return 1;
             }
@@ -114,7 +118,7 @@ namespace BluetoothLE.Net.Parsers.Types {
 
         #region IEquitable
 
-        public bool Equals(Uint24 other) {
+        public bool Equals(UInt48 other) {
             if (other != null) {
                 return this.value == other.value;
             }
@@ -204,6 +208,7 @@ namespace BluetoothLE.Net.Parsers.Types {
         }
 
         #endregion
+
 
     }
 

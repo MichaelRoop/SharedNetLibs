@@ -38,9 +38,9 @@ namespace BluetoothLE.Net.Tools {
                     case BLE_DataType.Bool:
                         return ValidateByteRange(result, 0, 1);
                     case BLE_DataType.UInt_2bit:
-                        return ValidateByteRange(result, 0, 3);
+                        return ValidateByteRange(result, 0, Uint02.MaxValue);
                     case BLE_DataType.UInt_4bit:
-                        return ValidateByteRange(result, 0, 15);
+                        return ValidateByteRange(result, 0, Uint04.MaxValue);
                     case BLE_DataType.UInt_8bit:
                         return ValidateByteRange(result, 0, Byte.MaxValue);
                     case BLE_DataType.UInt_12bit:
@@ -52,7 +52,7 @@ namespace BluetoothLE.Net.Tools {
                     case BLE_DataType.UInt_32bit:
                         return ValidateUint32Range(result, 0, UInt32.MaxValue);
                     case BLE_DataType.UInt_48bit:
-                        return ValidateUint48Range(result, 0, 281474976710655);
+                        return ValidateUint48Range(result, 0, UInt48.MaxValue);
                     case BLE_DataType.UInt_64bit:
                         return ValidateUint64Range(result, 0, UInt64.MaxValue);
                     case BLE_DataType.UInt_128bit:

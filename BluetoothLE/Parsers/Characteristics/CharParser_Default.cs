@@ -175,11 +175,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                 case Enumerations.DataFormatEnum.UInt_32bit:
                     return data.ToUint32(ref pos).Calculate(exp, exp).ToStr(exp);
                 case Enumerations.DataFormatEnum.UInt_48bit:
-                    tmp = new byte[8];
-                    Array.Copy(data, pos, tmp, 0, 6);
-                    // Only copying 6 of 6 bytes. Manually increment
-                    pos += 6;
-                    return ((UInt64)((tmp.ToUint64(0)) & 0xFFFFFFFFFFFF)).Calculate(exp, exp).ToStr(exp);
+                    return UInt48.GetNew(data, ref pos).Value.Calculate(exp, exp).ToStr(exp);
                 case Enumerations.DataFormatEnum.UInt_64bit:
                     UInt64 ret = data.ToUint64(ref pos);
                     if ((exp != 0) && (ret > Double.MinValue && ret < Double.MaxValue)) {
