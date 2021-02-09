@@ -205,28 +205,13 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                 case Enumerations.DataFormatEnum.Int_16bit:
                     return data.ToInt16(ref pos).ToString();
                 case Enumerations.DataFormatEnum.Int_24bit:
-                    // TODO exponent stuff when figure out the sign
+                    // TODO exponent stuff
                     return Int24.GetNew(data, ref pos).ToString();
                 case Enumerations.DataFormatEnum.Int_32bit:
                     return data.ToInt32(ref pos).Calculate(exp, exp).ToStr(exp);
                 case Enumerations.DataFormatEnum.Int_48bit:
-                    //tmp = new byte[8];
-                    //Array.Copy(data, 0, tmp, 0, 6);
-                    ////if (tmp[5] == 0xFF) {
-                    ////    tmp[6] = 0xFF;
-                    ////    tmp[7] = 0xFF;
-                    ////}
-
-                    //long val = tmp.ToInt64(0);
-                    ////long val2 = (val & 0xFFFFFFFFFFFF);
-                    //string r = val.ToString();
-                    //return r;
-                    // Manually increment the 6 bytes
-                    pos += 6;
-                    return data.ToFormatedByteString();
-
-                //return (tmp.ToInt64(0) & 0xFFFFFFFFFFFF).ToString();
-                //return ((long)(tmp.ToInt64(0) & 0xFFFFFFFFFFFF)).ToString();
+                    // TODO exponent stuff
+                    return Int48.GetNew(data, ref pos).ToString();
                 case Enumerations.DataFormatEnum.Int_64bit:
                     Int64 ret2 = data.ToInt64(ref pos);
                     if ((exp != 0) && (ret2 > Double.MinValue && ret2 < Double.MaxValue)) {
@@ -261,11 +246,9 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                     return ((float)(((int)tmp.ToFloat32(0)) & 0xFFFFFF)).ToString();
                 case Enumerations.DataFormatEnum.IEEE_11073_32bit_FLOAT:
                     // https://docs.particle.io/tutorials/device-os/bluetooth-le/
-
-
                     return data.ToFloat32(ref pos).ToString(); // ****** NOT SURE OR IEEE
 
-                case Enumerations.DataFormatEnum.IEEE_20601_format: // Non defined data
+                case Enumerations.DataFormatEnum.IEEE_20601_format:
                     ushort val1 = data.ToUint16(ref pos);
                     ushort val2 = data.ToUint16(ref pos);
                     return string.Format("{0}|{1}", val1, val2);

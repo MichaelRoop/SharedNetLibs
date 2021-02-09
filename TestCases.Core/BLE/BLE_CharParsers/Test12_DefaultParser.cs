@@ -369,15 +369,9 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
         [Test]
         public void Int48_FullRange() {
-            this.TestByteBits(this.GetI64ByteArray(0), "Unhandled - Int 48bit:0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00", DataFormatEnum.Int_48bit);
-            this.TestByteBits(this.GetI64ByteArray(14294967295), "Unhandled - Int 48bit:0xFF,0xE3,0x0B,0x54,0x03,0x00,0x00,0x00", DataFormatEnum.Int_48bit);
-            this.TestByteBits(this.GetI64ByteArray(-14294967295), "Unhandled - Int 48bit:0x01,0x1C,0xF4,0xAB,0xFC,0xFF,0xFF,0xFF", DataFormatEnum.Int_48bit);
-        }
-
-
-        [Test]
-        public void Int48_Masked() {
-            this.TestByteBits(this.GetI64ByteArray(0xFFFFFFFFFFFFFF), "Unhandled - Int 48bit:0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0x00", DataFormatEnum.Int_48bit);
+            this.TestByteBits(this.GetI48ByteArray(0), "0", DataFormatEnum.Int_48bit);
+            this.TestByteBits(this.GetI48ByteArray(Int48.MinValue), Int48.MinValue.ToString(), DataFormatEnum.Int_48bit);
+            this.TestByteBits(this.GetI48ByteArray(Int48.MaxValue), Int48.MaxValue.ToString(), DataFormatEnum.Int_48bit);
         }
 
 
@@ -675,6 +669,10 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
             return Int24.GetBytes(value);
         }
 
+
+        byte[] GetI48ByteArray(long value) {
+            return Int48.GetBytes(value);
+        }
 
 
         byte[] GetU64ByteArray(ulong value) {
