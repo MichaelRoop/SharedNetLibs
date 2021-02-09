@@ -153,6 +153,17 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
 
         [Test]
+        public void T12_Floats() {
+            List<TestData> td = new List<TestData>();
+            td.Add(new TestData(DataFormatEnum.IEEE_754_32bit_floating_point, (float)25.5, "25.5"));
+            td.Add(new TestData(DataFormatEnum.IEEE_754_64bit_floating_point, (double)12555.324, "12555.324"));
+            this.ProcessMultiple(td);
+        }
+
+
+
+
+        [Test]
         public void T15_NumericMinMax() {
             List<TestData> td = new List<TestData>();
             td.Add(new TestData(DataFormatEnum.UInt_8bit, Byte.MinValue, Byte.MinValue.ToString()));
@@ -299,8 +310,10 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
                 #endregion
                 #region Float
                 case DataFormatEnum.IEEE_754_32bit_floating_point:
+                    this.Write((float)testData.Value, data, ref pos);
                     break;
                 case DataFormatEnum.IEEE_754_64bit_floating_point:
+                    this.Write((double)testData.Value, data, ref pos);
                     break;
                 case DataFormatEnum.IEEE_11073_16bit_SFLOAT:
                     break;
@@ -416,19 +429,13 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
         }
 
 
-        //byte[] GetFloat32ByteArray(float value) {
-        //    int pos = 0;
-        //    byte[] data = new byte[4];
-        //    value.WriteToBuffer(data, ref pos);
-        //    return data;
-        //}
+        void Write(float value, byte[] data, ref int pos) {
+            value.WriteToBuffer(data, ref pos);
+        }
 
-        //byte[] GetDouble64ByteArray(double value) {
-        //    int pos = 0;
-        //    byte[] data = new byte[8];
-        //    value.WriteToBuffer(data, ref pos);
-        //    return data;
-        //}
+        void Write(double value, byte[] data, ref int pos) {
+            value.WriteToBuffer(data, ref pos);
+        }
 
         #endregion
 
