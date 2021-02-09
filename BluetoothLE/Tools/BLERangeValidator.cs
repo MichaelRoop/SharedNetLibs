@@ -1,4 +1,5 @@
 ﻿using BluetoothLE.Net.Enumerations;
+using BluetoothLE.Net.Parsers.Types;
 using LogUtils.Net;
 using System;
 using System.Linq;
@@ -43,11 +44,11 @@ namespace BluetoothLE.Net.Tools {
                     case BLE_DataType.UInt_8bit:
                         return ValidateByteRange(result, 0, Byte.MaxValue);
                     case BLE_DataType.UInt_12bit:
-                        return ValidateUint16Range(result, 0, 4095);
+                        return ValidateUint16Range(result, 0, Uint12.MaxValue);
                     case BLE_DataType.UInt_16bit:
                         return ValidateUint16Range(result, 0, UInt16.MaxValue);
                     case BLE_DataType.UInt_24bit:
-                        return ValidateUint24Range(result, 0, 16777215);
+                        return ValidateUint24Range(result, 0, Uint24.MaxValue);
                     case BLE_DataType.UInt_32bit:
                         return ValidateUint32Range(result, 0, UInt32.MaxValue);
                     case BLE_DataType.UInt_48bit:

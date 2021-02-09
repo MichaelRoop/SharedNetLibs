@@ -2,6 +2,7 @@
 using BluetoothLE.Net.interfaces;
 using BluetoothLE.Net.Parsers.Characteristics;
 using BluetoothLE.Net.Parsers.Descriptor;
+using BluetoothLE.Net.Parsers.Types;
 using LogUtils.Net;
 using NUnit.Framework;
 using System;
@@ -163,6 +164,16 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
             this.TestExp(value, 2);
         }
 
+        [Test]
+        public void aaTestUint02() {
+            TestHelpersNet.CatchUnexpected(() => {
+                Uint02 val = Uint02.GetNew(2);
+                Assert.AreEqual(2, val.Value);
+                Assert.True(val == 2, "== operator");
+                Assert.AreEqual(0, Uint02.MinValue);
+                Assert.AreEqual(3, Uint02.MaxValue);
+            });
+        }
 
 
         [Test]

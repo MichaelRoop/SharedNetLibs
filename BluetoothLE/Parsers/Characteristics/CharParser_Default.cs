@@ -167,15 +167,11 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                 case Enumerations.DataFormatEnum.UInt_8bit:
                     return data.ToByte(ref pos).Calculate(exp, exp).ToStr(exp);
                 case Enumerations.DataFormatEnum.UInt_12bit:
-                    return ((ushort)(((int)data.ToUint16(ref pos)) & 0xFFF)).Calculate(exp, exp).ToStr(exp);
+                    return Uint12.GetNew(data, ref pos).Value.Calculate(exp, exp).ToStr(exp);
                 case Enumerations.DataFormatEnum.UInt_16bit:
                     return data.ToUint16(ref pos).Calculate(exp, exp).ToStr(exp);
                 case Enumerations.DataFormatEnum.UInt_24bit:
-                    tmp = new byte[4];
-                    Array.Copy(data, pos, tmp, 0, 3);
-                    // Only copying 3 bytes from main buffer. Manually increment pointer
-                    pos += 3;
-                    return ((uint)(((int)tmp.ToUint32(0)) & 0xFFFFFF)).Calculate(exp, exp).ToStr(exp);
+                    return Uint24.GetNew(data, ref pos).Value.Calculate(exp, exp).ToStr(exp);
                 case Enumerations.DataFormatEnum.UInt_32bit:
                     return data.ToUint32(ref pos).Calculate(exp, exp).ToStr(exp);
                 case Enumerations.DataFormatEnum.UInt_48bit:
