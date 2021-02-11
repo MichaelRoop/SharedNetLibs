@@ -1,14 +1,18 @@
 ﻿
 namespace BluetoothLE.Net.Enumerations {
 
+    /// <summary>Duplicates the DataFormatEnum and allows extensions</summary>
     public enum BLE_DataType : uint {
 
         // First entries are taken from the descriptor data type. Do not change
+        // -----  No Exponents  -----
         Reserved = DataFormatEnum.Reserved,
         Bool = DataFormatEnum.Boolean,
         UInt_2bit = DataFormatEnum.UInt_2bit,
         UInt_4bit = DataFormatEnum.UInt_4bit,
         UInt_8bit = DataFormatEnum.UInt_8bit,
+        // --------------------------
+
         UInt_12bit = DataFormatEnum.UInt_12bit,
         UInt_16bit = DataFormatEnum.UInt_16bit,
         UInt_24bit = DataFormatEnum.UInt_24bit,
@@ -24,6 +28,8 @@ namespace BluetoothLE.Net.Enumerations {
         Int_48bit = DataFormatEnum.Int_48bit,
         Int_64bit = DataFormatEnum.Int_64bit,
         Int_128bit = DataFormatEnum.Int_128bit,
+
+        // -----  No Exponents  -----
         // 754 is the currently supported in MS
         IEEE_754_32bit_floating_point = DataFormatEnum.IEEE_754_32bit_floating_point,
         IEEE_754_64bit_floating_point = DataFormatEnum.IEEE_754_64bit_floating_point,
@@ -33,6 +39,7 @@ namespace BluetoothLE.Net.Enumerations {
         UTF8_String = DataFormatEnum.UTF8_String,
         UTF16_String = DataFormatEnum.UTF16_String,
         OpaqueStructure = DataFormatEnum.OpaqueStructure,
+        // --------------------------
 
         // End of Descriptor format type indicators
         // Last one was 0x1B - their max is 0xFF because it is a byte

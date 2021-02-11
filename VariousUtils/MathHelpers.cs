@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Text;
 
 namespace VariousUtils.Net {
@@ -37,13 +38,20 @@ namespace VariousUtils.Net {
             return Calculate((double)value, exponent, digits);
         }
 
-        public static double Calculate(this long value, double exponent, int digits) {
+        public static double Calculate(this long value, int exponent, int digits) {
+            // BigInteger fails can only have exponent > 0
+            //return (double)(value * BigInteger.Pow(10, exponent));
+            
             return Calculate((double)value, exponent, digits);
         }
+
 
         public static double Calculate(this ulong value, double exponent, int digits) {
             // TODO - figure out a way to calculate exponents of values above the Double min max
             // to avoid looking precision
+            // BigInteger fails can only have exponent > 0
+            //return (double)(value * BigInteger.Pow(10, exponent));
+            
             return Calculate((double)value, exponent, digits);
         }
 
