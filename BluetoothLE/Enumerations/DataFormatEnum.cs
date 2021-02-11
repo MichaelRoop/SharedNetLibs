@@ -57,7 +57,8 @@ namespace BluetoothLE.Net.Enumerations {
                 case DataFormatEnum.OpaqueStructure:
                 case DataFormatEnum.Int_128bit:
                 case DataFormatEnum.UInt_128bit:
-                // Not sure what the IEEE float is. 754 is the current MS
+                // IEEE 11073 float is used in medical
+                // https://stackoverflow.com/questions/60841331/dart-convert-ieee-11073-32-bit-float-to-a-simple-double
                 case Enumerations.DataFormatEnum.IEEE_11073_16bit_SFLOAT:
                 case Enumerations.DataFormatEnum.IEEE_11073_32bit_FLOAT:
                 case DataFormatEnum.Unhandled:
