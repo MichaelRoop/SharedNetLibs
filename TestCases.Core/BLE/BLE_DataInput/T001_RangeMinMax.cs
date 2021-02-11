@@ -42,12 +42,12 @@ namespace TestCases.Core.BLE.BLE_DataInput {
 
         [Test]
         public void BoolValidateInvalidRange() {
-            this.ValidateByte("3", BLE_DataValidationStatus.OutOfRange, 0, BLE_DataType.Bool);
+            this.ValidateByte("3", BLE_DataValidationStatus.StringConversionFailed, 0, BLE_DataType.Bool);
         }
 
         [Test]
         public void BoolValidateInvalidFormat() {
-            this.ValidateByte("3dd", BLE_DataValidationStatus.InvalidInput, 0, BLE_DataType.Bool);
+            this.ValidateByte("3dd", BLE_DataValidationStatus.StringConversionFailed, 0, BLE_DataType.Bool);
         }
 
         #endregion
@@ -62,18 +62,18 @@ namespace TestCases.Core.BLE.BLE_DataInput {
 
         [Test]
         public void UInt08_ValidateInValidMin() {
-            this.ValidateByte("-1", BLE_DataValidationStatus.InvalidInput, 0, BLE_DataType.UInt_8bit);
+            this.ValidateByte("-1", BLE_DataValidationStatus.StringConversionFailed, 0, BLE_DataType.UInt_8bit);
         }
 
 
         [Test]
         public void UInt08_ValidateInValidMax() {
-            this.ValidateByte("300", BLE_DataValidationStatus.InvalidInput, 0, BLE_DataType.UInt_8bit);
+            this.ValidateByte("300", BLE_DataValidationStatus.StringConversionFailed, 0, BLE_DataType.UInt_8bit);
         }
 
         [Test]
         public void UInt08_ValidateInValidFormat() {
-            this.ValidateByte("xx300", BLE_DataValidationStatus.InvalidInput, 0, BLE_DataType.UInt_8bit);
+            this.ValidateByte("xx300", BLE_DataValidationStatus.StringConversionFailed, 0, BLE_DataType.UInt_8bit);
         }
 
         [Test]
@@ -115,12 +115,12 @@ namespace TestCases.Core.BLE.BLE_DataInput {
 
         [Test]
         public void UInt12_ValidateInvalidMinus() {
-            this.ValidateUint16("-2", BLE_DataValidationStatus.InvalidInput, 0, BLE_DataType.UInt_12bit);
+            this.ValidateUint16("-2", BLE_DataValidationStatus.StringConversionFailed, 0, BLE_DataType.UInt_12bit);
         }
 
         [Test]
         public void UInt12_ValidateInvalidPlus() {
-            this.ValidateUint16("5000", BLE_DataValidationStatus.OutOfRange, 0, BLE_DataType.UInt_12bit);
+            this.ValidateUint16("5000", BLE_DataValidationStatus.StringConversionFailed, 0, BLE_DataType.UInt_12bit);
         }
 
 
@@ -132,12 +132,12 @@ namespace TestCases.Core.BLE.BLE_DataInput {
 
         [Test]
         public void UInt16_ValidateInvalidMinus() {
-            this.ValidateUint16("-2", BLE_DataValidationStatus.InvalidInput, 0, BLE_DataType.UInt_16bit);
+            this.ValidateUint16("-2", BLE_DataValidationStatus.StringConversionFailed, 0, BLE_DataType.UInt_16bit);
         }
 
         [Test]
         public void UInt16_ValidateInvalidPlus() {
-            this.ValidateUint16((UInt16.MaxValue + 1000).ToString(), BLE_DataValidationStatus.InvalidInput, 0, BLE_DataType.UInt_16bit);
+            this.ValidateUint16((UInt16.MaxValue + 1000).ToString(), BLE_DataValidationStatus.StringConversionFailed, 0, BLE_DataType.UInt_16bit);
         }
         #endregion
 
@@ -151,13 +151,13 @@ namespace TestCases.Core.BLE.BLE_DataInput {
 
         [Test]
         public void UInt24_ValidateInvalidMinus() {
-            this.ValidateUint32("-1", BLE_DataValidationStatus.InvalidInput, 0, BLE_DataType.UInt_24bit);
+            this.ValidateUint32("-1", BLE_DataValidationStatus.StringConversionFailed, 0, BLE_DataType.UInt_24bit);
         }
 
 
         [Test]
         public void UInt24_ValidateInvalidPlus() {
-            this.ValidateUint32("16779000", BLE_DataValidationStatus.OutOfRange, 0, BLE_DataType.UInt_24bit);
+            this.ValidateUint32("16779000", BLE_DataValidationStatus.StringConversionFailed, 0, BLE_DataType.UInt_24bit);
         }
 
         [Test]
@@ -168,7 +168,7 @@ namespace TestCases.Core.BLE.BLE_DataInput {
 
         [Test]
         public void UInt32_ValidateInvalidMinus() {
-            this.ValidateUint32("-1", BLE_DataValidationStatus.InvalidInput, 0, BLE_DataType.UInt_32bit);
+            this.ValidateUint32("-1", BLE_DataValidationStatus.StringConversionFailed, 0, BLE_DataType.UInt_32bit);
         }
 
 
@@ -176,7 +176,7 @@ namespace TestCases.Core.BLE.BLE_DataInput {
         public void UInt32_ValidateInvalidPlus() {
             ulong val = UInt32.MaxValue;
             val += 100;
-            this.ValidateUint32(val.ToString(), BLE_DataValidationStatus.InvalidInput, 0, BLE_DataType.UInt_32bit);
+            this.ValidateUint32(val.ToString(), BLE_DataValidationStatus.StringConversionFailed, 0, BLE_DataType.UInt_32bit);
         }
 
         #endregion
@@ -191,13 +191,13 @@ namespace TestCases.Core.BLE.BLE_DataInput {
 
         [Test]
         public void UInt48_ValidateInvalidMinus() {
-            this.ValidateUint64("-1", BLE_DataValidationStatus.InvalidInput, 0, BLE_DataType.UInt_48bit);
+            this.ValidateUint64("-1", BLE_DataValidationStatus.StringConversionFailed, 0, BLE_DataType.UInt_48bit);
         }
 
 
         [Test]
         public void UInt48_ValidateInvalidPlus() {
-            this.ValidateUint64("281474976710777", BLE_DataValidationStatus.OutOfRange, 0, BLE_DataType.UInt_48bit);
+            this.ValidateUint64("281474976710777", BLE_DataValidationStatus.StringConversionFailed, 0, BLE_DataType.UInt_48bit);
         }
 
         //--
@@ -209,7 +209,7 @@ namespace TestCases.Core.BLE.BLE_DataInput {
 
         [Test]
         public void UInt64_ValidateInvalidMinus() {
-            this.ValidateUint64("-1", BLE_DataValidationStatus.InvalidInput, 0, BLE_DataType.UInt_64bit);
+            this.ValidateUint64("-1", BLE_DataValidationStatus.StringConversionFailed, 0, BLE_DataType.UInt_64bit);
         }
 
 
@@ -217,7 +217,7 @@ namespace TestCases.Core.BLE.BLE_DataInput {
         public void UInt64_ValidateInvalidPlus() {
             decimal val = UInt64.MaxValue;
             val += 100;
-            this.ValidateUint64(val.ToString(), BLE_DataValidationStatus.InvalidInput, 0, BLE_DataType.UInt_64bit);
+            this.ValidateUint64(val.ToString(), BLE_DataValidationStatus.StringConversionFailed, 0, BLE_DataType.UInt_64bit);
         }
 
         #endregion
@@ -233,12 +233,12 @@ namespace TestCases.Core.BLE.BLE_DataInput {
 
         [Test]
         public void Int08_ValidateInValidMin() {
-            this.ValidateSByte("-150", BLE_DataValidationStatus.InvalidInput, 0);
+            this.ValidateSByte("-150", BLE_DataValidationStatus.StringConversionFailed, 0);
         }
 
         [Test]
         public void Int08_ValidateInValidMax() {
-            this.ValidateSByte("300", BLE_DataValidationStatus.InvalidInput, 0);
+            this.ValidateSByte("300", BLE_DataValidationStatus.StringConversionFailed, 0);
         }
 
         #endregion
@@ -254,12 +254,12 @@ namespace TestCases.Core.BLE.BLE_DataInput {
 
         [Test]
         public void Int16_ValidateInValidMin() {
-            this.ValidateInt16(Int32.MinValue.ToString(), BLE_DataValidationStatus.InvalidInput, 0, BLE_DataType.Int_16bit);
+            this.ValidateInt16(Int32.MinValue.ToString(), BLE_DataValidationStatus.StringConversionFailed, 0, BLE_DataType.Int_16bit);
         }
 
         [Test]
         public void Int16_ValidateInValidMax() {
-            this.ValidateInt16(Int32.MaxValue.ToString(), BLE_DataValidationStatus.InvalidInput, 0, BLE_DataType.Int_16bit);
+            this.ValidateInt16(Int32.MaxValue.ToString(), BLE_DataValidationStatus.StringConversionFailed, 0, BLE_DataType.Int_16bit);
         }
 
         #endregion
@@ -275,12 +275,12 @@ namespace TestCases.Core.BLE.BLE_DataInput {
 
         [Test]
         public void Int32_ValidateInValidMin() {
-            this.ValidateInt32(Int64.MinValue.ToString(), BLE_DataValidationStatus.InvalidInput, 0, BLE_DataType.Int_32bit);
+            this.ValidateInt32(Int64.MinValue.ToString(), BLE_DataValidationStatus.StringConversionFailed, 0, BLE_DataType.Int_32bit);
         }
 
         [Test]
         public void Int32_ValidateInValidMax() {
-            this.ValidateInt32(Int64.MaxValue.ToString(), BLE_DataValidationStatus.InvalidInput, 0, BLE_DataType.Int_32bit);
+            this.ValidateInt32(Int64.MaxValue.ToString(), BLE_DataValidationStatus.StringConversionFailed, 0, BLE_DataType.Int_32bit);
         }
 
         #endregion
@@ -296,12 +296,12 @@ namespace TestCases.Core.BLE.BLE_DataInput {
 
         [Test]
         public void Int64_ValidateInValidMin() {
-            this.ValidateInt64(Decimal.MinValue.ToString(), BLE_DataValidationStatus.InvalidInput, 0, BLE_DataType.Int_64bit);
+            this.ValidateInt64(Decimal.MinValue.ToString(), BLE_DataValidationStatus.StringConversionFailed, 0, BLE_DataType.Int_64bit);
         }
 
         [Test]
         public void Int64_ValidateInValidMax() {
-            this.ValidateInt64(Decimal.MaxValue.ToString(), BLE_DataValidationStatus.InvalidInput, 0, BLE_DataType.Int_64bit);
+            this.ValidateInt64(Decimal.MaxValue.ToString(), BLE_DataValidationStatus.StringConversionFailed, 0, BLE_DataType.Int_64bit);
         }
 
         #endregion
@@ -317,12 +317,12 @@ namespace TestCases.Core.BLE.BLE_DataInput {
 
         [Test]
         public void Float32_ValidateInValidMin() {
-            this.ValidateFloat32(Double.MinValue.ToString(), BLE_DataValidationStatus.OutOfRange, 0);
+            this.ValidateFloat32(Double.MinValue.ToString(), BLE_DataValidationStatus.StringConversionFailed, 0);
         }
 
         [Test]
         public void Float32_ValidateInValidMax() {
-            this.ValidateFloat32(Double.MaxValue.ToString(), BLE_DataValidationStatus.OutOfRange, 0);
+            this.ValidateFloat32(Double.MaxValue.ToString(), BLE_DataValidationStatus.StringConversionFailed, 0);
         }
 
         #endregion
@@ -341,7 +341,7 @@ namespace TestCases.Core.BLE.BLE_DataInput {
             // Double Min
             // -1.7976931348623157E+308
             string underflow = "-2.7976931348623157E+308";
-            this.ValidateFloat64(underflow, BLE_DataValidationStatus.OutOfRange, 0);
+            this.ValidateFloat64(underflow, BLE_DataValidationStatus.StringConversionFailed, 0);
         }
 
         [Test]
@@ -349,7 +349,7 @@ namespace TestCases.Core.BLE.BLE_DataInput {
             // Double Max
             //1.79769e+308
             string overflow = "1.79769e+309";
-            this.ValidateFloat64(overflow, BLE_DataValidationStatus.OutOfRange, 0);
+            this.ValidateFloat64(overflow, BLE_DataValidationStatus.StringConversionFailed, 0);
         }
 
         #endregion

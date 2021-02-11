@@ -79,6 +79,18 @@ namespace BluetoothLE.Net.Parsers.Types {
             };
         }
 
+
+        /// <summary>Convert the string and initialize a value</summary>
+        /// <param name="s"></param>
+        /// <param name="result">The value to initialize</param>
+        /// <returns>true if the string is a valid number in the range of an Int24</returns>
+        public static bool TryParse(string s, out Int32 result) {
+            if (Int32.TryParse(s, out result)) {
+                return result >= Int24.MinValue && result <= Int24.MaxValue;
+            }
+            return false;
+        }
+
         #endregion
 
         #region Constructors

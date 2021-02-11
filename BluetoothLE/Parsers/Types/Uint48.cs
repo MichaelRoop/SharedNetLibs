@@ -22,9 +22,33 @@ namespace BluetoothLE.Net.Parsers.Types {
 
         #endregion
 
+        #region Static methods
+
+        public static byte[] GetBytes(UInt64 value) {
+            byte[] tmp = new byte[8];
+            value.WriteToBuffer(tmp, 0);
+            byte[] result = new byte[6];
+            Array.Copy(tmp, result, 6);
+            return result;
+        }
+
+
+        /// <summary>Convert the string and initialize a value</summary>
+        /// <param name="s">The string to parse</param>
+        /// <param name="result">The value to initialize</param>
+        /// <returns>true if the string is a valid number in the range of an Int24</returns>
+        public static bool TryParse(string s, out UInt64 result) {
+            if (UInt64.TryParse(s, out result)) {
+                return result >= UInt48.MinValue && result <= UInt48.MaxValue;
+            }
+            return false;
+        }
+
+        #endregion
+
         #region Constructors
 
-        public static UInt48 GetNew(UInt32 val) {
+        public static UInt48 GetNew(UInt64 val) {
             return new UInt48(val);
         }
 

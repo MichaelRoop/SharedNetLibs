@@ -17,6 +17,17 @@ namespace BluetoothLE.Net.Parsers.Types {
 
         #endregion
 
+        /// <summary>Convert the string and initialize a value</summary>
+        /// <param name="s"></param>
+        /// <param name="result">The value to initialize</param>
+        /// <returns>true if the string is a valid number in the range of an Int12</returns>
+        public static bool TryParse(string s, out Int16 result) {
+            if (Int16.TryParse(s, out result)) {
+                return result >= Int12.MinValue && result <= Int12.MaxValue;
+            }
+            return false;
+        }
+
         #region Constructors
 
         public static Int12 GetNew(Int16 val) {

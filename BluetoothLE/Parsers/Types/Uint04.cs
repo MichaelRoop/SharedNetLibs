@@ -20,6 +20,21 @@ namespace BluetoothLE.Net.Parsers.Types {
 
         #endregion
 
+        #region Static methods
+
+        /// <summary>Convert the string and initialize a value</summary>
+        /// <param name="s">The string to parse</param>
+        /// <param name="result">The value to initialize</param>
+        /// <returns>true if the string is a valid number in the range of an Int24</returns>
+        public static bool TryParse(string s, out byte result) {
+            if (Byte.TryParse(s, out result)) {
+                return result >= UInt04.MinValue && result <= UInt04.MaxValue;
+            }
+            return false;
+        }
+
+        #endregion
+
         #region Constructors
 
         public static UInt04 GetNew(byte b) {
