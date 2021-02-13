@@ -78,7 +78,7 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
 
             this.DisplayString = 
                 string.Format(
-                    "Format:{0} Exponent:{1} Unit:{2} (0x{3:X4}) Namespace:{4} Description Enum:{5}",
+                    "Data type: {0} Exponent: {1} Unit: {2} (0x{3:X4}) Namespace: {4} Description Enum: {5}",
                     this.Format,
                     this.Exponent,
                     this.MeasurementUnitsEnum.ToString().CamelCaseToSpaces(),

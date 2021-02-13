@@ -19,20 +19,25 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
         
         private readonly ClassLog log = new ClassLog("DescParser_ClientCharacteristicConfig");
 
-        public EnabledDisabled Notifications { get; set; } = EnabledDisabled.Disabled;
-        public EnabledDisabled Indications { get; set; } = EnabledDisabled.Disabled;
-        public ushort ConvertedData { get; set; }
+        public EnabledDisabled Notifications { get; set; } = EnabledDisabled.Enabled;
+        public EnabledDisabled Indications { get; set; } = EnabledDisabled.Enabled;
+
+        public Byte Bitmask { get; set; } = 0;
 
         public override int RequiredBytes { get; protected set; } = UINT16_LEN;
 
 
         protected override void DoParse(byte[] data) {
             this.log.InfoEntry("DoParse");
-            this.ConvertedData = data.ToUint16(0);
+            // Do not read to Uint16 since it flips the bytes. Need to read byte[0] and check it's bits
+            this.Bitmask = data[0];
+
+            this.log.Info("DoParse", () => string.Format("########### data:{0}, Length:{1} data[0]={2}, data[1]={3}", 
+                data.ToFormatedByteString(), data.Length, data[0], data[1]));
 
             //   Bit 0 - Notifications, Bit 1 - Indications
-            this.Notifications = (this.ConvertedData.IsBitSet(0)) ? EnabledDisabled.Enabled : EnabledDisabled.Disabled;
-            this.Indications = (this.ConvertedData.IsBitSet(1)) ? EnabledDisabled.Enabled : EnabledDisabled.Disabled;
+            this.Notifications = (this.Bitmask.IsBitSet(0)) ? EnabledDisabled.Enabled : EnabledDisabled.Disabled;
+            this.Indications = (this.Bitmask.IsBitSet(1)) ? EnabledDisabled.Enabled : EnabledDisabled.Disabled;
             this.DisplayString = string.Format("Notifications:{0}, Indications:{1}", 
                 this.Notifications.ToString(), this.Indications.ToString());
             this.log.Info("DoParse", () => string.Format("Display:{0}", this.DisplayString));
@@ -42,7 +47,7 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
         protected override  void ResetMembers() {
             this.Notifications = EnabledDisabled.Disabled;
             this.Indications = EnabledDisabled.Disabled;
-            this.ConvertedData = 0;
+            this.Bitmask = 0;
             base.ResetMembers();
         }
 

@@ -124,7 +124,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                 StringBuilder sb = new StringBuilder();
                 foreach(var f in this.formats) {
                     if (pos > 0) {
-                        sb.Append(",");
+                        sb.Append(", ");
                     }
                     sb.Append(this.Process(f, ref pos, data));
                 }
