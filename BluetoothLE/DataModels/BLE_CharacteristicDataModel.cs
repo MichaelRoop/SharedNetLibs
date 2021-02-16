@@ -52,6 +52,8 @@ namespace BluetoothLE.Net.DataModels {
 
         public string DisplayHeader { get; set; } = "Characteristic";
 
+        public string DisplayReadWrite { get; set; } = string.Empty;
+
         public string CharName { get; set; } = "xxxx";
 
         public string CharValue { get; set; } = "";
