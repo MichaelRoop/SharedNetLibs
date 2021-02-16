@@ -88,6 +88,11 @@ namespace VariousUtils.Net {
             return value.ToString(digits.ToExpFormat(), CultureInfo.CurrentCulture);
         }
 
+        // TODO - figure out exponent for ulong
+        public static string ToStr(this ulong value, int digits) {
+            return value.ToString(digits.ToExpFormat(), CultureInfo.CurrentCulture);
+        }
+
 
         public static string ToExpFormat(this int exponent) {
             switch (Math.Abs(exponent)) {
