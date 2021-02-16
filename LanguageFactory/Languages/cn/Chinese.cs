@@ -120,6 +120,16 @@ namespace LanguageFactory.Net.Languages.cn {
             this.AddMsg(MsgCode.Clear, "清除");
             this.AddMsg(MsgCode.ResetAll, "全部重置");
             this.AddMsg(MsgCode.Disconnected, "已断开连接");
+            this.AddMsg(MsgCode.Characteristic, "特性");
+            this.AddMsg(MsgCode.Descriptor, "描述符");
+            this.AddMsg(MsgCode.Min, "最小数");
+            this.AddMsg(MsgCode.Max, "最大");
+            this.AddMsg(MsgCode.NoWriteAccess, "没有写访问权限");
+            this.AddMsg(MsgCode.InvalidInput, "无效输入");
+            this.AddMsg(MsgCode.ParseFailed, "分析失败");
+            this.AddMsg(MsgCode.OutOfRange, "超过范围");
+            this.AddMsg(MsgCode.email, "电子邮件");
+            this.AddMsg(MsgCode.CrashReport, "故障报告");
 
             //this.AddMsg(MsgCode., "");
 

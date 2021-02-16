@@ -133,6 +133,19 @@
         ResetAll,
         Disconnected,
 
+        Characteristic,
+        Descriptor,
+        Min,
+        Max,
+        DataType,
+        NoWriteAccess,
+        InvalidInput,
+        ParseFailed,
+        OutOfRange,
+        email,
+        CrashReport,
+
+
         // Composite - no direct lookup
         ReadTimeout,
         WriteTimeout,

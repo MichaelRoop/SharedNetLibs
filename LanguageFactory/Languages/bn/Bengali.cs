@@ -123,7 +123,16 @@ namespace LanguageFactory.Net.Languages.bn {
             this.AddMsg(MsgCode.Clear, "পরিষ্কার করুন");
             this.AddMsg(MsgCode.ResetAll, "সকল ডিফল্ট পুনরায় সেট করুন");
             this.AddMsg(MsgCode.Disconnected, "সংযোগ বিচ্ছিন্ন");
-
+            this.AddMsg(MsgCode.Characteristic, "চরিত্রগত");
+            this.AddMsg(MsgCode.Descriptor, "বর্ণনাকারী");
+            this.AddMsg(MsgCode.Min, "মিনিট");
+            this.AddMsg(MsgCode.Max, "সর্বাধিক");
+            this.AddMsg(MsgCode.NoWriteAccess, "লেখা-সুরক্ষিত");
+            this.AddMsg(MsgCode.InvalidInput, "অকার্যকর ইনপুট");
+            this.AddMsg(MsgCode.ParseFailed, "পার্সিং ত্রুটি");
+            this.AddMsg(MsgCode.OutOfRange, "মূল্য ব্যাপ্তি বহির্ভূত");
+            this.AddMsg(MsgCode.email, "ইমেইল");
+            this.AddMsg(MsgCode.CrashReport, " ক্র্যাশ প্রতিবেদন ");
 
             //this.AddMsg(MsgCode., "");
         }

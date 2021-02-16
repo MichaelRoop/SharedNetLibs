@@ -123,6 +123,16 @@ namespace LanguageFactory.Net.Languages.de {
             this.AddMsg(MsgCode.Clear, "Löschen");
             this.AddMsg(MsgCode.ResetAll, "Alle zurücksetzen");
             this.AddMsg(MsgCode.Disconnected, "Verbindung getrennt");
+            this.AddMsg(MsgCode.Characteristic, "Merkmal");
+            this.AddMsg(MsgCode.Descriptor, "Deskriptor");
+            this.AddMsg(MsgCode.Min, "Min");
+            this.AddMsg(MsgCode.Max, "Max");
+            this.AddMsg(MsgCode.NoWriteAccess, "Keine Schreibberechtigung");
+            this.AddMsg(MsgCode.InvalidInput, "Ungültige Eingabe");
+            this.AddMsg(MsgCode.ParseFailed, "Fehler beim Analysieren");
+            this.AddMsg(MsgCode.OutOfRange, "Die Daten liegen außerhalb des Bereichs");
+            this.AddMsg(MsgCode.email, "E-Mail");
+            this.AddMsg(MsgCode.CrashReport, "Absturzbericht");
 
 
             //this.AddMsg(MsgCode., "");

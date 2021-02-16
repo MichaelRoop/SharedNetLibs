@@ -121,6 +121,17 @@ namespace LanguageFactory.Net.Languages.en {
             this.AddMsg(MsgCode.RemoteService, "Remote Service");
             this.AddMsg(MsgCode.Clear, "Clear");
             this.AddMsg(MsgCode.ResetAll, "Reset All");
+            this.AddMsg(MsgCode.Characteristic, "Characteristic");
+            this.AddMsg(MsgCode.Descriptor, "Descriptor");
+            this.AddMsg(MsgCode.Min, "Min");
+            this.AddMsg(MsgCode.Max, "Max");
+            this.AddMsg(MsgCode.NoWriteAccess, "No write-access");
+            this.AddMsg(MsgCode.InvalidInput, "Invalid Input");
+            this.AddMsg(MsgCode.ParseFailed, "Parse failed");
+            this.AddMsg(MsgCode.OutOfRange, "Out of range");
+            this.AddMsg(MsgCode.email, "eMail");
+            this.AddMsg(MsgCode.CrashReport, "Crash Report");
+
 
 
             //this.AddMsg(MsgCode., "");

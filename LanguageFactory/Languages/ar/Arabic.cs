@@ -125,7 +125,16 @@ namespace LanguageFactory.Net.Languages.ar {
             this.AddMsg(MsgCode.Clear, "مسح");
             this.AddMsg(MsgCode.ResetAll, "إعادة تعيين الكل");
             this.AddMsg(MsgCode.Disconnected, "غير متصل");
-
+            this.AddMsg(MsgCode.Characteristic, "الخاصية");
+            this.AddMsg(MsgCode.Descriptor, "الواصف");
+            this.AddMsg(MsgCode.Min, "أدنى");
+            this.AddMsg(MsgCode.Max, "أقصى");
+            this.AddMsg(MsgCode.NoWriteAccess, "لا يوجد وصول للكتابة");
+            this.AddMsg(MsgCode.InvalidInput, "إدخال غير صالح");
+            this.AddMsg(MsgCode.ParseFailed, "فشل التحليل");
+            this.AddMsg(MsgCode.OutOfRange, "‏‏العدد خارج النطاق");
+            this.AddMsg(MsgCode.email, "البريد الإلكتروني");
+            this.AddMsg(MsgCode.CrashReport, "تقرير تعطل");
 
             //this.AddMsg(MsgCode., "");
 
