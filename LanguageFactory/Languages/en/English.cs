@@ -125,7 +125,7 @@ namespace LanguageFactory.Net.Languages.en {
             this.AddMsg(MsgCode.Descriptor, "Descriptor");
             this.AddMsg(MsgCode.Min, "Min");
             this.AddMsg(MsgCode.Max, "Max");
-            this.AddMsg(MsgCode.NoWriteAccess, "No write-access");
+            this.AddMsg(MsgCode.ReadOnly, "Read only");
             this.AddMsg(MsgCode.InvalidInput, "Invalid Input");
             this.AddMsg(MsgCode.ParseFailed, "Parse failed");
             this.AddMsg(MsgCode.OutOfRange, "Out of range");

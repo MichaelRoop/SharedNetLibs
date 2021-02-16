@@ -120,6 +120,16 @@ namespace LanguageFactory.Net.Languages.ja {
             this.AddMsg(MsgCode.Clear, "解除");
             this.AddMsg(MsgCode.ResetAll, "すべて元に戻す");
             this.AddMsg(MsgCode.Disconnected, "接続解除済み");
+            this.AddMsg(MsgCode.Characteristic, "特性");
+            this.AddMsg(MsgCode.Descriptor, "記述子");
+            this.AddMsg(MsgCode.Min, "分間");
+            this.AddMsg(MsgCode.Max, "最大");
+            this.AddMsg(MsgCode.ReadOnly, "読み取り専用");
+            this.AddMsg(MsgCode.InvalidInput, "無効な入力です");
+            this.AddMsg(MsgCode.ParseFailed, "解析に失敗しました");
+            this.AddMsg(MsgCode.OutOfRange, "範囲外");
+            this.AddMsg(MsgCode.email, "電子メール");
+            this.AddMsg(MsgCode.CrashReport, "バグ報告");
 
 
             //this.AddMsg(MsgCode., "");

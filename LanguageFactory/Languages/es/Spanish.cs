@@ -121,6 +121,16 @@ namespace LanguageFactory.Net.Languages.es {
             this.AddMsg(MsgCode.Clear, "Borrar");
             this.AddMsg(MsgCode.ResetAll, "Restaurar todo");
             this.AddMsg(MsgCode.Disconnected, "Desconectado");
+            this.AddMsg(MsgCode.Characteristic, "Característica");
+            this.AddMsg(MsgCode.Descriptor, "Descriptor");
+            this.AddMsg(MsgCode.Min, "Mín");
+            this.AddMsg(MsgCode.Max, "Máx");
+            this.AddMsg(MsgCode.ReadOnly, "Solo lectura");
+            this.AddMsg(MsgCode.InvalidInput, "Entrada no válida");
+            this.AddMsg(MsgCode.ParseFailed, "Error de análisis");
+            this.AddMsg(MsgCode.OutOfRange, "Fuera del intervalo");
+            this.AddMsg(MsgCode.email, "Correo electrónico");
+            this.AddMsg(MsgCode.CrashReport, "Informe de errores");
 
 
             //this.AddMsg(MsgCode., "");

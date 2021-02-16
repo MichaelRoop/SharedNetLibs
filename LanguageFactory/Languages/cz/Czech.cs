@@ -126,7 +126,7 @@ namespace LanguageFactory.Net.Languages.cz {
             this.AddMsg(MsgCode.Descriptor, "Popisovač");
             this.AddMsg(MsgCode.Min, "Min");
             this.AddMsg(MsgCode.Max, "Max");
-            this.AddMsg(MsgCode.NoWriteAccess, "Žádná práva k zápisu");
+            this.AddMsg(MsgCode.ReadOnly, "Jen pro čtení");
             this.AddMsg(MsgCode.InvalidInput, "Neplatné zadání");
             this.AddMsg(MsgCode.ParseFailed, "Analýza selhala");
             this.AddMsg(MsgCode.OutOfRange, "Mimo rozsah");

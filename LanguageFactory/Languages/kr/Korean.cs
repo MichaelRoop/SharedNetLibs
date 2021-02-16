@@ -120,6 +120,16 @@ namespace LanguageFactory.Net.Languages.kr {
             this.AddMsg(MsgCode.Clear, "지우기");
             this.AddMsg(MsgCode.ResetAll, "모두 재설정");
             this.AddMsg(MsgCode.Disconnected, "연결이 끊김");
+            this.AddMsg(MsgCode.Characteristic, "특징");
+            this.AddMsg(MsgCode.Descriptor, "설명자");
+            this.AddMsg(MsgCode.Min, "최소");
+            this.AddMsg(MsgCode.Max, "최대");
+            this.AddMsg(MsgCode.ReadOnly, "읽기 전용");
+            this.AddMsg(MsgCode.InvalidInput, "입력이 잘못되었습니다");
+            this.AddMsg(MsgCode.ParseFailed, "구문 분석 실패");
+            this.AddMsg(MsgCode.OutOfRange, "범위를 벗어남");
+            this.AddMsg(MsgCode.email, "자 메일");
+            this.AddMsg(MsgCode.CrashReport, "버그 보고서");
 
             //this.AddMsg(MsgCode., "");
         }

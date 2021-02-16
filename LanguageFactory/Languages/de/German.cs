@@ -127,7 +127,7 @@ namespace LanguageFactory.Net.Languages.de {
             this.AddMsg(MsgCode.Descriptor, "Deskriptor");
             this.AddMsg(MsgCode.Min, "Min");
             this.AddMsg(MsgCode.Max, "Max");
-            this.AddMsg(MsgCode.NoWriteAccess, "Keine Schreibberechtigung");
+            this.AddMsg(MsgCode.ReadOnly, "Schreibgeschützt");
             this.AddMsg(MsgCode.InvalidInput, "Ungültige Eingabe");
             this.AddMsg(MsgCode.ParseFailed, "Fehler beim Analysieren");
             this.AddMsg(MsgCode.OutOfRange, "Die Daten liegen außerhalb des Bereichs");

@@ -126,6 +126,16 @@ namespace LanguageFactory.Net.Languages.hi {
             this.AddMsg(MsgCode.Clear, "साफ़ करें");
             this.AddMsg(MsgCode.ResetAll, "सभी को रीसेट करें");
             this.AddMsg(MsgCode.Disconnected, "डिस्कनेक्ट किया गया");
+            this.AddMsg(MsgCode.Characteristic, "विशेषता");
+            this.AddMsg(MsgCode.Descriptor, "वर्णनकर्ता");
+            this.AddMsg(MsgCode.Min, "मिनट");
+            this.AddMsg(MsgCode.Max, "अधिक");
+            this.AddMsg(MsgCode.ReadOnly, "केवल पढ़ने हेतु");
+            this.AddMsg(MsgCode.InvalidInput, "अमान्य इनपुट");
+            this.AddMsg(MsgCode.ParseFailed, "पार्स विफल रहा");
+            this.AddMsg(MsgCode.OutOfRange, "रेंज से बाहर");
+            this.AddMsg(MsgCode.email, "ईमेल");
+            this.AddMsg(MsgCode.CrashReport, "बग रिपोर्ट भेजें");
 
 
             //this.AddMsg(MsgCode., "");

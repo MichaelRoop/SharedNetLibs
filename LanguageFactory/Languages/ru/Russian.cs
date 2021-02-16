@@ -125,6 +125,16 @@ namespace LanguageFactory.Net.Languages.ru {
             this.AddMsg(MsgCode.Clear, "Очистить");
             this.AddMsg(MsgCode.ResetAll, "Сбросить все");
             this.AddMsg(MsgCode.Disconnected, "Связь завершена");
+            this.AddMsg(MsgCode.Characteristic, "Характеристика");
+            this.AddMsg(MsgCode.Descriptor, "Дескриптор");
+            this.AddMsg(MsgCode.Min, "Мин");
+            this.AddMsg(MsgCode.Max, "Макс");
+            this.AddMsg(MsgCode.ReadOnly, "Только чтение");
+            this.AddMsg(MsgCode.InvalidInput, "Недопустимый ввод");
+            this.AddMsg(MsgCode.ParseFailed, "Разбор не выполнен");
+            this.AddMsg(MsgCode.OutOfRange, "Вне диапазона");
+            this.AddMsg(MsgCode.email, "Эл. почта");
+            this.AddMsg(MsgCode.CrashReport, "Отчет об ошибках");
 
             //this.AddMsg(MsgCode., "");
         }

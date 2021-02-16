@@ -127,7 +127,7 @@ namespace LanguageFactory.Net.Languages.bn {
             this.AddMsg(MsgCode.Descriptor, "বর্ণনাকারী");
             this.AddMsg(MsgCode.Min, "মিনিট");
             this.AddMsg(MsgCode.Max, "সর্বাধিক");
-            this.AddMsg(MsgCode.NoWriteAccess, "লেখা-সুরক্ষিত");
+            this.AddMsg(MsgCode.ReadOnly, "রীড়-ওনলি");
             this.AddMsg(MsgCode.InvalidInput, "অকার্যকর ইনপুট");
             this.AddMsg(MsgCode.ParseFailed, "পার্সিং ত্রুটি");
             this.AddMsg(MsgCode.OutOfRange, "মূল্য ব্যাপ্তি বহির্ভূত");

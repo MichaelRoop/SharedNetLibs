@@ -138,7 +138,7 @@
         Min,
         Max,
         DataType,
-        NoWriteAccess,
+        ReadOnly,
         InvalidInput,
         ParseFailed,
         OutOfRange,

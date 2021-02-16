@@ -121,6 +121,16 @@ namespace LanguageFactory.Net.Languages.vi {
             this.AddMsg(MsgCode.Clear, "Xóa");
             this.AddMsg(MsgCode.ResetAll, "Đặt lại Tất cả");
             this.AddMsg(MsgCode.Disconnected, "Đã ngắt kết nối");
+            this.AddMsg(MsgCode.Characteristic, "Đặc điểm");
+            this.AddMsg(MsgCode.Descriptor, "Mô tả");
+            this.AddMsg(MsgCode.Min, "Phút");
+            this.AddMsg(MsgCode.Max, "Tối đa");
+            this.AddMsg(MsgCode.ReadOnly, "Chỉ đọc");
+            this.AddMsg(MsgCode.InvalidInput, "Mục nhập không hợp lệ");
+            this.AddMsg(MsgCode.ParseFailed, "Phân tích cú pháp không thành công");
+            this.AddMsg(MsgCode.OutOfRange, "Dữ liệu Nằm ngoài Phạm vi");
+            this.AddMsg(MsgCode.email, "Email");
+            this.AddMsg(MsgCode.CrashReport, "Báo cáo lỗi");
 
 
             //this.AddMsg(MsgCode., "");

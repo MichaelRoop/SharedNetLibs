@@ -123,6 +123,17 @@ namespace LanguageFactory.Net.Languages.uk {
             this.AddMsg(MsgCode.ResetAll, "Скинути все");
             this.AddMsg(MsgCode.Disconnected, "Від’єднано");
 
+            this.AddMsg(MsgCode.Characteristic, "Характеристика");
+            this.AddMsg(MsgCode.Descriptor, "Дескриптор");
+            this.AddMsg(MsgCode.Min, "Мін");
+            this.AddMsg(MsgCode.Max, "Макс");
+            this.AddMsg(MsgCode.ReadOnly, "Лише читання");
+            this.AddMsg(MsgCode.InvalidInput, "Хибний ввід");
+            this.AddMsg(MsgCode.ParseFailed, "Не вдалося виконати розбір");
+            this.AddMsg(MsgCode.OutOfRange, "Поза діапазоном");
+            this.AddMsg(MsgCode.email, "Електронна пошта");
+            this.AddMsg(MsgCode.CrashReport, "Повідомлення про помилку");
+
 
             //this.AddMsg(MsgCode., "");
         }

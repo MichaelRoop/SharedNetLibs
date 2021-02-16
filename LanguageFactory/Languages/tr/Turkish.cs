@@ -122,6 +122,16 @@ namespace LanguageFactory.Net.Languages.tr {
             this.AddMsg(MsgCode.Clear, "Temizle");
             this.AddMsg(MsgCode.ResetAll, "Tümünü Sıfırla");
             this.AddMsg(MsgCode.Disconnected, "Bağlantı kesildi");
+            this.AddMsg(MsgCode.Characteristic, "Özellik");
+            this.AddMsg(MsgCode.Descriptor, "Açıklayıcı");
+            this.AddMsg(MsgCode.Min, "Alt sınır");
+            this.AddMsg(MsgCode.Max, "Üst Sınır");
+            this.AddMsg(MsgCode.ReadOnly, "Salt Okunur");
+            this.AddMsg(MsgCode.InvalidInput, "Geçersiz giriş");
+            this.AddMsg(MsgCode.ParseFailed, "Ayrıştırma Başarısız");
+            this.AddMsg(MsgCode.OutOfRange, "Aralık dışında");
+            this.AddMsg(MsgCode.email, "E-Posta");
+            this.AddMsg(MsgCode.CrashReport, "Hata Raporu");
 
 
             //this.AddMsg(MsgCode., "");

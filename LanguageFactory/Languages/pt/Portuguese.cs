@@ -124,6 +124,16 @@ namespace LanguageFactory.Net.Languages.pt {
             this.AddMsg(MsgCode.Clear, "Limpar");
             this.AddMsg(MsgCode.ResetAll, "Repor Tudo");
             this.AddMsg(MsgCode.Disconnected, "Desligado");
+            this.AddMsg(MsgCode.Characteristic, "Característica");
+            this.AddMsg(MsgCode.Descriptor, "Descritor");
+            this.AddMsg(MsgCode.Min, "Mín");
+            this.AddMsg(MsgCode.Max, "Máx");
+            this.AddMsg(MsgCode.ReadOnly, "Só de Leitura");
+            this.AddMsg(MsgCode.InvalidInput, "Entrada inválida");
+            this.AddMsg(MsgCode.ParseFailed, "Falha na Análise");
+            this.AddMsg(MsgCode.OutOfRange, "Fora do Intervalo");
+            this.AddMsg(MsgCode.email, "Correio Electrónico");
+            this.AddMsg(MsgCode.CrashReport, "Relatório de erros");
 
             //this.AddMsg(MsgCode., "");
         }

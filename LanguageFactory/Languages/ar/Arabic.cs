@@ -129,7 +129,7 @@ namespace LanguageFactory.Net.Languages.ar {
             this.AddMsg(MsgCode.Descriptor, "الواصف");
             this.AddMsg(MsgCode.Min, "أدنى");
             this.AddMsg(MsgCode.Max, "أقصى");
-            this.AddMsg(MsgCode.NoWriteAccess, "لا يوجد وصول للكتابة");
+            this.AddMsg(MsgCode.ReadOnly, "للقراءة فقط");
             this.AddMsg(MsgCode.InvalidInput, "إدخال غير صالح");
             this.AddMsg(MsgCode.ParseFailed, "فشل التحليل");
             this.AddMsg(MsgCode.OutOfRange, "‏‏العدد خارج النطاق");

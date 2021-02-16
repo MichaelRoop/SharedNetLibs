@@ -124,7 +124,7 @@ namespace LanguageFactory.Net.Languages.cn {
             this.AddMsg(MsgCode.Descriptor, "描述符");
             this.AddMsg(MsgCode.Min, "最小数");
             this.AddMsg(MsgCode.Max, "最大");
-            this.AddMsg(MsgCode.NoWriteAccess, "没有写访问权限");
+            this.AddMsg(MsgCode.ReadOnly, "只读");
             this.AddMsg(MsgCode.InvalidInput, "无效输入");
             this.AddMsg(MsgCode.ParseFailed, "分析失败");
             this.AddMsg(MsgCode.OutOfRange, "超过范围");

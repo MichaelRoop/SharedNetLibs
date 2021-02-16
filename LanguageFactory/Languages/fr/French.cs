@@ -120,6 +120,16 @@ namespace LanguageFactory.Net.Languages.fr {
             this.AddMsg(MsgCode.Clear, "Effacer");
             this.AddMsg(MsgCode.ResetAll, "Réinitialiser tout");
             this.AddMsg(MsgCode.Disconnected, "Déconnecté");
+            this.AddMsg(MsgCode.Characteristic, "Caractéristique");
+            this.AddMsg(MsgCode.Descriptor, "Descripteur");
+            this.AddMsg(MsgCode.Min, "Min");
+            this.AddMsg(MsgCode.Max, "Max");
+            this.AddMsg(MsgCode.ReadOnly, "Lecture seule");
+            this.AddMsg(MsgCode.InvalidInput, "Entrée non valide");
+            this.AddMsg(MsgCode.ParseFailed, "Échec de l'analyse");
+            this.AddMsg(MsgCode.OutOfRange, "Hors de portée");
+            this.AddMsg(MsgCode.email, "E-mail");
+            this.AddMsg(MsgCode.CrashReport, "Rapport d’incident");
 
             //this.AddMsg(MsgCode., "");
         }
