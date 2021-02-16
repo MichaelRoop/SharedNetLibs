@@ -1,4 +1,5 @@
 ﻿using BluetoothLE.Net.Enumerations;
+using VariousUtils.Net;
 
 namespace BluetoothLE.Net.Tools {
 
@@ -24,7 +25,7 @@ namespace BluetoothLE.Net.Tools {
 
         public DataTypeDisplay(BLE_DataType dataType, string min, string max) {
             this.DataTypeEnum = dataType;
-            this.DataType = dataType.ToStr();
+            this.DataType = dataType.ToStr().UnderlineToSpaces();
             this.Min = min;
             this.Max = max;
         }
