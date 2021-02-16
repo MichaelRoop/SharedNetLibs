@@ -132,6 +132,7 @@ namespace LanguageFactory.Net.Languages.it {
             this.AddMsg(MsgCode.OutOfRange, "Non compreso negli intervalli");
             this.AddMsg(MsgCode.email, "Posta elettronica");
             this.AddMsg(MsgCode.CrashReport, "Report sui bug");
+            this.AddMsg(MsgCode.DataType, "Tipo di dati");
 
             //this.AddMsg(MsgCode., "");
         }

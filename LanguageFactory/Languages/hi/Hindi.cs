@@ -136,6 +136,7 @@ namespace LanguageFactory.Net.Languages.hi {
             this.AddMsg(MsgCode.OutOfRange, "रेंज से बाहर");
             this.AddMsg(MsgCode.email, "ईमेल");
             this.AddMsg(MsgCode.CrashReport, "बग रिपोर्ट भेजें");
+            this.AddMsg(MsgCode.DataType, "डेटा प्रकार");
 
 
             //this.AddMsg(MsgCode., "");

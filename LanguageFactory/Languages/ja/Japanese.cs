@@ -130,6 +130,7 @@ namespace LanguageFactory.Net.Languages.ja {
             this.AddMsg(MsgCode.OutOfRange, "範囲外");
             this.AddMsg(MsgCode.email, "電子メール");
             this.AddMsg(MsgCode.CrashReport, "バグ報告");
+            this.AddMsg(MsgCode.DataType, "データの種類");
 
 
             //this.AddMsg(MsgCode., "");

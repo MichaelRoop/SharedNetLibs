@@ -131,6 +131,7 @@ namespace LanguageFactory.Net.Languages.es {
             this.AddMsg(MsgCode.OutOfRange, "Fuera del intervalo");
             this.AddMsg(MsgCode.email, "Correo electrónico");
             this.AddMsg(MsgCode.CrashReport, "Informe de errores");
+            this.AddMsg(MsgCode.DataType, "Tipo de datos");
 
 
             //this.AddMsg(MsgCode., "");

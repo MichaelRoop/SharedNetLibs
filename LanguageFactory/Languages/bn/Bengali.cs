@@ -133,6 +133,7 @@ namespace LanguageFactory.Net.Languages.bn {
             this.AddMsg(MsgCode.OutOfRange, "মূল্য ব্যাপ্তি বহির্ভূত");
             this.AddMsg(MsgCode.email, "ইমেইল");
             this.AddMsg(MsgCode.CrashReport, " ক্র্যাশ প্রতিবেদন ");
+            this.AddMsg(MsgCode.DataType, "ডেটার প্রকার");
 
             //this.AddMsg(MsgCode., "");
         }

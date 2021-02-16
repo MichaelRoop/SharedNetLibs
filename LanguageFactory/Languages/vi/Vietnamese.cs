@@ -131,6 +131,7 @@ namespace LanguageFactory.Net.Languages.vi {
             this.AddMsg(MsgCode.OutOfRange, "Dữ liệu Nằm ngoài Phạm vi");
             this.AddMsg(MsgCode.email, "Email");
             this.AddMsg(MsgCode.CrashReport, "Báo cáo lỗi");
+            this.AddMsg(MsgCode.DataType, "Loại Dữ liệu");
 
 
             //this.AddMsg(MsgCode., "");

@@ -132,6 +132,7 @@ namespace LanguageFactory.Net.Languages.tr {
             this.AddMsg(MsgCode.OutOfRange, "Aralık dışında");
             this.AddMsg(MsgCode.email, "E-Posta");
             this.AddMsg(MsgCode.CrashReport, "Hata Raporu");
+            this.AddMsg(MsgCode.DataType, "Veri Türü");
 
 
             //this.AddMsg(MsgCode., "");

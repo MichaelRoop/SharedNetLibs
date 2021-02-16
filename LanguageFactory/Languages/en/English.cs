@@ -131,8 +131,7 @@ namespace LanguageFactory.Net.Languages.en {
             this.AddMsg(MsgCode.OutOfRange, "Out of range");
             this.AddMsg(MsgCode.email, "eMail");
             this.AddMsg(MsgCode.CrashReport, "Crash Report");
-
-
+            this.AddMsg(MsgCode.DataType, "Data Type");
 
             //this.AddMsg(MsgCode., "");
         }

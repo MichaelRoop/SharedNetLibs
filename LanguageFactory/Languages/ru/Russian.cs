@@ -135,6 +135,7 @@ namespace LanguageFactory.Net.Languages.ru {
             this.AddMsg(MsgCode.OutOfRange, "Вне диапазона");
             this.AddMsg(MsgCode.email, "Эл. почта");
             this.AddMsg(MsgCode.CrashReport, "Отчет об ошибках");
+            this.AddMsg(MsgCode.DataType, "Тип данных");
 
             //this.AddMsg(MsgCode., "");
         }

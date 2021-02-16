@@ -133,6 +133,7 @@ namespace LanguageFactory.Net.Languages.de {
             this.AddMsg(MsgCode.OutOfRange, "Die Daten liegen außerhalb des Bereichs");
             this.AddMsg(MsgCode.email, "E-Mail");
             this.AddMsg(MsgCode.CrashReport, "Absturzbericht");
+            this.AddMsg(MsgCode.DataType, "Datentyp");
 
 
             //this.AddMsg(MsgCode., "");

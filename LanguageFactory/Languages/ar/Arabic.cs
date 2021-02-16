@@ -135,6 +135,7 @@ namespace LanguageFactory.Net.Languages.ar {
             this.AddMsg(MsgCode.OutOfRange, "‏‏العدد خارج النطاق");
             this.AddMsg(MsgCode.email, "البريد الإلكتروني");
             this.AddMsg(MsgCode.CrashReport, "تقرير تعطل");
+            this.AddMsg(MsgCode.DataType, "نوع البيانات");
 
             //this.AddMsg(MsgCode., "");
 

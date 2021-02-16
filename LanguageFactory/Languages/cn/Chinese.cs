@@ -130,6 +130,7 @@ namespace LanguageFactory.Net.Languages.cn {
             this.AddMsg(MsgCode.OutOfRange, "超过范围");
             this.AddMsg(MsgCode.email, "电子邮件");
             this.AddMsg(MsgCode.CrashReport, "故障报告");
+            this.AddMsg(MsgCode.DataType, "数据类型");
 
             //this.AddMsg(MsgCode., "");
 

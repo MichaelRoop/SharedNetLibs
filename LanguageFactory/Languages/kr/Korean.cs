@@ -130,6 +130,7 @@ namespace LanguageFactory.Net.Languages.kr {
             this.AddMsg(MsgCode.OutOfRange, "범위를 벗어남");
             this.AddMsg(MsgCode.email, "자 메일");
             this.AddMsg(MsgCode.CrashReport, "버그 보고서");
+            this.AddMsg(MsgCode.DataType, "데이터 형식");
 
             //this.AddMsg(MsgCode., "");
         }

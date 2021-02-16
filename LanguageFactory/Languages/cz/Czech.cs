@@ -132,6 +132,7 @@ namespace LanguageFactory.Net.Languages.cz {
             this.AddMsg(MsgCode.OutOfRange, "Mimo rozsah");
             this.AddMsg(MsgCode.email, "E-mail");
             this.AddMsg(MsgCode.CrashReport, "Hlášení o selhání");
+            this.AddMsg(MsgCode.DataType, "Datový typ");
 
 
         }
