@@ -17,6 +17,8 @@ namespace BluetoothLE.Net.DataModels {
         /// </summary>
         public string DeviceId { get; set; } = "";
 
+        public string DisplayHeader { get; set; } = "Service";
+
 
         /// <summary>Get from the Uuid through the enumeration helpers</summary>
         public string DisplayName { get; set; } = "";

@@ -50,6 +50,8 @@ namespace BluetoothLE.Net.DataModels {
 
         public BLE_ProtectionLevel ProtectionLevel { get; set; }
 
+        public string DisplayHeader { get; set; } = "Characteristic";
+
         public string CharName { get; set; } = "xxxx";
 
         public string CharValue { get; set; } = "";
