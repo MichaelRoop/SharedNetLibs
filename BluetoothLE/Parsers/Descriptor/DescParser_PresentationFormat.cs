@@ -74,34 +74,46 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
             this.MeasurementUnitsEnum = this.GetUnitOfMeasurement(this.MeasurementUnitUShort);
             this.Namespace = data.ToByte(ref pos);
             this.Description = data.ToUint16(ref pos);
-            this.TranslateDisplayString("Data Type", "Unit", "Description");
+            this.TranslateDisplayString(
+                "Data Type", 
+                "Unit", 
+                "Exponent",
+                this.MeasurementUnitsEnum.ToStr(),
+                "Description");
         }
 
 
-        public string TranslateDisplayString(string dataType, string unit, string description) {
+        public string TranslateDisplayString(
+            string dataTypeLabel, 
+            string unitLabel, 
+            string unitValue, 
+            string exponentLabel,
+            string descriptionLabel) {
+
             if (this.Format.ExponentAccepted()) {
                 this.DisplayString =
                     string.Format(
-                        "{0}: {1},  Exponent: {2},  {3}: {4},  Namespace: {5},  {6}: {7}",
-                        dataType,
+                        "{0}: {1},  {2}: {3},  {4}: {5},  Namespace: {6},  {7}: {8}",
+                        dataTypeLabel,
                         this.Format.ToString().UnderlineToSpaces(),
+                        exponentLabel,
                         this.Exponent,
-                        unit,
-                        this.MeasurementUnitsEnum.ToString().CamelCaseToSpaces(),
+                        unitLabel,
+                        unitValue,
                         this.Namespace == 1 ? "Bluetooth SIG (1)" : this.Namespace.ToString(),
-                        description,
+                        descriptionLabel,
                         this.Description);
             }
             else {
                 this.DisplayString =
                     string.Format(
                         "{0}: {1},  {2}: {3},  Namespace: {4},  {5}: {6}",
-                        dataType,
+                        dataTypeLabel,
                         this.Format.ToString().UnderlineToSpaces(),
-                        unit,
-                        this.MeasurementUnitsEnum.ToString().CamelCaseToSpaces(),
+                        unitLabel,
+                        unitValue,
                         this.Namespace == 1 ? "Bluetooth SIG (1)" : this.Namespace.ToString(),
-                        description,
+                        descriptionLabel,
                         this.Description);
             }
             return this.DisplayString;
