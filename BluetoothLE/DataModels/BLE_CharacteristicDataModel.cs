@@ -3,6 +3,7 @@ using BluetoothLE.Net.interfaces;
 using BluetoothLE.Net.Parsers;
 using BluetoothLE.Net.Parsers.Characteristics;
 using BluetoothLE.Net.Tools;
+using LogUtils.Net;
 using System;
 using System.Collections.Generic;
 
@@ -18,6 +19,7 @@ namespace BluetoothLE.Net.DataModels {
         #region Data
 
         BLERangeValidator validator = new BLERangeValidator();
+        ClassLog log = new ClassLog("BLE_CharacteristicDataModel");
 
         #endregion
 
@@ -130,6 +132,7 @@ namespace BluetoothLE.Net.DataModels {
             //this.Parser.DataType
             RangeValidationResult result = this.validator.Validate(msg, this.Parser.DataType);
             if (result.Status == BLE_DataValidationStatus.Success) {
+                this.log.Info("Write", () => string.Format("Validated:{0}",msg));
                 this.Write(result.Payload);
             }
             return result;
