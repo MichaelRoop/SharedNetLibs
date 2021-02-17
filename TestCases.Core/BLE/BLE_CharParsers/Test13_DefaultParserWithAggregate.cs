@@ -245,14 +245,13 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
             StringBuilder sb = new StringBuilder();
             foreach(var td in testData) {
                 if (pos > 0) {
-                    sb.Append(",");
+                    sb.Append("  |  ");
                 }
                 sb.Append(td.Expected);
                 Write(td, data, ref pos);
             }
             return sb.ToString();
         }
-
 
         #region PopulateByteArray
 
