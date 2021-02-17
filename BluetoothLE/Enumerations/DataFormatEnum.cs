@@ -45,6 +45,7 @@ namespace BluetoothLE.Net.Enumerations {
 
 
     public static class DataFormatEnumExtensions {
+
         public static byte ToByte(this DataFormatEnum value) {
             return (byte)value;
         }
@@ -129,6 +130,30 @@ namespace BluetoothLE.Net.Enumerations {
             }
         }
 
+
+        public static bool ExponentAccepted(this DataFormatEnum value) {
+            switch (value) {
+                case DataFormatEnum.UInt_12bit:
+                case DataFormatEnum.UInt_16bit:
+                case DataFormatEnum.UInt_24bit:
+                case DataFormatEnum.UInt_32bit:
+                case DataFormatEnum.UInt_48bit:
+                case DataFormatEnum.UInt_64bit:
+                case DataFormatEnum.UInt_128bit:
+                case DataFormatEnum.Int_8bit:
+                case DataFormatEnum.Int_12bit:
+                case DataFormatEnum.Int_16bit:
+                case DataFormatEnum.Int_24bit:
+                case DataFormatEnum.Int_32bit:
+                case DataFormatEnum.Int_48bit:
+                case DataFormatEnum.Int_64bit:
+                case DataFormatEnum.Int_128bit:
+                    return true;
+                default:
+                    return false;
+            }
+
+        }
 
 
     }

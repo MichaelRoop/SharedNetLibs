@@ -79,17 +79,31 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
 
 
         public string TranslateDisplayString(string dataType, string unit, string description) {
-            this.DisplayString =
-                string.Format(
-                    "{0}: {1},  Exponent: {2},  {3}: {4},  Namespace: {5},  {6}: {7}",
-                    dataType,
-                    this.Format.ToString().UnderlineToSpaces(),
-                    this.Exponent,
-                    unit,
-                    this.MeasurementUnitsEnum.ToString().CamelCaseToSpaces(),
-                    this.Namespace == 1 ? "Bluetooth SIG (1)" : this.Namespace.ToString(),
-                    description,
-                    this.Description);
+            if (this.Format.ExponentAccepted()) {
+                this.DisplayString =
+                    string.Format(
+                        "{0}: {1},  Exponent: {2},  {3}: {4},  Namespace: {5},  {6}: {7}",
+                        dataType,
+                        this.Format.ToString().UnderlineToSpaces(),
+                        this.Exponent,
+                        unit,
+                        this.MeasurementUnitsEnum.ToString().CamelCaseToSpaces(),
+                        this.Namespace == 1 ? "Bluetooth SIG (1)" : this.Namespace.ToString(),
+                        description,
+                        this.Description);
+            }
+            else {
+                this.DisplayString =
+                    string.Format(
+                        "{0}: {1},  {2}: {3},  Namespace: {4},  {5}: {6}",
+                        dataType,
+                        this.Format.ToString().UnderlineToSpaces(),
+                        unit,
+                        this.MeasurementUnitsEnum.ToString().CamelCaseToSpaces(),
+                        this.Namespace == 1 ? "Bluetooth SIG (1)" : this.Namespace.ToString(),
+                        description,
+                        this.Description);
+            }
             return this.DisplayString;
         }
 
