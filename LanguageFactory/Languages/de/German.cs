@@ -134,6 +134,11 @@ namespace LanguageFactory.Net.Languages.de {
             this.AddMsg(MsgCode.email, "E-Mail");
             this.AddMsg(MsgCode.CrashReport, "Absturzbericht");
             this.AddMsg(MsgCode.DataType, "Datentyp");
+            this.AddMsg(MsgCode.Service, "Dienst");
+            this.AddMsg(MsgCode.Notifications, "Benachrichtigungen");
+            this.AddMsg(MsgCode.Disabled, "Deaktiviert");
+            this.AddMsg(MsgCode.Description, "Beschreibung");
+            this.AddMsg(MsgCode.Unit, "Einheit");
 
 
             //this.AddMsg(MsgCode., "");

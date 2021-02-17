@@ -133,6 +133,11 @@ namespace LanguageFactory.Net.Languages.cz {
             this.AddMsg(MsgCode.email, "E-mail");
             this.AddMsg(MsgCode.CrashReport, "Hlášení o selhání");
             this.AddMsg(MsgCode.DataType, "Datový typ");
+            this.AddMsg(MsgCode.Service, "Služba");
+            this.AddMsg(MsgCode.Notifications, "Oznámení");
+            this.AddMsg(MsgCode.Disabled, "Zakázáno");
+            this.AddMsg(MsgCode.Description, "Popis");
+            this.AddMsg(MsgCode.Unit, "Jednotka");
 
 
         }

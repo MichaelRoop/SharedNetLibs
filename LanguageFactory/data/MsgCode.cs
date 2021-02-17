@@ -132,7 +132,6 @@
         Clear,
         ResetAll,
         Disconnected,
-
         Characteristic,
         Descriptor,
         Min,
@@ -144,7 +143,12 @@
         OutOfRange,
         email,
         CrashReport,
-
+        
+        Service,
+        Notifications,
+        Disabled,
+        Description,
+        Unit,
 
         // Composite - no direct lookup
         ReadTimeout,

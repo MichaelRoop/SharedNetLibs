@@ -136,6 +136,11 @@ namespace LanguageFactory.Net.Languages.ru {
             this.AddMsg(MsgCode.email, "Эл. почта");
             this.AddMsg(MsgCode.CrashReport, "Отчет об ошибках");
             this.AddMsg(MsgCode.DataType, "Тип данных");
+            this.AddMsg(MsgCode.Service, "Служба");
+            this.AddMsg(MsgCode.Notifications, "Уведомления");
+            this.AddMsg(MsgCode.Disabled, "Отключено");
+            this.AddMsg(MsgCode.Description, "Описание");
+            this.AddMsg(MsgCode.Unit, "Единица");
 
             //this.AddMsg(MsgCode., "");
         }

@@ -134,6 +134,11 @@ namespace LanguageFactory.Net.Languages.bn {
             this.AddMsg(MsgCode.email, "ইমেইল");
             this.AddMsg(MsgCode.CrashReport, " ক্র্যাশ প্রতিবেদন ");
             this.AddMsg(MsgCode.DataType, "ডেটার প্রকার");
+            this.AddMsg(MsgCode.Service, "সেবা");
+            this.AddMsg(MsgCode.Notifications, "বিজ্ঞপ্তিসমূহ");
+            this.AddMsg(MsgCode.Disabled, "অক্ষমিত");
+            this.AddMsg(MsgCode.Description, "বিবরণ");
+            this.AddMsg(MsgCode.Unit, "ইউনিট");
 
             //this.AddMsg(MsgCode., "");
         }

@@ -133,6 +133,11 @@ namespace LanguageFactory.Net.Languages.uk {
             this.AddMsg(MsgCode.email, "Електронна пошта");
             this.AddMsg(MsgCode.CrashReport, "Повідомлення про помилку");
             this.AddMsg(MsgCode.DataType, "Тип даних");
+            this.AddMsg(MsgCode.Service, "Служба");
+            this.AddMsg(MsgCode.Notifications, "Сповіщення");
+            this.AddMsg(MsgCode.Disabled, "Вимкнено");
+            this.AddMsg(MsgCode.Description, "Опис");
+            this.AddMsg(MsgCode.Unit, "Одиниця");
 
 
             //this.AddMsg(MsgCode., "");

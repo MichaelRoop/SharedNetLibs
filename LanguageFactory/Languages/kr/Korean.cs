@@ -131,6 +131,11 @@ namespace LanguageFactory.Net.Languages.kr {
             this.AddMsg(MsgCode.email, "자 메일");
             this.AddMsg(MsgCode.CrashReport, "버그 보고서");
             this.AddMsg(MsgCode.DataType, "데이터 형식");
+            this.AddMsg(MsgCode.Service, "서비스");
+            this.AddMsg(MsgCode.Notifications, "알림");
+            this.AddMsg(MsgCode.Disabled, "사용 안함");
+            this.AddMsg(MsgCode.Description, "설명");
+            this.AddMsg(MsgCode.Unit, "단위");
 
             //this.AddMsg(MsgCode., "");
         }

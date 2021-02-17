@@ -132,6 +132,11 @@ namespace LanguageFactory.Net.Languages.vi {
             this.AddMsg(MsgCode.email, "Email");
             this.AddMsg(MsgCode.CrashReport, "Báo cáo lỗi");
             this.AddMsg(MsgCode.DataType, "Loại Dữ liệu");
+            this.AddMsg(MsgCode.Service, "Dịch vụ");
+            this.AddMsg(MsgCode.Notifications, "Thông báo");
+            this.AddMsg(MsgCode.Disabled, "Đã tắt");
+            this.AddMsg(MsgCode.Description, "Mô tả");
+            this.AddMsg(MsgCode.Unit, "Đơn vị");
 
 
             //this.AddMsg(MsgCode., "");

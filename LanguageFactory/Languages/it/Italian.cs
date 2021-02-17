@@ -133,6 +133,11 @@ namespace LanguageFactory.Net.Languages.it {
             this.AddMsg(MsgCode.email, "Posta elettronica");
             this.AddMsg(MsgCode.CrashReport, "Report sui bug");
             this.AddMsg(MsgCode.DataType, "Tipo di dati");
+            this.AddMsg(MsgCode.Service, "Servizio");
+            this.AddMsg(MsgCode.Notifications, "Notifiche");
+            this.AddMsg(MsgCode.Disabled, "Disattivato");
+            this.AddMsg(MsgCode.Description, "Descrizione");
+            this.AddMsg(MsgCode.Unit, "Unità");
 
             //this.AddMsg(MsgCode., "");
         }

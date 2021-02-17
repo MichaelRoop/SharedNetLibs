@@ -131,6 +131,11 @@ namespace LanguageFactory.Net.Languages.ja {
             this.AddMsg(MsgCode.email, "電子メール");
             this.AddMsg(MsgCode.CrashReport, "バグ報告");
             this.AddMsg(MsgCode.DataType, "データの種類");
+            this.AddMsg(MsgCode.Service, "サービス");
+            this.AddMsg(MsgCode.Notifications, "通知");
+            this.AddMsg(MsgCode.Disabled, "無効");
+            this.AddMsg(MsgCode.Description, "説明");
+            this.AddMsg(MsgCode.Unit, "単位");
 
 
             //this.AddMsg(MsgCode., "");

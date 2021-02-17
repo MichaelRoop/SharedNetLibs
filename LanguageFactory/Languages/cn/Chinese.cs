@@ -131,6 +131,11 @@ namespace LanguageFactory.Net.Languages.cn {
             this.AddMsg(MsgCode.email, "电子邮件");
             this.AddMsg(MsgCode.CrashReport, "故障报告");
             this.AddMsg(MsgCode.DataType, "数据类型");
+            this.AddMsg(MsgCode.Service, "服务");
+            this.AddMsg(MsgCode.Notifications, "通知");
+            this.AddMsg(MsgCode.Disabled, "已停用");
+            this.AddMsg(MsgCode.Description, "描述");
+            this.AddMsg(MsgCode.Unit, "单位");
 
             //this.AddMsg(MsgCode., "");
 

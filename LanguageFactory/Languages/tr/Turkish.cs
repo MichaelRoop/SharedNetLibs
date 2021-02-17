@@ -133,6 +133,11 @@ namespace LanguageFactory.Net.Languages.tr {
             this.AddMsg(MsgCode.email, "E-Posta");
             this.AddMsg(MsgCode.CrashReport, "Hata Raporu");
             this.AddMsg(MsgCode.DataType, "Veri Türü");
+            this.AddMsg(MsgCode.Service, "Hizmet");
+            this.AddMsg(MsgCode.Notifications, "Bildirimler");
+            this.AddMsg(MsgCode.Disabled, "Devre dışı");
+            this.AddMsg(MsgCode.Description, "Açıklama");
+            this.AddMsg(MsgCode.Unit, "Birim");
 
 
             //this.AddMsg(MsgCode., "");

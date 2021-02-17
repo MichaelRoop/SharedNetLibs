@@ -136,6 +136,11 @@ namespace LanguageFactory.Net.Languages.ar {
             this.AddMsg(MsgCode.email, "البريد الإلكتروني");
             this.AddMsg(MsgCode.CrashReport, "تقرير تعطل");
             this.AddMsg(MsgCode.DataType, "نوع البيانات");
+            this.AddMsg(MsgCode.Service, "الخدمة");
+            this.AddMsg(MsgCode.Notifications, "الإشعارات");
+            this.AddMsg(MsgCode.Disabled, "معطلة");
+            this.AddMsg(MsgCode.Description, "الوصف");
+            this.AddMsg(MsgCode.Unit, "الوحدة");
 
             //this.AddMsg(MsgCode., "");
 
