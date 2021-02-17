@@ -33,7 +33,7 @@ namespace LanguageFactory.Net.Languages.hi {
             this.AddMsg(MsgCode.Search, "खोजें");
             this.AddMsg(MsgCode.connect, "कनेक्ट करें");
             this.AddMsg(MsgCode.cancel, "रद्द करें");
-            this.AddMsg(MsgCode.info, "Info");
+            this.AddMsg(MsgCode.info, "जानकारी");
             this.AddMsg(MsgCode.Settings, "सेटिंग्स");
             this.AddMsg(MsgCode.Terminators, "Terminators");
             this.AddMsg(MsgCode.Name, "नाम");

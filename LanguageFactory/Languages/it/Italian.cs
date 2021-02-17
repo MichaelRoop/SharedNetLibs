@@ -29,7 +29,7 @@ namespace LanguageFactory.Net.Languages.it {
             this.AddMsg(MsgCode.Search, "Cerca");
             this.AddMsg(MsgCode.connect, "Connetti");
             this.AddMsg(MsgCode.cancel, "Annulla");
-            this.AddMsg(MsgCode.info, "Info");
+            this.AddMsg(MsgCode.info, "Informazioni");
             this.AddMsg(MsgCode.Settings, "Impostazioni");
             this.AddMsg(MsgCode.Terminators, "Terminatori");
             this.AddMsg(MsgCode.Name, "Nessuno");
