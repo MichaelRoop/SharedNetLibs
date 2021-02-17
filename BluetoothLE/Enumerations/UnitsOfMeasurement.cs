@@ -8,6 +8,10 @@ namespace BluetoothLE.Net.Enumerations {
     /// https://www.bluetooth.com/specifications/assigned-numbers/units/
     /// </summary>
     public enum UnitsOfMeasurement : ushort {
+        // This is not the spec but it could come in if user does not set it
+        Unknown = 0x0000,
+
+        // Spec Units
         Unitless = 0x2700,
         LengthMetre = 0x2701,
         MassKilogram = 0x2702,

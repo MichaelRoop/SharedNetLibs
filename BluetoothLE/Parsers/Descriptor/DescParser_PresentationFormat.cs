@@ -1,6 +1,5 @@
 ﻿using BluetoothLE.Net.Enumerations;
 using LogUtils.Net;
-using System;
 using VariousUtils.Net;
 
 namespace BluetoothLE.Net.Parsers.Descriptor {
@@ -75,20 +74,21 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
             this.MeasurementUnitsEnum = this.GetUnitOfMeasurement(this.MeasurementUnitUShort);
             this.Namespace = data.ToByte(ref pos);
             this.Description = data.ToUint16(ref pos);
-            this.TranslateDisplayString("Data Type");
+            this.TranslateDisplayString("Data Type", "Unit", "Description");
         }
 
 
-        public string TranslateDisplayString(string dataType) {
+        public string TranslateDisplayString(string dataType, string unit, string description) {
             this.DisplayString =
                 string.Format(
-                    "{0}: {1} Exponent: {2} Unit: {3} (0x{4:X4}) Namespace: {5} Description: {6}",
+                    "{0}: {1},  Exponent: {2},  {3}: {4},  Namespace: {5},  {6}: {7}",
                     dataType,
                     this.Format.ToString().UnderlineToSpaces(),
                     this.Exponent,
+                    unit,
                     this.MeasurementUnitsEnum.ToString().CamelCaseToSpaces(),
-                    this.MeasurementUnitUShort,
                     this.Namespace == 1 ? "Bluetooth SIG (1)" : this.Namespace.ToString(),
+                    description,
                     this.Description);
             return this.DisplayString;
         }

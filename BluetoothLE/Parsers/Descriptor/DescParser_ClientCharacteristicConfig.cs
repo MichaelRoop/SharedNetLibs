@@ -38,9 +38,29 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
             //   Bit 0 - Notifications, Bit 1 - Indications
             this.Notifications = (this.Bitmask.IsBitSet(0)) ? EnabledDisabled.Enabled : EnabledDisabled.Disabled;
             this.Indications = (this.Bitmask.IsBitSet(1)) ? EnabledDisabled.Enabled : EnabledDisabled.Disabled;
-            this.DisplayString = string.Format("Notifications:{0}, Indications:{1}", 
-                this.Notifications.ToString(), this.Indications.ToString());
+            this.TranslateDisplayString(
+                "Notifications", 
+                this.Notifications.ToString(),
+                "Indications", 
+                this.Indications.ToString());
+        }
+
+
+        public string TranslateDisplayString(
+            string notifications, 
+            string notificationsEnabled, 
+            string indications,
+            string indicationsEnabled) {
+
+            this.DisplayString = string.Format(
+                "{0} : {1}, {2} : {3}",
+                notifications,
+                notificationsEnabled,
+                indications, 
+                indicationsEnabled);
+
             this.log.Info("DoParse", () => string.Format("Display:{0}", this.DisplayString));
+            return this.DisplayString;
         }
 
 
