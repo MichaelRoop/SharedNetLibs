@@ -137,7 +137,9 @@ namespace LanguageFactory.Net.Languages.vi {
             this.AddMsg(MsgCode.Disabled, "Đã tắt");
             this.AddMsg(MsgCode.Description, "Mô tả");
             this.AddMsg(MsgCode.Unit, "Đơn vị");
-
+            this.AddMsg(MsgCode.Exponent, "Số mũ");
+            this.AddMsg(MsgCode.True, "Đúng");
+            this.AddMsg(MsgCode.False, "Sai");
 
             //this.AddMsg(MsgCode., "");
         }

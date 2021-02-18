@@ -137,6 +137,10 @@ namespace LanguageFactory.Net.Languages.en {
             this.AddMsg(MsgCode.Disabled, "Disabled");
             this.AddMsg(MsgCode.Description, "Description");
             this.AddMsg(MsgCode.Unit, "Unit");
+            this.AddMsg(MsgCode.Exponent, "Exponent");
+            this.AddMsg(MsgCode.True, "True");
+            this.AddMsg(MsgCode.False, "False");
+
 
             //this.AddMsg(MsgCode., "");
         }

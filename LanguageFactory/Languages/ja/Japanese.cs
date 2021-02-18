@@ -136,6 +136,9 @@ namespace LanguageFactory.Net.Languages.ja {
             this.AddMsg(MsgCode.Disabled, "無効");
             this.AddMsg(MsgCode.Description, "説明");
             this.AddMsg(MsgCode.Unit, "単位");
+            this.AddMsg(MsgCode.Exponent, "指数");
+            this.AddMsg(MsgCode.True, "真");
+            this.AddMsg(MsgCode.False, "偽");
 
 
             //this.AddMsg(MsgCode., "");

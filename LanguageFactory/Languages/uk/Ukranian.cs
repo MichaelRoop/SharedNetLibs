@@ -138,7 +138,9 @@ namespace LanguageFactory.Net.Languages.uk {
             this.AddMsg(MsgCode.Disabled, "Вимкнено");
             this.AddMsg(MsgCode.Description, "Опис");
             this.AddMsg(MsgCode.Unit, "Одиниця");
-
+            this.AddMsg(MsgCode.Exponent, "Експонента");
+            this.AddMsg(MsgCode.True, "Істина");
+            this.AddMsg(MsgCode.False, "Хибність");
 
             //this.AddMsg(MsgCode., "");
         }

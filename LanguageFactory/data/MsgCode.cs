@@ -143,12 +143,14 @@
         OutOfRange,
         email,
         CrashReport,
-        
         Service,
         Notifications,
         Disabled,
         Description,
         Unit,
+        Exponent,
+        True,
+        False,
 
         // Composite - no direct lookup
         ReadTimeout,

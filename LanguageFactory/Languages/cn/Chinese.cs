@@ -136,6 +136,9 @@ namespace LanguageFactory.Net.Languages.cn {
             this.AddMsg(MsgCode.Disabled, "已停用");
             this.AddMsg(MsgCode.Description, "描述");
             this.AddMsg(MsgCode.Unit, "单位");
+            this.AddMsg(MsgCode.Exponent, "红指数");
+            this.AddMsg(MsgCode.True, "真");
+            this.AddMsg(MsgCode.False, "假");
 
             //this.AddMsg(MsgCode., "");
 

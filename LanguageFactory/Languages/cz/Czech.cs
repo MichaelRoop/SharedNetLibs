@@ -138,6 +138,9 @@ namespace LanguageFactory.Net.Languages.cz {
             this.AddMsg(MsgCode.Disabled, "Zakázáno");
             this.AddMsg(MsgCode.Description, "Popis");
             this.AddMsg(MsgCode.Unit, "Jednotka");
+            this.AddMsg(MsgCode.Exponent, "Exponent");
+            this.AddMsg(MsgCode.True, "Pravda");
+            this.AddMsg(MsgCode.False, "Nepravda");
 
 
         }

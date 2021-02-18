@@ -140,6 +140,9 @@ namespace LanguageFactory.Net.Languages.pt {
             this.AddMsg(MsgCode.Disabled, "Desactivado");
             this.AddMsg(MsgCode.Description, "Descrição");
             this.AddMsg(MsgCode.Unit, "Unidade");
+            this.AddMsg(MsgCode.Exponent, "Expoente");
+            this.AddMsg(MsgCode.True, "Verdadeiro");
+            this.AddMsg(MsgCode.False, "Falso");
 
             //this.AddMsg(MsgCode., "");
         }

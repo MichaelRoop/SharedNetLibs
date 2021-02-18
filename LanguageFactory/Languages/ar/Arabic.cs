@@ -141,6 +141,9 @@ namespace LanguageFactory.Net.Languages.ar {
             this.AddMsg(MsgCode.Disabled, "معطلة");
             this.AddMsg(MsgCode.Description, "الوصف");
             this.AddMsg(MsgCode.Unit, "الوحدة");
+            this.AddMsg(MsgCode.Exponent, "أس");
+            this.AddMsg(MsgCode.True, "صواب");
+            this.AddMsg(MsgCode.False, "خطأ");
 
             //this.AddMsg(MsgCode., "");
 

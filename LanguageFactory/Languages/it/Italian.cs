@@ -138,6 +138,9 @@ namespace LanguageFactory.Net.Languages.it {
             this.AddMsg(MsgCode.Disabled, "Disattivato");
             this.AddMsg(MsgCode.Description, "Descrizione");
             this.AddMsg(MsgCode.Unit, "Unità");
+            this.AddMsg(MsgCode.Exponent, "Esponente");
+            this.AddMsg(MsgCode.True, "Vero");
+            this.AddMsg(MsgCode.False, "Falso");
 
             //this.AddMsg(MsgCode., "");
         }

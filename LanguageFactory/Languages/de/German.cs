@@ -139,6 +139,9 @@ namespace LanguageFactory.Net.Languages.de {
             this.AddMsg(MsgCode.Disabled, "Deaktiviert");
             this.AddMsg(MsgCode.Description, "Beschreibung");
             this.AddMsg(MsgCode.Unit, "Einheit");
+            this.AddMsg(MsgCode.Exponent, "Exponent");
+            this.AddMsg(MsgCode.True, "Wahr");
+            this.AddMsg(MsgCode.False, "Falsch");
 
 
             //this.AddMsg(MsgCode., "");

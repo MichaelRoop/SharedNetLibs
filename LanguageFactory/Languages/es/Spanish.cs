@@ -137,7 +137,9 @@ namespace LanguageFactory.Net.Languages.es {
             this.AddMsg(MsgCode.Disabled, "Deshabilitado");
             this.AddMsg(MsgCode.Description, "Descripción");
             this.AddMsg(MsgCode.Unit, "Unidad");
-
+            this.AddMsg(MsgCode.Exponent, "Exponente");
+            this.AddMsg(MsgCode.True, "Verdadero");
+            this.AddMsg(MsgCode.False, "Falso");
 
             //this.AddMsg(MsgCode., "");
         }

@@ -138,7 +138,9 @@ namespace LanguageFactory.Net.Languages.tr {
             this.AddMsg(MsgCode.Disabled, "Devre dışı");
             this.AddMsg(MsgCode.Description, "Açıklama");
             this.AddMsg(MsgCode.Unit, "Birim");
-
+            this.AddMsg(MsgCode.Exponent, "Üssü");
+            this.AddMsg(MsgCode.True, "Doğru");
+            this.AddMsg(MsgCode.False, "Yanlış");
 
             //this.AddMsg(MsgCode., "");
         }

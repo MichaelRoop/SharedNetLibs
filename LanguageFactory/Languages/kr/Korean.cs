@@ -136,6 +136,9 @@ namespace LanguageFactory.Net.Languages.kr {
             this.AddMsg(MsgCode.Disabled, "사용 안함");
             this.AddMsg(MsgCode.Description, "설명");
             this.AddMsg(MsgCode.Unit, "단위");
+            this.AddMsg(MsgCode.Exponent, "지수");
+            this.AddMsg(MsgCode.True, "참");
+            this.AddMsg(MsgCode.False, "거짓");
 
             //this.AddMsg(MsgCode., "");
         }

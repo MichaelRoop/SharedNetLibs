@@ -141,6 +141,9 @@ namespace LanguageFactory.Net.Languages.ru {
             this.AddMsg(MsgCode.Disabled, "Отключено");
             this.AddMsg(MsgCode.Description, "Описание");
             this.AddMsg(MsgCode.Unit, "Единица");
+            this.AddMsg(MsgCode.Exponent, "Экспонента");
+            this.AddMsg(MsgCode.True, "Истина");
+            this.AddMsg(MsgCode.False, "Ложь");
 
             //this.AddMsg(MsgCode., "");
         }

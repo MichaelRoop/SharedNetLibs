@@ -142,7 +142,9 @@ namespace LanguageFactory.Net.Languages.hi {
             this.AddMsg(MsgCode.Disabled, "अक्षम");
             this.AddMsg(MsgCode.Description, "वर्णन");
             this.AddMsg(MsgCode.Unit, " यूनिट");
-
+            this.AddMsg(MsgCode.Exponent, "घातांक");
+            this.AddMsg(MsgCode.True, "सही");
+            this.AddMsg(MsgCode.False, "गलत");
 
             //this.AddMsg(MsgCode., "");
 

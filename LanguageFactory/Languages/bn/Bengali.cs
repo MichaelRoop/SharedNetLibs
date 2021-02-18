@@ -139,6 +139,9 @@ namespace LanguageFactory.Net.Languages.bn {
             this.AddMsg(MsgCode.Disabled, "অক্ষমিত");
             this.AddMsg(MsgCode.Description, "বিবরণ");
             this.AddMsg(MsgCode.Unit, "ইউনিট");
+            this.AddMsg(MsgCode.Exponent, "এক্সপোনেন্ট");
+            this.AddMsg(MsgCode.True, "সঠিক");
+            this.AddMsg(MsgCode.False, "মিথ্যা");
 
             //this.AddMsg(MsgCode., "");
         }
