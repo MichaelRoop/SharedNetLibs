@@ -287,7 +287,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
         [Test]
         public void Int08_Exponent() {
-            byte value = 222;
+            sbyte value = 111;
             this.TestExp(value, -1);
             this.TestExp(value, -2);
             this.TestExp(value, 1);
@@ -309,6 +309,15 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
         }
 
 
+        [Test]
+        public void Int12_Exponent() {
+            short value = 1111;
+            this.TestExp12Bit(value, -1);
+            this.TestExp12Bit(value, -2);
+            this.TestExp12Bit(value, 1);
+            this.TestExp12Bit(value, 2);
+        }
+
 
         [Test]
         public void Iint16_FullRange() {
@@ -325,6 +334,16 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
 
         [Test]
+        public void Int16_Exponent() {
+            short value = 1111;
+            this.TestExp(value, -1);
+            this.TestExp(value, -2);
+            this.TestExp(value, 1);
+            this.TestExp(value, 2);
+        }
+
+
+        [Test]
         public void Int24_FullRange() {
             this.TestByteBits(this.Get24BitByteArray(Int24.MaxValue), Int24.MaxValue.ToString(), DataFormatEnum.Int_24bit);
             this.TestByteBits(this.Get24BitByteArray(3320), "3320", DataFormatEnum.Int_24bit);
@@ -334,14 +353,14 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
         }
 
         // Signed 24 bit not supported
-        //[Test]
-        //public void Int24Exponent() {
-        //    int value = 225411;
-        //    this.TestExp24Bit(value, -1);
-        //    this.TestExp24Bit(value, -2);
-        //    this.TestExp24Bit(value, 1);
-        //    this.TestExp24Bit(value, 2);
-        //}
+        [Test]
+        public void Int24Exponent() {
+            int value = 225411;
+            this.TestExp24Bit(value, -1);
+            this.TestExp24Bit(value, -2);
+            this.TestExp24Bit(value, 1);
+            this.TestExp24Bit(value, 2);
+        }
 
         [Test]
         public void Int24_NotEnoughBytes() {
@@ -373,6 +392,16 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
             this.TestByteBits(this.GetI48ByteArray(Int48.MinValue), Int48.MinValue.ToString(), DataFormatEnum.Int_48bit);
             this.TestByteBits(this.GetI48ByteArray(Int48.MaxValue), Int48.MaxValue.ToString(), DataFormatEnum.Int_48bit);
         }
+
+        [Test]
+        public void Int48_Exponent() {
+            long value = 225469;
+            this.TestExp48(value, -1);
+            this.TestExp48(value, -2);
+            this.TestExp48(value, 1);
+            this.TestExp48(value, 2);
+        }
+
 
 
         [Test]
@@ -499,7 +528,15 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
         }
 
         private void TestExp12Bit(short value, sbyte exponent) {
-            string expected = value.Calculate(exponent, exponent).ToStr(exponent);
+
+            string expected = Int12.GetNew(value).Value.Calculate(exponent, exponent).ToString();
+            this.log.Info("*************", () => string.Format(
+                "Value:{0} Exponent:{1} Expected:{2}",
+                value, exponent, expected));
+            //this.TestByteBits(this.Get12BitByteArray(value), expected, DataFormatEnum.Int_12bit, exponent);
+
+
+            //string expected = value.Calculate(exponent, exponent).ToStr(exponent);
             this.TestByteBits(this.GetI16ByteArray(value), expected, DataFormatEnum.Int_12bit, exponent);
         }
 
@@ -510,6 +547,9 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
         private void TestExp(short value, sbyte exponent) {
             string expected = value.Calculate(exponent, exponent).ToStr(exponent);
+            this.log.Info("*************", () => string.Format(
+                "Value:{0} Exponent:{1} Expected:{2}",
+                value, exponent, expected));
             this.TestByteBits(this.GetI16ByteArray(value), expected, DataFormatEnum.Int_16bit, exponent);
         }
 
@@ -520,8 +560,11 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
         }
 
         private void TestExp24Bit(int value, sbyte exponent) {
-            string expected = value.Calculate(exponent, exponent).ToStr(exponent);
-            this.TestByteBits(this.GetI32ByteArray(value), expected, DataFormatEnum.Int_24bit, exponent);
+            string expected = Int24.GetNew(value).Value.Calculate(exponent, exponent).ToString();
+            this.log.Info("*************", () => string.Format(
+                "Value:{0} Exponent:{1} Expected:{2}",
+                value, exponent, expected));
+            this.TestByteBits(this.Get24BitByteArray(value), expected, DataFormatEnum.Int_24bit, exponent);
         }
 
         private void TestExp(uint value, sbyte exponent) {
@@ -542,8 +585,11 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
         }
 
         private void TestExp48(long value, sbyte exponent) {
-            string expected = value.Calculate(exponent, exponent).ToStr(exponent);
-            this.TestByteBits(this.GetI64ByteArray(value), expected, DataFormatEnum.Int_48bit, exponent);
+            string expected = Int48.GetNew(value).Value.Calculate(exponent, exponent).ToString();
+            this.log.Info("*************", () => string.Format(
+                "Value:{0} Exponent:{1} Expected:{2}", 
+                value, exponent,  expected));
+            this.TestByteBits(this.GetI48ByteArray(value), expected, DataFormatEnum.Int_48bit, exponent);
         }
 
 

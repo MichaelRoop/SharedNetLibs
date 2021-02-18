@@ -16,7 +16,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
         protected override void DoParse(byte[] data) {
             this.Value = data.ToInt16(0).Calculate(-2, 2);
             // Cannot put the % in the ToString. Malfunction
-            this.DisplayString = string.Format("{0}%", this.Value.ToStr(2));
+            this.DisplayString = string.Format("{0}%", this.Value.ToStr(-2));
         }
     }
 

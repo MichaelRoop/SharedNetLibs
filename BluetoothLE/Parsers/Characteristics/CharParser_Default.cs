@@ -148,7 +148,14 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
             if (desc.Format.HasLengthRequirement() && required > remainingBytes) {
                 return string.Format("{0} byte(s) Data. Requires {1}", remainingBytes, required);
             }
+            string unit = desc.MeasurementUnitsEnum.ToStr();
+            if (unit.Length > 0) {
+                return string.Format("{0}{1}", this.ProcessData(desc, remainingBytes, ref pos, data), unit);
+            }
+            return this.ProcessData(desc, remainingBytes, ref pos, data);
 
+#if REMOVE
+            
             // TODO - user unit
             byte[] tmp = null;
             int exp = desc.Exponent;
@@ -157,7 +164,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                 case Enumerations.DataFormatEnum.Boolean:
                     return ((bool)(data.ToByte(ref pos) >  0)).ToString();
 
-                #region Unsigned types
+            #region Unsigned types
                 //------------------------------------------------------
                 // Unsigned
                 case Enumerations.DataFormatEnum.UInt_2bit:
@@ -165,7 +172,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                 case Enumerations.DataFormatEnum.UInt_4bit:
                     return UInt04.GetNew(data, ref pos).ToString();
                 case Enumerations.DataFormatEnum.UInt_8bit:
-                    return data.ToByte(ref pos).Calculate(exp, exp).ToStr(exp);
+                    return data.ToByte(ref pos).ToString();
                 case Enumerations.DataFormatEnum.UInt_12bit:
                     return UInt12.GetNew(data, ref pos).Value.Calculate(exp, exp).ToStr(exp);
                 case Enumerations.DataFormatEnum.UInt_16bit:
@@ -192,26 +199,23 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                     // Will not support this - still need to manually increment 16 bytes
                     pos += 16;
                     return data.ToFormatedByteString();
-                #endregion
+            #endregion
 
-                #region Signed types
+            #region Signed types
                 //------------------------------------------------------
                 // Signed values
                 case Enumerations.DataFormatEnum.Int_8bit:
                     return data.ToSByte(ref pos).Calculate(exp, exp).ToStr(exp);
                 case Enumerations.DataFormatEnum.Int_12bit:
-                    // TODO exponent stuff when figure out the sign
-                    return Int12.GetNew(data, ref pos).ToString();
+                    return Int12.GetNew(data, ref pos).Value.Calculate(exp, exp).ToStr(exp);
                 case Enumerations.DataFormatEnum.Int_16bit:
-                    return data.ToInt16(ref pos).ToString();
+                    return data.ToInt16(ref pos).Calculate(exp, exp).ToStr(exp);
                 case Enumerations.DataFormatEnum.Int_24bit:
-                    // TODO exponent stuff
-                    return Int24.GetNew(data, ref pos).ToString();
+                    return Int24.GetNew(data, ref pos).Value.Calculate(exp,exp).ToStr(exp);
                 case Enumerations.DataFormatEnum.Int_32bit:
                     return data.ToInt32(ref pos).Calculate(exp, exp).ToStr(exp);
                 case Enumerations.DataFormatEnum.Int_48bit:
-                    // TODO exponent stuff
-                    return Int48.GetNew(data, ref pos).ToString();
+                    return Int48.GetNew(data, ref pos).Value.Calculate(exp, exp).ToStr(exp);
                 case Enumerations.DataFormatEnum.Int_64bit:
                     Int64 ret2 = data.ToInt64(ref pos);
                     if ((exp != 0) && (ret2 > Double.MinValue && ret2 < Double.MaxValue)) {
@@ -222,6 +226,143 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                         return ret2.ToString();
                     }
                     //return data.ToInt64(ref pos).Calculate(exp, exp).ToStr(exp);
+                case Enumerations.DataFormatEnum.Int_128bit:
+                    // Will not support this. Still need to move the pointer
+                    pos += 16;
+                    return data.ToFormatedByteString();
+
+            #endregion
+
+            #region Floating types
+
+                //------------------------------------------------------
+                // Floats 754 is current MS
+                case Enumerations.DataFormatEnum.IEEE_754_32bit_floating_point:
+                    return data.ToFloat32(ref pos).ToString();
+                case Enumerations.DataFormatEnum.IEEE_754_64bit_floating_point:
+                    return data.ToDouble64(ref pos).ToString();
+
+                // Not supporting for now
+                case Enumerations.DataFormatEnum.IEEE_11073_16bit_SFLOAT:
+                    tmp = new byte[4];
+                    Array.Copy(data, pos, tmp, 0, 2);
+                    pos += 2;
+                    return ((float)(((int)tmp.ToFloat32(0)) & 0xFFFFFF)).ToString();
+                case Enumerations.DataFormatEnum.IEEE_11073_32bit_FLOAT:
+                    // https://docs.particle.io/tutorials/device-os/bluetooth-le/
+                    return data.ToFloat32(ref pos).ToString(); // ****** NOT SURE OR IEEE
+
+                case Enumerations.DataFormatEnum.IEEE_20601_format:
+                    ushort val1 = data.ToUint16(ref pos);
+                    ushort val2 = data.ToUint16(ref pos);
+                    return string.Format("{0}|{1}", val1, val2);
+            #endregion
+
+            #region Strings
+
+                case Enumerations.DataFormatEnum.UTF8_String:
+                    // TODO - Copy from pos - but how long? Until end I expect
+                    remainingBytes = data.Length - pos;
+                    tmp = new byte[remainingBytes];
+                    Array.Copy(data, pos, tmp, 0, remainingBytes);
+                    pos += remainingBytes;
+                    return Encoding.UTF8.GetString(tmp);
+                case Enumerations.DataFormatEnum.UTF16_String:
+                    // TODO - Copy from pos - but how long? Until end I expect
+                    remainingBytes = data.Length - pos;
+                    tmp = new byte[remainingBytes];
+                    Array.Copy(data, pos, tmp, 0, remainingBytes);
+                    pos += remainingBytes;
+                    return Encoding.Unicode.GetString(tmp);
+            #endregion
+
+            #region Unhandled types
+
+                //------------------------------------------------------
+                // Not handled
+                case Enumerations.DataFormatEnum.OpaqueStructure:
+                case Enumerations.DataFormatEnum.Unhandled:
+                case Enumerations.DataFormatEnum.Reserved:
+                default:
+                    return data.ToFormatedByteString();
+
+            #endregion
+            }
+            
+#endif
+        }
+
+
+        private string ProcessData(DescParser_PresentationFormat desc, int remainingBytes, ref int pos, byte[] data) {
+            byte[] tmp = null;
+            int exp = desc.Exponent;
+            this.DataType = ((uint)EnumHelpers.ToByte(desc.Format)).ToEnum<BLE_DataType>();
+            switch (desc.Format) {
+                case Enumerations.DataFormatEnum.Boolean:
+                    return ((bool)(data.ToByte(ref pos) > 0)).ToString();
+
+                #region Unsigned types
+                //------------------------------------------------------
+                // Unsigned
+                case Enumerations.DataFormatEnum.UInt_2bit:
+                    return UInt02.GetNew(data, ref pos).ToString();
+                case Enumerations.DataFormatEnum.UInt_4bit:
+                    return UInt04.GetNew(data, ref pos).ToString();
+                case Enumerations.DataFormatEnum.UInt_8bit:
+                    return data.ToByte(ref pos).ToString();
+                case Enumerations.DataFormatEnum.UInt_12bit:
+                    return UInt12.GetNew(data, ref pos).Value.Calculate(exp, exp).ToStr(exp);
+                case Enumerations.DataFormatEnum.UInt_16bit:
+                    return data.ToUint16(ref pos).Calculate(exp, exp).ToStr(exp);
+                case Enumerations.DataFormatEnum.UInt_24bit:
+                    return UInt24.GetNew(data, ref pos).Value.Calculate(exp, exp).ToStr(exp);
+                case Enumerations.DataFormatEnum.UInt_32bit:
+                    return data.ToUint32(ref pos).Calculate(exp, exp).ToStr(exp);
+                case Enumerations.DataFormatEnum.UInt_48bit:
+                    return UInt48.GetNew(data, ref pos).Value.Calculate(exp, exp).ToStr(exp);
+                case Enumerations.DataFormatEnum.UInt_64bit:
+                    UInt64 ret = data.ToUint64(ref pos);
+                    if ((exp != 0) && (ret > Double.MinValue && ret < Double.MaxValue)) {
+                        // TODO - hack until I can get the exponent figured out for the full value
+                        return ret.Calculate(exp, exp).ToStr(exp);
+                    }
+                    else {
+                        // Since we are only sending back strings we can just add
+                        // the appropriate 00 for positive exponent or the . or , form minus
+                        return ret.ToString();
+                    }
+                //return data.ToUint64(ref pos).Calculate(exp, exp).ToStr(exp);
+                case Enumerations.DataFormatEnum.UInt_128bit:
+                    // Will not support this - still need to manually increment 16 bytes
+                    pos += 16;
+                    return data.ToFormatedByteString();
+                #endregion
+
+                #region Signed types
+                //------------------------------------------------------
+                // Signed values
+                case Enumerations.DataFormatEnum.Int_8bit:
+                    return data.ToSByte(ref pos).Calculate(exp, exp).ToStr(exp);
+                case Enumerations.DataFormatEnum.Int_12bit:
+                    return Int12.GetNew(data, ref pos).Value.Calculate(exp, exp).ToStr(exp);
+                case Enumerations.DataFormatEnum.Int_16bit:
+                    return data.ToInt16(ref pos).Calculate(exp, exp).ToStr(exp);
+                case Enumerations.DataFormatEnum.Int_24bit:
+                    return Int24.GetNew(data, ref pos).Value.Calculate(exp, exp).ToStr(exp);
+                case Enumerations.DataFormatEnum.Int_32bit:
+                    return data.ToInt32(ref pos).Calculate(exp, exp).ToStr(exp);
+                case Enumerations.DataFormatEnum.Int_48bit:
+                    return Int48.GetNew(data, ref pos).Value.Calculate(exp, exp).ToStr(exp);
+                case Enumerations.DataFormatEnum.Int_64bit:
+                    Int64 ret2 = data.ToInt64(ref pos);
+                    if ((exp != 0) && (ret2 > Double.MinValue && ret2 < Double.MaxValue)) {
+                        // TODO - hack until I can get the exponent figured out for the full value
+                        return ret2.Calculate(exp, exp).ToStr(exp);
+                    }
+                    else {
+                        return ret2.ToString();
+                    }
+                //return data.ToInt64(ref pos).Calculate(exp, exp).ToStr(exp);
                 case Enumerations.DataFormatEnum.Int_128bit:
                     // Will not support this. Still need to move the pointer
                     pos += 16;
@@ -282,10 +423,12 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                 default:
                     return data.ToFormatedByteString();
 
-                #endregion
+                    #endregion
             }
 
+
         }
+
 
 
     }

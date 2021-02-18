@@ -38,6 +38,11 @@ namespace VariousUtils.Net {
             return Calculate((double)value, exponent, digits);
         }
 
+
+        public static double Calculate(this Int64 value, double exponent, int digits) {
+            return Calculate((double)value, exponent, digits);
+        }
+
         public static double Calculate(this long value, int exponent, int digits) {
             // BigInteger fails can only have exponent > 0
             //return (double)(value * BigInteger.Pow(10, exponent));

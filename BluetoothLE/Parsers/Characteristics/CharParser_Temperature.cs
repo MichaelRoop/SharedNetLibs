@@ -1,4 +1,5 @@
 ﻿using BluetoothLE.Net.Enumerations;
+using System;
 using VariousUtils.Net;
 
 namespace BluetoothLE.Net.Parsers.Characteristics {
@@ -14,7 +15,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
         protected override void DoParse(byte[] data) {
             this.Value = data.ToInt16(0).Calculate(-2, 2);
-            this.DisplayString = this.Value.ToStr(2);
+            this.DisplayString = this.Value.ToStr(-2);
         }
 
     }

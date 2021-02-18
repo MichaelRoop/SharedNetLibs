@@ -14,7 +14,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
         protected override void DoParse(byte[] data) {
             this.Value = data.ToUint32(0).Calculate(-1, 1);
-            this.DisplayString = this.Value.ToStr(1);
+            this.DisplayString = this.Value.ToStr(-1);
         }
 
     }
