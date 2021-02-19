@@ -24,6 +24,22 @@ namespace TestCases.VariousUtilsTests.Net {
             Nine = 256,
         }
 
+
+        public enum TestUintEnum : uint {
+            None = 0,
+            One = 1,
+            Two = 2,
+            Three = 3,
+            Four = 4,
+            Five = 5,
+            Six = 6,
+            Seven = 7,
+            Eight = 8,
+            Nine = 9,
+        }
+
+
+
         #endregion
 
         #region Setup
@@ -116,6 +132,29 @@ namespace TestCases.VariousUtilsTests.Net {
                 Assert.AreNotEqual(TestEnum.Seven, 23356.ToEnum<TestEnum>());
             });
         }
+
+
+        [Test]
+        public void FirstOrDefaultTest() {
+            TestHelpersNet.CatchUnexpected(() => {
+                uint value = 33333;
+
+                TestUintEnum e = value.FirstOrDefault(TestUintEnum.None);
+                Assert.AreEqual(TestUintEnum.None, e);
+
+                value = 4;
+                e = value.FirstOrDefault(TestUintEnum.None);
+                Assert.AreEqual(TestUintEnum.Four, e);
+
+
+
+                //Assert.AreEqual(TestEnum.Seven, 64.ToEnum<TestEnum>());
+                //// Just to make sure it does not throw an exception
+                //Assert.AreNotEqual(TestEnum.Seven, 23356.ToEnum<TestEnum>());
+            });
+        }
+
+
 
 
     }

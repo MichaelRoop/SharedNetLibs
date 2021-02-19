@@ -7,6 +7,17 @@ namespace VariousUtils.Net {
     /// <summary>Some helpers for enum usage</summary>
     public static class EnumHelpers {
 
+        public static T FirstOrDefault<T>(this uint value, T defaultValue) where T : new() {
+            foreach(T item in GetEnumList<T>()) {
+                if (((uint)(object)item) == value){
+                    return item;
+                }
+            }
+            return defaultValue;
+        }
+
+
+
         /// <summary>Get list of enums to use in foreach. You must use the Enum type rather than var</summary>
         /// <typeparam name="T">The enum type</typeparam>
         /// <returns>A list of enums of that type</returns>
