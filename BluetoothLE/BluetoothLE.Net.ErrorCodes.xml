@@ -32,6 +32,9 @@
           <ConstructorParams range="13,326">
             <Err no="13326" msg=""/>
           </ConstructorParams>
+          <Translate>
+            <Err no="13327" msg="Exception on translate"/>
+          </Translate>
         </DescParser_Base>
         <DescParser_PresentationFormat>
           <GetFormat range="1330-13339">

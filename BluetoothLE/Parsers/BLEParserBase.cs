@@ -36,6 +36,18 @@ namespace BluetoothLE.Net.Parsers {
 
         public virtual BLE_DataType DataType { get; protected set; } = BLE_DataType.Reserved;
 
+        public string Translate(Func<string> translator) {
+            string initial = this.DisplayString;
+            try {
+                this.DisplayString = translator?.Invoke();
+            }
+            catch(Exception e) {
+                this.baseLog.Exception(13327, "Translate", "", e);
+                this.DisplayString = initial;
+            }
+            return this.DisplayString;
+        }
+
 
         public string Parse(byte[] data) {
             try {

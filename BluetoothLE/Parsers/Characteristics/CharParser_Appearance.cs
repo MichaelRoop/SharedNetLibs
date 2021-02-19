@@ -37,9 +37,5 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                 string.Format("{0} from {1} ({2})", this.DisplayString, this.Raw, data.ToFormatedByteString()));
         }
 
-        public void Translate(Func<string> translator) {
-            this.DisplayString = translator.Invoke();
-        }
-
     }
 }
