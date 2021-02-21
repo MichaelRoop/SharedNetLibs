@@ -18,10 +18,20 @@ namespace BluetoothLE.Net.Parsers {
     /// </remarks>
     public static class BLE_ParseHelpers {
 
+        public static GattNativeServiceUuid GetServiceTypeEnum(Guid serviceUuid) {
+            if (IsSigDefinedUuid(serviceUuid)) {
+                return EnumHelpers.FirstOrDefault(
+                    serviceUuid.ToUShortId(), 
+                    GattNativeServiceUuid.None);
+            }
+            return GattNativeServiceUuid.None;
+        }
+
+
         public static string GetServiceName(Guid serviceUuid) {
             if (IsSigDefinedUuid(serviceUuid)) {
                 GattNativeServiceUuid serviceName;
-                if (Enum.TryParse(serviceUuid.ToShortId().ToString(), out serviceName)) {
+                if (Enum.TryParse(serviceUuid.ToUShortId().ToString(), out serviceName)) {
                     return serviceName.ToString().CamelCaseToSpaces();
                 }
             }
@@ -32,7 +42,7 @@ namespace BluetoothLE.Net.Parsers {
         public static string GetCharacteristicName(Guid characteristicUuid, string userDescription) {
             if (IsSigDefinedUuid(characteristicUuid)) {
                 GattNativeCharacteristicUuid characteristicName;
-                if (Enum.TryParse(characteristicUuid.ToShortId().ToString(), out characteristicName)) {
+                if (Enum.TryParse(characteristicUuid.ToUShortId().ToString(), out characteristicName)) {
                     return characteristicName.ToString().CamelCaseToSpaces();
                 }
             }
@@ -47,7 +57,7 @@ namespace BluetoothLE.Net.Parsers {
         public static GattNativeCharacteristicUuid GetCharacteristicEnum(Guid characteristicUuid, string userDescription) {
             if (IsSigDefinedUuid(characteristicUuid)) {
                 GattNativeCharacteristicUuid characteristicName;
-                if (Enum.TryParse(characteristicUuid.ToShortId().ToString(), out characteristicName)) {
+                if (Enum.TryParse(characteristicUuid.ToUShortId().ToString(), out characteristicName)) {
                     return characteristicName;
                 }
             }
@@ -62,7 +72,7 @@ namespace BluetoothLE.Net.Parsers {
         public static string GetDescriptorName(Guid descriptorUuid) {
             if (IsSigDefinedUuid(descriptorUuid)) {
                 GattNativeDescriptorUuid descriptorName;
-                if (Enum.TryParse(descriptorUuid.ToShortId().ToString(), out descriptorName)) {
+                if (Enum.TryParse(descriptorUuid.ToUShortId().ToString(), out descriptorName)) {
                     return descriptorName.ToString().CamelCaseToSpaces();
                 }
             }
@@ -120,12 +130,15 @@ namespace BluetoothLE.Net.Parsers {
         /// </summary>
         /// <param name="uuid">UUID to convert to 32 bit</param>
         /// <returns>The unsigned short ID</returns>
-        public static ushort ToShortId(this Guid uuid) {
+        public static ushort ToUShortId(this Guid uuid) {
             // Get the short Uuid
             byte[] bytes = uuid.ToByteArray();
             ushort shortUuid = (ushort)(bytes[0] | (bytes[1] << 8));
             return shortUuid;
         }
+
+
+
 
     }
 

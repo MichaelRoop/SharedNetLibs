@@ -23,7 +23,7 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
                 () => {
                     if (BLE_ParseHelpers.IsSigDefinedUuid(descriptorUuid)) {
                         GattNativeDescriptorUuid descriptorEnum;
-                        if (Enum.TryParse(descriptorUuid.ToShortId().ToString(), out descriptorEnum)) {
+                        if (Enum.TryParse(descriptorUuid.ToUShortId().ToString(), out descriptorEnum)) {
                             switch (descriptorEnum) {
                                 case GattNativeDescriptorUuid.CharacteristicExtendedProperties:
                                     return new DescParser_CharacteristicExtendedProperties();

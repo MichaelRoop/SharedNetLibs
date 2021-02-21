@@ -1,5 +1,6 @@
 ﻿using BluetoothLE.Net.Enumerations;
 using BluetoothLE.Net.interfaces;
+using BluetoothLE.Net.Parsers;
 using System;
 using System.Collections.Generic;
 
@@ -19,6 +20,7 @@ namespace BluetoothLE.Net.DataModels {
 
         public string DisplayHeader { get; set; } = "Service";
 
+        public GattNativeServiceUuid ServiceTypeEnum { get; set; } = GattNativeServiceUuid.None;
 
         /// <summary>Get from the Uuid through the enumeration helpers</summary>
         public string DisplayName { get; set; } = "";

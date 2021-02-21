@@ -16,6 +16,14 @@ namespace VariousUtils.Net {
             return defaultValue;
         }
 
+        public static T FirstOrDefault<T>(this ushort value, T defaultValue) where T : new() {
+            foreach (T item in GetEnumList<T>()) {
+                if (((ushort)(object)item) == value) {
+                    return item;
+                }
+            }
+            return defaultValue;
+        }
 
 
         /// <summary>Get list of enums to use in foreach. You must use the Enum type rather than var</summary>
