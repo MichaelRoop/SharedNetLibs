@@ -36,6 +36,10 @@ namespace BluetoothLE.Net.Parsers {
 
         public virtual BLE_DataType DataType { get; protected set; } = BLE_DataType.Reserved;
 
+        /// <summary>We ranslate boolean which differs from all other values</summary>
+        public bool BoolValue { get; set; } = false;
+
+
         public string Translate(Func<string> translator) {
             string initial = this.DisplayString;
             try {

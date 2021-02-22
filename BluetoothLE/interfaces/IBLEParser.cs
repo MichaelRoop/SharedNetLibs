@@ -18,6 +18,8 @@ namespace BluetoothLE.Net.interfaces {
         /// <summary>The data type for the characteristic</summary>
         BLE_DataType DataType { get; }
 
+        /// <summary>We ranslate boolean which differs from all other values</summary>
+        bool BoolValue { get; set; }
 
         /// <summary>Parse out the variable values from the read bytes</summary>
         /// <param name="data">The bytes from Descriptor read</param>

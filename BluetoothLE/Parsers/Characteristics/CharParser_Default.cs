@@ -299,6 +299,10 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
             this.DataType = ((uint)EnumHelpers.ToByte(desc.Format)).ToEnum<BLE_DataType>();
             switch (desc.Format) {
                 case Enumerations.DataFormatEnum.Boolean:
+                    if (this.formats.Count == 1) {
+                        this.BoolValue = (bool)(data.ToByte(ref pos) > 0);
+                        return this.BoolValue.ToString();
+                    }
                     return ((bool)(data.ToByte(ref pos) > 0)).ToString();
 
                 #region Unsigned types
