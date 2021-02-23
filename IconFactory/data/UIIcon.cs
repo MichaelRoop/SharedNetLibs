@@ -62,5 +62,6 @@
         CodeWhite,
         OpenBook,
         BackDelete,
+        Read,
     }
 }
