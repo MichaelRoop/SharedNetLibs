@@ -19,5 +19,7 @@
         Czech,
         Bengali,
         Arabic,
+        Dutch,
+        Polish,
     }
 }
