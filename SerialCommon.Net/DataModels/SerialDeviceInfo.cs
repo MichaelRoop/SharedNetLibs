@@ -80,6 +80,7 @@ namespace SerialCommon.Net.DataModels {
         public string USB_VendorIdDisplay { get; set; } = string.Empty;
         public string USB_ProductIdDisplay { get; set; } = string.Empty;
 
+        public bool HasCfg { get; set; } = false;
 
         // Not sure if the same
         public Dictionary<string, NetPropertyDataModel> Properties { get; set; } =

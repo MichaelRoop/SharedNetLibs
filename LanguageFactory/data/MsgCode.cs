@@ -158,5 +158,6 @@
         PairedWithSecureConnection,
         PairingAllowed,
         ServicesFailure,
+        NotFoundSettings,
     }
 }

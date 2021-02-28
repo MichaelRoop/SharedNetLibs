@@ -92,6 +92,8 @@ namespace LanguageFactory.Net.Messaging {
                     return string.Format("{0} ({1})", this.GetMsg(MsgCode.Pair), this.GetMsg(MsgCode.Allowed));
                 case MsgCode.ServicesFailure:
                     return string.Format("{0} ({1})", this.GetMsg(MsgCode.ReadFailure), this.GetMsg(MsgCode.Services));
+                case MsgCode.NotFoundSettings:
+                    return string.Format("{0} ({1})", this.GetMsg(MsgCode.NotFound), this.GetMsg(MsgCode.Settings));
                 default:
                     return this.GetMsg(code);
             }
