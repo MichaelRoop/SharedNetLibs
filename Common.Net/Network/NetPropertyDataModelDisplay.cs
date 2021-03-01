@@ -1,4 +1,5 @@
 ﻿using Common.Net.Enumerations;
+using System;
 
 namespace Common.Net.Network {
 
@@ -12,6 +13,21 @@ namespace Common.Net.Network {
             this.Key = data.Key;
             if (data.DataType == PropertyDataType.TypeString) {
                 this.Value = string.Format("\"{0}\"", data.Value.ToString());
+            }
+            else {
+                this.Value = data.Value.ToString();
+            }
+            this.DataType = data.DataType.ToFriendlyString();
+        }
+
+
+        public NetPropertyDataModelDisplay(NetPropertyDataModel data, Func<bool, string> boolTranslator) {
+            this.Key = data.Key;
+            if (data.DataType == PropertyDataType.TypeString) {
+                this.Value = string.Format("\"{0}\"", data.Value.ToString());
+            }
+            else if (data.DataType == PropertyDataType.TypeBool) {
+                this.Value = boolTranslator((bool)data.Value);
             }
             else {
                 this.Value = data.Value.ToString();
