@@ -159,5 +159,9 @@
         PairingAllowed,
         ServicesFailure,
         NotFoundSettings,
+        EmptySSID,
+        EmptyHostName,
+        EmptyPort,
+        EmptyPwd,
     }
 }

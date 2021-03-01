@@ -94,6 +94,14 @@ namespace LanguageFactory.Net.Messaging {
                     return string.Format("{0} ({1})", this.GetMsg(MsgCode.ReadFailure), this.GetMsg(MsgCode.Services));
                 case MsgCode.NotFoundSettings:
                     return string.Format("{0} ({1})", this.GetMsg(MsgCode.NotFound), this.GetMsg(MsgCode.Settings));
+                case MsgCode.EmptySSID:
+                    return string.Format("{0} ({1})", this.GetMsg(MsgCode.EmptyParameter), "SSID");
+                case MsgCode.EmptyHostName:
+                    return string.Format("{0} ({1})", this.GetMsg(MsgCode.EmptyParameter), this.GetMsg(MsgCode.HostName));
+                case MsgCode.EmptyPort:
+                    return string.Format("{0} ({1})", this.GetMsg(MsgCode.EmptyParameter), this.GetMsg(MsgCode.Port));
+                case MsgCode.EmptyPwd:
+                    return string.Format("{0} ({1})", this.GetMsg(MsgCode.EmptyParameter), this.GetMsg(MsgCode.Password));
                 default:
                     return this.GetMsg(code);
             }
