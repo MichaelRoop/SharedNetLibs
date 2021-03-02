@@ -113,7 +113,10 @@ namespace BluetoothLE.Net.Tools {
 
         private RangeValidationResult ValidateBoolRangeRange(RangeValidationResult result) {
             byte val;
-            if (Byte.TryParse(result.UserEntryString, out val)) {
+            if (string.IsNullOrWhiteSpace(result.UserEntryString)) {
+                result.Status = BLE_DataValidationStatus.Empty;
+            }
+            else if (Byte.TryParse(result.UserEntryString, out val)) {
                 if (val == 0 || val == 1) {
                     result.Status = BLE_DataValidationStatus.Success;
                     val.WriteToBuffer(result.Payload, 0);
@@ -126,7 +129,10 @@ namespace BluetoothLE.Net.Tools {
 
         private RangeValidationResult ValidateUint02Range(RangeValidationResult result) {
             Byte val;
-            if (UInt02.TryParse(result.UserEntryString, out val)) {
+            if (string.IsNullOrWhiteSpace(result.UserEntryString)) {
+                result.Status = BLE_DataValidationStatus.Empty;
+            }
+            else if (UInt02.TryParse(result.UserEntryString, out val)) {
                 result.Status = BLE_DataValidationStatus.Success;
                 val.WriteToBuffer(result.Payload, 0);
             }
@@ -137,7 +143,10 @@ namespace BluetoothLE.Net.Tools {
 
         private RangeValidationResult ValidateUint04Range(RangeValidationResult result) {
             Byte val;
-            if (UInt04.TryParse(result.UserEntryString, out val)) {
+            if (string.IsNullOrWhiteSpace(result.UserEntryString)) {
+                result.Status = BLE_DataValidationStatus.Empty;
+            }
+            else if (UInt04.TryParse(result.UserEntryString, out val)) {
                 result.Status = BLE_DataValidationStatus.Success;
                 val.WriteToBuffer(result.Payload, 0);
             }
@@ -148,7 +157,10 @@ namespace BluetoothLE.Net.Tools {
 
         private RangeValidationResult ValidateUint08Range(RangeValidationResult result) {
             byte val;
-            if (Byte.TryParse(result.UserEntryString, out val)) {
+            if (string.IsNullOrWhiteSpace(result.UserEntryString)) {
+                result.Status = BLE_DataValidationStatus.Empty;
+            }
+            else if (Byte.TryParse(result.UserEntryString, out val)) {
                 result.Status = BLE_DataValidationStatus.Success;
                 val.WriteToBuffer(result.Payload, 0);
             }
@@ -159,7 +171,10 @@ namespace BluetoothLE.Net.Tools {
 
         private RangeValidationResult ValidateUint12Range(RangeValidationResult result) {
             UInt16 val;
-            if (UInt12.TryParse(result.UserEntryString, out val)) {
+            if (string.IsNullOrWhiteSpace(result.UserEntryString)) {
+                result.Status = BLE_DataValidationStatus.Empty;
+            }
+            else if (UInt12.TryParse(result.UserEntryString, out val)) {
                 result.Status = BLE_DataValidationStatus.Success;
                 val.WriteToBuffer(result.Payload, 0);
             }
@@ -170,7 +185,10 @@ namespace BluetoothLE.Net.Tools {
 
         private RangeValidationResult ValidateUint16Range(RangeValidationResult result) {
             UInt16 val;
-            if (UInt16.TryParse(result.UserEntryString, out val)) {
+            if (string.IsNullOrWhiteSpace(result.UserEntryString)) {
+                result.Status = BLE_DataValidationStatus.Empty;
+            }
+            else if (UInt16.TryParse(result.UserEntryString, out val)) {
                 result.Status = BLE_DataValidationStatus.Success;
                 val.WriteToBuffer(result.Payload, 0);
             }
@@ -181,7 +199,10 @@ namespace BluetoothLE.Net.Tools {
 
         private RangeValidationResult ValidateUint24Range(RangeValidationResult result) {
             UInt32 val;
-            if (UInt24.TryParse(result.UserEntryString, out val)) {
+            if (string.IsNullOrWhiteSpace(result.UserEntryString)) {
+                result.Status = BLE_DataValidationStatus.Empty;
+            }
+            else if (UInt24.TryParse(result.UserEntryString, out val)) {
                 result.Status = BLE_DataValidationStatus.Success;
                 result.Payload = UInt24.GetBytes(val);
             }
@@ -192,7 +213,10 @@ namespace BluetoothLE.Net.Tools {
 
         private RangeValidationResult ValidateUint32Range(RangeValidationResult result) {
             UInt32 val;
-            if (UInt32.TryParse(result.UserEntryString, out val)) {
+            if (string.IsNullOrWhiteSpace(result.UserEntryString)) {
+                result.Status = BLE_DataValidationStatus.Empty;
+            }
+            else if (UInt32.TryParse(result.UserEntryString, out val)) {
                 result.Status = BLE_DataValidationStatus.Success;
                 val.WriteToBuffer(result.Payload, 0);
             }
@@ -203,7 +227,10 @@ namespace BluetoothLE.Net.Tools {
 
         private RangeValidationResult ValidateUint48Range(RangeValidationResult result) {
             UInt64 val;
-            if (UInt48.TryParse(result.UserEntryString, out val)) {
+            if (string.IsNullOrWhiteSpace(result.UserEntryString)) {
+                result.Status = BLE_DataValidationStatus.Empty;
+            }
+            else if (UInt48.TryParse(result.UserEntryString, out val)) {
                 result.Status = BLE_DataValidationStatus.Success;
                 result.Payload = UInt48.GetBytes(val);
             }
@@ -214,7 +241,10 @@ namespace BluetoothLE.Net.Tools {
 
         private RangeValidationResult ValidateUint64Range(RangeValidationResult result) {
             UInt64 val;
-            if (UInt64.TryParse(result.UserEntryString, out val)) {
+            if (string.IsNullOrWhiteSpace(result.UserEntryString)) {
+                result.Status = BLE_DataValidationStatus.Empty;
+            }
+            else if (UInt64.TryParse(result.UserEntryString, out val)) {
                 result.Status = BLE_DataValidationStatus.Success;
                 val.WriteToBuffer(result.Payload, 0);
             }
@@ -225,7 +255,10 @@ namespace BluetoothLE.Net.Tools {
 
         private RangeValidationResult ValidateInt8Range(RangeValidationResult result) {
             sbyte val;
-            if (SByte.TryParse(result.UserEntryString, out val)) {
+            if (string.IsNullOrWhiteSpace(result.UserEntryString)) {
+                result.Status = BLE_DataValidationStatus.Empty;
+            }
+            else if (SByte.TryParse(result.UserEntryString, out val)) {
                 result.Status = BLE_DataValidationStatus.Success;
                 val.WriteToBuffer(result.Payload, 0);
             }
@@ -236,7 +269,10 @@ namespace BluetoothLE.Net.Tools {
 
         private RangeValidationResult ValidateInt12Range(RangeValidationResult result) {
             Int16 val;
-            if (Int12.TryParse(result.UserEntryString, out val)) {
+            if (string.IsNullOrWhiteSpace(result.UserEntryString)) {
+                result.Status = BLE_DataValidationStatus.Empty;
+            }
+            else if (Int12.TryParse(result.UserEntryString, out val)) {
                 result.Status = BLE_DataValidationStatus.Success;
                 // Call the Int12 to properly set the sign for 12 int
                 val = Int12.GetNew(val).Value;
@@ -249,7 +285,10 @@ namespace BluetoothLE.Net.Tools {
 
         private RangeValidationResult ValidateInt16Range(RangeValidationResult result) {
             Int16 val;
-            if (Int16.TryParse(result.UserEntryString, out val)) {
+            if (string.IsNullOrWhiteSpace(result.UserEntryString)) {
+                result.Status = BLE_DataValidationStatus.Empty;
+            }
+            else if (Int16.TryParse(result.UserEntryString, out val)) {
                 result.Status = BLE_DataValidationStatus.Success;
                 val.WriteToBuffer(result.Payload, 0);
             }
@@ -260,7 +299,10 @@ namespace BluetoothLE.Net.Tools {
 
         private RangeValidationResult ValidateInt24Range(RangeValidationResult result) {
             Int32 val;
-            if (Int24.TryParse(result.UserEntryString, out val)) {
+            if (string.IsNullOrWhiteSpace(result.UserEntryString)) {
+                result.Status = BLE_DataValidationStatus.Empty;
+            }
+            else if (Int24.TryParse(result.UserEntryString, out val)) {
                 result.Status = BLE_DataValidationStatus.Success;
                 result.Payload = Int24.GetBytes(val);
             }
@@ -271,7 +313,10 @@ namespace BluetoothLE.Net.Tools {
 
         private RangeValidationResult ValidateInt32Range(RangeValidationResult result) {
             Int32 val;
-            if (Int32.TryParse(result.UserEntryString, out val)) {
+            if (string.IsNullOrWhiteSpace(result.UserEntryString)) {
+                result.Status = BLE_DataValidationStatus.Empty;
+            }
+            else if (Int32.TryParse(result.UserEntryString, out val)) {
                 result.Status = BLE_DataValidationStatus.Success;
                 val.WriteToBuffer(result.Payload, 0);
             }
@@ -282,7 +327,10 @@ namespace BluetoothLE.Net.Tools {
 
         private RangeValidationResult ValidateInt48Range(RangeValidationResult result) {
             Int64 val;
-            if (Int48.TryParse(result.UserEntryString, out val)) {
+            if (string.IsNullOrWhiteSpace(result.UserEntryString)) {
+                result.Status = BLE_DataValidationStatus.Empty;
+            }
+            else if (Int48.TryParse(result.UserEntryString, out val)) {
                 result.Status = BLE_DataValidationStatus.Success;
                 result.Payload = Int48.GetBytes(val);
             }
@@ -293,7 +341,10 @@ namespace BluetoothLE.Net.Tools {
 
         private RangeValidationResult ValidateInt64Range(RangeValidationResult result) {
             Int64 val;
-            if (Int64.TryParse(result.UserEntryString, out val)) {
+            if (string.IsNullOrWhiteSpace(result.UserEntryString)) {
+                result.Status = BLE_DataValidationStatus.Empty;
+            }
+            else if (Int64.TryParse(result.UserEntryString, out val)) {
                 result.Status = BLE_DataValidationStatus.Success;
                 val.WriteToBuffer(result.Payload, 0);
             }
@@ -304,7 +355,10 @@ namespace BluetoothLE.Net.Tools {
 
         private RangeValidationResult Validateint32Float(RangeValidationResult result) {
             Single val;
-            if (Single.TryParse(result.UserEntryString, out val)) {
+            if (string.IsNullOrWhiteSpace(result.UserEntryString)) {
+                result.Status = BLE_DataValidationStatus.Empty;
+            }
+            else if (Single.TryParse(result.UserEntryString, out val)) {
                 // The float TryParse does not validate range so do it manually
                 if (val >= Single.MinValue && val <= Single.MaxValue) {
                     result.Status = BLE_DataValidationStatus.Success;
@@ -318,7 +372,10 @@ namespace BluetoothLE.Net.Tools {
 
         private RangeValidationResult Validateint64Double(RangeValidationResult result) {
             Double val;
-            if (Double.TryParse(result.UserEntryString, out val)) {
+            if (string.IsNullOrWhiteSpace(result.UserEntryString)) {
+                result.Status = BLE_DataValidationStatus.Empty;
+            }
+            else if (Double.TryParse(result.UserEntryString, out val)) {
                 // The double TryParse does not validate range so do it manually
                 if (val >= Double.MinValue && val <= Double.MaxValue) {
                     result.Status = BLE_DataValidationStatus.Success;
@@ -331,6 +388,12 @@ namespace BluetoothLE.Net.Tools {
 
 
         private RangeValidationResult ValidateIEEE20601(RangeValidationResult result) {
+            if (string.IsNullOrWhiteSpace(result.UserEntryString)) {
+                result.Status = BLE_DataValidationStatus.Empty;
+                result.Message = result.Status.ToString();
+                return result;
+            }
+
             // Input supposed to be delimited as 0xFF|0xFF
             string[] parts = result.UserEntryString.Split('|');
             if (parts.Count() < 2) {
@@ -371,6 +434,7 @@ namespace BluetoothLE.Net.Tools {
                 result.Payload = Encoding.UTF8.GetBytes(result.UserEntryString);
             }
             else {
+                // Is empty valid?
                 result.Status = BLE_DataValidationStatus.Empty;
             }
             result.Message = result.Status.ToString().CamelCaseToSpaces();
@@ -384,6 +448,7 @@ namespace BluetoothLE.Net.Tools {
                 result.Payload = Encoding.Unicode.GetBytes(result.UserEntryString);
             }
             else {
+                // Is empty valid?
                 result.Status = BLE_DataValidationStatus.Empty;
             }
             result.Message = result.Status.ToString().CamelCaseToSpaces();
