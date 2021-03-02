@@ -140,7 +140,10 @@ namespace LanguageFactory.Net.Languages.en {
             this.AddMsg(MsgCode.Exponent, "Exponent");
             this.AddMsg(MsgCode.True, "True");
             this.AddMsg(MsgCode.False, "False");
-
+            this.AddMsg(MsgCode.Even, "Even");
+            this.AddMsg(MsgCode.Odd, "Odd");
+            this.AddMsg(MsgCode.Mark, "Mark");
+            this.AddMsg(MsgCode.Space, "Space");
 
             //this.AddMsg(MsgCode., "");
         }

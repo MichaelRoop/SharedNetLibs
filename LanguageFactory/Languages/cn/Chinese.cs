@@ -139,8 +139,10 @@ namespace LanguageFactory.Net.Languages.cn {
             this.AddMsg(MsgCode.Exponent, "红指数");
             this.AddMsg(MsgCode.True, "真");
             this.AddMsg(MsgCode.False, "假");
-
-            //this.AddMsg(MsgCode., "");
+            this.AddMsg(MsgCode.Even, "偶");
+            this.AddMsg(MsgCode.Odd, "奇");
+            this.AddMsg(MsgCode.Mark, "标记");
+            this.AddMsg(MsgCode.Space, "Space");
 
         }
 

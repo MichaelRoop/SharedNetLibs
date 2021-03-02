@@ -151,6 +151,11 @@
         Exponent,
         True,
         False,
+        Even,
+        Odd,
+        Mark,
+        Space,
+
 
         // Composite - no direct lookup
         ReadTimeout,

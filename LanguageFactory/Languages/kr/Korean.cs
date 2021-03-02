@@ -139,8 +139,11 @@ namespace LanguageFactory.Net.Languages.kr {
             this.AddMsg(MsgCode.Exponent, "지수");
             this.AddMsg(MsgCode.True, "참");
             this.AddMsg(MsgCode.False, "거짓");
+            this.AddMsg(MsgCode.Even, "짝수");
+            this.AddMsg(MsgCode.Odd, "홀수");
+            this.AddMsg(MsgCode.Mark, "표시 패리티");
+            this.AddMsg(MsgCode.Space, "공백 패리티");
 
-            //this.AddMsg(MsgCode., "");
         }
 
     }

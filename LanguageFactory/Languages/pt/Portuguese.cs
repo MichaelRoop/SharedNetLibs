@@ -143,10 +143,13 @@ namespace LanguageFactory.Net.Languages.pt {
             this.AddMsg(MsgCode.Exponent, "Expoente");
             this.AddMsg(MsgCode.True, "Verdadeiro");
             this.AddMsg(MsgCode.False, "Falso");
+            this.AddMsg(MsgCode.Even, "Par");
+            this.AddMsg(MsgCode.Odd, "Ímpar");
+            this.AddMsg(MsgCode.Mark, "Marcar");
+            this.AddMsg(MsgCode.Space, "De espaço");
 
-            //this.AddMsg(MsgCode., "");
         }
 
-
     }
+
 }

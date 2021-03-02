@@ -144,8 +144,10 @@ namespace LanguageFactory.Net.Languages.ar {
             this.AddMsg(MsgCode.Exponent, "أس");
             this.AddMsg(MsgCode.True, "صواب");
             this.AddMsg(MsgCode.False, "خطأ");
-
-            //this.AddMsg(MsgCode., "");
+            this.AddMsg(MsgCode.Even, "زوجي");
+            this.AddMsg(MsgCode.Odd, "فردي");
+            this.AddMsg(MsgCode.Mark, "‏‏علامة");
+            this.AddMsg(MsgCode.Space, "Space");
 
         }
 

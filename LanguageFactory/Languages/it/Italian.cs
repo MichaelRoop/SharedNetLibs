@@ -141,10 +141,12 @@ namespace LanguageFactory.Net.Languages.it {
             this.AddMsg(MsgCode.Exponent, "Esponente");
             this.AddMsg(MsgCode.True, "Vero");
             this.AddMsg(MsgCode.False, "Falso");
+            this.AddMsg(MsgCode.Even, "Pari");
+            this.AddMsg(MsgCode.Odd, "Dispari");
+            this.AddMsg(MsgCode.Mark, "Indicatore");
+            this.AddMsg(MsgCode.Space, "Spazio");
 
-            //this.AddMsg(MsgCode., "");
         }
-
 
     }
 

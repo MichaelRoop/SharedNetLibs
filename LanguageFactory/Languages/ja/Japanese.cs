@@ -139,9 +139,11 @@ namespace LanguageFactory.Net.Languages.ja {
             this.AddMsg(MsgCode.Exponent, "指数");
             this.AddMsg(MsgCode.True, "真");
             this.AddMsg(MsgCode.False, "偽");
+            this.AddMsg(MsgCode.Even, "偶数");
+            this.AddMsg(MsgCode.Odd, "奇数");
+            this.AddMsg(MsgCode.Mark, "マーク");
+            this.AddMsg(MsgCode.Space, "スペース");
 
-
-            //this.AddMsg(MsgCode., "");
         }
 
     }

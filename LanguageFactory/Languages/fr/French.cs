@@ -68,7 +68,7 @@ namespace LanguageFactory.Net.Languages.fr {
             this.AddMsg(MsgCode.BaudRate, "Vitesse (en bauds)");
             this.AddMsg(MsgCode.DataBits, "Bits de données");
             this.AddMsg(MsgCode.StopBits, "Bits d’arrêt");
-            this.AddMsg(MsgCode.Parity, "Parity");
+            this.AddMsg(MsgCode.Parity, "Parité");
             this.AddMsg(MsgCode.FlowControl, "Contrôle de flux");
             this.AddMsg(MsgCode.Read, "Lecture");
             this.AddMsg(MsgCode.Write, "Écriture");
@@ -139,8 +139,11 @@ namespace LanguageFactory.Net.Languages.fr {
             this.AddMsg(MsgCode.Exponent, "Exposant");
             this.AddMsg(MsgCode.True, "Vrai");
             this.AddMsg(MsgCode.False, "Faux");
+            this.AddMsg(MsgCode.Even, "Paire");
+            this.AddMsg(MsgCode.Odd, "Impaire");
+            this.AddMsg(MsgCode.Mark, "Marque");
+            this.AddMsg(MsgCode.Space, "Espace");
 
-            //this.AddMsg(MsgCode., "");
         }
 
     }

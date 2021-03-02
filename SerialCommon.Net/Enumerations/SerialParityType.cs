@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace SerialCommon.Net.Enumerations {
 
     /// <summary>Cross platform enum of parity bit setttings</summary>
@@ -22,6 +24,14 @@ namespace SerialCommon.Net.Enumerations {
         public static string Display(this SerialParityType spt) {
             return spt.ToString();
         }
+
+        public static string Translate(
+            this SerialParityType spt, 
+            Func<SerialParityType, string> translator) {
+            return translator.Invoke(spt);
+        }
+
+
     }
 
 

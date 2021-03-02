@@ -140,11 +140,13 @@ namespace LanguageFactory.Net.Languages.vi {
             this.AddMsg(MsgCode.Exponent, "Số mũ");
             this.AddMsg(MsgCode.True, "Đúng");
             this.AddMsg(MsgCode.False, "Sai");
+            this.AddMsg(MsgCode.Even, "Chẵn");
+            this.AddMsg(MsgCode.Odd, "Lẻ");
+            this.AddMsg(MsgCode.Mark, "Mark");
+            this.AddMsg(MsgCode.Space, "Space");
 
-            //this.AddMsg(MsgCode., "");
         }
 
-
-
     }
+
 }

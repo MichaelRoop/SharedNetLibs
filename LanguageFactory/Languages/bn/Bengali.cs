@@ -142,8 +142,11 @@ namespace LanguageFactory.Net.Languages.bn {
             this.AddMsg(MsgCode.Exponent, "এক্সপোনেন্ট");
             this.AddMsg(MsgCode.True, "সঠিক");
             this.AddMsg(MsgCode.False, "মিথ্যা");
+            this.AddMsg(MsgCode.Even, "জোড়");
+            this.AddMsg(MsgCode.Odd, "বিজোড়");
+            this.AddMsg(MsgCode.Mark, "চিহ্ন");
+            this.AddMsg(MsgCode.Space, "Space");
 
-            //this.AddMsg(MsgCode., "");
         }
 
     }

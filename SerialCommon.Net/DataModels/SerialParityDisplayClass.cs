@@ -1,4 +1,5 @@
 ﻿using SerialCommon.Net.Enumerations;
+using System;
 
 namespace SerialCommon.Net.DataModels {
 
@@ -13,6 +14,13 @@ namespace SerialCommon.Net.DataModels {
             this.Display = pt.Display();
             this.ParityType = pt;
         }
+
+
+        public SerialParityDisplayClass(SerialParityType pt, Func<SerialParityType, string> translator) {
+            this.Display = translator(pt);
+            this.ParityType = pt;
+        }
+
 
     }
 }

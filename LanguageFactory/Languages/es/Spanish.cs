@@ -140,8 +140,11 @@ namespace LanguageFactory.Net.Languages.es {
             this.AddMsg(MsgCode.Exponent, "Exponente");
             this.AddMsg(MsgCode.True, "Verdadero");
             this.AddMsg(MsgCode.False, "Falso");
+            this.AddMsg(MsgCode.Even, "Par");
+            this.AddMsg(MsgCode.Odd, "Impar");
+            this.AddMsg(MsgCode.Mark, "Marca");
+            this.AddMsg(MsgCode.Space, "Espacio");
 
-            //this.AddMsg(MsgCode., "");
         }
 
     }

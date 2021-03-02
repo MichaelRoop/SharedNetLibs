@@ -1,4 +1,5 @@
 ﻿using SerialCommon.Net.Enumerations;
+using System;
 using VariousUtils.Net;
 
 namespace SerialCommon.Net.DataModels {
@@ -10,6 +11,14 @@ namespace SerialCommon.Net.DataModels {
 
         public FlowControlDisplay(SerialFlowControlHandshake hs) {
             this.Display = hs.ToString().CamelCaseToSpaces();
+            this.FlowControl = hs;
+        }
+
+
+        public FlowControlDisplay(
+            SerialFlowControlHandshake hs, 
+            Func<SerialFlowControlHandshake, string> translator) {
+            this.Display = translator(hs);
             this.FlowControl = hs;
         }
 

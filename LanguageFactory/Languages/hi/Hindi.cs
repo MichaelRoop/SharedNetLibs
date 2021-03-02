@@ -146,7 +146,10 @@ namespace LanguageFactory.Net.Languages.hi {
             this.AddMsg(MsgCode.True, "सही");
             this.AddMsg(MsgCode.False, "गलत");
 
-            //this.AddMsg(MsgCode., "");
+            this.AddMsg(MsgCode.Even, "Even");
+            this.AddMsg(MsgCode.Odd, "Odd");
+            this.AddMsg(MsgCode.Mark, "Mark");
+            this.AddMsg(MsgCode.Space, "Space");
 
         }
 

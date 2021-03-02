@@ -144,11 +144,13 @@ namespace LanguageFactory.Net.Languages.ru {
             this.AddMsg(MsgCode.Exponent, "Экспонента");
             this.AddMsg(MsgCode.True, "Истина");
             this.AddMsg(MsgCode.False, "Ложь");
+            this.AddMsg(MsgCode.Even, "Чет");
+            this.AddMsg(MsgCode.Odd, "Нечет");
+            this.AddMsg(MsgCode.Mark, "Маркер");
+            this.AddMsg(MsgCode.Space, "Пробел");
 
-            //this.AddMsg(MsgCode., "");
         }
 
-
-
     }
+
 }

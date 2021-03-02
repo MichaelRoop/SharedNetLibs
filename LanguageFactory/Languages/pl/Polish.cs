@@ -142,9 +142,11 @@ namespace LanguageFactory.Net.Languages.pl {
             this.AddMsg(MsgCode.Exponent, "Wykładnik");
             this.AddMsg(MsgCode.True, "Prawda");
             this.AddMsg(MsgCode.False, "Fałsz");
+            this.AddMsg(MsgCode.Even, "Parzystość");
+            this.AddMsg(MsgCode.Odd, "Nieparzystość");
+            this.AddMsg(MsgCode.Mark, "Ustaw bit parzystości");
+            this.AddMsg(MsgCode.Space, "Parzystość spacji");
 
-
-            //this.AddMsg(MsgCode., "");
         }
 
     }

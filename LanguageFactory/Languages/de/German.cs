@@ -142,9 +142,10 @@ namespace LanguageFactory.Net.Languages.de {
             this.AddMsg(MsgCode.Exponent, "Exponent");
             this.AddMsg(MsgCode.True, "Wahr");
             this.AddMsg(MsgCode.False, "Falsch");
-
-
-            //this.AddMsg(MsgCode., "");
+            this.AddMsg(MsgCode.Even, "Gerade");
+            this.AddMsg(MsgCode.Odd, "Ungerade");
+            this.AddMsg(MsgCode.Mark, "Markierung");
+            this.AddMsg(MsgCode.Space, "Space");
         }
 
 

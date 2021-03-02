@@ -141,10 +141,12 @@ namespace LanguageFactory.Net.Languages.tr {
             this.AddMsg(MsgCode.Exponent, "Üssü");
             this.AddMsg(MsgCode.True, "Doğru");
             this.AddMsg(MsgCode.False, "Yanlış");
+            this.AddMsg(MsgCode.Even, "Çift Eşlik");
+            this.AddMsg(MsgCode.Odd, "Tek Eşlik");
+            this.AddMsg(MsgCode.Mark, "İşaret Eşliği");
+            this.AddMsg(MsgCode.Space, "Boşluk eşliği");
 
-            //this.AddMsg(MsgCode., "");
         }
-
 
     }
 

@@ -141,7 +141,10 @@ namespace LanguageFactory.Net.Languages.cz {
             this.AddMsg(MsgCode.Exponent, "Exponent");
             this.AddMsg(MsgCode.True, "Pravda");
             this.AddMsg(MsgCode.False, "Nepravda");
-
+            this.AddMsg(MsgCode.Even, "Sudá");
+            this.AddMsg(MsgCode.Odd, "Lichá");
+            this.AddMsg(MsgCode.Mark, "Značená");
+            this.AddMsg(MsgCode.Space, "Space");
 
         }
 

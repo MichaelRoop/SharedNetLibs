@@ -143,12 +143,13 @@ namespace LanguageFactory.Net.Languages.nl {
             this.AddMsg(MsgCode.Exponent, "Exponent");
             this.AddMsg(MsgCode.True, "Waar");
             this.AddMsg(MsgCode.False, "Onwaar");
+            this.AddMsg(MsgCode.Even, "Even");
+            this.AddMsg(MsgCode.Odd, "Oneven");
+            this.AddMsg(MsgCode.Mark, "Markeren");
+            this.AddMsg(MsgCode.Space, "Spatiepariteit");
 
-
-            //this.AddMsg(MsgCode., "");
         }
 
-
-
     }
+
 }
