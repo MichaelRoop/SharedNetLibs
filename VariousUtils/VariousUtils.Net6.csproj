@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>VariousUtils.Net</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ChkUtils.Net\ChkUtils.Net6.csproj" />
+    <ProjectReference Include="..\LogUtils.Net\LogUtils.Net6.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -20,7 +20,8 @@ namespace TestCases.SpStateMachineTests {
     /// <summary>
     /// To drive development of framework
     /// </summary>
-    [TestFixture, Explicit]
+    //[TestFixture, Explicit]
+    //[TestFixture]
     public class StateMachineScratchPad {
 
         #region Setup 
@@ -58,7 +59,7 @@ namespace TestCases.SpStateMachineTests {
         }
 
 
-        [Test]
+        //[Test]
         public void DoEnumParamTest() {
             EnumTestClass tc = new EnumTestClass() {
                 TypeId = MyMsgType.DataStrMsg,
@@ -85,7 +86,7 @@ namespace TestCases.SpStateMachineTests {
 
 
 
-        [Test, Explicit]
+        //[Test, Explicit]
         public void TestInitialGenericSpState() {
 
             TestHelpers.CatchUnexpected(() => {
@@ -175,7 +176,7 @@ namespace TestCases.SpStateMachineTests {
         }
 
 
-        [Test, Explicit]
+        //[Test, Explicit]
         public void TestDeferedTransitionsInSuperState() {
 
             TestHelpers.CatchUnexpected(() => {
@@ -213,7 +214,7 @@ namespace TestCases.SpStateMachineTests {
         }
 
 
-        [Test, Explicit]
+        //[Test, Explicit]
         public void TestExitStateTransitionsInSuperState() {
 
             TestHelpers.CatchUnexpected(() => {
@@ -273,7 +274,7 @@ namespace TestCases.SpStateMachineTests {
 
         }
 
-        [Test, Explicit]
+        //[Test, Explicit]
         public void TestResultExitTickStateTransitionsInSuperState() {
 
             TestHelpers.CatchUnexpected(() => {
@@ -302,7 +303,7 @@ namespace TestCases.SpStateMachineTests {
         }
 
 
-        [Test, Explicit]
+        //[Test, Explicit]
         public void TestResultExitEntryStateTransitionsInSuperState() {
 
             TestHelpers.CatchUnexpected(() => {

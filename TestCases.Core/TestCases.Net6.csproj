@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FakeItEasy" Version="6.2.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="NUnit" Version="3.13.1" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BluetoothLE\BluetoothLE.Net6.csproj" />
+    <ProjectReference Include="..\ChkUtils.Net\ChkUtils.Net6.csproj" />
+    <ProjectReference Include="..\DependencyInjectorFactory\DependencyInjectorFactory.Net6.csproj" />
+    <ProjectReference Include="..\LanguageFactory\LanguageFactory.Net6.csproj" />
+    <ProjectReference Include="..\LogUtils.Net\LogUtils.Net6.csproj" />
+    <ProjectReference Include="..\SpStateMachine.Net\SpStateMachine.Net6.csproj" />
+    <ProjectReference Include="..\StorageFactory.Net\StorageFactory.Net6.csproj" />
+    <ProjectReference Include="..\TestCaseSupport.Core\TestCaseSupport.Net6.csproj" />
+    <ProjectReference Include="..\VariousUtils\VariousUtils.Net6.csproj" />
+  </ItemGroup>
+
+</Project>

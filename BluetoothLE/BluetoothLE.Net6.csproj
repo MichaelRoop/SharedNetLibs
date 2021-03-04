@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>BluetoothLE.Net</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ChkUtils.Net\ChkUtils.Net6.csproj" />
+    <ProjectReference Include="..\Common.Net\CommonNetwork.Net6.csproj" />
+    <ProjectReference Include="..\CommunicationStack.Net\CommunicationStack.Net6.csproj" />
+    <ProjectReference Include="..\LogUtils.Net\LogUtils.Net6.csproj" />
+    <ProjectReference Include="..\VariousUtils\VariousUtils.Net6.csproj" />
+  </ItemGroup>
+
+</Project>
