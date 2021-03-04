@@ -3,7 +3,7 @@ using DependencyInjectorFactory.Net.interfaces;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using TestCases.Core.TestToolSet;
+using TestCaseSupport.Core;
 
 namespace TestCases.DependencyInjectorTests {
 
@@ -132,7 +132,7 @@ namespace TestCases.DependencyInjectorTests {
             InstanceFirst f = null;
             InstanceFirst s = null;
 
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 f = this.container.GetObjInstance<InstanceFirst>();
                 s = this.container.GetObjInstance<InstanceFirst>();
 
@@ -145,7 +145,7 @@ namespace TestCases.DependencyInjectorTests {
         public void CheckSingletonTest() {
             SingleFirst f = null;
             SingleFirst s = null;
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 f = this.container.GetObjSingleton<SingleFirst>();
                 s = this.container.GetObjSingleton<SingleFirst>();
             });
@@ -157,7 +157,7 @@ namespace TestCases.DependencyInjectorTests {
         public void CheckInstacesWithSingletonParamTest() {
             TstInsWithSingl f = null;
             TstInsWithSingl s = null;
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 f = this.container.GetObjInstance<TstInsWithSingl>();
                 s = this.container.GetObjInstance<TstInsWithSingl>();
             });
@@ -172,7 +172,7 @@ namespace TestCases.DependencyInjectorTests {
         public void CheckSingletonWithInstanceParamTest() {
             TstSinglWithIns f = null;
             TstSinglWithIns s = null;
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 f = this.container.GetObjSingleton<TstSinglWithIns>();
                 s = this.container.GetObjSingleton<TstSinglWithIns>();
             });

@@ -3,7 +3,7 @@ using BluetoothLE.Net.Parsers.Descriptor;
 using LogUtils.Net;
 using NUnit.Framework;
 using System;
-using TestCases.Core.TestToolSet;
+using TestCaseSupport.Core;
 
 namespace TestCases.Core.BLE.BLE_DescParsers {
 
@@ -55,7 +55,7 @@ namespace TestCases.Core.BLE.BLE_DescParsers {
 
         [Test]
         public void DerivedTypeTest() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 IDescParser p = new BlowOnDoParse();
                 //Assert.AreEqual(typeof(BlowOnDoParse).Name, p.ImplementationType.Name, "ImplementationType");
 
@@ -73,7 +73,7 @@ namespace TestCases.Core.BLE.BLE_DescParsers {
 
         [Test]
         public void Err13618_DataZeroLength() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 IDescParser parser = new DescParser_PresentationFormat();
                 byte[] data = new byte[0];
                 parser.Parse(data);
@@ -84,7 +84,7 @@ namespace TestCases.Core.BLE.BLE_DescParsers {
 
         [Test]
         public void Err13616_DataNull() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 IDescParser parser = new DescParser_PresentationFormat();
                 parser.Parse(null);
                 this.logReader.Validate(13616, "BLEParserBase", "CopyToRawData", "Raw byte[] is null");
@@ -94,7 +94,7 @@ namespace TestCases.Core.BLE.BLE_DescParsers {
 
         [Test]
         public void Err13607_ExceptionOnDoParse() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 try {
                     IDescParser parser = new BlowOnDoParse();
                     parser.Parse(new byte[12]);
@@ -108,7 +108,7 @@ namespace TestCases.Core.BLE.BLE_DescParsers {
 
         [Test]
         public void Err13615_DataTooShort() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 IDescParser parser = new DescParser_PresentationFormat();
                 byte[] data = new byte[1];
                 parser.Parse(data);
@@ -122,7 +122,7 @@ namespace TestCases.Core.BLE.BLE_DescParsers {
 
         [Test]
         public void Err13325_ExceptionOnConstruction() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 try {
                     IDescParser parser = new BlowOnSetMembers();
                 }

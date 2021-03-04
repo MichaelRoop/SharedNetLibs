@@ -1,7 +1,7 @@
 ﻿using BluetoothLE.Net.Parsers.Characteristics;
 using BluetoothLE.Net.Parsers.Types;
 using NUnit.Framework;
-using TestCases.Core.TestToolSet;
+using TestCaseSupport.Core;
 using VariousUtils.Net;
 
 namespace TestCases.Core.BLE.BLE_CharParsers {
@@ -144,7 +144,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
 
         private void Test(byte[] data, string expected) {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 CharParser_AlertCategoryIDBitmask parser = new CharParser_AlertCategoryIDBitmask();
                 string result = parser.Parse(data);
                 LogUtils.Net.Log.Info("Test10_Alerts", "Test", result);
@@ -154,7 +154,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
 
         private void TestAlertId(byte[] data, string expected) {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 CharParser_AlertCategoryID parser = new CharParser_AlertCategoryID();
                 string result = parser.Parse(data);
                 LogUtils.Net.Log.Info("Test10_Alerts", "TestAlertId", result);
@@ -164,7 +164,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
 
         private void TestAlertLeve(byte level, string expected) {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 byte[] data = new byte[1];
                 data[0] = level;
                 CharParser_AlertLevel parser = new CharParser_AlertLevel();
@@ -177,7 +177,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
 
         private void TestAlertStatus(byte status, bool ringer, bool vibrate) {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 byte[] data = new byte[1];
                 data[0] = status;
                 CharParser_AlertStatus parser = new CharParser_AlertStatus();

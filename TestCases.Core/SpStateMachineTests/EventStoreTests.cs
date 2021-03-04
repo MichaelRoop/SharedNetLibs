@@ -3,7 +3,7 @@ using SpStateMachine.Net.EventStores;
 using SpStateMachine.Net.Interfaces;
 using TestCases.SpStateMachineTests.TestImplementations;
 using TestCases.SpStateMachineTests.TestImplementations.Messages;
-using TestCases.Core.TestToolSet;
+using TestCaseSupport.Core;
 using SpStateMachine.Net.Core;
 
 namespace TestCases.SpStateMachineTests {
@@ -13,7 +13,7 @@ namespace TestCases.SpStateMachineTests {
 
         #region Data
 
-        HelperLogReaderNet logReader = new HelperLogReaderNet();
+        HelperLogReader logReader = new HelperLogReader();
 
         #endregion
 
@@ -37,7 +37,7 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _0_Base_MutilDisposed() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 ISpEventStore d = new SimpleDequeEventStore(new MyBaseMsg(MyMsgType.SimpleMsg, MyMsgId.Tick));
                 d.Dispose();
                 d.Dispose();
@@ -47,14 +47,14 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _50110_Base_Constructor_NullParam() {
-            TestHelpersNet.CatchExpected(50110, "BaseEventStore", ".ctor", "Null defaultTick Argument", () => {
+            TestHelpers.CatchExpected(50110, "BaseEventStore", ".ctor", "Null defaultTick Argument", () => {
                 ISpEventStore d = new SimpleDequeEventStore(null);
             });
         }
 
         [Test]
         public void _50111_Base_Add_Disposed() {
-            TestHelpersNet.CatchExpected(50111, "BaseEventStore", "Add", "Attempting to use Disposed Object", () => {
+            TestHelpers.CatchExpected(50111, "BaseEventStore", "Add", "Attempting to use Disposed Object", () => {
                 ISpEventStore d = new SimpleDequeEventStore(new MyBaseMsg(MyMsgType.SimpleMsg, MyMsgId.Tick));
                 d.Dispose();
                 d.Add(new MyBaseMsg(MyMsgType.SimpleMsg, MyMsgId.Tick));
@@ -63,7 +63,7 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _50112_Base_Add_NullMsg() {
-            TestHelpersNet.CatchExpected(50112, "BaseEventStore", "Add", "Null msg Argument", () => {
+            TestHelpers.CatchExpected(50112, "BaseEventStore", "Add", "Null msg Argument", () => {
                 ISpEventStore d = new SimpleDequeEventStore(new MyBaseMsg(MyMsgType.SimpleMsg, MyMsgId.Tick));
                 d.Add(null);
             });
@@ -71,7 +71,7 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _50113_Base_Get_Disposed() {
-            TestHelpersNet.CatchExpected(50113, "BaseEventStore", "Get", "Attempting to use Disposed Object", () => {
+            TestHelpers.CatchExpected(50113, "BaseEventStore", "Get", "Attempting to use Disposed Object", () => {
                 ISpEventStore d = new SimpleDequeEventStore(new MyBaseMsg(MyMsgType.SimpleMsg, MyMsgId.Tick));
                 d.Dispose();
                 d.Get();
@@ -84,7 +84,7 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _0_SimpleDequeQueue_Add() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 ISpEventStore d = new SimpleDequeEventStore(new MyBaseMsg(MyMsgType.SimpleMsg, MyMsgId.Tick));
                 d.Add(new MyBaseMsg(MyMsgType.SimpleMsg, MyMsgId.Tick));
                 d.Add(new MyBaseMsg(MyMsgType.SimpleMsg, MyMsgId.Tick));
@@ -96,7 +96,7 @@ namespace TestCases.SpStateMachineTests {
         [Test]
         public void _0_SimpleDequeQueue_AddSequencing() {
             ISpEventStore d = null;
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 d = new SimpleDequeEventStore(new MyBaseMsg(MyMsgType.SimpleMsg, MyMsgId.Tick));
                 d.Add(new MyBaseMsg(MyMsgType.DataStrMsg, MyMsgId.Abort));
                 d.Add(new MyBaseMsg( MyMsgType.SimpleMsg,  MyMsgId.Start));
@@ -108,7 +108,7 @@ namespace TestCases.SpStateMachineTests {
             this.MsgEqual(new MyBaseMsg(MyMsgType.DataStrMsg, MyMsgId.Stop), d.Get());
             this.MsgEqual(new MyBaseMsg(MyMsgType.SimpleMsg, MyMsgId.Tick), d.Get());
 
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 d.Dispose();
             });
         }
@@ -119,7 +119,7 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _0_PriorityEventStore_Add() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 ISpEventStore d = new SimpleDequeEventStore(
                     new MyBaseMsg(MyMsgType.SimpleMsg, MyMsgId.Tick));
                 d.Add(new MyBaseMsg(MyMsgType.SimpleMsg, MyMsgId.Start, SpEventPriority.Undefined));
@@ -132,7 +132,7 @@ namespace TestCases.SpStateMachineTests {
         [Test]
         public void _0_PriorityEventStore_AddSequence() {
             ISpEventStore d = null;
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 // Note: This is the priority store, not the simple deque
                 d = new PriorityEventStore(new MyBaseMsg(MyMsgType.SimpleMsg, MyMsgId.Tick));
                 d.Add(new MyBaseMsg(MyMsgType.SimpleMsg, MyMsgId.Start, SpEventPriority.Low));
@@ -164,7 +164,7 @@ namespace TestCases.SpStateMachineTests {
 
             this.MsgEqual(new MyBaseMsg(MyMsgType.SimpleMsg, MyMsgId.Tick, SpEventPriority.Normal), d.Get());
 
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 d.Dispose();
             });
         }
@@ -172,7 +172,7 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _50150_PriorityEventStore_AddEvent_UnhandledPriority() {
-            TestHelpersNet.CatchExpected(50150, "PriorityEventStore", "AddEvent", "The Priority Type 'Undefined' is not Handled", () => {
+            TestHelpers.CatchExpected(50150, "PriorityEventStore", "AddEvent", "The Priority Type 'Undefined' is not Handled", () => {
                 ISpEventStore d = new PriorityEventStore(new MyBaseMsg(MyMsgType.SimpleMsg, MyMsgId.Tick));
                 d.Add(new MyBaseMsg(MyMsgType.SimpleMsg, MyMsgId.Start, SpEventPriority.Undefined));
             });

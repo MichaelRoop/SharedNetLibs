@@ -6,7 +6,7 @@ using LogUtils.Net;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Text;
-using TestCases.Core.TestToolSet;
+using TestCaseSupport.Core;
 using VariousUtils.Net;
 
 namespace TestCases.Core.BLE.BLE_DescParsers {
@@ -36,7 +36,7 @@ namespace TestCases.Core.BLE.BLE_DescParsers {
 
         [Test]
         public void FormatParseValuesChecked() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 IDescParser parser = new DescParser_PresentationFormat();
                 byte[] data = new byte[7];
                 byte format = DataFormatEnum.UInt_32bit.ToByte();
@@ -69,7 +69,7 @@ namespace TestCases.Core.BLE.BLE_DescParsers {
 
         [Test]
         public void Err13340_FormatParseDataBadFormat() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 IDescParser parser = new DescParser_PresentationFormat();
                 byte[] data = this.GetBlock();
                 // Bogus format
@@ -83,7 +83,7 @@ namespace TestCases.Core.BLE.BLE_DescParsers {
 
         [Test]
         public void Err13341_FormatParseDataBadUnit() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 IDescParser parser = new DescParser_PresentationFormat();
                 byte[] data = this.GetBlock();
                 int pos = 2;

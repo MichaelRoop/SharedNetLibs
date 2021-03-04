@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
-using TestCases.Core.TestToolSet;
+using TestCaseSupport.Core;
 using VariousUtils.Net;
 
 namespace TestCases.VariousUtilsTests.Net {
@@ -62,7 +62,7 @@ namespace TestCases.VariousUtilsTests.Net {
 
         [Test]
         public void TestAdd() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 TestEnum t = TestEnum.None;
                 Assert.AreEqual(TestEnum.None, t);
                 t = t.AddFlag(TestEnum.One);
@@ -80,7 +80,7 @@ namespace TestCases.VariousUtilsTests.Net {
 
         [Test]
         public void TestRemove() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 TestEnum t = TestEnum.Four | TestEnum.Eight | TestEnum.Two;
                 Assert.True(t.HasFlag(TestEnum.None));
                 Assert.True(t.HasFlag(TestEnum.Four));
@@ -104,7 +104,7 @@ namespace TestCases.VariousUtilsTests.Net {
 
         [Test]
         public void GetEnumListTest() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 int count = 0;
                 foreach (TestEnum te in EnumHelpers.GetEnumList<TestEnum>()) {
                     count++;
@@ -118,7 +118,7 @@ namespace TestCases.VariousUtilsTests.Net {
 
         [Test]
         public void ToIntTest() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 Assert.AreEqual(64, TestEnum.Seven.ToInt());
             });
         }
@@ -126,7 +126,7 @@ namespace TestCases.VariousUtilsTests.Net {
 
         [Test]
         public void ToEnumTest() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 Assert.AreEqual(TestEnum.Seven, 64.ToEnum<TestEnum>());
                 // Just to make sure it does not throw an exception
                 Assert.AreNotEqual(TestEnum.Seven, 23356.ToEnum<TestEnum>());
@@ -136,7 +136,7 @@ namespace TestCases.VariousUtilsTests.Net {
 
         [Test]
         public void FirstOrDefaultTest() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 uint value = 33333;
 
                 TestUintEnum e = value.FirstOrDefault(TestUintEnum.None);

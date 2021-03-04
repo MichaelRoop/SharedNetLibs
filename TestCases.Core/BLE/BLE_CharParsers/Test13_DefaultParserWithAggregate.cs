@@ -7,7 +7,7 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using TestCases.Core.TestToolSet;
+using TestCaseSupport.Core;
 using VariousUtils.Net;
 
 namespace TestCases.Core.BLE.BLE_CharParsers {
@@ -59,7 +59,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
         [Test]
         public void T01_ValidFormatCount() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 DescParser_CharacteristicAggregateFormat agg = new DescParser_CharacteristicAggregateFormat();
                 List<IDescParser> descriptors = new List<IDescParser>();
                 // Need to calculate size with all data 
@@ -79,7 +79,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
         [Test]
         public void T02_MissingFormat() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 DescParser_CharacteristicAggregateFormat agg = new DescParser_CharacteristicAggregateFormat();
                 List<IDescParser> descriptors = new List<IDescParser>();
                 this.AddFormat(tools.GetBlock(DataFormatEnum.UInt_8bit), descriptors, agg);
@@ -94,7 +94,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
         [Test]
         public void T03_HandleNotFormat() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 DescParser_CharacteristicAggregateFormat agg = new DescParser_CharacteristicAggregateFormat();
                 List<IDescParser> descriptors = new List<IDescParser>();
                 this.AddFormat(tools.GetBlock(DataFormatEnum.UInt_8bit), descriptors, agg);
@@ -114,7 +114,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
         [Test]
         public void T04_DuplicateFormat() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 DescParser_CharacteristicAggregateFormat agg = new DescParser_CharacteristicAggregateFormat();
                 List<IDescParser> descriptors = new List<IDescParser>();
                 this.AddFormat(tools.GetBlock(DataFormatEnum.UInt_8bit), descriptors, agg);

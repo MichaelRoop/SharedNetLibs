@@ -8,7 +8,7 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using TestCases.Core.TestToolSet;
+using TestCaseSupport.Core;
 using VariousUtils.Net;
 
 namespace TestCases.Core.BLE.BLE_CharParsers {
@@ -43,7 +43,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
         [Test]
         public void DiscardedRedundantFormat() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 IDescParser formatParser = new DescParser_PresentationFormat();
                 formatParser.Parse(this.GetBlock(DataFormatEnum.UInt_8bit));
                 List<IDescParser> descriptors = new List<IDescParser>();
@@ -61,7 +61,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
         [Test]
         public void UTF8String() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 IDescParser parser = new DescParser_PresentationFormat();
                 this.SetFormatDesc(this.GetBlock(DataFormatEnum.UTF8_String, UnitsOfMeasurement.Unitless));
                 string str = "This is a sample UTF8 string for formating";
@@ -73,7 +73,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
         [Test]
         public void UTF16String() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 IDescParser parser = new DescParser_PresentationFormat();
                 this.SetFormatDesc(this.GetBlock(DataFormatEnum.UTF16_String, UnitsOfMeasurement.Unitless));
                 string str = "This is a sample UTF16 string for formating";
@@ -166,7 +166,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
         [Test]
         public void aaTestUint02() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 UInt02 val = UInt02.GetNew(2);
                 Assert.AreEqual(2, val.Value);
                 Assert.True(val == 2, "== operator");
@@ -472,7 +472,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
         #region Actual NUnit tests
 
         public void TestByteBits(byte[] data, string expected, DataFormatEnum format) {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 IDescParser parser = new DescParser_PresentationFormat();
                 this.SetFormatDesc(this.GetBlock(format, UnitsOfMeasurement.Unitless));
                 string result = this.defaultCharParser.Parse(data);
@@ -483,7 +483,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
 
         public void TestByteBits(byte[] data, string expected, DataFormatEnum format, sbyte exponent) {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 IDescParser parser = new DescParser_PresentationFormat();
                 byte[] descBlock = this.GetBlock(format, UnitsOfMeasurement.Unitless);
                 this.SetExponent(descBlock, exponent);

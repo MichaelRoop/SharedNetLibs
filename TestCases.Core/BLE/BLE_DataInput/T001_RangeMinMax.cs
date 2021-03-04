@@ -3,7 +3,7 @@ using BluetoothLE.Net.Tools;
 using LogUtils.Net;
 using NUnit.Framework;
 using System;
-using TestCases.Core.TestToolSet;
+using TestCaseSupport.Core;
 using VariousUtils.Net;
 
 namespace TestCases.Core.BLE.BLE_DataInput {
@@ -357,7 +357,7 @@ namespace TestCases.Core.BLE.BLE_DataInput {
         #region Helpers
 
         public void ValidateFloat32(string sVal, BLE_DataValidationStatus status, Single val) {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 RangeValidationResult result = this.validator.Validate(sVal, BLE_DataType.IEEE_754_32bit_floating_point);
                 Assert.AreEqual(status, result.Status);
                 Single r = result.Payload.ToFloat32(0);
@@ -366,7 +366,7 @@ namespace TestCases.Core.BLE.BLE_DataInput {
         }
 
         public void ValidateFloat64(string sVal, BLE_DataValidationStatus status, double val) {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 RangeValidationResult result = this.validator.Validate(sVal, BLE_DataType.IEEE_754_64bit_floating_point);
                 Assert.AreEqual(status, result.Status);
                 double r = result.Payload.ToDouble64(0);
@@ -375,7 +375,7 @@ namespace TestCases.Core.BLE.BLE_DataInput {
         }
 
         public void ValidateSByte(string sVal, BLE_DataValidationStatus status, sbyte val) {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 RangeValidationResult result = this.validator.Validate(sVal, BLE_DataType.Int_8bit );
                 Assert.AreEqual(status, result.Status);
                 sbyte data = result.Payload.ToSByte(0);
@@ -385,7 +385,7 @@ namespace TestCases.Core.BLE.BLE_DataInput {
 
 
         public void ValidateInt16(string sVal, BLE_DataValidationStatus status, Int16 val, BLE_DataType dataType) {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 RangeValidationResult result = this.validator.Validate(sVal, dataType);
                 Assert.AreEqual(status, result.Status);
                 // This will be different on 12bit integer. Not yet supported
@@ -401,7 +401,7 @@ namespace TestCases.Core.BLE.BLE_DataInput {
 
 
         public void ValidateInt32(string sVal, BLE_DataValidationStatus status, Int32 val, BLE_DataType dataType) {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 RangeValidationResult result = this.validator.Validate(sVal, dataType);
                 Assert.AreEqual(status, result.Status);
                 if (dataType == BLE_DataType.Int_24bit) {
@@ -415,7 +415,7 @@ namespace TestCases.Core.BLE.BLE_DataInput {
         }
 
         public void ValidateInt64(string sVal, BLE_DataValidationStatus status, Int64 val, BLE_DataType dataType) {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 RangeValidationResult result = this.validator.Validate(sVal, dataType);
                 Assert.AreEqual(status, result.Status);
                 if (dataType == BLE_DataType.Int_48bit) {
@@ -430,7 +430,7 @@ namespace TestCases.Core.BLE.BLE_DataInput {
 
 
         public void ValidateByte(string sVal, BLE_DataValidationStatus status, byte bVal, BLE_DataType dataType) {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 RangeValidationResult result = this.validator.Validate(sVal, dataType);
                 Assert.AreEqual(status, result.Status);
                 Assert.AreEqual(bVal, result.Payload[0]);
@@ -439,7 +439,7 @@ namespace TestCases.Core.BLE.BLE_DataInput {
 
 
         public void ValidateUint16(string sVal, BLE_DataValidationStatus status, UInt16 val, BLE_DataType dataType) {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 RangeValidationResult result = this.validator.Validate(sVal, dataType);
                 Assert.AreEqual(status, result.Status);
                 Assert.AreEqual(val, result.Payload.ToUint16(0));
@@ -448,7 +448,7 @@ namespace TestCases.Core.BLE.BLE_DataInput {
 
 
         public void ValidateUint32(string sVal, BLE_DataValidationStatus status, UInt32 val, BLE_DataType dataType) {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 RangeValidationResult result = this.validator.Validate(sVal, dataType);
                 Assert.AreEqual(status, result.Status);
                 if (dataType == BLE_DataType.UInt_24bit) {
@@ -465,7 +465,7 @@ namespace TestCases.Core.BLE.BLE_DataInput {
 
 
         public void ValidateUint64(string sVal, BLE_DataValidationStatus status, UInt64 val, BLE_DataType dataType) {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 RangeValidationResult result = this.validator.Validate(sVal, dataType);
                 Assert.AreEqual(status, result.Status);
                 if (dataType == BLE_DataType.UInt_48bit) {

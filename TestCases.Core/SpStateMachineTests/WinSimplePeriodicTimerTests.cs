@@ -3,7 +3,7 @@ using SpStateMachine.PeriodicTimers;
 using System;
 using System.Diagnostics;
 using System.Threading;
-using TestCases.Core.TestToolSet;
+using TestCaseSupport.Core;
 
 namespace TestCases.SpStateMachineTests {
 
@@ -13,7 +13,7 @@ namespace TestCases.SpStateMachineTests {
         #region Setup
 
         WinSimpleTimer timer = null;
-        HelperLogReaderNet logReader = new HelperLogReaderNet();
+        HelperLogReader logReader = new HelperLogReader();
 
         [SetUp]
         public void SetupTests() {
@@ -37,21 +37,21 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _0_SetInterval_OK() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 this.timer.SetInterval(new TimeSpan(0, 0, 1));
             });
         }
 
         [Test]
         public void _50000_SetInterval_ZeroTimespan() {
-            TestHelpersNet.CatchExpected(50000, "WinSimpleTimer", "SetInterval", "The interval cannot be 0 milliseconds total", () => {
+            TestHelpers.CatchExpected(50000, "WinSimpleTimer", "SetInterval", "The interval cannot be 0 milliseconds total", () => {
                 this.timer.SetInterval(new TimeSpan());
             });
         }
 
         [Test]
         public void _50002_SetInterval_Disposed() {
-            TestHelpersNet.CatchExpected(50002, "WinSimpleTimer", "SetInterval", "Attempting to use Disposed Object", () => {
+            TestHelpers.CatchExpected(50002, "WinSimpleTimer", "SetInterval", "Attempting to use Disposed Object", () => {
                 this.timer.Dispose();
                 this.timer.SetInterval(new TimeSpan());
             });
@@ -112,7 +112,7 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _0_Start_Multi() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 this.timer.Start();
                 this.timer.Start();
                 this.timer.Start();
@@ -122,7 +122,7 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _50003_Start_Disposed() {
-            TestHelpersNet.CatchExpected(50003, "WinSimpleTimer", "Start", "Attempting to use Disposed Object", () => {
+            TestHelpers.CatchExpected(50003, "WinSimpleTimer", "Start", "Attempting to use Disposed Object", () => {
                 this.timer.Dispose();
                 this.timer.Start();
             });
@@ -134,7 +134,7 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _0_Stop_Multi() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 this.timer.Stop();
                 this.timer.Stop();
                 this.timer.Stop();
@@ -143,7 +143,7 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _50005_Start_Disposed() {
-            TestHelpersNet.CatchExpected(50005, "WinSimpleTimer", "Stop", "Attempting to use Disposed Object", () => {
+            TestHelpers.CatchExpected(50005, "WinSimpleTimer", "Stop", "Attempting to use Disposed Object", () => {
                 this.timer.Dispose();
                 this.timer.Stop();
             });

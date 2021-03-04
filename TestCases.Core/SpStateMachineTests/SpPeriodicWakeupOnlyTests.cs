@@ -2,7 +2,7 @@
 using SpStateMachine.Net.Behaviours;
 using SpStateMachine.Net.Core;
 using System.Threading;
-using TestCases.Core.TestToolSet;
+using TestCaseSupport.Core;
 
 namespace TestCases.SpStateMachineTests {
 
@@ -11,7 +11,7 @@ namespace TestCases.SpStateMachineTests {
 
         #region Data
 
-        HelperLogReaderNet logReader = new HelperLogReaderNet();
+        HelperLogReader logReader = new HelperLogReader();
 
         #endregion
 
@@ -34,7 +34,7 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _50080_EventReceived_Disposed() {
-            TestHelpersNet.CatchExpected(50080, "SpPeriodicWakeupOnly", "EventReceived", "Attempting to use Disposed Object", () => {
+            TestHelpers.CatchExpected(50080, "SpPeriodicWakeupOnly", "EventReceived", "Attempting to use Disposed Object", () => {
                 SpPeriodicWakeupOnly w = new SpPeriodicWakeupOnly();
                 w.Dispose();
                 Thread.Sleep(100);
@@ -44,7 +44,7 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _50081_EventReceived_UnhandledType() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 SpPeriodicWakeupOnly w = new SpPeriodicWakeupOnly();
                 w.EventReceived(BehaviorResponseEventType.Undefined);
                 w.Dispose();
@@ -59,7 +59,7 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _50082_WaitOnEvent_Disposed() {
-            TestHelpersNet.CatchExpected(50082, "SpPeriodicWakeupOnly", "WaitOnEvent", "Attempting to use Disposed Object", () => {
+            TestHelpers.CatchExpected(50082, "SpPeriodicWakeupOnly", "WaitOnEvent", "Attempting to use Disposed Object", () => {
                 SpPeriodicWakeupOnly w = new SpPeriodicWakeupOnly();
                 w.Dispose();
                 Thread.Sleep(100);
@@ -73,7 +73,7 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _50084_OnPeriodicTimer_Busy() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 SpPeriodicWakeupOnly w = new SpPeriodicWakeupOnly();
 
                 // setting terminate allows it to drop through the waitOnEvent

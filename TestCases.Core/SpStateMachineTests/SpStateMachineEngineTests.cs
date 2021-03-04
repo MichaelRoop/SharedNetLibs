@@ -3,7 +3,7 @@ using SpStateMachine.Net.Core;
 using SpStateMachine.Net.Interfaces;
 using System;
 using System.Threading;
-using TestCases.Core.TestToolSet;
+using TestCaseSupport.Core;
 using FakeItEasy;
 
 namespace TestCases.SpStateMachineTests {
@@ -13,7 +13,7 @@ namespace TestCases.SpStateMachineTests {
 
         #region Data
 
-        HelperLogReaderNet logReader = new HelperLogReaderNet();
+        HelperLogReader logReader = new HelperLogReader();
 
         public class engineParams {
             public ISpEventListner listner { get; set; } = A.Fake<ISpEventListner>();
@@ -49,7 +49,7 @@ namespace TestCases.SpStateMachineTests {
             engineParams ep = new engineParams();
             A.CallTo(() => ep.listner.Dispose()).Throws(new Exception("Listner exception"));
 
-            TestHelpersNet.CatchExpected(50056, "SpStateMachineEngine", "Start", "Attempting to use Disposed Object", () => {
+            TestHelpers.CatchExpected(50056, "SpStateMachineEngine", "Start", "Attempting to use Disposed Object", () => {
                 SpStateMachineEngine engine = new SpStateMachineEngine(ep.listner, ep.st, ep.be, ep.sm, ep.tm);
                 Console.WriteLine("Test: Disposing");
                 engine.Dispose();
@@ -68,7 +68,7 @@ namespace TestCases.SpStateMachineTests {
             engineParams ep = new engineParams();
             A.CallTo(() => ep.listner.Dispose()).Throws(new Exception("Listner exception"));
 
-            TestHelpersNet.CatchExpected(50057, "SpStateMachineEngine", "Stop", "Attempting to use Disposed Object", () => {
+            TestHelpers.CatchExpected(50057, "SpStateMachineEngine", "Stop", "Attempting to use Disposed Object", () => {
                 SpStateMachineEngine engine = new SpStateMachineEngine(ep.listner, ep.st, ep.be, ep.sm, ep.tm);
                 Console.WriteLine("Test: Disposing");
                 engine.Dispose();
@@ -87,7 +87,7 @@ namespace TestCases.SpStateMachineTests {
             engineParams ep = new engineParams();
             A.CallTo(() => ep.listner.Dispose()).Throws(new Exception("Listner exception"));
 
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 SpStateMachineEngine engine = new SpStateMachineEngine(ep.listner, ep.st, ep.be, ep.sm, ep.tm);
                 Console.WriteLine("Test: Disposing");
                 engine.Dispose();
@@ -110,7 +110,7 @@ namespace TestCases.SpStateMachineTests {
         public void _50060_DisposeObject_ErrorDisposingInternalObjects() {
             engineParams ep = new engineParams();
             A.CallTo(() => ep.listner.Dispose()).Throws(() => new Exception("Listner exception"));
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 SpStateMachineEngine engine = new SpStateMachineEngine(ep.listner, ep.st, ep.be, ep.sm, ep.tm);
                 Console.WriteLine("Test: Disposing");
                 engine.Dispose();
@@ -124,7 +124,7 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _0_DisposeObject_Success() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 SpStateMachineEngine engine = new SpStateMachineEngine(p.listner, p.st, p.be, p.sm, p.tm);
                 engine.Dispose();
             });
@@ -136,7 +136,7 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _50050_SpStateMachineEngine_nullListner() {
-            TestHelpersNet.CatchExpected(50050, "SpStateMachineEngine", ".ctor", "Null msgListner Argument", () => {
+            TestHelpers.CatchExpected(50050, "SpStateMachineEngine", ".ctor", "Null msgListner Argument", () => {
                 SpStateMachineEngine engine = new SpStateMachineEngine(null, p.st, p.be, p.sm, p.tm);
                 engine.Dispose();
             });
@@ -146,7 +146,7 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _50051_SpStateMachineEngine_nullStore() {
-            TestHelpersNet.CatchExpected(50051, "SpStateMachineEngine", ".ctor", "Null msgStore Argument", () => {
+            TestHelpers.CatchExpected(50051, "SpStateMachineEngine", ".ctor", "Null msgStore Argument", () => {
                 SpStateMachineEngine engine = new SpStateMachineEngine(p.listner, null, p.be, p.sm, p.tm);
                 engine.Dispose();
             });
@@ -154,7 +154,7 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _50052_SpStateMachineEngine_nullBehavior() {
-            TestHelpersNet.CatchExpected(50052, "SpStateMachineEngine", ".ctor", "Null eventBehavior Argument", () => {
+            TestHelpers.CatchExpected(50052, "SpStateMachineEngine", ".ctor", "Null eventBehavior Argument", () => {
                 SpStateMachineEngine engine = new SpStateMachineEngine(p.listner, p.st, null, p.sm, p.tm);
                 engine.Dispose();
             });
@@ -162,7 +162,7 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _50053_SpStateMachineEngine_nullStateMachine() {
-            TestHelpersNet.CatchExpected(50053, "SpStateMachineEngine", ".ctor", "Null stateMachine Argument", () => {
+            TestHelpers.CatchExpected(50053, "SpStateMachineEngine", ".ctor", "Null stateMachine Argument", () => {
                 SpStateMachineEngine engine = new SpStateMachineEngine(p.listner, p.st, p.be, null, p.tm);
                 engine.Dispose();
             });
@@ -170,7 +170,7 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _50054_SpStateMachineEngine_nullTimer() {
-            TestHelpersNet.CatchExpected(50054, "SpStateMachineEngine", ".ctor", "Null timer Argument", () => {
+            TestHelpers.CatchExpected(50054, "SpStateMachineEngine", ".ctor", "Null timer Argument", () => {
                 SpStateMachineEngine engine = new SpStateMachineEngine(p.listner, p.st, p.be, p.sm, null);
                 engine.Dispose();
             });
@@ -187,7 +187,7 @@ namespace TestCases.SpStateMachineTests {
             A.CallTo(() => ep.listner.Dispose()).Throws(new Exception("Listner exception"));
             A.CallTo(() => ep.be.WaitOnEvent()).Throws(() => new Exception("Behavior WaitOn Exception"));
 
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 SpStateMachineEngine engine = new SpStateMachineEngine(ep.listner, ep.st, ep.be, ep.sm, ep.tm);
                 Console.WriteLine("Test: Disposing");
                 engine.Dispose();

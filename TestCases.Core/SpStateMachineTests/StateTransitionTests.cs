@@ -3,7 +3,7 @@ using NUnit.Framework;
 using SpStateMachine.Net.Interfaces;
 using System;
 using System.Threading;
-using TestCases.Core.TestToolSet;
+using TestCaseSupport.Core;
 using TestCases.SpStateMachineTests.TestImplementations;
 using TestCases.SpStateMachineTests.TestImplementations.Messages;
 using TestCases.SpStateMachineTests.TestImplementations.SuperStates;
@@ -16,7 +16,7 @@ namespace TestCases.SpStateMachineTests {
 
         #region Data
 
-        HelperLogReaderNet logReader = new HelperLogReaderNet();
+        HelperLogReader logReader = new HelperLogReader();
 
         #endregion
 
@@ -40,7 +40,7 @@ namespace TestCases.SpStateMachineTests {
         [Test]
         public void TestDeferedTransitionsInSuperState() {
 
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
 
                 // Setting flip count will cause back and fourth between active and idle
                 MyDataClass dataClass = new MyDataClass();
@@ -61,7 +61,7 @@ namespace TestCases.SpStateMachineTests {
         [Test]
         public void TestExitStateTransitionsInSuperState() {
 
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
 
                 // Setting flip count will cause back and fourth between active and idle
                 MyDataClass dataClass = new MyDataClass();
@@ -84,7 +84,7 @@ namespace TestCases.SpStateMachineTests {
         [Test]
         public void TestExitStateCascadeInSuperState() {
 
-            //TestHelpersNet.CatchUnexpected(() => {
+            //TestHelpers.CatchUnexpected(() => {
 
             // Setting flip count will cause back and fourth between active and idle
             MyDataClass dataClass = new MyDataClass();
@@ -146,7 +146,7 @@ namespace TestCases.SpStateMachineTests {
 
         private ISpEventMessage Tick(ISpEventMessage msg, ISpStateMachine sm) {
             ISpEventMessage ret = null;
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 ret = sm.Tick(msg);
             });
             return ret;

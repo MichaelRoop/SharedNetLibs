@@ -2,7 +2,7 @@
 using BluetoothLE.Net.Parsers.Descriptor;
 using NUnit.Framework;
 using System.Collections.Generic;
-using TestCases.Core.TestToolSet;
+using TestCaseSupport.Core;
 using VariousUtils.Net;
 
 namespace TestCases.Core.BLE.BLE_DescParsers {
@@ -31,7 +31,7 @@ namespace TestCases.Core.BLE.BLE_DescParsers {
 
         [Test]
         public void AggregateFormat_ParseValid() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 DescParser_CharacteristicAggregateFormat parser = new DescParser_CharacteristicAggregateFormat();
                 List<ushort> attributes = new List<ushort>();
                 byte[] data = new byte[10 * sizeof(ushort)];
@@ -51,7 +51,7 @@ namespace TestCases.Core.BLE.BLE_DescParsers {
 
         [Test]
         public void ExtendedProperties_ParseValid() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 DescParser_CharacteristicExtendedProperties parser = 
                     new DescParser_CharacteristicExtendedProperties();
                 Assert.True(parser is DescParser_CharacteristicExtendedProperties);
@@ -93,7 +93,7 @@ namespace TestCases.Core.BLE.BLE_DescParsers {
 
 
 
-        //TestHelpersNet.CatchUnexpected(() => {
+        //TestHelpers.CatchUnexpected(() => {
         //    });
 
 

@@ -9,7 +9,7 @@ using SpStateMachine.Net.Interfaces;
 using SpStateMachine.PeriodicTimers;
 using System;
 using System.Threading;
-using TestCases.Core.TestToolSet;
+using TestCaseSupport.Core;
 using TestCases.SpStateMachineTests.TestImplementations;
 using TestCases.SpStateMachineTests.TestImplementations.Messages;
 using TestCases.SpStateMachineTests.TestImplementations.SuperStates;
@@ -88,7 +88,7 @@ namespace TestCases.SpStateMachineTests {
         [Test, Explicit]
         public void TestInitialGenericSpState() {
 
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
 
                 MyDataClass dataClass = new MyDataClass();
                 // This would normally be the main superstate which includes all other states cascading within it's and it's children's constructors
@@ -157,7 +157,7 @@ namespace TestCases.SpStateMachineTests {
         //[Test, Explicit("experimental")]
         public void TestEventTransitionsInSuperState() {
 
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
 
                 // Setting flip count will cause back and fourth between active and idle
                 MyDataClass dataClass = new MyDataClass() { FlipStateCount = 2 };
@@ -178,7 +178,7 @@ namespace TestCases.SpStateMachineTests {
         [Test, Explicit]
         public void TestDeferedTransitionsInSuperState() {
 
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
 
                 // Setting flip count will cause back and fourth between active and idle
                 MyDataClass dataClass = new MyDataClass();
@@ -216,7 +216,7 @@ namespace TestCases.SpStateMachineTests {
         [Test, Explicit]
         public void TestExitStateTransitionsInSuperState() {
 
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
 
                 // Setting flip count will cause back and fourth between active and idle
                 MyDataClass dataClass = new MyDataClass();
@@ -276,7 +276,7 @@ namespace TestCases.SpStateMachineTests {
         [Test, Explicit]
         public void TestResultExitTickStateTransitionsInSuperState() {
 
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 MyDataClass dataClass = new MyDataClass();
                 SS_M m = new SS_M(dataClass);
                 ISpEventListner listner;
@@ -305,7 +305,7 @@ namespace TestCases.SpStateMachineTests {
         [Test, Explicit]
         public void TestResultExitEntryStateTransitionsInSuperState() {
 
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 MyDataClass dataClass = new MyDataClass();
                 SS_M2 m = new SS_M2(dataClass);
                 ISpEventListner listner;

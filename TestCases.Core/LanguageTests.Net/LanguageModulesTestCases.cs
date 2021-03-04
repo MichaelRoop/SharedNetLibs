@@ -2,7 +2,7 @@
 using LanguageFactory.Net.interfaces;
 using LanguageFactory.Net.Messaging;
 using NUnit.Framework;
-using TestCases.Core.TestToolSet;
+using TestCaseSupport.Core;
 
 namespace TestCases.LanguageTests.Net {
 
@@ -45,7 +45,7 @@ namespace TestCases.LanguageTests.Net {
 
         [Test]
         public void TestDefaultLanguage() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 //this.factory.SetCurrentLanguage(LangCode.English);
                 string msg = this.factory.GetMsgDisplay(MsgCode.exit);
                 Assert.AreEqual("Exit", msg);
@@ -54,7 +54,7 @@ namespace TestCases.LanguageTests.Net {
 
         [Test]
         public void ChangeToChinese() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 // language is always set to english at start of tests
                 this.factory.SetCurrentLanguage(LangCode.Chinese);
                 string msg = this.factory.GetMsgDisplay(MsgCode.start);
@@ -67,7 +67,7 @@ namespace TestCases.LanguageTests.Net {
 
         [Test]
         public void ChangeToSpanish() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 // language is always set to english at start of tests
                 this.factory.SetCurrentLanguage(LangCode.Spanish);
                 string msg = this.factory.GetMsgDisplay(MsgCode.stop);
@@ -82,7 +82,7 @@ namespace TestCases.LanguageTests.Net {
         #endregion
 
         /*
-        TestHelpersNet.CatchUnexpected(() => {
+        TestHelpers.CatchUnexpected(() => {
         });
         */
 

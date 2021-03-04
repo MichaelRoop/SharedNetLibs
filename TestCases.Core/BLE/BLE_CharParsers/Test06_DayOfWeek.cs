@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using System;
 using System.Globalization;
-using TestCases.Core.TestToolSet;
+using TestCaseSupport.Core;
 
 namespace TestCases.Core.BLE.BLE_CharParsers {
 
@@ -62,7 +62,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
 
         private void Test(byte bleDay, int day) {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 TypeParserDayOfWeek parser = new TypeParserDayOfWeek();
                 byte[] data = new byte[parser.RequiredBytes];
                 data[0] = bleDay;

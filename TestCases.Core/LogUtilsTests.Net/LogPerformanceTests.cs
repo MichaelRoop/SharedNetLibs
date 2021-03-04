@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using System;
 using System.Diagnostics;
-using TestCases.Core.TestToolSet;
+using TestCaseSupport.Core;
 
 namespace TestCases.LogUtilsTests.Net {
 
@@ -11,7 +11,7 @@ namespace TestCases.LogUtilsTests.Net {
 
         #region Data
 
-        HelperLogReaderNet logReader = new HelperLogReaderNet();
+        HelperLogReader logReader = new HelperLogReader();
 
         #endregion
 

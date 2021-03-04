@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using TestCases.Core.TestToolSet;
+using TestCaseSupport.Core;
 
 namespace TestCases.StorageTests {
 
@@ -76,7 +76,7 @@ namespace TestCases.StorageTests {
 
         [Test]
         public void JSON_ReadWriteTest() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
 
                 #region Data 
 
@@ -147,7 +147,7 @@ namespace TestCases.StorageTests {
 
         [Test]
         public void JSON_ReadWriteTestFormatted() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
 
                 #region Data 
 
@@ -263,7 +263,7 @@ namespace TestCases.StorageTests {
 
         [Test]
         public void Encrypted_ReadWriteTest() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
 
                 #region Data 
 
@@ -291,7 +291,7 @@ namespace TestCases.StorageTests {
 
         [Test]
         public void GetFileListTest() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
 
                 #region Data 
 
@@ -331,7 +331,7 @@ namespace TestCases.StorageTests {
 
         [Test]
         public void XML_ReadWriteTest() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
 
                 #region Data 
 
@@ -367,7 +367,7 @@ namespace TestCases.StorageTests {
 
         [Test]
         public void MemoryStream_ReadWriteTest() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
 
                 #region Data 
 

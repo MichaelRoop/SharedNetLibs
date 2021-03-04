@@ -2,7 +2,7 @@
 using LogUtils.Net;
 using NUnit.Framework;
 using System.Globalization;
-using TestCases.Core.TestToolSet;
+using TestCaseSupport.Core;
 using VariousUtils.Net;
 
 namespace TestCases.Core.BLE.BLE_CharParsers {
@@ -64,7 +64,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
         #endregion
         #region Helpers
         public void TestTemperature(short value, double expectedValue, string expected) {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 CharParser_Temperature parser = new CharParser_Temperature();
                 byte[] data = new byte[sizeof(short)];
                 int pos = 0;
@@ -77,7 +77,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
         }
 
         public void TestHumidity(ushort value, double expectedValue, string expected) {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 CharParser_Humidity parser = new CharParser_Humidity();
                 byte[] data = new byte[sizeof(short)];
                 int pos = 0;
@@ -90,7 +90,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
         }
 
         public void TestPressure(uint value, double expectedValue, string expected) {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 CharParser_Pressure parser = new CharParser_Pressure();
                 byte[] data = new byte[sizeof(uint)];
                 int pos = 0;

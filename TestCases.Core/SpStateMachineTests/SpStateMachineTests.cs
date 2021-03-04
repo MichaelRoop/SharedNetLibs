@@ -4,7 +4,7 @@ using SpStateMachine.Net.Interfaces;
 using System;
 using TestCases.SpStateMachineTests.TestImplementations;
 using TestCases.SpStateMachineTests.TestImplementations.Messages;
-using TestCases.Core.TestToolSet;
+using TestCaseSupport.Core;
 using FakeItEasy;
 
 namespace TestCases.SpStateMachineTests {
@@ -36,7 +36,7 @@ namespace TestCases.SpStateMachineTests {
 
         #region Data
 
-        HelperLogReaderNet logReader = new HelperLogReaderNet();
+        HelperLogReader logReader = new HelperLogReader();
 
         public class smParams {
             public ISpState<MyMsgId> st { get; set; } = A.Fake<ISpState<MyMsgId>>();
@@ -67,7 +67,7 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _0_Dispose_Multi() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 ISpStateMachine sm = new SpMachine<IDisposable, MyMsgId>(p.wo, p.st);
                 sm.Dispose();
                 sm.Dispose();
@@ -77,7 +77,7 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _50173_Dispose_ChildManagedDisposeFail() {
-            TestHelpersNet.CatchExpected(50173, "SpMachine`2", "Dispose", "Managed Dispose Exception", () => {
+            TestHelpers.CatchExpected(50173, "SpMachine`2", "Dispose", "Managed Dispose Exception", () => {
                 ISpStateMachine sm = new smDerivedManagedFail(p.wo, p.st);
                 sm.Dispose();
             });
@@ -85,7 +85,7 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _50174_Dispose_ChildManagedDisposeFail() {
-            TestHelpersNet.CatchExpected(50174, "SpMachine`2", "Dispose", "Native Dispose Exception", () => {
+            TestHelpers.CatchExpected(50174, "SpMachine`2", "Dispose", "Native Dispose Exception", () => {
                 ISpStateMachine sm = new smDerivedNativeFail(p.wo, p.st);
                 sm.Dispose();
             });
@@ -96,7 +96,7 @@ namespace TestCases.SpStateMachineTests {
             smParams sp = new smParams();
             A.CallTo(() => sp.wo.Dispose()).Throws(() => new Exception("Wrapped Object Threw Exception on Dispose"));
 
-            TestHelpersNet.CatchExpected(50175, "SpMachine`2", "DisposeManagedResources", "Wrapped Object Threw Exception on Dispose", () => {
+            TestHelpers.CatchExpected(50175, "SpMachine`2", "DisposeManagedResources", "Wrapped Object Threw Exception on Dispose", () => {
                 ISpStateMachine sm = new SpMachine<IDisposable,MyMsgId>(sp.wo, sp.st);
                 sm.Dispose();
             });
@@ -108,7 +108,7 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _50170_Ctor_WrappedObject() {
-            TestHelpersNet.CatchExpected(50170, "SpMachine`2", ".ctor", "Null wrappedObject Argument", () => {
+            TestHelpers.CatchExpected(50170, "SpMachine`2", ".ctor", "Null wrappedObject Argument", () => {
                 ISpStateMachine sm = new SpMachine<IDisposable,MyMsgId>(null, p.st);
                 sm.Dispose();
             });
@@ -116,7 +116,7 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _50171_Ctor_NullState() {
-            TestHelpersNet.CatchExpected(50171, "SpMachine`2", ".ctor", "Null state Argument", () => {
+            TestHelpers.CatchExpected(50171, "SpMachine`2", ".ctor", "Null state Argument", () => {
                 ISpStateMachine sm = new SpMachine<IDisposable,MyMsgId>(p.wo, null);
                 sm.Dispose();
             });
@@ -134,7 +134,7 @@ namespace TestCases.SpStateMachineTests {
                  new SpStateTransition<MyMsgId>(
                      SpStateTransitionType.SameState, null, new MyBaseMsg(MyMsgType.SimpleMsg, MyMsgId.Start)));
 
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 ISpStateMachine sm = new SpMachine<IDisposable,MyMsgId>(sp.wo, sp.st);
                 sm.Tick(new MyBaseMsg(MyMsgType.SimpleMsg, MyMsgId.Tick));
             });
@@ -146,7 +146,7 @@ namespace TestCases.SpStateMachineTests {
             smParams sp = new smParams();
             A.CallTo(() => sp.st.FullName).Returns("Main.FirstState.Init");
             A.CallTo(() => sp.st.OnEntry(null)).WithAnyArguments().Returns(null);
-            TestHelpersNet.CatchExpected(50177, "SpMachine`2", "Tick", "The State 'Main.FirstState.Init' OnEntry Returned a Null Transition", () => {
+            TestHelpers.CatchExpected(50177, "SpMachine`2", "Tick", "The State 'Main.FirstState.Init' OnEntry Returned a Null Transition", () => {
                 ISpStateMachine sm = new SpMachine<IDisposable, MyMsgId>(sp.wo, sp.st);
                 sm.Tick(new MyBaseMsg(MyMsgType.SimpleMsg, MyMsgId.Tick));
             });
@@ -155,7 +155,7 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _50172_Tick_NullMsg() {
-            TestHelpersNet.CatchExpected(50172, "SpMachine`2", "Tick", "Null msg Argument", () => {
+            TestHelpers.CatchExpected(50172, "SpMachine`2", "Tick", "Null msg Argument", () => {
                 ISpStateMachine sm = new SpMachine<IDisposable,MyMsgId>(p.wo, p.st);
                 sm.Tick(null);
             });
@@ -164,7 +164,7 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _50176_Tick_Disposed() {
-            TestHelpersNet.CatchExpected(50176, "SpMachine`2", "Tick", "Attempting to use Disposed Object", () => {
+            TestHelpers.CatchExpected(50176, "SpMachine`2", "Tick", "Attempting to use Disposed Object", () => {
                 ISpStateMachine sm = new SpMachine<IDisposable,MyMsgId>(p.wo, p.st);
                 sm.Dispose();
                 sm.Tick(new MyBaseMsg(MyMsgType.SimpleMsg, MyMsgId.Tick));

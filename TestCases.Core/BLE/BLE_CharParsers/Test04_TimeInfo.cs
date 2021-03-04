@@ -1,6 +1,6 @@
 ﻿using BluetoothLE.Net.Parsers.Characteristics;
 using NUnit.Framework;
-using TestCases.Core.TestToolSet;
+using TestCaseSupport.Core;
 
 namespace TestCases.Core.BLE.BLE_CharParsers {
 
@@ -77,7 +77,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
 
         private void Test(int zone, byte st, string expected) {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 byte[] data = new byte[2];
                 data[0] = (byte)(zone * 4);
                 data[1] = st;

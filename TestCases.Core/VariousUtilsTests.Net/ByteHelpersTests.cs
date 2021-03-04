@@ -5,7 +5,7 @@ using System;
 using System.Diagnostics;
 using System.Text;
 using System.Threading;
-using TestCases.Core.TestToolSet;
+using TestCaseSupport.Core;
 using VariousUtils.Net;
 
 namespace TestCases.VariousUtilsTests.Net {
@@ -40,7 +40,7 @@ namespace TestCases.VariousUtilsTests.Net {
 
         [Test]
         public void xBytePatternTests() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 this.log.InfoEntry("xBytePatternTests");
 
                 byte[] buff = new byte[1000];
@@ -89,7 +89,7 @@ namespace TestCases.VariousUtilsTests.Net {
 
         [Test]
         public void ByteFifoTests() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 byte[] buff = new byte[1000];
                 int inPos = 0;
 
@@ -236,7 +236,7 @@ namespace TestCases.VariousUtilsTests.Net {
 
         [Test]
         public void PrintBytes() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
 
                 foreach (Terminator t in EnumHelpers.GetEnumList<Terminator>()) {
                     Debug.WriteLine("({0})Name: {1}   Hex:{2}   StrView:{3}   char:{4}",
@@ -255,7 +255,7 @@ namespace TestCases.VariousUtilsTests.Net {
 
         [Test]
         public void BitMaskingTest() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 byte[] data = new byte[] { 0xC1, 0x03 };
                 uint raw = (uint)BitConverter.ToUInt16(data);
                 //  6 bits = sub category - bits 0-5
@@ -289,7 +289,7 @@ namespace TestCases.VariousUtilsTests.Net {
 
 
 
-        //TestHelpersNet.CatchUnexpected(() => {
+        //TestHelpers.CatchUnexpected(() => {
         //    });
 
 

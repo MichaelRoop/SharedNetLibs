@@ -1,7 +1,7 @@
 ﻿using BluetoothLE.Net.Parsers.Characteristics;
 using NUnit.Framework;
 using System;
-using TestCases.Core.TestToolSet;
+using TestCaseSupport.Core;
 
 namespace TestCases.Core.BLE.BLE_CharParsers {
 
@@ -173,7 +173,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
         #region Private
 
         private void Parse(ushort value, string expected, string err) {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 CharParser_Appearance b = new CharParser_Appearance();
                 byte[] data = BitConverter.GetBytes((ushort)value);
                 string result = b.Parse(data);

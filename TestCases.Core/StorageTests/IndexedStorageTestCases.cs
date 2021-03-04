@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using TestCases.Core.TestToolSet;
+using TestCaseSupport.Core;
 
 namespace TestCases.StorageTests {
 
@@ -137,7 +137,7 @@ namespace TestCases.StorageTests {
 
         [Test]
         public void A1_DeleteEmptyDirectory() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 Directory.CreateDirectory(this.storage.StoragePath);
                 Assert.True(Directory.Exists(this.storage.StoragePath), "Directory should be there");
                 this.storage.DeleteStorageDirectory();
@@ -148,7 +148,7 @@ namespace TestCases.StorageTests {
 
         [Test]
         public void A2_DeleteDirectoryWithFiles() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 Directory.CreateDirectory(this.storage.StoragePath);
                 Assert.True(Directory.Exists(this.storage.StoragePath), "Directory should be there");
                 using (FileStream fs = File.Create(Path.Combine(this.storage.StoragePath, "File1.txt"))) { };
@@ -163,7 +163,7 @@ namespace TestCases.StorageTests {
 
         [Test]
         public void A3_AutoCreateDirectory() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 this.storage.DeleteStorageDirectory();
                 Assert.False(Directory.Exists(this.storage.StoragePath), "Directory should be gone");
                 // On next call to IndexedItems it will recreate directory with an empty index
@@ -175,14 +175,14 @@ namespace TestCases.StorageTests {
 
         #endregion
 
-        //TestHelpersNet.CatchUnexpected(() => {
+        //TestHelpers.CatchUnexpected(() => {
         //    });
 
         #region Storage Retrieval
 
         [Test]
         public void A4_TestStoreRetrieveWithRetrivalObj() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 int count = 10;
                 var testData = this.CreateTestData(count);
                 for (int i = 0; i < count; i++) {
@@ -227,7 +227,7 @@ namespace TestCases.StorageTests {
 
         [Test]
         public void A5_TestStoreRetrieveObj() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 int count = 10;
                 var results = this.CreateTestData(count);
                 for (int i = 0; i < count; i++) {
@@ -266,7 +266,7 @@ namespace TestCases.StorageTests {
 
         [Test]
         public void A6_TestStoreRetrieveObjAfterIndexReload() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 int count = 10;
                 var results = this.CreateTestData(count);
                 for (int i = 0; i < count; i++) {
@@ -309,14 +309,14 @@ namespace TestCases.StorageTests {
 
         [Test]
         public void A7_DeleteFilesLocalIndex() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 this.DoDelete(false);
             });
         }
 
         [Test]
         public void A8_DeleteFilesReloadedIndex() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 this.DoDelete(true);
             });
         }
@@ -324,7 +324,7 @@ namespace TestCases.StorageTests {
         #endregion
 
 
-        //TestHelpersNet.CatchUnexpected(() => {
+        //TestHelpers.CatchUnexpected(() => {
         //    });
 
 

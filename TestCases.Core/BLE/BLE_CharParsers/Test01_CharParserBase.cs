@@ -2,9 +2,7 @@
 using LogUtils.Net;
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using TestCases.Core.TestToolSet;
+using TestCaseSupport.Core;
 
 namespace TestCases.Core.BLE.BLE_CharParsers {
 
@@ -76,7 +74,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
         [Test]
         public void Err13618_ParseZeroLength() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 CharParser_BatteryLevel bl = new CharParser_BatteryLevel();
                 bl.Parse(new byte[0]);
                 this.logReader.Validate(13618, "BLEParserBase", "CopyToRawData", "byte[] is zero length");
@@ -86,7 +84,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
         [Test]
         public void Err13616_FailParseNull() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 CharParser_BatteryLevel bl = new CharParser_BatteryLevel();
                 bl.Parse(null);
                 this.logReader.Validate(13616, "BLEParserBase", "CopyToRawData", "Raw byte[] is null");
@@ -98,7 +96,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
         [Test]
         public void Err13607_FailParseException() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 byte[] blah = new byte[5];
                 CharParserFailConstructor1 c = new CharParserFailConstructor1();
                 c.Parse(blah);
@@ -109,7 +107,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
         [Test]
         public void Err13615_CopyRawLengthMismatch() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 byte[] data = new byte[2];
                 //CharParserCopyRaw b = new CharParserCopyRaw(data, 5);
                 CharParserCopyRaw b = new CharParserCopyRaw();
@@ -122,7 +120,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
         //[Test]
         //public void Err13616_CopyRawNull() {
-        //    TestHelpersNet.CatchUnexpected(() => {
+        //    TestHelpers.CatchUnexpected(() => {
         //        //CharParserCopyRaw b = new CharParserCopyRaw(null, 5);
         //        CharParserCopyRaw b = new CharParserCopyRaw();
         //        b.Parse(null);

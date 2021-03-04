@@ -1,7 +1,7 @@
 ﻿using BluetoothLE.Net.Parsers.Characteristics;
 using NUnit.Framework;
 using System.Text;
-using TestCases.Core.TestToolSet;
+using TestCaseSupport.Core;
 
 namespace TestCases.Core.BLE.BLE_CharParsers {
 
@@ -29,7 +29,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
         [Test]
         public void BatteryParseValue() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 byte[] data = new byte[1];
                 data[0] = 89;
                 CharParser_BatteryLevel b = new CharParser_BatteryLevel();
@@ -41,7 +41,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
         [Test]
         public void PPnPICParseValue() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 byte[] data = new byte[] { 0x02, 0x5E, 0x04, 0x17, 0x08, 0x31, 0x01 };
                 CharParser_PPnPID b = new CharParser_PPnPID();
                 string result = b.Parse(data);
@@ -53,7 +53,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
         [Test]
         public void StringParseValue() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 string value = "Blah blah woof woof";
                 byte[] data = Encoding.UTF8.GetBytes(value);
                 CharParser_String b = new CharParser_String();

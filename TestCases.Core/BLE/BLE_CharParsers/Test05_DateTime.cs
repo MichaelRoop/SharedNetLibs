@@ -3,7 +3,7 @@ using BluetoothLE.Net.Parsers.Characteristics;
 using BluetoothLE.Net.Parsers.Types;
 using NUnit.Framework;
 using System;
-using TestCases.Core.TestToolSet;
+using TestCaseSupport.Core;
 using VariousUtils.Net;
 
 namespace TestCases.Core.BLE.BLE_CharParsers {
@@ -51,7 +51,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
         [Test]
           public void InsufficientBytes() {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 TypeParserDateTime parser = new TypeParserDateTime();
                 byte[] data = new byte[4];
                 string result = parser.Parse(data);
@@ -79,7 +79,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
 
         private void Test(ushort year, byte month, byte day, byte hour, byte minutes, byte seconds, string expected) {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 TypeParserDateTime parser = new TypeParserDateTime();
                 byte[] data = new byte[parser.RequiredBytes];
                 int pos = 0;
@@ -96,7 +96,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
 
         private void TestDateOfBirth(ushort year, MonthOfYear month, DayOfWeek day) {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 string expected = string.Format("{0}, {1}, {2}",
                 year.GetYearStr(), MonthOfYear.Feb.GetMonthStr(),
                 day.GetDayStr());

@@ -1,7 +1,7 @@
 ﻿using BluetoothLE.Net.Parsers.Types;
 using NUnit.Framework;
 using System;
-using TestCases.Core.TestToolSet;
+using TestCaseSupport.Core;
 using VariousUtils.Net;
 
 namespace TestCases.Core.BLE.BLE_Types {
@@ -78,7 +78,7 @@ namespace TestCases.Core.BLE.BLE_Types {
 
 
         public void TestValidValuesFromBytes(Int64 value) {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 byte[] buffer = Int48.GetBytes(value);
                 int pos = 0;
                 Int48 val = Int48.GetNew(buffer, ref pos);
@@ -89,14 +89,14 @@ namespace TestCases.Core.BLE.BLE_Types {
 
 
         public void TestValidValuesFromInt(Int64 value) {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 Int48 val = Int48.GetNew(value);
                 Assert.AreEqual(value, val.Value, string.Format("On Set with Int32:{0}", value));
             });
         }
 
         public void TestOutOfRange(Int64 value) {
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 Assert.Throws<ArgumentOutOfRangeException>(() => {
                     Int48 val = Int48.GetNew(value);
                 });

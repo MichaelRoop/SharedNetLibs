@@ -21,6 +21,7 @@
     <ProjectReference Include="..\SpStateMachine.Net\SpStateMachine.Net.csproj" />
     <ProjectReference Include="..\SpStateMachineDemo.Net\SpStateMachineDemo.Net.csproj" />
     <ProjectReference Include="..\StorageFactory.Net\StorageFactory.Net.csproj" />
+    <ProjectReference Include="..\TestCaseSupport.Core\TestCaseSupport.Core.csproj" />
     <ProjectReference Include="..\VariousUtils\VariousUtils.Net.csproj" />
   </ItemGroup>
 

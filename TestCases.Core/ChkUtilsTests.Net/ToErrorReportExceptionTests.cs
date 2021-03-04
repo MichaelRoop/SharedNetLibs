@@ -2,7 +2,7 @@
 using ChkUtils.Net.ErrObjects;
 using NUnit.Framework;
 using System;
-using TestCases.Core.TestToolSet;
+using TestCaseSupport.Core;
 
 namespace TestCases.ChkUtilsTests.Net {
 
@@ -261,7 +261,7 @@ namespace TestCases.ChkUtilsTests.Net {
         #region Private Methods
 
         private void Validate(ErrReport err, int code, string method, string msg) {
-            TestHelpersNet.ValidateErrReport(err, code, "ToErrorReportExceptionTests", method, msg, "OuterClass.DoNestedException", "InnerClass.DoException");
+            TestHelpers.ValidateErrReport(err, code, "ToErrorReportExceptionTests", method, msg, "OuterClass.DoNestedException", "InnerClass.DoException");
 
         }
 

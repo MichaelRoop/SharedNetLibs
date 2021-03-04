@@ -1,7 +1,7 @@
 ﻿using ChkUtils.Net;
 using ChkUtils.Net.ErrObjects;
 using NUnit.Framework;
-using TestCases.Core.TestToolSet;
+using TestCaseSupport.Core;
 
 namespace TestCases.ChkUtilsTests.Net {
 
@@ -297,7 +297,7 @@ namespace TestCases.ChkUtilsTests.Net {
         #region Private Methods
 
         private void Validate(ErrReport err, int code, string method, string msg) {
-            TestHelpersNet.ValidateErrReport(err, code, "ValidatorTests", method, msg);
+            TestHelpers.ValidateErrReport(err, code, "ValidatorTests", method, msg);
 //            Assert.AreEqual("", err.StackTrace);
         }
 

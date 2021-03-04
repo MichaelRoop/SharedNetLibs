@@ -4,7 +4,7 @@ using SpStateMachine.Net.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using TestCases.Core.TestToolSet;
+using TestCaseSupport.Core;
 using TestCases.SpStateMachineTests.TestImplementations;
 using TestCases.SpStateMachineTests.TestImplementations.Messages;
 using FakeItEasy;
@@ -16,7 +16,7 @@ namespace TestCases.SpStateMachineTests {
 
         #region Data
 
-        HelperLogReaderNet logReader = new HelperLogReaderNet();
+        HelperLogReader logReader = new HelperLogReader();
 
         #endregion
 
@@ -53,7 +53,7 @@ namespace TestCases.SpStateMachineTests {
 
             string ret = "";
             bool converterCalled = false;
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 ret = SpTools.GetIdString(100, cache, (key) => { converterCalled = true; return "Blah"; });
             });
             Assert.IsFalse(converterCalled, "Converter should not have been called");
@@ -71,7 +71,7 @@ namespace TestCases.SpStateMachineTests {
             // Not cached
             string ret = "";
             bool converterCalled = false;
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 ret = SpTools.GetIdString(100, cache, (key) => { converterCalled = true; return "One Hundred State"; });
             });
             Assert.IsTrue(converterCalled, "Converter should have been called");
@@ -80,7 +80,7 @@ namespace TestCases.SpStateMachineTests {
             // Check if it is good and well cached by the method
             ret = "";
             converterCalled = false;
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 ret = SpTools.GetIdString(100, cache, (key) => { converterCalled = true; return "Blah!"; });
             });
             Assert.IsFalse(converterCalled, "Converter should have been called");
@@ -89,21 +89,21 @@ namespace TestCases.SpStateMachineTests {
         
         [Test]
         public void _51000_GetIdString_NullDictionary() {
-            TestHelpersNet.CatchExpected(51000, this.className, "GetIdString", "Null currentStrings Argument", () => {
+            TestHelpers.CatchExpected(51000, this.className, "GetIdString", "Null currentStrings Argument", () => {
                 SpTools.GetIdString(0, null, (key) => { return ""; });
             });
         }
 
         [Test]
         public void _51001_GetIdString_NullFunc() {
-            TestHelpersNet.CatchExpected(51001, this.className, "GetIdString", "Null converterFunc Argument", () => {
+            TestHelpers.CatchExpected(51001, this.className, "GetIdString", "Null converterFunc Argument", () => {
                 SpTools.GetIdString(0, new Dictionary<int,string>(), null);
             });
         }
 
         [Test]
         public void _51003_GetIdString_ConverterError() {
-            TestHelpersNet.CatchExpected(51003, this.className, "GetIdString", "Error in Calling Id to String Converter Method", () => {
+            TestHelpers.CatchExpected(51003, this.className, "GetIdString", "Error in Calling Id to String Converter Method", () => {
                 SpTools.GetIdString(0, new Dictionary<int, string>(), (key) => { throw new Exception("Blah!"); });
             });
         }
@@ -128,7 +128,7 @@ namespace TestCases.SpStateMachineTests {
         [Test]
         public void _0_RegisterTransition_Recoverable() {
             Dictionary<int,ISpStateTransition<MyMsgId>> store = new Dictionary<int, ISpStateTransition<MyMsgId>>();
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 SpTools.RegisterTransition("OnResult", MyMsgId.Start, this.validTransition, store);
                 SpTools.RegisterTransition("OnResult", MyMsgId.Stop, this.validTransition2, store);
             });
@@ -139,7 +139,7 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _51005_RegisterTransition_NullTransition() {
-            TestHelpersNet.CatchExpected(51005, this.className, "RegisterTransition", "Null transition Argument", () => {
+            TestHelpers.CatchExpected(51005, this.className, "RegisterTransition", "Null transition Argument", () => {
                 SpTools.RegisterTransition("OnResult", MyMsgId.Start, (ISpStateTransition<MyMsgId>)null, new Dictionary<int, ISpStateTransition<MyMsgId>>());
             });
         }
@@ -147,7 +147,7 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _51006_RegisterTransition_NullDictionary() {
-            TestHelpersNet.CatchExpected(51006, this.className, "RegisterTransition", "Null store Argument", () => {
+            TestHelpers.CatchExpected(51006, this.className, "RegisterTransition", "Null store Argument", () => {
                 SpTools.RegisterTransition("OnResult", MyMsgId.Start, this.validTransition, null);
             });
         }
@@ -159,7 +159,7 @@ namespace TestCases.SpStateMachineTests {
             Dictionary<int, ISpStateTransition<MyMsgId>> store = new Dictionary<int, ISpStateTransition<MyMsgId>>();
             store.Add(evVal, this.validTransition);
 
-            TestHelpersNet.CatchExpected(51008, this.className, "RegisterTransition", string.Format("Already Contain a 'OnResult' Transition for Id:{0}", evVal), () => {
+            TestHelpers.CatchExpected(51008, this.className, "RegisterTransition", string.Format("Already Contain a 'OnResult' Transition for Id:{0}", evVal), () => {
                 SpTools.RegisterTransition("OnResult", MyMsgId.Start, this.validTransition, store);
             });
         }
@@ -171,7 +171,7 @@ namespace TestCases.SpStateMachineTests {
         [Test]
         public void _0_GetTransitionCloneFromStore_Ok() {
             Dictionary<int,ISpStateTransition<MyMsgId>> store = new Dictionary<int, ISpStateTransition<MyMsgId>>();
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 SpTools.RegisterTransition("OnResult", MyMsgId.Tick, this.validTransition, store);
                 SpTools.RegisterTransition("OnResult", MyMsgId.Start, this.validTransition2, store);
 
@@ -185,7 +185,7 @@ namespace TestCases.SpStateMachineTests {
         [Test]
         public void _0_GetTransitionCloneFromStore_CloneIsGood() {
             Dictionary<int,ISpStateTransition<MyMsgId>> store = new Dictionary<int, ISpStateTransition<MyMsgId>>();
-            TestHelpersNet.CatchUnexpected(() => {
+            TestHelpers.CatchUnexpected(() => {
                 SpTools.RegisterTransition("OnResult", MyMsgId.Tick, this.validTransition, store);
                 SpTools.RegisterTransition("OnResult", MyMsgId.Start, this.validTransition2, store);
             });
@@ -206,14 +206,14 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _51009_GetTransitionCloneFromStore_NullEventIdConverter() {
-            TestHelpersNet.CatchExpected(51009, this.className, "GetTransitionCloneFromStore", "Null store Argument", () => {
+            TestHelpers.CatchExpected(51009, this.className, "GetTransitionCloneFromStore", "Null store Argument", () => {
                 SpTools.GetTransitionCloneFromStore<MyMsgId>(null, this.validMsg);
             });
         }
 
         [Test]
         public void _51010_GetTransitionCloneFromStore_NullEventMsg() {
-            TestHelpersNet.CatchExpected(51010, this.className, "GetTransitionCloneFromStore", "Null eventMsg Argument", () => {
+            TestHelpers.CatchExpected(51010, this.className, "GetTransitionCloneFromStore", "Null eventMsg Argument", () => {
                 Dictionary<int,ISpStateTransition<MyMsgId>> store = new Dictionary<int, ISpStateTransition<MyMsgId>>();
                 //SpTools.RegisterTransition("OnResult", new SpIntToInt(22), this.validTransition, store);
                 SpTools.RegisterTransition("OnResult", MyMsgId.Tick, this.validTransition, store);
@@ -224,7 +224,7 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _51011_GetTransitionCloneFromStore_ErrorOnClone() {
-            TestHelpersNet.CatchExpected(51011, this.className, "GetTransitionCloneFromStore", "Clone Exception", () => {
+            TestHelpers.CatchExpected(51011, this.className, "GetTransitionCloneFromStore", "Clone Exception", () => {
                 ISpStateTransition<MyMsgId> tr = A.Fake<ISpStateTransition<MyMsgId>>();
                 A.CallTo(() => tr.Clone()).Throws(new Exception("Clone Exception"));
 
