@@ -124,13 +124,18 @@ namespace StorageFactory.Net.StorageManagers {
 
         public bool DeleteStorageDirectory() {
             lock (this) {
-                if (DirectoryHelpers.DeleteDirectory(this.StoragePath)) {
-                    // Storage directory delete also deleted index to we can clear the 
-                    // local index object directly and set the flag to not loaded
-                    this.isIndexRead = false;
-                    this.indexItems.Items.Clear();
-                }
-                return false;
+                ErrReport report;
+                bool result = WrapErr.ToErrReport(out report, 9999, "", () => {
+                    if (DirectoryHelpers.DeleteDirectory(this.StoragePath)) {
+                        // Storage directory delete also deleted index to we can clear the 
+                        // local index object directly and set the flag to not loaded
+                        this.isIndexRead = false;
+                        this.indexItems.Items.Clear();
+                        return true;
+                    }
+                    return false;
+                });
+                return report.Code == 0 ? result : false;
             }
         }
 
