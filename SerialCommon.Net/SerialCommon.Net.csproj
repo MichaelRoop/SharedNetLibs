@@ -5,8 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\MultiCommTerminal\MultiCommData\MultiCommData.Net.csproj" />
     <ProjectReference Include="..\Common.Net\Common.Net.csproj" />
     <ProjectReference Include="..\CommunicationStack.Net\CommunicationStack.Net.csproj" />
+    <ProjectReference Include="..\Ethernet.Common.Net\Ethernet.Common.Net.csproj" />
   </ItemGroup>
 
 </Project>

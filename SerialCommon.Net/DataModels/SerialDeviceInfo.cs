@@ -1,4 +1,5 @@
 ﻿using Common.Net.Network;
+using MultiCommData.Net.interfaces;
 using SerialCommon.Net.Enumerations;
 using System;
 using System.Collections.Generic;
@@ -6,16 +7,18 @@ using System.Text;
 
 namespace SerialCommon.Net.DataModels {
     
-    public class SerialDeviceInfo {
+    public class SerialDeviceInfo : IDisplayableData, IIndexible {
 
-        /// <summary>Unique file identifier when we store this as a configuration</summary>
+        //// OLD UID - to transition over to new
         public string StorageUid { get; set; } = string.Empty;
 
+        /// <summary>Unique file identifier when we store this as a configuration</summary>
+        public string UId { get; set; } = string.Empty;
 
         /// <summary>Has the full Windows id string</summary>
         public string Id { get; set; } = string.Empty;
 
-        public string Name { get; set; } = string.Empty;
+        public string Display { get; set; } = string.Empty;
 
         /// <summary>The AQS query string to retrieve the device</summary>
         public string Aqs { get; set; } = string.Empty;
@@ -85,13 +88,18 @@ namespace SerialCommon.Net.DataModels {
         // Not sure if the same
         public Dictionary<string, NetPropertyDataModel> Properties { get; set; } =
             new Dictionary<string, NetPropertyDataModel>();
-        
+
         // Device information kind - same as BLE -
 
 
         public SerialDeviceInfo() {
-            // Used only when storing as a configuration
-            this.StorageUid = Guid.NewGuid().ToString();
+            //// Used only when storing as a configuration
+            //if (this.StorageUid.Length > 0) {
+            //    this.UId = this.StorageUid;
+            //}
+            //else {
+                this.UId = Guid.NewGuid().ToString();
+            //}
         }
 
     }

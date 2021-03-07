@@ -1,4 +1,6 @@
 ﻿
+using SerialCommon.Net.DataModels;
+
 namespace SerialCommon.Net.StorageIndexExtraInfo {
 
     /// <summary>Store extra info in the index file for lookup compares</summary>
@@ -40,6 +42,20 @@ namespace SerialCommon.Net.StorageIndexExtraInfo {
 
         /// <summary>ushort ID of USB Product (Ex 0x2145 is ATMEGA328P-XMINI (CDC ACM)). Use for query</summary>
         public ushort USBProductId { get; set; } = 0;
+
+
+        public SerialIndexExtraInfo(SerialDeviceInfo info) {
+            this.PortName = info.PortName;
+            this.USBVendorId = info.USB_VendorId;
+            this.USBVendor = info.USB_VendorIdDisplay;
+            this.USBProductId = info.USB_ProductId;
+            this.USBProduct = info.USB_ProductIdDisplay;
+        }
+
+        public SerialIndexExtraInfo() {
+
+        }
+
 
     }
 }
