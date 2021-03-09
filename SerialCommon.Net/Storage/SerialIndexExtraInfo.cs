@@ -45,15 +45,19 @@ namespace SerialCommon.Net.StorageIndexExtraInfo {
 
 
         public SerialIndexExtraInfo(SerialDeviceInfo info) {
+            this.Update(info);
+        }
+
+        public SerialIndexExtraInfo() {
+
+        }
+
+        public void Update(SerialDeviceInfo info) {
             this.PortName = info.PortName;
             this.USBVendorId = info.USB_VendorId;
             this.USBVendor = info.USB_VendorIdDisplay;
             this.USBProductId = info.USB_ProductId;
             this.USBProduct = info.USB_ProductIdDisplay;
-        }
-
-        public SerialIndexExtraInfo() {
-
         }
 
 
