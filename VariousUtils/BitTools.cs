@@ -114,17 +114,15 @@ namespace VariousUtils.Net {
         }
 
 
-        #region Bitmask creators with list of bools representing bits
+        #region Bitmask creators with linear list of bools representing bits from least position
 
         public static bool CreateBitMask(this List<bool> list, ref byte value) {
             if (list.Count == BYTE_BITS) {
                 byte tmp = 0;
                 for (int i = 0; i < BYTE_BITS; i++) {
-                    if (list[i]) {
-                        if (!SetBit(ref tmp, (byte)i)){
-                            return false;
-                        }
-                    } 
+                    if (!SetBit(ref tmp, (byte)i, list[i])){
+                        return false;
+                    }
                 }
                 value = tmp;
                 return true;
@@ -137,10 +135,8 @@ namespace VariousUtils.Net {
             if (list.Count == UINT16_BITS) {
                 UInt16 tmp = 0;
                 for (int i = 0; i < UINT16_BITS; i++) {
-                    if (list[i]) {
-                        if (!SetBit(ref tmp, (byte)i)) {
-                            return false;
-                        }
+                    if (!SetBit(ref tmp, (byte)i, list[i])) {
+                        return false;
                     }
                 }
                 value = tmp;
@@ -154,10 +150,8 @@ namespace VariousUtils.Net {
             if (list.Count == UINT32_BITS) {
                 UInt32 tmp = 0;
                 for (int i = 0; i < UINT32_BITS; i++) {
-                    if (list[i]) {
-                        if (!SetBit(ref tmp, (byte)i)) {
-                            return false;
-                        }
+                    if (!SetBit(ref tmp, (byte)i, list[i])) {
+                        return false;
                     }
                 }
                 value = tmp;
@@ -171,10 +165,8 @@ namespace VariousUtils.Net {
             if (list.Count == UINT64_BITS) {
                 UInt64 tmp = 0;
                 for (int i = 0; i < UINT64_BITS; i++) {
-                    if (list[i]) {
-                        if (!SetBit(ref tmp, (byte)i)) {
-                            return false;
-                        }
+                    if (!SetBit(ref tmp, (byte)i, list[i])) {
+                        return false;
                     }
                 }
                 value = tmp;
@@ -186,10 +178,15 @@ namespace VariousUtils.Net {
         #endregion
 
         #region Setbit on a data type
-        public static bool SetBit(ref byte target, ushort pos) {
+        public static bool SetBit(ref byte target, ushort pos, bool on) {
             try {
                 if (pos < BYTE_BITS) {
-                    target |= (byte)masks[pos];
+                    if (on) {
+                        target |= (byte)masks[pos];
+                    }
+                    else {
+                        target &= (byte)~masks[pos];
+                    }
                     return true;
                 }
             }
@@ -200,10 +197,16 @@ namespace VariousUtils.Net {
         }
 
 
-        public static bool SetBit(ref UInt16 target, ushort pos) {
+        public static bool SetBit(ref UInt16 target, ushort pos, bool on) {
             try {
                 if (pos < UINT16_BITS) {
-                    target |= (UInt16)masks[pos];
+                    if (on) {
+                        target |= (UInt16)masks[pos];
+                    }
+                    else {
+                        target &= (UInt16)~masks[pos];
+                    }
+
                     return true;
                 }
             }
@@ -214,10 +217,15 @@ namespace VariousUtils.Net {
         }
 
 
-        public static bool SetBit(ref UInt32 target, ushort pos) {
+        public static bool SetBit(ref UInt32 target, ushort pos, bool on) {
             try {
                 if (pos < UINT32_BITS) {
-                    target |= (UInt32)masks[pos];
+                    if (on) {
+                        target |= (UInt32)masks[pos];
+                    }
+                    else {
+                        target &= (UInt32)~masks[pos];
+                    }
                     return true;
                 }
             }
@@ -228,10 +236,15 @@ namespace VariousUtils.Net {
         }
 
 
-        public static bool SetBit(ref UInt64 target, ushort pos) {
+        public static bool SetBit(ref UInt64 target, ushort pos, bool on) {
             try {
                 if (pos < UINT64_BITS) {
-                    target |= masks[pos];
+                    if (on) {
+                        target |= masks[pos];
+                    }
+                    else {
+                        target &= ~masks[pos];
+                    }
                     return true;
                 }
             }

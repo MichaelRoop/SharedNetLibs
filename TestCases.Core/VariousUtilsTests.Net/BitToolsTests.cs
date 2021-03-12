@@ -34,30 +34,58 @@ namespace TestCases.Core.VariousUtilsTests.Net {
         #region Bit mask create tests
 
         [Test]
-        public void CreateBitMask01__uint8() {
+        public void CreateBitMask01__uint8_01StartBitsOff() {
             TestHelpers.CatchUnexpected(() => {
                 byte mask = 0;
                 byte[] bits = new byte[] { 1, 0, 0, 0, 0, 1, 1, 1 };
                 bool result = this.FromVisualArray(bits).CreateBitMask(ref mask);
                 Assert.True(result, "Creating bit mask");
-                Assert.AreEqual(135, mask);
                 Assert.AreEqual("1000 0111", mask.GetBitString());
+                Assert.AreEqual(135, mask);
                 //ByteHelpers
+            });
+        }
 
+        [Test]
+        public void CreateBitMask01__uint8_02StartBitsOn() {
+            TestHelpers.CatchUnexpected(() => {
+                byte mask = 0xFF;
+                byte[] bits = new byte[] { 1, 0, 0, 0, 0, 1, 1, 1 };
+                bool result = this.FromVisualArray(bits).CreateBitMask(ref mask);
+                Assert.True(result, "Creating bit mask");
+                Assert.AreEqual("1000 0111", mask.GetBitString());
+                Assert.AreEqual(135, mask);
+                //ByteHelpers
             });
         }
 
 
+
         [Test]
-        public void CreateBitMask02_uint16() {
+        public void CreateBitMask02_uint16_01StartBitsOff() {
             TestHelpers.CatchUnexpected(() => {
                 UInt16 mask = 0;
                 //0, 0, 0, 0, 1, 0, 0, 1
                 byte[] bits = new byte[] { 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1 };
                 bool result = this.FromVisualArray(bits).CreateBitMask(ref mask);
                 Assert.True(result, "Creating bit mask");
-                Assert.AreEqual(34569, mask);
                 Assert.AreEqual("1000 0111 0000 1001", mask.GetBitString());
+                Assert.AreEqual(34569, mask);
+                //ByteHelpers
+
+            });
+        }
+
+        [Test]
+        public void CreateBitMask02_uint16_02StartBitsOn() {
+            TestHelpers.CatchUnexpected(() => {
+                UInt16 mask = 0xFFFF;
+                //0, 0, 0, 0, 1, 0, 0, 1
+                byte[] bits = new byte[] { 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1 };
+                bool result = this.FromVisualArray(bits).CreateBitMask(ref mask);
+                Assert.True(result, "Creating bit mask");
+                Assert.AreEqual("1000 0111 0000 1001", mask.GetBitString());
+                Assert.AreEqual(34569, mask);
                 //ByteHelpers
 
             });
@@ -65,23 +93,37 @@ namespace TestCases.Core.VariousUtilsTests.Net {
 
 
         [Test]
-        public void CreateBitMask03_uint32() {
+        public void CreateBitMask03_uint32_01StartBitsOff() {
             TestHelpers.CatchUnexpected(() => {
                 UInt32 mask = 0;
                 //0, 0, 0, 0, 1, 0, 0, 1
                 byte[] bits = new byte[] { 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1 };
                 bool result = this.FromVisualArray(bits).CreateBitMask(ref mask);
                 Assert.True(result, "Creating bit mask");
-                Assert.AreEqual(2265548553, mask);
                 Assert.AreEqual("1000 0111 0000 1001 1000 0111 0000 1001", mask.GetBitString());
+                Assert.AreEqual(2265548553, mask);
                 //ByteHelpers
             });
         }
 
 
+        [Test]
+        public void CreateBitMask03_uint32_02StartBitsOn() {
+            TestHelpers.CatchUnexpected(() => {
+                UInt32 mask = 0xFFFFFFFF;
+                //0, 0, 0, 0, 1, 0, 0, 1
+                byte[] bits = new byte[] { 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1 };
+                bool result = this.FromVisualArray(bits).CreateBitMask(ref mask);
+                Assert.True(result, "Creating bit mask");
+                Assert.AreEqual("1000 0111 0000 1001 1000 0111 0000 1001", mask.GetBitString());
+                Assert.AreEqual(2265548553, mask);
+                //ByteHelpers
+            });
+        }
+
 
         [Test]
-        public void CreateBitMask04_uint64() {
+        public void CreateBitMask04_uint64_01StartBitsOff() {
             TestHelpers.CatchUnexpected(() => {
                 UInt64 mask = 0;
                 //0, 0, 0, 0, 1, 0, 0, 1
@@ -91,12 +133,32 @@ namespace TestCases.Core.VariousUtilsTests.Net {
                 };
                 bool result = this.FromVisualArray(bits).CreateBitMask(ref mask);
                 Assert.True(result, "Creating bit mask");
-                Assert.AreEqual(9730456944900671241, mask);
                 Assert.AreEqual("1000 0111 0000 1001 1000 0111 0000 1001 1000 0111 0000 1001 1000 0111 0000 1001", mask.GetBitString());
+                Assert.AreEqual(9730456944900671241, mask);
                 //ByteHelpers
 
             });
         }
+
+
+        [Test]
+        public void CreateBitMask04_uint64_01StartBitsOn() {
+            TestHelpers.CatchUnexpected(() => {
+                UInt64 mask = 0xFFFFFFFFFFFFFFFF;
+                //0, 0, 0, 0, 1, 0, 0, 1
+                byte[] bits = new byte[] {
+                    1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1,
+                    1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1
+                };
+                bool result = this.FromVisualArray(bits).CreateBitMask(ref mask);
+                Assert.True(result, "Creating bit mask");
+                Assert.AreEqual("1000 0111 0000 1001 1000 0111 0000 1001 1000 0111 0000 1001 1000 0111 0000 1001", mask.GetBitString());
+                Assert.AreEqual(9730456944900671241, mask);
+                //ByteHelpers
+
+            });
+        }
+
 
         #endregion
 
