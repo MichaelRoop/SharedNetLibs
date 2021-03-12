@@ -391,9 +391,37 @@ namespace VariousUtils.Net {
 
         #endregion
 
+        #region Create byte array
+
+        public static byte[] ToByteArray(this byte value) {
+            byte[] buff = new byte[sizeof(byte)];
+            value.WriteToBuffer(buff, 0);
+            return buff;
+        }
+
+        public static byte[] ToByteArray(this UInt16 value) {
+            byte[] buff = new byte[sizeof(UInt16)];
+            value.WriteToBuffer(buff, 0);
+            return buff;
+        }
+
+        public static byte[] ToByteArray(this UInt32 value) {
+            byte[] buff = new byte[sizeof(UInt32)];
+            value.WriteToBuffer(buff, 0);
+            return buff;
+        }
+
+        public static byte[] ToByteArray(this UInt64 value) {
+            byte[] buff = new byte[sizeof(UInt64)];
+            value.WriteToBuffer(buff, 0);
+            return buff;
+        }
+
+        #endregion
+
         #region Reverse bytes
 
-        private static UInt16 ReverseBytes(this UInt16 value) {
+        public static UInt16 ReverseBytes(this UInt16 value) {
             return (UInt16)((value & 0xFFU) << 8 | (value & 0xFF00U) >> 8);
         }
 
@@ -403,7 +431,7 @@ namespace VariousUtils.Net {
         }
 
 
-        private static UInt32 ReverseBytes(this UInt32 value) {
+        public static UInt32 ReverseBytes(this UInt32 value) {
             return (value & 0x000000FFU) << 24 | (value & 0x0000FF00U) << 8 |
                    (value & 0x00FF0000U) >> 8 | (value & 0xFF000000U) >> 24;
         }
