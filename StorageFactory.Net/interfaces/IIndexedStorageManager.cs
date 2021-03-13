@@ -96,6 +96,9 @@ namespace StorageFactory.Net.interfaces {
         bool DeleteFile(IIndexItem<TExtraInfo> fileInfo);
 
 
+        /// <summary>Deletes all files in the directory but leaves the diretory and index in place</summary>
+        /// <returns>true on success, otherwise false</returns>
+        bool DeleteAllFiles();
 
     }
 }

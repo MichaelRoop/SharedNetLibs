@@ -139,6 +139,27 @@ namespace StorageFactory.Net.StorageManagers {
             }
         }
 
+
+        public bool DeleteAllFiles() {
+            lock (this) {
+                ErrReport report;
+                bool result = WrapErr.ToErrReport(out report, 9999, "", () => {
+                    bool tmp = true;
+                    if (this.indexItems != null && indexItems.Items != null && this.indexItems.Items.Count > 0) {
+                        // Make a copy of all the indexes
+                        List<IIndexItem<TExtraInfo>> items = new List<IIndexItem<TExtraInfo>>();
+                        foreach (var item in this.indexItems.Items) { items.Add(item); }
+                        for (int i = 0; i < items.Count; i++) {
+                            tmp |= this.DeleteFile(items[0]);
+                        }
+                    }
+                    return tmp;
+                });
+                return report.Code == 0 ? result : false;
+            }
+        }
+
+
         public bool FileExists(IIndexItem<TExtraInfo> indexItem) {
             lock (this) {
                 return File.Exists(FileHelpers.GetFullFileName(this.StoragePath, indexItem.UId_FileName));
