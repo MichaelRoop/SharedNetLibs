@@ -181,12 +181,7 @@ namespace VariousUtils.Net {
         public static bool SetBit(ref byte target, ushort pos, bool on) {
             try {
                 if (pos < BYTE_BITS) {
-                    if (on) {
-                        target |= (byte)masks[pos];
-                    }
-                    else {
-                        target &= (byte)~masks[pos];
-                    }
+                    target = on ? (target |= (byte)masks[pos]) : (target &= (byte)~masks[pos]);
                     return true;
                 }
             }
@@ -200,13 +195,7 @@ namespace VariousUtils.Net {
         public static bool SetBit(ref UInt16 target, ushort pos, bool on) {
             try {
                 if (pos < UINT16_BITS) {
-                    if (on) {
-                        target |= (UInt16)masks[pos];
-                    }
-                    else {
-                        target &= (UInt16)~masks[pos];
-                    }
-
+                    target = on ? (target |= (UInt16)masks[pos]) : (target &= (UInt16)~masks[pos]);
                     return true;
                 }
             }
@@ -220,12 +209,7 @@ namespace VariousUtils.Net {
         public static bool SetBit(ref UInt32 target, ushort pos, bool on) {
             try {
                 if (pos < UINT32_BITS) {
-                    if (on) {
-                        target |= (UInt32)masks[pos];
-                    }
-                    else {
-                        target &= (UInt32)~masks[pos];
-                    }
+                    target = on ? (target |= (UInt32)masks[pos]) : (target &= (UInt32)~masks[pos]);
                     return true;
                 }
             }
@@ -239,12 +223,7 @@ namespace VariousUtils.Net {
         public static bool SetBit(ref UInt64 target, ushort pos, bool on) {
             try {
                 if (pos < UINT64_BITS) {
-                    if (on) {
-                        target |= masks[pos];
-                    }
-                    else {
-                        target &= ~masks[pos];
-                    }
+                    target = on ? (target |= masks[pos]) : (target &= ~masks[pos]);
                     return true;
                 }
             }
