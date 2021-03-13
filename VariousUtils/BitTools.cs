@@ -120,7 +120,7 @@ namespace VariousUtils.Net {
             if (list.Count == BYTE_BITS) {
                 byte tmp = 0;
                 for (int i = 0; i < BYTE_BITS; i++) {
-                    if (!SetBit(ref tmp, (byte)i, list[i])){
+                    if (!SetBit(ref tmp, (byte)i, list[i])) {
                         return false;
                     }
                 }
@@ -258,16 +258,16 @@ namespace VariousUtils.Net {
 
         #region Get string representation of bits, right to left order of importance
 
-        public static string GetBitString(this byte value) {
+        public static string ToBitString(this byte value) {
             return GetBitString(value.ToByteArray());
         }
-
-        public static string GetBitString(this UInt16 value) {
+        
+        public static string ToBitString(this UInt16 value) {
             // Need to flip byte order for human readable linear sequence
             return GetBitString(value.ReverseBytes().ToByteArray());
         }
 
-        public static string GetBitString(this UInt32 value) {
+        public static string ToBitString(this UInt32 value) {
             // Need to flip byte order for human readable linear sequence
             return GetBitString(value.ReverseBytes().ToByteArray());
         }
@@ -276,7 +276,6 @@ namespace VariousUtils.Net {
             // Need to flip byte order for human readable linear sequence
             return GetBitString(value.ReverseBytes().ToByteArray());
         }
-
 
         private static string GetBitString(byte[] array) {
             StringBuilder sb = new StringBuilder();

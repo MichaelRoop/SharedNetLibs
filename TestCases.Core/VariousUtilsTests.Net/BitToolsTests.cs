@@ -40,7 +40,7 @@ namespace TestCases.Core.VariousUtilsTests.Net {
                 byte[] bits = new byte[] { 1, 0, 0, 0, 0, 1, 1, 1 };
                 bool result = this.FromVisualArray(bits).CreateBitMask(ref mask);
                 Assert.True(result, "Creating bit mask");
-                Assert.AreEqual("1000 0111", mask.GetBitString());
+                Assert.AreEqual("1000 0111", mask.ToBitString());
                 Assert.AreEqual(135, mask);
                 //ByteHelpers
             });
@@ -53,7 +53,7 @@ namespace TestCases.Core.VariousUtilsTests.Net {
                 byte[] bits = new byte[] { 1, 0, 0, 0, 0, 1, 1, 1 };
                 bool result = this.FromVisualArray(bits).CreateBitMask(ref mask);
                 Assert.True(result, "Creating bit mask");
-                Assert.AreEqual("1000 0111", mask.GetBitString());
+                Assert.AreEqual("1000 0111", mask.ToBitString());
                 Assert.AreEqual(135, mask);
                 //ByteHelpers
             });
@@ -69,7 +69,7 @@ namespace TestCases.Core.VariousUtilsTests.Net {
                 byte[] bits = new byte[] { 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1 };
                 bool result = this.FromVisualArray(bits).CreateBitMask(ref mask);
                 Assert.True(result, "Creating bit mask");
-                Assert.AreEqual("1000 0111 0000 1001", mask.GetBitString());
+                Assert.AreEqual("1000 0111 0000 1001", mask.ToBitString());
                 Assert.AreEqual(34569, mask);
                 //ByteHelpers
 
@@ -84,7 +84,7 @@ namespace TestCases.Core.VariousUtilsTests.Net {
                 byte[] bits = new byte[] { 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1 };
                 bool result = this.FromVisualArray(bits).CreateBitMask(ref mask);
                 Assert.True(result, "Creating bit mask");
-                Assert.AreEqual("1000 0111 0000 1001", mask.GetBitString());
+                Assert.AreEqual("1000 0111 0000 1001", mask.ToBitString());
                 Assert.AreEqual(34569, mask);
                 //ByteHelpers
 
@@ -100,7 +100,7 @@ namespace TestCases.Core.VariousUtilsTests.Net {
                 byte[] bits = new byte[] { 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1 };
                 bool result = this.FromVisualArray(bits).CreateBitMask(ref mask);
                 Assert.True(result, "Creating bit mask");
-                Assert.AreEqual("1000 0111 0000 1001 1000 0111 0000 1001", mask.GetBitString());
+                Assert.AreEqual("1000 0111 0000 1001 1000 0111 0000 1001", mask.ToBitString());
                 Assert.AreEqual(2265548553, mask);
                 //ByteHelpers
             });
@@ -115,7 +115,7 @@ namespace TestCases.Core.VariousUtilsTests.Net {
                 byte[] bits = new byte[] { 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1 };
                 bool result = this.FromVisualArray(bits).CreateBitMask(ref mask);
                 Assert.True(result, "Creating bit mask");
-                Assert.AreEqual("1000 0111 0000 1001 1000 0111 0000 1001", mask.GetBitString());
+                Assert.AreEqual("1000 0111 0000 1001 1000 0111 0000 1001", mask.ToBitString());
                 Assert.AreEqual(2265548553, mask);
                 //ByteHelpers
             });
