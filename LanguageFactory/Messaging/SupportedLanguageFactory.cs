@@ -17,6 +17,7 @@ using LanguageFactory.Net.Languages.kr;
 using LanguageFactory.Net.Languages.nl;
 using LanguageFactory.Net.Languages.pl;
 using LanguageFactory.Net.Languages.pt;
+using LanguageFactory.Net.Languages.ro;
 using LanguageFactory.Net.Languages.ru;
 using LanguageFactory.Net.Languages.tr;
 using LanguageFactory.Net.Languages.uk;
@@ -140,6 +141,7 @@ namespace LanguageFactory.Net.Messaging {
             this.LoadLanguage(new Dutch()); // Nederlands
             this.LoadLanguage(new Polish());
             this.LoadLanguage(new Portuguese());
+            this.LoadLanguage(new Romanian());
             this.LoadLanguage(new Russian());
             this.LoadLanguage(new Turkish());
             this.LoadLanguage(new Ukranian());

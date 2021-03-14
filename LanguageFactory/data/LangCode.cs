@@ -21,5 +21,6 @@
         Arabic,
         Dutch,
         Polish,
+        Romanian,
     }
 }
