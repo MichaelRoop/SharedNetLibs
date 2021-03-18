@@ -61,51 +61,51 @@ namespace BluetoothLE.Net.Enumerations {
                 case BLE_DataType.Bool:
                     return "Bool";
                 case BLE_DataType.UInt_2bit:
-                    return "2 bit Unsigned Int";
+                    return "UInt2";
                 case BLE_DataType.UInt_4bit:
-                    return "4 bit Unsigned Int";
+                    return "UInt4";
                 case BLE_DataType.UInt_8bit:
-                    return "8 bit Unsigned Int";
+                    return "UInt8";
                 case BLE_DataType.UInt_12bit:
-                    return "12 bit Unsigned Int";
+                    return "UInt12";
                 case BLE_DataType.UInt_16bit:
-                    return "16 bit Unsigned Int";
+                    return "UInt16";
                 case BLE_DataType.UInt_24bit:
-                    return "24 bit Unsigned Int";
+                    return "UInt24";
                 case BLE_DataType.UInt_32bit:
-                    return "32 bit Unsigned Int";
+                    return "UInt32";
                 case BLE_DataType.UInt_48bit:
-                    return "48 bit Unsigned Int";
+                    return "UInt48";
                 case BLE_DataType.UInt_64bit:
-                    return "64 bit Unsigned Int";
+                    return "UInt64";
                 case BLE_DataType.UInt_128bit:
-                    return "128 bit Unsigned Int";
+                    return "UInt128";
                 case BLE_DataType.Int_8bit:
-                    return "8 bit Integer";
+                    return "Int8";
                 case BLE_DataType.Int_12bit:
-                    return "12 bit Integer";
+                    return "Int12";
                 case BLE_DataType.Int_16bit:
-                    return "16 bit Integer";
+                    return "Int16";
                 case BLE_DataType.Int_24bit:
-                    return "24 bit Integer";
+                    return "Int24";
                 case BLE_DataType.Int_32bit:
-                    return "32 bit Integer";
+                    return "Int32";
                 case BLE_DataType.Int_48bit:
-                    return "48 bit Integer";
+                    return "Int48";
                 case BLE_DataType.Int_64bit:
-                    return "64 bit Integer";
+                    return "Int64";
                 case BLE_DataType.Int_128bit:
-                    return "128 bit Integer";
+                    return "Int128";
                 case BLE_DataType.IEEE_754_32bit_floating_point:
-                    return "32 bit float";
+                    return "Float32";
                 case BLE_DataType.IEEE_754_64bit_floating_point:
-                    return "64 bit float";
+                    return "Float64";
                 case BLE_DataType.IEEE_11073_16bit_SFLOAT:
-                    return "16 bit float";
+                    return "Float16";
                 case BLE_DataType.IEEE_11073_32bit_FLOAT:
-                    return "32 bit float";
+                    return "Float32";
                 case BLE_DataType.IEEE_20601_format:
-                    return "Two 16 bit unsigned integers";
+                    return "TwoUInt16";
                 case BLE_DataType.UTF8_String:
                     return "UTF8 String";
                 case BLE_DataType.UTF16_String:
