@@ -120,6 +120,42 @@ namespace VariousUtils.Net {
         }
 
 
+        //https://stackoverflow.com/questions/2954962/convert-integer-to-binary-in-c-sharp
+        public static string ToFormatedBinaryString(this UInt32 base10) {
+            StringBuilder sb = new StringBuilder(Convert.ToString(base10, 2));
+            for (int i = sb.Length - 4; i > 0; i -= 4) {
+                sb.Insert(i, ' ');
+            }
+            return sb.ToString();
+            //return Convert.ToString(base10, 2);
+
+            /*
+            string binary = "";
+            do {
+                binary = (base10 % 2) + binary;
+                base10 /= 2;
+            }
+            while (base10 > 0);
+
+            // Need to add spaces
+            Char[] arr = binary.ToCharArray();
+            Array.Reverse(arr);
+
+            List<char> target = new List<char>();
+            for (int i = 0; i < arr.Length; i++) {
+                if (i % 4 == 0) {
+                    target.Add(' ');
+                }
+                target.Add(arr[i]);
+            }
+
+            target.Reverse();
+            return new string(target.ToArray());
+            */
+        }
+
+
+
 
     }
 }
