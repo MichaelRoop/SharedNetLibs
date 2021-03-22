@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -121,15 +122,16 @@ namespace VariousUtils.Net {
 
 
         //https://stackoverflow.com/questions/2954962/convert-integer-to-binary-in-c-sharp
-        public static string ToFormatedBinaryString(this UInt32 base10) {
-            StringBuilder sb = new StringBuilder(Convert.ToString(base10, 2));
-            for (int i = sb.Length - 4; i > 0; i -= 4) {
-                sb.Insert(i, ' ');
-            }
-            return sb.ToString();
-            //return Convert.ToString(base10, 2);
+        public static string ToFormatedBinaryString(this UInt64 base10) {
 
-            /*
+            // Limited to Uint32
+            //StringBuilder sb = new StringBuilder(Convert.ToString(base10, 2));
+            //for (int i = sb.Length - 4; i > 0; i -= 4) {
+            //    sb.Insert(i, ' ');
+            //}
+            //return sb.ToString();
+
+            
             string binary = "";
             do {
                 binary = (base10 % 2) + binary;
@@ -151,7 +153,7 @@ namespace VariousUtils.Net {
 
             target.Reverse();
             return new string(target.ToArray());
-            */
+            
         }
 
 
