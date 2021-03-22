@@ -11,6 +11,7 @@ using LanguageFactory.Net.Languages.en;
 using LanguageFactory.Net.Languages.es;
 using LanguageFactory.Net.Languages.fr;
 using LanguageFactory.Net.Languages.hi;
+using LanguageFactory.Net.Languages.id;
 using LanguageFactory.Net.Languages.it;
 using LanguageFactory.Net.Languages.ja;
 using LanguageFactory.Net.Languages.kr;
@@ -132,26 +133,27 @@ namespace LanguageFactory.Net.Messaging {
 
         /// <summary>Load all available languages</summary>
         private void LoadLanguages() {
-            this.LoadLanguage(new Czech());
-            this.LoadLanguage(new English());
-            this.LoadLanguage(new Spanish());
-            this.LoadLanguage(new German());
-            this.LoadLanguage(new French());
-            this.LoadLanguage(new Italian());
-            this.LoadLanguage(new Dutch()); // Nederlands
-            this.LoadLanguage(new Polish());
-            this.LoadLanguage(new Portuguese());
-            this.LoadLanguage(new Romanian());
-            this.LoadLanguage(new Russian());
-            this.LoadLanguage(new Turkish());
-            this.LoadLanguage(new Ukranian());
-            this.LoadLanguage(new Vietnamese());
-            this.LoadLanguage(new Hindi());
-            this.LoadLanguage(new Bengali());
-            this.LoadLanguage(new Chinese());
-            this.LoadLanguage(new Japanese());
-            this.LoadLanguage(new Korean());
-            this.LoadLanguage(new Arabic());
+            this.LoadLanguage(new Arabic());    // earabiin - arabionne
+            this.LoadLanguage(new Bengali());   // pronounced Bangla
+            this.LoadLanguage(new Czech());     // Chez - pronounced seksha
+            this.LoadLanguage(new English());   // English
+            this.LoadLanguage(new Spanish());   // Espanol
+            this.LoadLanguage(new German());    // Deutsch
+            this.LoadLanguage(new French());    // Francais
+            this.LoadLanguage(new Korean());    // hangug-eo
+            this.LoadLanguage(new Chinese());   // Pronounced Han Yu
+            this.LoadLanguage(new Hindi());     // Pronounced Hindi
+            this.LoadLanguage(new Indonesian());// Indonesia
+            this.LoadLanguage(new Italian());   // Italian
+            this.LoadLanguage(new Dutch());     // Nederlands
+            this.LoadLanguage(new Japanese());  // Nihongo
+            this.LoadLanguage(new Polish());    // Polski
+            this.LoadLanguage(new Portuguese());// Portugaisa
+            this.LoadLanguage(new Romanian());  // Romana
+            this.LoadLanguage(new Russian());   // Pronounced Ruski
+            this.LoadLanguage(new Vietnamese());// Tiếng Việt Nam
+            this.LoadLanguage(new Turkish());   // Turce
+            this.LoadLanguage(new Ukranian());  // Ukraiinska
             //this.LoadLanguage(new);
         }
 

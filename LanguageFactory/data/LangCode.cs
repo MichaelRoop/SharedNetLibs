@@ -22,5 +22,6 @@
         Dutch,
         Polish,
         Romanian,
+        Indonesian,
     }
 }
