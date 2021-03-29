@@ -13,6 +13,7 @@ namespace LogUtils.Net {
         private DateTime currentDate = DateTime.Now;
         private bool sendToDebug = true;
         private string build = "0.0.0.0";
+        private string appName = "UNKNOWN APP";
 
         #endregion
 
@@ -51,7 +52,26 @@ namespace LogUtils.Net {
         /// The number of accumulated messages where they dumped even if dump timeout not expired
         /// </param>
         public void Setup(string build, MsgLevel verbosity, bool sendToDebug, int msgCountThreshold = 5) {
+            this.Setup(
+                System.Reflection.Assembly.GetExecutingAssembly().GetName().Name, 
+                build, 
+                verbosity, 
+                sendToDebug, 
+                msgCountThreshold);
+        }
+
+
+        /// <summary>Setup where messages are pushed through the events</summary>
+        /// <param name="appName">Name of the application</param>
+        /// <param name="build">Current build number for the log header</param>
+        /// <param name="verbosity">Verbosity level of the logs</param>
+        /// <param name="sendToDebug">Send to debug as well as events for logger</param>
+        /// <param name="msgCountThreshold">
+        /// The number of accumulated messages where they dumped even if dump timeout not expired
+        /// </param>
+        public void Setup(string appName, string build, MsgLevel verbosity, bool sendToDebug, int msgCountThreshold = 5) {
             this.build = build;
+            this.appName = appName;
             this.sendToDebug = sendToDebug;
             WrapErr.SetStackTools(new StackTools());
             // TODO - this is done in the TestCases but not in app
@@ -127,7 +147,7 @@ namespace LogUtils.Net {
             this.log.Warning(0, "");
             this.log.Warning(0, "************** New Session ****************");
             this.log.Warning(0, "*");
-            this.log.Warning(0, string.Format("* {0}", System.Reflection.Assembly.GetExecutingAssembly().GetName().Name));
+            this.log.Warning(0, string.Format("* {0}", this.appName));
             this.log.Warning(0, string.Format("* Version: {0}", this.build));
             // This operates on the project build version
             //this.log.Warning(0, string.Format("* Version: {0}", System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()));
