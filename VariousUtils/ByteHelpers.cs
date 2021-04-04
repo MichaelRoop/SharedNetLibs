@@ -58,7 +58,7 @@ namespace VariousUtils.Net {
             int msgLen = terminatorPos;
             byte[] result = new byte[msgLen];
             Array.Copy(buff, result, msgLen);
-            string s = result.ToAsciiString();
+            //string s = result.ToAsciiString();
 
 
             int remaining = (nextPos - (msgLen + terminator.Length));
@@ -312,6 +312,12 @@ namespace VariousUtils.Net {
             Array.Copy(block, 0, buffer, pos, block.Length);
         }
 
+        public static void WriteToBuffer(this byte[] value, byte[] buffer, int pos) {
+            Array.Copy(value, 0, buffer, pos, value.Length);
+        }
+
+
+
         //----------------------------------------------------------------------------------------------------
 
 
@@ -389,6 +395,12 @@ namespace VariousUtils.Net {
             pos += block.Length;
         }
 
+
+        public static void WriteToBuffer(this byte[] value, byte[] buffer, ref int pos) {
+            Array.Copy(value, 0, buffer, pos, value.Length);
+            pos += value.Length;
+        }
+
         #endregion
 
         #region Create byte array
@@ -464,6 +476,86 @@ namespace VariousUtils.Net {
             // TODO - test this
             return (double)ReverseBytes((UInt64)value);
         }
+
+
+
+        #endregion
+
+        #region Calculate size
+
+        public static byte AddSize(this byte value, ref byte size) {
+            size += value.GetSize();
+            return size;
+        }
+
+        public static byte AddSize(this sbyte value, ref byte size) {
+            size += value.GetSize();
+            return size;
+        }
+
+        public static byte AddSize(this Int16 value, ref byte size) {
+            size += value.GetSize();
+            return size;
+        }
+
+        public static byte AddSize(this UInt16 value, ref byte size) {
+            size += value.GetSize();
+            return size;
+        }
+
+        public static byte AddSize(this Int32 value, ref byte size) {
+            size += value.GetSize();
+            return size;
+        }
+
+        public static byte AddSize(this UInt32 value, ref byte size) {
+            size += value.GetSize();
+            return size;
+        }
+
+        public static byte AddSize(this Single value, ref byte size) {
+            size += value.GetSize();
+            return size;
+        }
+
+        public static byte AddSize(this byte[] value, ref byte size) {
+            size += value.GetSize();
+            return size;
+        }
+
+        public static byte GetSize(this byte value) {
+            return 1;
+        }
+
+        public static byte GetSize(this sbyte value) {
+            return 1;
+        }
+
+        public static byte GetSize(this Int16 value) {
+            return sizeof(short);
+        }
+
+        public static byte GetSize(this UInt16 value) {
+            return sizeof(ushort);
+        }
+
+        public static byte GetSize(this Int32 value) {
+            return sizeof(Int32);
+        }
+
+        public static byte GetSize(this UInt32 value) {
+            return sizeof(UInt32);
+        }
+
+        public static byte GetSize(this Single value) {
+            return sizeof(Single);
+        }
+
+        public static byte GetSize(this byte[] value) {
+            return (byte)value.Length;
+        }
+
+
 
 
 
