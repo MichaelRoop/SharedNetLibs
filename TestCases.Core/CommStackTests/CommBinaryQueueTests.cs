@@ -55,7 +55,7 @@ namespace TestCases.Core.CommStackTests {
             TestHelpers.CatchUnexpected(() => {
                 bool gotIt = false;
                 int length = 0;
-                BinaryMsgUint16 msg = new BinaryMsgUint16(16, 32111);
+                BinaryMsgUInt16 msg = new BinaryMsgUInt16(16, 32111);
                 byte[] packet = msg.ToByteArray();
                 this.stack.MsgReceived += (sender, data) => {
                     gotIt = true;
@@ -81,7 +81,7 @@ namespace TestCases.Core.CommStackTests {
 
                 bool gotIt = false;
                 int length = 0;
-                BinaryMsgUint16 msg = new BinaryMsgUint16(16, 32111);
+                BinaryMsgUInt16 msg = new BinaryMsgUInt16(16, 32111);
                 byte[] packet = msg.ToByteArray();
                 byte[] part1 = new byte[4];
                 byte[] part2 = new byte[packet.Length - 4];
@@ -110,7 +110,7 @@ namespace TestCases.Core.CommStackTests {
             TestHelpers.CatchUnexpected(() => {
                 bool gotIt = false;
                 int length = 0;
-                BinaryMsgUint16 msg = new BinaryMsgUint16(16, 32111);
+                BinaryMsgUInt16 msg = new BinaryMsgUInt16(16, 32111);
                 byte[] packet = msg.ToByteArray();
                 this.stack.MsgReceived += (sender, data) => {
                     gotIt = true;
@@ -135,9 +135,9 @@ namespace TestCases.Core.CommStackTests {
         [Test]
         public void FullPacket01_04DoublePacket() {
             TestHelpers.CatchUnexpected(() => {
-                BinaryMsgUint16 msg1 = new BinaryMsgUint16(16, 32111);
+                BinaryMsgUInt16 msg1 = new BinaryMsgUInt16(16, 32111);
                 byte[] packet1 = msg1.ToByteArray();
-                BinaryMsgUint16 msg2 = new BinaryMsgUint16(16, 311);
+                BinaryMsgUInt16 msg2 = new BinaryMsgUInt16(16, 311);
                 byte[] packet2 = msg2.ToByteArray();
 
                 byte[] packet = new byte[packet1.Length + packet2.Length];
@@ -164,6 +164,41 @@ namespace TestCases.Core.CommStackTests {
                 // The send is on thread pool so give time to finish
                 Thread.Sleep(100);
                 Assert.AreEqual(4, count, string.Format("Receive count"));
+
+            });
+        }
+
+
+        [Test]
+        public void ObjectFromPacket02_01SingleMsg() {
+            TestHelpers.CatchUnexpected(() => {
+                bool gotIt = false;
+                int length = 0;
+                BinaryMsgUInt16 msg = new BinaryMsgUInt16(16, 32111);
+                byte[] packet = msg.ToByteArray();
+                byte[] returnedPacket = new byte[0];
+                this.stack.MsgReceived += (sender, data) => {
+                    gotIt = true;
+                    length = data.Length;
+                    returnedPacket = data;
+                };
+
+                this.myComm.SendOutMsg(packet);
+                // The send is on thread pool so give time to finish
+                Thread.Sleep(100);
+
+                Assert.True(gotIt, "Did not get it");
+                Assert.AreEqual(packet.Length, length, "Packet length");
+                Assert.True(returnedPacket.Length > 0, "Return packet 0");
+                BinaryMsgUInt16 received = returnedPacket.ToUInt16Msg();
+                Assert.NotNull(received, "Failed to build object");
+                Assert.AreEqual(msg.SOH, received.SOH);
+                Assert.AreEqual(msg.STX, received.STX);
+                Assert.AreEqual(msg.Size, received.Size);
+                Assert.AreEqual(msg.Id, received.Id);
+                Assert.AreEqual(msg.Value, received.Value);
+                Assert.AreEqual(msg.ETX, received.ETX);
+                Assert.AreEqual(msg.EOT, received.EOT);
 
             });
         }

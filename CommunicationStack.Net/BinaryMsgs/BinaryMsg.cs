@@ -24,7 +24,7 @@ namespace CommunicationStack.Net.BinaryMsgs {
 
         public T Value { get; set; }
 
-        public byte[] Payload { get; private set; }
+        public byte[] Payload { get { return this.GetPayload(); }  }
 
         //------------------- Footer ----------------------------------------
         public byte ETX { get { return BinaryMsgDefines.ETX; } }
@@ -32,7 +32,6 @@ namespace CommunicationStack.Net.BinaryMsgs {
 
 
         public BinaryMsg() {
-            this.Payload = this.GetPayload();
             this.DataType = this.GetDataType();
             this.Size = this.CalculateSize();
         }
@@ -111,7 +110,29 @@ namespace CommunicationStack.Net.BinaryMsgs {
             if (dataType != BinaryMsgDataType.typeInvalid && dataType != BinaryMsgDataType.tyepUndefined) {
                 ushort size = packet.GetSize();
                 if (IsValidSizeForMessage(dataType, size)) {
-                    return true;
+                    if (packet.IsHeaderValid()) {
+                        if (packet.IsFooterValid(BinaryMsgDefines.DataPos + dataType.DataSize())) {
+                            return true;
+                        }
+                    }
+                }
+                else {
+                    log.Error(9999, "", () => string.Format("Invalid size {0} for type {1}", size, dataType));
+                }
+            }
+            return false;
+        }
+
+        public static bool IsValidMsg(this byte[] packet, BinaryMsgDataType dataType) {
+            BinaryMsgDataType packetDataType = packet.GetDataType();
+            if (packetDataType == dataType) {
+                ushort size = packet.GetSize();
+                if (IsValidSizeForMessage(dataType, size)) {
+                    if (packet.IsHeaderValid()) {
+                        if (packet.IsFooterValid(BinaryMsgDefines.DataPos + dataType.DataSize())) {
+                            return true;
+                        }
+                    }
                 }
                 else {
                     log.Error(9999, "", () => string.Format("Invalid size {0} for type {1}", size, dataType));
@@ -121,7 +142,28 @@ namespace CommunicationStack.Net.BinaryMsgs {
         }
 
 
-        public static bool IsValidSizeForMessage(BinaryMsgDataType dataType, ushort size) {
+        /// <summary>Called after the size and data type is checked</summary>
+        /// <returns>true if header values are valid, otherwise false</returns>
+        private static bool IsHeaderValid(this byte[] packet) {
+            return
+                packet[BinaryMsgDefines.SOHPos] == BinaryMsgDefines.SOH &&
+                packet[BinaryMsgDefines.STXPos] == BinaryMsgDefines.STX;
+        }
+
+
+        /// <summary>Called after size and data type validated</summary>
+        /// <param name="packet"></param>
+        /// <param name="startpos"></param>
+        /// <returns></returns>
+        private static bool IsFooterValid(this byte[] packet, int startpos) {
+            return
+                packet[startpos] == BinaryMsgDefines.ETX &&
+                packet[startpos + 1] == BinaryMsgDefines.EOT;
+        }
+
+
+
+        public static bool IsValidSizeForMessage(this BinaryMsgDataType dataType, ushort size) {
             switch (dataType) {
                 case BinaryMsgDataType.typeBool:
                     return size == BinaryMsgDefines.SizeMsgBool;
@@ -172,19 +214,88 @@ namespace CommunicationStack.Net.BinaryMsgs {
 
 
 
-        public static BinaryMsgUint16 ToUint16Msg(this byte[] packet) {
+        #region Messages form byte array
 
-            // Get parsing in the 
-            return new BinaryMsgUint16();
+        public static BinaryMsgBool ToBoolMsg(this byte[] packet) {
+            if (packet.IsValidMsg(BinaryMsgDataType.typeBool)) {
+                return new BinaryMsgBool(
+                    packet[BinaryMsgDefines.IdPos],
+                    packet[BinaryMsgDefines.DataPos]);
+            }
+            return null;
         }
 
 
+        public static BinaryMsgUInt8 ToUInt8Msg(this byte[] packet) {
+            if (packet.IsValidMsg(BinaryMsgDataType.typeUInt8)) {
+                return new BinaryMsgUInt8(
+                    packet[BinaryMsgDefines.IdPos],
+                    packet[BinaryMsgDefines.DataPos]);
+            }
+            return null;
+        }
 
-        //public static BinaryMsg<T> FromArray( this byte[] array) {
-        //    return new BinaryMsgUint16();
 
-        //}
+        public static BinaryMsgInt8 ToInt8Msg(this byte[] packet) {
+            if (packet.IsValidMsg(BinaryMsgDataType.typeInt8)) {
+                return new BinaryMsgInt8(
+                    packet[BinaryMsgDefines.IdPos],
+                    packet.ToSByte(BinaryMsgDefines.DataPos));
+            }
+            return null;
+        }
 
+
+        public static BinaryMsgUInt16 ToUInt16Msg(this byte[] packet) {
+            if (packet.IsValidMsg(BinaryMsgDataType.typeUInt16)) {
+                return new BinaryMsgUInt16(
+                    packet[BinaryMsgDefines.IdPos],
+                    packet.ToUint16(BinaryMsgDefines.DataPos));
+            }
+            return null;
+        }
+
+
+        public static BinaryMsgInt16 ToInt16Msg(this byte[] packet) {
+            if (packet.IsValidMsg(BinaryMsgDataType.typeInt16)) {
+                return new BinaryMsgInt16(
+                    packet[BinaryMsgDefines.IdPos],
+                    packet.ToInt16(BinaryMsgDefines.DataPos));
+            }
+            return null;
+        }
+
+
+        public static BinaryMsgUInt32 ToUInt32Msg(this byte[] packet) {
+            if (packet.IsValidMsg(BinaryMsgDataType.typeUInt32)) {
+                return new BinaryMsgUInt32(
+                    packet[BinaryMsgDefines.IdPos],
+                    packet.ToUint32(BinaryMsgDefines.DataPos));
+            }
+            return null;
+        }
+
+
+        public static BinaryMsgInt32 ToInt32Msg(this byte[] packet) {
+            if (packet.IsValidMsg(BinaryMsgDataType.typeInt32)) {
+                return new BinaryMsgInt32(
+                    packet[BinaryMsgDefines.IdPos],
+                    packet.ToInt32(BinaryMsgDefines.DataPos));
+            }
+            return null;
+        }
+
+
+        public static BinaryMsgFloat32 ToFloat32Msg(this byte[] packet) {
+            if (packet.IsValidMsg(BinaryMsgDataType.typeFloat32)) {
+                return new BinaryMsgFloat32(
+                    packet[BinaryMsgDefines.IdPos],
+                    packet.ToFloat32(BinaryMsgDefines.DataPos));
+            }
+            return null;
+        }
+
+        #endregion
 
 
     }

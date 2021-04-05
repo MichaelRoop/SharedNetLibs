@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using VariousUtils.Net;
 
 namespace CommunicationStack.Net.Enumerations {
 
@@ -24,6 +25,36 @@ namespace CommunicationStack.Net.Enumerations {
         public static byte ToByte(this BinaryMsgDataType dataType) {
             return (byte)dataType;            
         }
+
+
+        public static int DataSize(this BinaryMsgDataType dataType) {
+            switch (dataType) {
+                case BinaryMsgDataType.typeBool:
+                    return ((byte)0).GetSize();
+                case BinaryMsgDataType.typeInt8:
+                    return ((sbyte)0).GetSize();
+                case BinaryMsgDataType.typeUInt8:
+                    return ((byte)0).GetSize();
+                case BinaryMsgDataType.typeInt16:
+                    return ((Int16)0).GetSize();
+                case BinaryMsgDataType.typeUInt16:
+                    return ((UInt16)0).GetSize();
+                case BinaryMsgDataType.typeInt32:
+                    return ((Int32)0).GetSize();
+                case BinaryMsgDataType.typeUInt32:
+                    return ((UInt32)0).GetSize();
+                case BinaryMsgDataType.typeFloat32:
+                    return ((Single)0).GetSize();
+                case BinaryMsgDataType.tyepUndefined:
+                case BinaryMsgDataType.typeInvalid:
+                default:
+                    return 0; ;
+            }
+
+
+        }
+
+
 
 
     }

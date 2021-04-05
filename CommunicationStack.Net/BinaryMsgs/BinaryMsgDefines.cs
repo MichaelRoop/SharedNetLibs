@@ -18,6 +18,7 @@ namespace CommunicationStack.Net.BinaryMsgs {
         public static int SizePos { get { return 2; } }
         public static int DataTypePos { get { return 4; } }
         public static int IdPos { get { return 5; } }
+        public static int DataPos { get { return 6; } }
 
 
         public static byte SOH { get { return 0x01; } }
