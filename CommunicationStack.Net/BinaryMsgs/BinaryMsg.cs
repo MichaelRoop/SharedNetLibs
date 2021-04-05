@@ -33,7 +33,6 @@ namespace CommunicationStack.Net.BinaryMsgs {
         }
 
 
-
         public byte[] ToByteArray() {
             byte[] packet = new byte[this.CalculateSize()];
             int pos = 0;
@@ -59,23 +58,85 @@ namespace CommunicationStack.Net.BinaryMsgs {
 
 
         private ushort CalculateSize() {
+            //ushort size = 0;                            // Position
+            //this.SOH.AddSize(ref size);                 // 0
+            //this.STX.AddSize(ref size);                 // 1
+            //this.Size.AddSize(ref size);                // 2,3
+            //this.DataType.ToByte().AddSize(ref size);   // 4
+            //this.Id.AddSize(ref size);                  // 5 Id  -- Up to here always same
+            ////------------------- Header ----------------------------------------
+
+            //// Variable payload size depending on type
+            //size += (ushort)this.Payload.Length;        // Payload variable
+
+            ////------------------- Footer ----------------------------------------
+            //this.ETX.AddSize(ref size);        // payload + 1 -- From here down always same
+            //this.EOT.AddSize(ref size);        // payload + 2
+            //return size;
+
+            ushort size = this.CalculateHeaderSize();
+            size += (ushort)this.Payload.Length;
+            size += this.CalculateFooterSize();
+            return size;
+        }
+
+
+        private ushort CalculateHeaderSize() {
             ushort size = 0;                            // Position
             this.SOH.AddSize(ref size);                 // 0
             this.STX.AddSize(ref size);                 // 1
             this.Size.AddSize(ref size);                // 2,3
             this.DataType.ToByte().AddSize(ref size);   // 4
             this.Id.AddSize(ref size);                  // 5 Id  -- Up to here always same
-            //------------------- Header ----------------------------------------
+            return size;
+        }
 
-            // Variable payload size depending on type
-            size += (ushort)this.Payload.Length;        // Payload variable
 
-            //------------------- Footer ----------------------------------------
+        private ushort CalculateFooterSize() {
+            ushort size = 0;                   // Position
             this.ETX.AddSize(ref size);        // payload + 1 -- From here down always same
             this.EOT.AddSize(ref size);        // payload + 2
             return size;
         }
 
+
+
+
     }
+
+
+    public static class BinaryMsgExtensions {
+
+        public static BinaryMsgDataType GetDataType(this byte[] packet) {
+            if (packet.Length >= 5) {
+                byte value = packet[BinaryMsgDefines.DataTypePos];
+                if (value > BinaryMsgDataType.tyepUndefined.ToByte() &&
+                    value < BinaryMsgDataType.typeInvalid.ToByte()) {
+                    return (BinaryMsgDataType)value;
+                }
+            }
+            return BinaryMsgDataType.tyepUndefined;
+        }
+
+
+        public static BinaryMsgUint16 ToUint16Msg(this byte[] packet) {
+
+            // Get parsing in the 
+            return new BinaryMsgUint16();
+        }
+
+
+
+        //public static BinaryMsg<T> FromArray( this byte[] array) {
+        //    return new BinaryMsgUint16();
+
+        //}
+
+
+
+    }
+
+
+
 
 }

@@ -15,6 +15,8 @@ namespace CommunicationStack.Net.BinaryMsgs {
         public static byte[] StartDelimiters { get { return BinaryMsgDefines.startDelimiters; } }
         public static byte[] EndDelimiters { get { return BinaryMsgDefines.endDelimiters; } }
 
+        public static int DataTypePos { get { return 4; } }
+
 
     }
 }
