@@ -483,75 +483,75 @@ namespace VariousUtils.Net {
 
         #region Calculate size
 
-        public static byte AddSize(this byte value, ref byte size) {
+        public static ushort AddSize(this byte value, ref ushort size) {
             size += value.GetSize();
             return size;
         }
 
-        public static byte AddSize(this sbyte value, ref byte size) {
+        public static ushort AddSize(this sbyte value, ref ushort size) {
             size += value.GetSize();
             return size;
         }
 
-        public static byte AddSize(this Int16 value, ref byte size) {
+        public static ushort AddSize(this Int16 value, ref ushort size) {
             size += value.GetSize();
             return size;
         }
 
-        public static byte AddSize(this UInt16 value, ref byte size) {
+        public static ushort AddSize(this UInt16 value, ref ushort size) {
             size += value.GetSize();
             return size;
         }
 
-        public static byte AddSize(this Int32 value, ref byte size) {
+        public static ushort AddSize(this Int32 value, ref ushort size) {
             size += value.GetSize();
             return size;
         }
 
-        public static byte AddSize(this UInt32 value, ref byte size) {
+        public static ushort AddSize(this UInt32 value, ref ushort size) {
             size += value.GetSize();
             return size;
         }
 
-        public static byte AddSize(this Single value, ref byte size) {
+        public static ushort AddSize(this Single value, ref ushort size) {
             size += value.GetSize();
             return size;
         }
 
-        public static byte AddSize(this byte[] value, ref byte size) {
+        public static ushort AddSize(this byte[] value, ref ushort size) {
             size += value.GetSize();
             return size;
         }
 
-        public static byte GetSize(this byte value) {
+        public static ushort GetSize(this byte value) {
             return 1;
         }
 
-        public static byte GetSize(this sbyte value) {
+        public static ushort GetSize(this sbyte value) {
             return 1;
         }
 
-        public static byte GetSize(this Int16 value) {
+        public static ushort GetSize(this Int16 value) {
             return sizeof(short);
         }
 
-        public static byte GetSize(this UInt16 value) {
+        public static ushort GetSize(this UInt16 value) {
             return sizeof(ushort);
         }
 
-        public static byte GetSize(this Int32 value) {
+        public static ushort GetSize(this Int32 value) {
             return sizeof(Int32);
         }
 
-        public static byte GetSize(this UInt32 value) {
+        public static ushort GetSize(this UInt32 value) {
             return sizeof(UInt32);
         }
 
-        public static byte GetSize(this Single value) {
+        public static ushort GetSize(this Single value) {
             return sizeof(Single);
         }
 
-        public static byte GetSize(this byte[] value) {
+        public static ushort GetSize(this byte[] value) {
             return (byte)value.Length;
         }
 
