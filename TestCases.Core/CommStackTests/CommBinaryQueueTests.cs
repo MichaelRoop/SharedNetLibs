@@ -13,6 +13,8 @@ namespace TestCases.Core.CommStackTests {
 
         #region Data
 
+        int waitMs = 5;
+
         public class MyComm : ICommStackChannel {
             public event EventHandler<byte[]> MsgReceivedEvent;
 
@@ -51,7 +53,7 @@ namespace TestCases.Core.CommStackTests {
         #endregion
 
         [Test]
-        public void FullPacket01_01Whole() {
+        public void BinaryMsg01_01PopFromQueue_WholePacketIn() {
             TestHelpers.CatchUnexpected(() => {
                 bool gotIt = false;
                 int length = 0;
@@ -64,19 +66,16 @@ namespace TestCases.Core.CommStackTests {
 
                 this.myComm.SendOutMsg(packet);
                 // The send is on thread pool so give time to finish
-                Thread.Sleep(100);
+                Thread.Sleep(waitMs);
 
                 Assert.True(gotIt, "Did not get it");
                 Assert.AreEqual(packet.Length, length, "Packet length");
             });
         }
 
-        private void Stack_MsgReceived(object sender, byte[] e) {
-            throw new NotImplementedException();
-        }
 
         [Test]
-        public void FullPacket01_02Split() {
+        public void BinaryMsg01_02PopFromQueue_SplitPacketIn() {
             TestHelpers.CatchUnexpected(() => {
 
                 bool gotIt = false;
@@ -92,13 +91,13 @@ namespace TestCases.Core.CommStackTests {
                     length = data.Length;
                 };
                 this.myComm.SendOutMsg(part1);
-                Thread.Sleep(100);
+                Thread.Sleep(waitMs);
                 Assert.False(gotIt, "Only part 1");
                 Assert.AreEqual(0, length, "Packet length should not be set");
 
 
                 this.myComm.SendOutMsg(part2);
-                Thread.Sleep(100);
+                Thread.Sleep(waitMs);
                 Assert.True(gotIt, "Did not get it");
                 Assert.AreEqual(packet.Length, length, "Packet length");
             });
@@ -106,7 +105,7 @@ namespace TestCases.Core.CommStackTests {
 
 
         [Test]
-        public void FullPacket01_03ByteByByteSplit() {
+        public void BinaryMsg01_03PopFromQueue_SplitIntoBytesIn() {
             TestHelpers.CatchUnexpected(() => {
                 bool gotIt = false;
                 int length = 0;
@@ -119,7 +118,7 @@ namespace TestCases.Core.CommStackTests {
                 for (int i = 0; i < packet.Length; i++) {
                     byte[] part = new byte[1] { packet[i] };
                     this.myComm.SendOutMsg(part);
-                    Thread.Sleep(100);
+                    Thread.Sleep(waitMs);
                     if (i == (packet.Length - 1)) {
                         Assert.True(gotIt, "Should have gotten it");
                         Assert.AreEqual(packet.Length, length, "Packet length");
@@ -133,7 +132,7 @@ namespace TestCases.Core.CommStackTests {
 
 
         [Test]
-        public void FullPacket01_04DoublePacket() {
+        public void BinaryMsg01_04PopFromQueue_DoublePacketIn() {
             TestHelpers.CatchUnexpected(() => {
                 BinaryMsgUInt16 msg1 = new BinaryMsgUInt16(16, 32111);
                 byte[] packet1 = msg1.ToByteArray();
@@ -150,58 +149,149 @@ namespace TestCases.Core.CommStackTests {
 
                 this.myComm.SendOutMsg(packet);
                 // The send is on thread pool so give time to finish
-                Thread.Sleep(100);
+                Thread.Sleep(waitMs);
                 Assert.AreEqual(2, count, "Receive count");
 
                 // Send other to make sure the queue still works
                 this.myComm.SendOutMsg(packet1);
                 // The send is on thread pool so give time to finish
-                Thread.Sleep(100);
+                Thread.Sleep(waitMs);
                 Assert.AreEqual(3, count, string.Format("Receive count"));
 
                 // Send other to make sure the queue still works
                 this.myComm.SendOutMsg(packet2);
                 // The send is on thread pool so give time to finish
-                Thread.Sleep(100);
+                Thread.Sleep(waitMs);
                 Assert.AreEqual(4, count, string.Format("Receive count"));
 
             });
         }
 
 
+
         [Test]
-        public void ObjectFromPacket02_01SingleMsg() {
+        public void BinaryMsg02_01ObjectFromPacketBool() {
+            TestHelpers.CatchUnexpected(() => {
+                BinaryMsgBool msg = new BinaryMsgBool(22, true);
+                byte[] packet = msg.ToByteArray();
+                byte[] returnedPacket = this.GetQueuePopData(packet);
+                BinaryMsgBool received = returnedPacket.ToBoolMsg();
+                this.ValidateReturnedObj(msg, received);
+            });
+        }
+
+        [Test]
+        public void BinaryMsg02_02ObjectFromPacketUInt8() {
+            TestHelpers.CatchUnexpected(() => {
+                BinaryMsgUInt8 msg = new BinaryMsgUInt8(16, 202);
+                byte[] packet = msg.ToByteArray();
+                byte[] returnedPacket = this.GetQueuePopData(packet);
+                BinaryMsgUInt8 received = returnedPacket.ToUInt8Msg();
+                this.ValidateReturnedObj(msg, received);
+            });
+        }
+
+        [Test]
+        public void BinaryMsg02_03ObjectFromPacketInt8() {
+            TestHelpers.CatchUnexpected(() => {
+                BinaryMsgInt8 msg = new BinaryMsgInt8(6, 122);
+                byte[] packet = msg.ToByteArray();
+                byte[] returnedPacket = this.GetQueuePopData(packet);
+                BinaryMsgInt8 received = returnedPacket.ToInt8Msg();
+                this.ValidateReturnedObj(msg, received);
+            });
+        }
+
+
+        [Test]
+        public void BinaryMsg02_04ObjectFromPacketUInt16() {
+            TestHelpers.CatchUnexpected(() => {
+                BinaryMsgUInt16 msg = new BinaryMsgUInt16(16, 32111);
+                byte[] packet = msg.ToByteArray();
+                byte[] returnedPacket = this.GetQueuePopData(packet);
+                BinaryMsgUInt16 received = returnedPacket.ToUInt16Msg();
+                this.ValidateReturnedObj(msg, received);
+            });
+        }
+
+        [Test]
+        public void BinaryMsg02_05ObjectFromPacketInt16() {
+            TestHelpers.CatchUnexpected(() => {
+                BinaryMsgInt16 msg = new BinaryMsgInt16(6, 3211);
+                byte[] packet = msg.ToByteArray();
+                byte[] returnedPacket = this.GetQueuePopData(packet);
+                BinaryMsgInt16 received = returnedPacket.ToInt16Msg();
+                this.ValidateReturnedObj(msg, received);
+            });
+        }
+
+        [Test]
+        public void BinaryMsg02_06ObjectFromPacketUInt32() {
+            TestHelpers.CatchUnexpected(() => {
+                BinaryMsgUInt32 msg = new BinaryMsgUInt32(1, 62111);
+                byte[] packet = msg.ToByteArray();
+                this.ValidateReturnedObj(msg, this.GetQueuePopData(packet).ToUInt32Msg());
+            });
+        }
+
+        [Test]
+        public void BinaryMsg02_07ObjectFromPacketInt32() {
+            TestHelpers.CatchUnexpected(() => {
+                BinaryMsgInt32 msg = new BinaryMsgInt32(144, 32111);
+                byte[] packet = msg.ToByteArray();
+                this.ValidateReturnedObj(msg, this.GetQueuePopData(packet).ToInt32Msg());
+            });
+        }
+
+
+        [Test]
+        public void BinaryMsg02_08ObjectFromPacketFloat32() {
+            TestHelpers.CatchUnexpected(() => {
+                BinaryMsgFloat32 msg = new BinaryMsgFloat32(144, 32111);
+                byte[] packet = msg.ToByteArray();
+                this.ValidateReturnedObj(msg, this.GetQueuePopData(packet).ToFloat32Msg());
+            });
+        }
+
+
+
+        private void ValidateReturnedObj<T>(BinaryMsg<T> expected, BinaryMsg<T> received) {
+            TestHelpers.CatchUnexpected(() => {
+                Assert.NotNull(received, "Failed to build object");
+                Assert.AreEqual(expected.SOH, received.SOH);
+                Assert.AreEqual(expected.STX, received.STX);
+                Assert.AreEqual(expected.Size, received.Size);
+                Assert.AreEqual(expected.Id, received.Id);
+                Assert.AreEqual(expected.Value, received.Value);
+                Assert.AreEqual(expected.ETX, received.ETX);
+                Assert.AreEqual(expected.EOT, received.EOT);
+
+            });
+        }
+
+
+        private byte[] GetQueuePopData(byte[] inPacket) {
+            byte[] returnedPacket = new byte[0];
             TestHelpers.CatchUnexpected(() => {
                 bool gotIt = false;
                 int length = 0;
-                BinaryMsgUInt16 msg = new BinaryMsgUInt16(16, 32111);
-                byte[] packet = msg.ToByteArray();
-                byte[] returnedPacket = new byte[0];
                 this.stack.MsgReceived += (sender, data) => {
                     gotIt = true;
                     length = data.Length;
                     returnedPacket = data;
                 };
 
-                this.myComm.SendOutMsg(packet);
+                this.myComm.SendOutMsg(inPacket);
                 // The send is on thread pool so give time to finish
-                Thread.Sleep(100);
-
+                Thread.Sleep(waitMs);
                 Assert.True(gotIt, "Did not get it");
-                Assert.AreEqual(packet.Length, length, "Packet length");
-                Assert.True(returnedPacket.Length > 0, "Return packet 0");
-                BinaryMsgUInt16 received = returnedPacket.ToUInt16Msg();
-                Assert.NotNull(received, "Failed to build object");
-                Assert.AreEqual(msg.SOH, received.SOH);
-                Assert.AreEqual(msg.STX, received.STX);
-                Assert.AreEqual(msg.Size, received.Size);
-                Assert.AreEqual(msg.Id, received.Id);
-                Assert.AreEqual(msg.Value, received.Value);
-                Assert.AreEqual(msg.ETX, received.ETX);
-                Assert.AreEqual(msg.EOT, received.EOT);
-
+                Assert.AreEqual(inPacket.Length, length, "Packet length");
             });
+            return returnedPacket;
         }
+
+
+
 
 
 
