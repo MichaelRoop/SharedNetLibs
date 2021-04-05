@@ -1,4 +1,5 @@
-﻿using LogUtils.Net;
+﻿using CommunicationStack.Net.BinaryMsgs;
+using LogUtils.Net;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -109,12 +110,10 @@ namespace CommunicationStack.Net.Stacks {
             lock (this) {
                 bool result = true;
                 // Start afresh. Validate first bytes of incoming are delimiters
-                if (this.nextPos == 0 && data.Length >= this.startDelimiters.Length) {
-                    // All messages will have 
-                    // SOH (1 byte)
-                    // STX (1 byte)
-                    // Size (1 byte)
+                if (this.nextPos == 0 && data.Length > 0) {
                     if (!this.ValidateStartDelimiters(data)) {
+                        // Throw out the data
+                        this.log.Error(9999, "", () => string.Format("Invalid entry data:{0}", data.ToFormatedByteString()));
                         return false;
                     }
                 }
@@ -122,18 +121,21 @@ namespace CommunicationStack.Net.Stacks {
                 if (data.Length > 0) {
                     this.log.Info("AddBytes", () => string.Format("Data: {0}", data.ToFormatedByteString()));
                     result = this.buff.FifoPush(data, ref this.nextPos);
-                    byte[] msg = this.buff.FifoPop(this.endDelimiters, ref this.nextPos);
-                    if (msg.Length > 0) {
-                        if (this.MsgReceived != null) {
-                            // Need to add the end delimitors as the Fifo will have stripped them out
-                            byte[] fullMsg = new byte[msg.Length + this.endDelimiters.Length];
-                            Array.Copy(msg, fullMsg, msg.Length);
-                            Array.Copy(this.endDelimiters, 0, fullMsg, msg.Length, this.endDelimiters.Length);
-                            // TODO - at this point we have validated at least the end parameters. Now must 
-                            // evaluate start, length fields
-
-
-                            this.MsgReceived?.Invoke(this, fullMsg);
+                    while (true) {
+                        byte[] msg = this.buff.FifoPop(this.endDelimiters, ref this.nextPos);
+                        if (msg.Length > 0) {
+                            if (this.MsgReceived != null) {
+                                byte[] fullMsg = this.ReplaceStripedEndDelimiters(msg);
+                                if (this.ValidateStartDelimiters(fullMsg)) {
+                                    if (fullMsg.IsValidMsg()) {
+                                        this.MsgReceived?.Invoke(this, fullMsg);
+                                    }
+                                }
+                            }
+                        }
+                        else {
+                            // No more messages in FIFI queue
+                            break;
                         }
                     }
                 }
@@ -142,9 +144,11 @@ namespace CommunicationStack.Net.Stacks {
         }
 
 
-
+        /// <summary>Used at start of new data to check if first bytes are start delimiters</summary>
+        /// <param name="msg">The message to validate</param>
+        /// <returns>true if the order of bytes are same as start delimiters, otherwise false</returns>
         private bool ValidateStartDelimiters(byte[] msg) {
-            for (int i = 0; i < this.startDelimiters.Length; i++) {
+            for (int i = 0; i < this.startDelimiters.Length && i < msg.Length; i++) {
                 if (msg[i] != this.startDelimiters[i]) {
                     this.log.Error(9999, "ValidateStartDelimiters",
                         () => string.Format("Mismatch start delimiters pos:{0}, Expected:{1} Actual:{2}",
@@ -156,6 +160,15 @@ namespace CommunicationStack.Net.Stacks {
         }
 
 
+        /// <summary>Need to replace end deliminators (terminators) the FIFO queue strips</summary>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        private byte [] ReplaceStripedEndDelimiters(byte[] msg) {
+            byte[] fullMsg = new byte[msg.Length + this.endDelimiters.Length];
+            Array.Copy(msg, fullMsg, msg.Length);
+            Array.Copy(this.endDelimiters, 0, fullMsg, msg.Length, this.endDelimiters.Length);
+            return fullMsg;
+        }
 
         #endregion
 

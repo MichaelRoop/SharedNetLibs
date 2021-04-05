@@ -57,7 +57,7 @@ namespace TestCases.Core.CommStackTests {
                 int length = 0;
                 BinaryMsgUint16 msg = new BinaryMsgUint16(16, 32111);
                 byte[] packet = msg.ToByteArray();
-                this.stack.MsgReceived += (sender, data)=> {
+                this.stack.MsgReceived += (sender, data) => {
                     gotIt = true;
                     length = data.Length;
                 };
@@ -103,6 +103,73 @@ namespace TestCases.Core.CommStackTests {
                 Assert.AreEqual(packet.Length, length, "Packet length");
             });
         }
+
+
+        [Test]
+        public void FullPacket01_03ByteByByteSplit() {
+            TestHelpers.CatchUnexpected(() => {
+                bool gotIt = false;
+                int length = 0;
+                BinaryMsgUint16 msg = new BinaryMsgUint16(16, 32111);
+                byte[] packet = msg.ToByteArray();
+                this.stack.MsgReceived += (sender, data) => {
+                    gotIt = true;
+                    length = data.Length;
+                };
+                for (int i = 0; i < packet.Length; i++) {
+                    byte[] part = new byte[1] { packet[i] };
+                    this.myComm.SendOutMsg(part);
+                    Thread.Sleep(100);
+                    if (i == (packet.Length - 1)) {
+                        Assert.True(gotIt, "Should have gotten it");
+                        Assert.AreEqual(packet.Length, length, "Packet length");
+                    }
+                    else {
+                        Assert.False(gotIt, string.Format("packet[{0}] Should not have raised", i));
+                     }
+                }
+            });
+        }
+
+
+        [Test]
+        public void FullPacket01_04DoublePacket() {
+            TestHelpers.CatchUnexpected(() => {
+                BinaryMsgUint16 msg1 = new BinaryMsgUint16(16, 32111);
+                byte[] packet1 = msg1.ToByteArray();
+                BinaryMsgUint16 msg2 = new BinaryMsgUint16(16, 311);
+                byte[] packet2 = msg2.ToByteArray();
+
+                byte[] packet = new byte[packet1.Length + packet2.Length];
+                Array.Copy(packet1, packet, packet1.Length);
+                Array.Copy(packet2, 0, packet, packet1.Length, packet2.Length);
+                int count = 0;
+                this.stack.MsgReceived += (sender, data) => {
+                    count++;
+                };
+
+                this.myComm.SendOutMsg(packet);
+                // The send is on thread pool so give time to finish
+                Thread.Sleep(100);
+                Assert.AreEqual(2, count, "Receive count");
+
+                // Send other to make sure the queue still works
+                this.myComm.SendOutMsg(packet1);
+                // The send is on thread pool so give time to finish
+                Thread.Sleep(100);
+                Assert.AreEqual(3, count, string.Format("Receive count"));
+
+                // Send other to make sure the queue still works
+                this.myComm.SendOutMsg(packet2);
+                // The send is on thread pool so give time to finish
+                Thread.Sleep(100);
+                Assert.AreEqual(4, count, string.Format("Receive count"));
+
+            });
+        }
+
+
+
 
     }
 }

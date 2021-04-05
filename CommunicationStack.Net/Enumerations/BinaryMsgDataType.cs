@@ -15,8 +15,8 @@ namespace CommunicationStack.Net.Enumerations {
         typeInt32 = 6,
         typeUInt32 = 7,
         typeFloat32 = 8,
-        typeString = 9,
-        typeInvalid = 10
+        //typeString = 9,
+        typeInvalid = 9
     }
 
     public static class BinaryMsgDataTypeExtensions {
