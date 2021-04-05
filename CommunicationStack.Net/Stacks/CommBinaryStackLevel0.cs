@@ -99,48 +99,7 @@ namespace CommunicationStack.Net.Stacks {
 
         private void commChannelMsgReceived(object sender, byte[] msg) {
             this.queue.AddBytes(msg);
-
-            //// TODO Need to validate that the entire message is received before forwarding
-            //// For now assume entire message is here
-            //if (this.ValidateStartDelimiters(msg)) {
-            //    if (this.ValidateEndDelimiters(msg)) {
-            //        if (this.MsgReceived != null) {
-            //            Task.Run(() => {
-            //                // Feed to thread pool to free up the comm channel
-            //                WrapErr.ToErrReport(9999, () => this.MsgReceived(this, msg));
-            //            });
-            //        }
-            //    }
-            //}
         }
-
-
-        //private bool ValidateStartDelimiters(byte[] msg) {
-        //    for (int i = 0; i < this.startDelimiters.Length; i++) {
-        //        if (msg[i] != this.startDelimiters[i]) {
-        //            this.log.Error(9999, "ValidateStartDelimiters", 
-        //                () => string.Format("Mismatch start delimiters pos:{0}, Expected:{1} Actual:{2}",
-        //                i, this.startDelimiters[i], msg[i]));
-        //            return false;
-        //        }
-        //    }
-        //    return true;
-        //}
-
-
-        //private bool ValidateEndDelimiters(byte[] msg) {
-        //    int offset = (msg.Length) - this.endDelimiters.Length;
-        //    for (int i = 0; i < this.endDelimiters.Length; i++) {
-        //        if (msg[i+offset] != this.endDelimiters[i]) {
-        //            this.log.Error(9999, "ValidateStartDelimiters",
-        //                () => string.Format("Mismatch end delimiters pos:{0}, MsgPos:{1} Expected:{2} Actual:{3}",
-        //                i, offset, this.endDelimiters[i], msg[i+offset]));
-        //            return false;
-        //        }
-        //    }
-        //    return true;
-        //}
-
 
         #endregion
 
