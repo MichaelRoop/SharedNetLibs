@@ -411,8 +411,20 @@ namespace VariousUtils.Net {
             return buff;
         }
 
+        public static byte[] ToByteArray(this sbyte value) {
+            byte[] buff = new byte[sizeof(sbyte)];
+            value.WriteToBuffer(buff, 0);
+            return buff;
+        }
+
         public static byte[] ToByteArray(this UInt16 value) {
             byte[] buff = new byte[sizeof(UInt16)];
+            value.WriteToBuffer(buff, 0);
+            return buff;
+        }
+
+        public static byte[] ToByteArray(this Int16 value) {
+            byte[] buff = new byte[sizeof(Int16)];
             value.WriteToBuffer(buff, 0);
             return buff;
         }
@@ -423,8 +435,26 @@ namespace VariousUtils.Net {
             return buff;
         }
 
+        public static byte[] ToByteArray(this Int32 value) {
+            byte[] buff = new byte[sizeof(Int32)];
+            value.WriteToBuffer(buff, 0);
+            return buff;
+        }
+
         public static byte[] ToByteArray(this UInt64 value) {
             byte[] buff = new byte[sizeof(UInt64)];
+            value.WriteToBuffer(buff, 0);
+            return buff;
+        }
+
+        public static byte[] ToByteArray(this Int64 value) {
+            byte[] buff = new byte[sizeof(Int64)];
+            value.WriteToBuffer(buff, 0);
+            return buff;
+        }
+
+        public static byte[] ToByteArray(this Single value) {
+            byte[] buff = new byte[sizeof(Single)];
             value.WriteToBuffer(buff, 0);
             return buff;
         }
