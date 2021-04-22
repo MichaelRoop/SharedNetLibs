@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using VariousUtils.Net;
 
 namespace CommunicationStack.Net.Enumerations {
@@ -23,7 +21,7 @@ namespace CommunicationStack.Net.Enumerations {
     public static class BinaryMsgDataTypeExtensions {
 
         public static byte ToByte(this BinaryMsgDataType dataType) {
-            return (byte)dataType;            
+            return (byte)dataType;
         }
 
 
@@ -81,9 +79,65 @@ namespace CommunicationStack.Net.Enumerations {
         }
 
 
+        //public static NumericRange Range(this BinaryMsgDataType dataType) {
+        //    switch (dataType) {
+        //        case BinaryMsgDataType.typeBool:
+        //            return true.GetRange();
+        //        case BinaryMsgDataType.typeInt8:
+        //            return sbyte.MinValue.GetRange();
+        //        case BinaryMsgDataType.typeUInt8:
+        //            return byte.MinValue.GetRange();
+        //        case BinaryMsgDataType.typeInt16:
+        //            return Int16.MinValue.GetRange();
+        //        case BinaryMsgDataType.typeUInt16:
+        //            return UInt16.MinValue.GetRange();
+        //        case BinaryMsgDataType.typeInt32:
+        //            return Int32.MinValue.GetRange();
+        //        case BinaryMsgDataType.typeUInt32:
+        //            return UInt32.MinValue.GetRange();
+        //        case BinaryMsgDataType.typeFloat32:
+        //            return Single.MinValue.GetRange();
+        //        case BinaryMsgDataType.tyepUndefined:
+        //        case BinaryMsgDataType.typeInvalid:
+        //        default:
+        //            return new NumericRange(0, 0);
+        //    }
+        //}
 
+
+        public static void Validate(this BinaryMsgDataType dataType, string value, Action onSuccess, Action<NumericRange> onError) {
+            switch (dataType) {
+                case BinaryMsgDataType.typeBool:
+                    value.IsBool(onSuccess, onError);
+                    break;
+                case BinaryMsgDataType.typeInt8:
+                    value.IsSByte(onSuccess, onError);
+                    break;
+                case BinaryMsgDataType.typeUInt8:
+                    value.IsByte(onSuccess, onError);
+                    break;
+                case BinaryMsgDataType.typeInt16:
+                    value.IsInt16(onSuccess, onError);
+                    break;
+                case BinaryMsgDataType.typeUInt16:
+                    value.IsUInt16(onSuccess, onError);
+                    break;
+                case BinaryMsgDataType.typeInt32:
+                    value.IsInt32(onSuccess, onError);
+                    break;
+                case BinaryMsgDataType.typeUInt32:
+                    value.IsUInt32(onSuccess, onError);
+                    break;
+                case BinaryMsgDataType.typeFloat32:
+                    value.IsFloat32(onSuccess, onError);
+                    break;
+                case BinaryMsgDataType.typeInvalid:
+                case BinaryMsgDataType.tyepUndefined:
+                default:
+                    // TODO - should have exception
+                    onError(new NumericRange(0,0));
+                    break;
+            }
+        }
     }
-
-
-
 }
