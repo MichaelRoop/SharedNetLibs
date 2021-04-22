@@ -50,10 +50,35 @@ namespace CommunicationStack.Net.Enumerations {
                 default:
                     return 0; ;
             }
-
-
         }
 
+
+        public static string ToStr(this BinaryMsgDataType dataType) {
+            switch (dataType) {
+                case BinaryMsgDataType.typeBool:
+                    return "Bool";
+                case BinaryMsgDataType.typeInt8:
+                    return "Int8";
+                case BinaryMsgDataType.typeUInt8:
+                    return "UInt8";
+                case BinaryMsgDataType.typeInt16:
+                    return "Int16";
+                case BinaryMsgDataType.typeUInt16:
+                    return "UInt16";
+                case BinaryMsgDataType.typeInt32:
+                    return "Int32";
+                case BinaryMsgDataType.typeUInt32:
+                    return "UInt32";
+                case BinaryMsgDataType.typeFloat32:
+                    return "Float32";
+                case BinaryMsgDataType.tyepUndefined:
+                    return "Undefined";
+                case BinaryMsgDataType.typeInvalid:
+                    return "Invalid";
+                default:
+                    return "Unhandled";
+            }
+        }
 
 
 

@@ -74,6 +74,9 @@ namespace CommunicationStack.Net.Stacks {
         public bool SendToComm(byte[] msg) {
             // Presume the proper struct is sent
             this.log.Info("SendToComm", () => string.Format("Data: {0}", msg.ToFormatedByteString()));
+            if (this.commChannel != null) {
+                // wrapper should have built this
+            }
             return this.commChannel.SendOutMsg(msg);
         }
 
