@@ -9,10 +9,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="BinaryMsgs\BinaryMsgDataTypeRange.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Common.Net\Common.Net.csproj" />
     <ProjectReference Include="..\VariousUtils\VariousUtils.Net.csproj" />
   </ItemGroup>

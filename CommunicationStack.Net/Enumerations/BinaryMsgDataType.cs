@@ -79,30 +79,30 @@ namespace CommunicationStack.Net.Enumerations {
         }
 
 
-        //public static NumericRange Range(this BinaryMsgDataType dataType) {
-        //    switch (dataType) {
-        //        case BinaryMsgDataType.typeBool:
-        //            return true.GetRange();
-        //        case BinaryMsgDataType.typeInt8:
-        //            return sbyte.MinValue.GetRange();
-        //        case BinaryMsgDataType.typeUInt8:
-        //            return byte.MinValue.GetRange();
-        //        case BinaryMsgDataType.typeInt16:
-        //            return Int16.MinValue.GetRange();
-        //        case BinaryMsgDataType.typeUInt16:
-        //            return UInt16.MinValue.GetRange();
-        //        case BinaryMsgDataType.typeInt32:
-        //            return Int32.MinValue.GetRange();
-        //        case BinaryMsgDataType.typeUInt32:
-        //            return UInt32.MinValue.GetRange();
-        //        case BinaryMsgDataType.typeFloat32:
-        //            return Single.MinValue.GetRange();
-        //        case BinaryMsgDataType.tyepUndefined:
-        //        case BinaryMsgDataType.typeInvalid:
-        //        default:
-        //            return new NumericRange(0, 0);
-        //    }
-        //}
+        public static NumericRange Range(this BinaryMsgDataType dataType) {
+            switch (dataType) {
+                case BinaryMsgDataType.typeBool:
+                    return true.GetRange();
+                case BinaryMsgDataType.typeInt8:
+                    return sbyte.MinValue.GetRange();
+                case BinaryMsgDataType.typeUInt8:
+                    return byte.MinValue.GetRange();
+                case BinaryMsgDataType.typeInt16:
+                    return Int16.MinValue.GetRange();
+                case BinaryMsgDataType.typeUInt16:
+                    return UInt16.MinValue.GetRange();
+                case BinaryMsgDataType.typeInt32:
+                    return Int32.MinValue.GetRange();
+                case BinaryMsgDataType.typeUInt32:
+                    return UInt32.MinValue.GetRange();
+                case BinaryMsgDataType.typeFloat32:
+                    return Single.MinValue.GetRange();
+                case BinaryMsgDataType.tyepUndefined:
+                case BinaryMsgDataType.typeInvalid:
+                default:
+                    return new NumericRange(0, 0);
+            }
+        }
 
 
         public static void Validate(this BinaryMsgDataType dataType, string value, Action onSuccess, Action<NumericRange> onError) {
@@ -139,5 +139,39 @@ namespace CommunicationStack.Net.Enumerations {
                     break;
             }
         }
+
+
+        public static byte ToByte(this string value) {
+            return byte.Parse(value);
+        }
+
+        public static sbyte ToInt8(this string value) {
+            return sbyte.Parse(value);
+        }
+
+        public static Int16 ToInt16(this string value) {
+            return Int16.Parse(value);
+        }
+
+        public static Int32 ToInt32(this string value) {
+            return Int32.Parse(value);
+        }
+
+        public static byte ToUInt8(this string value) {
+            return byte.Parse(value);
+        }
+
+        public static UInt16 ToUInt16(this string value) {
+            return UInt16.Parse(value);
+        }
+
+        public static UInt32 ToUInt32(this string value) {
+            return UInt32.Parse(value);
+        }
+
+        public static Single ToFloat32(this string value) {
+            return Single.Parse(value);
+        }
+
     }
 }
