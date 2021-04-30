@@ -9,6 +9,8 @@ namespace CommunicationStack.Net.BinaryMsgs {
 
     public class BinaryMsgInt8 : BinaryMsg<sbyte> {
 
+        public override double ValueAsDouble { get { return (double)this.Value; } }
+
         public BinaryMsgInt8() : base() {
         }
 

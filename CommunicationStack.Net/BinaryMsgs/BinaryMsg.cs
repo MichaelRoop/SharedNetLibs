@@ -62,10 +62,19 @@ namespace CommunicationStack.Net.BinaryMsgs {
         }
 
 
+        public BinaryMsgMinData ToMinimumData() {
+            return new BinaryMsgMinData() {
+                MsgId = this.Id,
+                MsgValue = this.ValueAsDouble,
+            };
+        }
+
+
         protected abstract ushort GetVariableSize();
         protected abstract byte[] GetPayload();
         protected abstract BinaryMsgDataType GetDataType();
 
+        public abstract double ValueAsDouble { get; }
 
         private ushort CalculateSize() {
             ushort size = this.CalculateHeaderSize();

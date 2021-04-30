@@ -5,6 +5,8 @@ using VariousUtils.Net;
 namespace CommunicationStack.Net.BinaryMsgs {
     public class BinaryMsgUInt32 : BinaryMsg<UInt32> {
 
+        public override double ValueAsDouble { get { return (double)this.Value; } }
+
         public BinaryMsgUInt32() : base() {
         }
 

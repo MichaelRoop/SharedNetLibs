@@ -6,6 +6,8 @@ namespace CommunicationStack.Net.BinaryMsgs {
 
     public class BinaryMsgFloat32 : BinaryMsg<Single> {
 
+        public override double ValueAsDouble { get { return (double)this.Value; } }
+
         public BinaryMsgFloat32() : base() {
         }
 

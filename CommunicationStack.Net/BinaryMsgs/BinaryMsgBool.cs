@@ -18,6 +18,9 @@ namespace CommunicationStack.Net.BinaryMsgs {
         }
 
 
+        public override double ValueAsDouble { get { return this.Value == 0 ? 0 : 1; } }
+
+
         protected override BinaryMsgDataType GetDataType() {
             return BinaryMsgDataType.typeBool;
         }

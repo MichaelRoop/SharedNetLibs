@@ -5,6 +5,8 @@ namespace CommunicationStack.Net.BinaryMsgs {
 
     public class BinaryMsgUInt8 : BinaryMsg<byte> {
 
+        public override double ValueAsDouble { get { return (double)this.Value; } }
+
         public BinaryMsgUInt8() : base() {
         }
 
