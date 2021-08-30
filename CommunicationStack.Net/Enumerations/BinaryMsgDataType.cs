@@ -173,5 +173,59 @@ namespace CommunicationStack.Net.Enumerations {
             return Single.Parse(value);
         }
 
+
+        public static double Min(this BinaryMsgDataType dataType) {
+            switch (dataType) {
+                case BinaryMsgDataType.typeBool:
+                    return 0;
+                case BinaryMsgDataType.typeInt8:
+                    return sbyte.MinValue;
+                case BinaryMsgDataType.typeUInt8:
+                    return byte.MinValue;
+                case BinaryMsgDataType.typeInt16:
+                    return Int16.MinValue;
+                case BinaryMsgDataType.typeUInt16:
+                    return UInt16.MinValue;
+                case BinaryMsgDataType.typeInt32:
+                    return Int32.MinValue;
+                case BinaryMsgDataType.typeUInt32:
+                    return UInt32.MinValue;
+                case BinaryMsgDataType.typeFloat32:
+                    return Single.MinValue;
+                case BinaryMsgDataType.tyepUndefined:
+                case BinaryMsgDataType.typeInvalid:
+                default:
+                    return 0;
+            }
+        }
+
+
+        public static double Max(this BinaryMsgDataType dataType) {
+            switch (dataType) {
+                case BinaryMsgDataType.typeBool:
+                    return 1;
+                case BinaryMsgDataType.typeInt8:
+                    return sbyte.MaxValue;
+                case BinaryMsgDataType.typeUInt8:
+                    return byte.MaxValue;
+                case BinaryMsgDataType.typeInt16:
+                    return Int16.MaxValue;
+                case BinaryMsgDataType.typeUInt16:
+                    return UInt16.MaxValue;
+                case BinaryMsgDataType.typeInt32:
+                    return Int32.MaxValue;
+                case BinaryMsgDataType.typeUInt32:
+                    return UInt32.MaxValue;
+                case BinaryMsgDataType.typeFloat32:
+                    return Single.MaxValue;
+                case BinaryMsgDataType.tyepUndefined:
+                case BinaryMsgDataType.typeInvalid:
+                default:
+                    return 0;
+            }
+        }
+
+
+
     }
 }
