@@ -150,6 +150,16 @@ namespace LanguageFactory.Net.Languages.hi {
             this.AddMsg(MsgCode.Odd, "Odd");
             this.AddMsg(MsgCode.Mark, "Mark");
             this.AddMsg(MsgCode.Space, "Space");
+            this.AddMsg(MsgCode.Preview, "प्रीव्यू");
+            this.AddMsg(MsgCode.Configuration, "कॉन्फ़िगरेशन");
+            this.AddMsg(MsgCode.Configurations, "कॉन्फ़िगरेशन");
+            this.AddMsg(MsgCode.Inputs, "जानकारी");
+            this.AddMsg(MsgCode.Outputs, "आउटफिट्स");
+            this.AddMsg(MsgCode.Digital, "डिजिटल");
+            this.AddMsg(MsgCode.Analog, "एनालॉग");
+            this.AddMsg(MsgCode.Step, "क़दम");
+            this.AddMsg(MsgCode.Row, "पंक्ति");
+            this.AddMsg(MsgCode.Column, "स्तम्भ");
 
         }
 

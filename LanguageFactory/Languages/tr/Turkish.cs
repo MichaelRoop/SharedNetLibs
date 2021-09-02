@@ -145,6 +145,16 @@ namespace LanguageFactory.Net.Languages.tr {
             this.AddMsg(MsgCode.Odd, "Tek Eşlik");
             this.AddMsg(MsgCode.Mark, "İşaret Eşliği");
             this.AddMsg(MsgCode.Space, "Boşluk eşliği");
+            this.AddMsg(MsgCode.Preview, "Önizleme");
+            this.AddMsg(MsgCode.Configuration, "Konfigürasyon");
+            this.AddMsg(MsgCode.Configurations, "Yapılandırma");
+            this.AddMsg(MsgCode.Inputs, "Giriş");
+            this.AddMsg(MsgCode.Outputs, "Çıkış");
+            this.AddMsg(MsgCode.Digital, "Dijital");
+            this.AddMsg(MsgCode.Analog, "Analog");
+            this.AddMsg(MsgCode.Step, "Adım");
+            this.AddMsg(MsgCode.Row, "Sıra");
+            this.AddMsg(MsgCode.Column, "Sütun");
 
         }
 

@@ -146,6 +146,16 @@ namespace LanguageFactory.Net.Languages.pl {
             this.AddMsg(MsgCode.Odd, "Nieparzystość");
             this.AddMsg(MsgCode.Mark, "Ustaw bit parzystości");
             this.AddMsg(MsgCode.Space, "Parzystość spacji");
+            this.AddMsg(MsgCode.Preview, "Prapremiera");
+            this.AddMsg(MsgCode.Configuration, "Konfiguracja");
+            this.AddMsg(MsgCode.Configurations, "Konfiguracji");
+            this.AddMsg(MsgCode.Inputs, "Wejścia");
+            this.AddMsg(MsgCode.Outputs, "Wyjść");
+            this.AddMsg(MsgCode.Digital, "Cyfrowy");
+            this.AddMsg(MsgCode.Analog, "Analogowy");
+            this.AddMsg(MsgCode.Step, "Krok");
+            this.AddMsg(MsgCode.Row, "Rzędu");
+            this.AddMsg(MsgCode.Column, "Kolumna");
 
         }
 

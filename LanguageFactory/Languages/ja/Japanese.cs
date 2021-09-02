@@ -143,6 +143,16 @@ namespace LanguageFactory.Net.Languages.ja {
             this.AddMsg(MsgCode.Odd, "奇数");
             this.AddMsg(MsgCode.Mark, "マーク");
             this.AddMsg(MsgCode.Space, "スペース");
+            this.AddMsg(MsgCode.Preview, "プレビュー");
+            this.AddMsg(MsgCode.Configuration, "構成");
+            this.AddMsg(MsgCode.Configurations, "構成");
+            this.AddMsg(MsgCode.Inputs, "入力");
+            this.AddMsg(MsgCode.Outputs, "出力");
+            this.AddMsg(MsgCode.Digital, "デジタル");
+            this.AddMsg(MsgCode.Analog, "アナログ");
+            this.AddMsg(MsgCode.Step, "歩");
+            this.AddMsg(MsgCode.Row, "漕ぐ");
+            this.AddMsg(MsgCode.Column, "Column");
 
         }
 

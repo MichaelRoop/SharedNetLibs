@@ -143,6 +143,13 @@ namespace LanguageFactory.Net.Languages.fr {
             this.AddMsg(MsgCode.Odd, "Impaire");
             this.AddMsg(MsgCode.Mark, "Marque");
             this.AddMsg(MsgCode.Space, "Espace");
+            this.AddMsg(MsgCode.Inputs, "Entrées");
+            this.AddMsg(MsgCode.Outputs, "Sorties");
+            this.AddMsg(MsgCode.Digital, "Numérique");
+            this.AddMsg(MsgCode.Analog, "Analogique");
+            this.AddMsg(MsgCode.Step, "Pas");
+            this.AddMsg(MsgCode.Row, "Rangée");
+            this.AddMsg(MsgCode.Column, "Colonne");
 
         }
 

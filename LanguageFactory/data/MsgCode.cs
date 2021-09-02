@@ -156,6 +156,16 @@
         Mark,
         Space,
 
+        Preview,
+        Configuration,
+        Configurations,
+        Inputs,
+        Outputs,
+        Digital,
+        Analog,
+        Step,
+        Row,
+        Column,
 
         // Composite - no direct lookup
         ReadTimeout,

@@ -143,6 +143,16 @@ namespace LanguageFactory.Net.Languages.kr {
             this.AddMsg(MsgCode.Odd, "홀수");
             this.AddMsg(MsgCode.Mark, "표시 패리티");
             this.AddMsg(MsgCode.Space, "공백 패리티");
+            this.AddMsg(MsgCode.Preview, "미리 보기");
+            this.AddMsg(MsgCode.Configuration, "구성");
+            this.AddMsg(MsgCode.Configurations, "구성");
+            this.AddMsg(MsgCode.Inputs, "입력");
+            this.AddMsg(MsgCode.Outputs, "출력");
+            this.AddMsg(MsgCode.Digital, "디지털");
+            this.AddMsg(MsgCode.Analog, "아날로그");
+            this.AddMsg(MsgCode.Step, "걸음");
+            this.AddMsg(MsgCode.Row, "행");
+            this.AddMsg(MsgCode.Column, "열");
 
         }
 

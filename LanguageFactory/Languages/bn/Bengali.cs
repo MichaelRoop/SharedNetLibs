@@ -146,6 +146,16 @@ namespace LanguageFactory.Net.Languages.bn {
             this.AddMsg(MsgCode.Odd, "বিজোড়");
             this.AddMsg(MsgCode.Mark, "চিহ্ন");
             this.AddMsg(MsgCode.Space, "Space");
+            this.AddMsg(MsgCode.Preview, "পূর্বরূপ");
+            this.AddMsg(MsgCode.Configuration, "কনফিগারেশন");
+            this.AddMsg(MsgCode.Configurations, "কনফিগারেশন");
+            this.AddMsg(MsgCode.Inputs, "ইনপুট");
+            this.AddMsg(MsgCode.Outputs, "আউটপুট");
+            this.AddMsg(MsgCode.Digital, "ডিজিটাল");
+            this.AddMsg(MsgCode.Analog, "এনালগ");
+            this.AddMsg(MsgCode.Step, "পদক্ষেপ");
+            this.AddMsg(MsgCode.Row, "সারি");
+            this.AddMsg(MsgCode.Column, "স্তম্ভ");
 
         }
 

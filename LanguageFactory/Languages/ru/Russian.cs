@@ -148,6 +148,16 @@ namespace LanguageFactory.Net.Languages.ru {
             this.AddMsg(MsgCode.Odd, "Нечет");
             this.AddMsg(MsgCode.Mark, "Маркер");
             this.AddMsg(MsgCode.Space, "Пробел");
+            this.AddMsg(MsgCode.Preview, "Предварительный просмотр");
+            this.AddMsg(MsgCode.Configuration, "Конфигурация");
+            this.AddMsg(MsgCode.Configurations, "Конфигурации");
+            this.AddMsg(MsgCode.Inputs, "Входы");
+            this.AddMsg(MsgCode.Outputs, "Выходы");
+            this.AddMsg(MsgCode.Digital, "Цифровой");
+            this.AddMsg(MsgCode.Analog, "Аналоговый");
+            this.AddMsg(MsgCode.Step, "Шаг");
+            this.AddMsg(MsgCode.Row, "Ряд");
+            this.AddMsg(MsgCode.Column, "Столбец");
 
         }
 

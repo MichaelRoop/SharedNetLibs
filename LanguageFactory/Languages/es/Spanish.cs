@@ -144,6 +144,16 @@ namespace LanguageFactory.Net.Languages.es {
             this.AddMsg(MsgCode.Odd, "Impar");
             this.AddMsg(MsgCode.Mark, "Marca");
             this.AddMsg(MsgCode.Space, "Espacio");
+            this.AddMsg(MsgCode.Preview, "Vista previa");
+            this.AddMsg(MsgCode.Configuration, "Configuración");
+            this.AddMsg(MsgCode.Configurations, "Configuraciones");
+            this.AddMsg(MsgCode.Inputs, "Entradas");
+            this.AddMsg(MsgCode.Outputs, "Salidas");
+            this.AddMsg(MsgCode.Digital, "Digital");
+            this.AddMsg(MsgCode.Analog, "Analógico");
+            this.AddMsg(MsgCode.Step, "Paso");
+            this.AddMsg(MsgCode.Row, "Fila");
+            this.AddMsg(MsgCode.Column, "Columna");
 
         }
 

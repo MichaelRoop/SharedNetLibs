@@ -144,6 +144,16 @@ namespace LanguageFactory.Net.Languages.vi {
             this.AddMsg(MsgCode.Odd, "Lẻ");
             this.AddMsg(MsgCode.Mark, "Mark");
             this.AddMsg(MsgCode.Space, "Space");
+            this.AddMsg(MsgCode.Preview, "Xem trước");
+            this.AddMsg(MsgCode.Configuration, "Cấu hình");
+            this.AddMsg(MsgCode.Configurations, "Cấu hình");
+            this.AddMsg(MsgCode.Inputs, "Nhập");
+            this.AddMsg(MsgCode.Outputs, "Ra");
+            this.AddMsg(MsgCode.Digital, "Kỹ thuật số");
+            this.AddMsg(MsgCode.Analog, "Tương tự");
+            this.AddMsg(MsgCode.Step, "Bước");
+            this.AddMsg(MsgCode.Row, "Hàng");
+            this.AddMsg(MsgCode.Column, "Cột");
 
         }
 

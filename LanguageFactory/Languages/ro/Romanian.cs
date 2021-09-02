@@ -148,6 +148,16 @@ namespace LanguageFactory.Net.Languages.ro {
             this.AddMsg(MsgCode.Odd, "Impare");
             this.AddMsg(MsgCode.Mark, "Mark");
             this.AddMsg(MsgCode.Space, "Space");
+            this.AddMsg(MsgCode.Preview, "Previzualizare");
+            this.AddMsg(MsgCode.Configuration, "Configurație");
+            this.AddMsg(MsgCode.Configurations, "Configuraţii");
+            this.AddMsg(MsgCode.Inputs, "Intrări");
+            this.AddMsg(MsgCode.Outputs, "Ieşiri");
+            this.AddMsg(MsgCode.Digital, "Digital");
+            this.AddMsg(MsgCode.Analog, "Analogic");
+            this.AddMsg(MsgCode.Step, "Treaptă");
+            this.AddMsg(MsgCode.Row, "Rând");
+            this.AddMsg(MsgCode.Column, "Coloană");
 
         }
 

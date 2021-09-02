@@ -147,6 +147,16 @@ namespace LanguageFactory.Net.Languages.nl {
             this.AddMsg(MsgCode.Odd, "Oneven");
             this.AddMsg(MsgCode.Mark, "Markeren");
             this.AddMsg(MsgCode.Space, "Spatiepariteit");
+            this.AddMsg(MsgCode.Preview, "Voorbeeld");
+            this.AddMsg(MsgCode.Configuration, "Configuratie");
+            this.AddMsg(MsgCode.Configurations, "Configuraties");
+            this.AddMsg(MsgCode.Inputs, "Ingangen");
+            this.AddMsg(MsgCode.Outputs, "Uitgangen");
+            this.AddMsg(MsgCode.Digital, "Digitaal");
+            this.AddMsg(MsgCode.Analog, "Analoog");
+            this.AddMsg(MsgCode.Step, "Stap");
+            this.AddMsg(MsgCode.Row, "Rij");
+            this.AddMsg(MsgCode.Column, "Kolom");
 
         }
 

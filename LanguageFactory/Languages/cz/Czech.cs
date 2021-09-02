@@ -145,6 +145,16 @@ namespace LanguageFactory.Net.Languages.cz {
             this.AddMsg(MsgCode.Odd, "Lichá");
             this.AddMsg(MsgCode.Mark, "Značená");
             this.AddMsg(MsgCode.Space, "Space");
+            this.AddMsg(MsgCode.Preview, "Náhled");
+            this.AddMsg(MsgCode.Configuration, "Konfigurace");
+            this.AddMsg(MsgCode.Configurations, "Konfigurace");
+            this.AddMsg(MsgCode.Inputs, "Vstupy");
+            this.AddMsg(MsgCode.Outputs, "Výstupy");
+            this.AddMsg(MsgCode.Digital, "Digitální");
+            this.AddMsg(MsgCode.Analog, "Analogový");
+            this.AddMsg(MsgCode.Step, "Krok");
+            this.AddMsg(MsgCode.Row, "Veslovat");
+            this.AddMsg(MsgCode.Column, "Sloupec");
 
         }
 

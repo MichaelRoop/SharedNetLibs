@@ -148,6 +148,16 @@ namespace LanguageFactory.Net.Languages.ar {
             this.AddMsg(MsgCode.Odd, "فردي");
             this.AddMsg(MsgCode.Mark, "‏‏علامة");
             this.AddMsg(MsgCode.Space, "Space");
+            this.AddMsg(MsgCode.Preview, "معاينه");
+            this.AddMsg(MsgCode.Configuration, "تكوين");
+            this.AddMsg(MsgCode.Configurations, "تكوينات");
+            this.AddMsg(MsgCode.Inputs, "المدخلات");
+            this.AddMsg(MsgCode.Outputs, "النواتج");
+            this.AddMsg(MsgCode.Digital, "رقمي");
+            this.AddMsg(MsgCode.Analog, "التناظريه");
+            this.AddMsg(MsgCode.Step, "درج");
+            this.AddMsg(MsgCode.Row, "صف");
+            this.AddMsg(MsgCode.Column, "عمود");
 
         }
 

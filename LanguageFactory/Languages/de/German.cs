@@ -146,6 +146,17 @@ namespace LanguageFactory.Net.Languages.de {
             this.AddMsg(MsgCode.Odd, "Ungerade");
             this.AddMsg(MsgCode.Mark, "Markierung");
             this.AddMsg(MsgCode.Space, "Space");
+            this.AddMsg(MsgCode.Preview, "Vorschau");
+            this.AddMsg(MsgCode.Configuration, "Konfiguration");
+            this.AddMsg(MsgCode.Configurations, "Konfigurationen");
+            this.AddMsg(MsgCode.Inputs, "Eingänge");
+            this.AddMsg(MsgCode.Outputs, "Ausgänge");
+            this.AddMsg(MsgCode.Digital, "Digital");
+            this.AddMsg(MsgCode.Analog, "Analog");
+            this.AddMsg(MsgCode.Step, "Schritt");
+            this.AddMsg(MsgCode.Row, "Rudern");
+            this.AddMsg(MsgCode.Column, "Spalte");
+
         }
 
 

@@ -147,6 +147,16 @@ namespace LanguageFactory.Net.Languages.pt {
             this.AddMsg(MsgCode.Odd, "Ímpar");
             this.AddMsg(MsgCode.Mark, "Marcar");
             this.AddMsg(MsgCode.Space, "De espaço");
+            this.AddMsg(MsgCode.Preview, "Previsualizar");
+            this.AddMsg(MsgCode.Configuration, "Configuração");
+            this.AddMsg(MsgCode.Configurations, "Configurações");
+            this.AddMsg(MsgCode.Inputs, "Entradas");
+            this.AddMsg(MsgCode.Outputs, "Saídas");
+            this.AddMsg(MsgCode.Digital, "Digital");
+            this.AddMsg(MsgCode.Analog, "Analógico");
+            this.AddMsg(MsgCode.Step, "Passo");
+            this.AddMsg(MsgCode.Row, "Linha");
+            this.AddMsg(MsgCode.Column, "Coluna");
 
         }
 

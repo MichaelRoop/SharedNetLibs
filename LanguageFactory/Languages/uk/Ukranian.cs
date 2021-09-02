@@ -145,6 +145,16 @@ namespace LanguageFactory.Net.Languages.uk {
             this.AddMsg(MsgCode.Odd, "Непарна");
             this.AddMsg(MsgCode.Mark, "Mark");
             this.AddMsg(MsgCode.Space, "Space");
+            this.AddMsg(MsgCode.Preview, "Попередній перегляд");
+            this.AddMsg(MsgCode.Configuration, "Конфігурації");
+            this.AddMsg(MsgCode.Configurations, "Конфігурації");
+            this.AddMsg(MsgCode.Inputs, "Входи");
+            this.AddMsg(MsgCode.Outputs, "Виходи");
+            this.AddMsg(MsgCode.Digital, "Цифровий");
+            this.AddMsg(MsgCode.Analog, "Аналоговий");
+            this.AddMsg(MsgCode.Step, "Крок");
+            this.AddMsg(MsgCode.Row, "Рядок");
+            this.AddMsg(MsgCode.Column, "Стовпець");
 
         }
 

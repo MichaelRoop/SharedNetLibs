@@ -143,6 +143,16 @@ namespace LanguageFactory.Net.Languages.cn {
             this.AddMsg(MsgCode.Odd, "奇");
             this.AddMsg(MsgCode.Mark, "标记");
             this.AddMsg(MsgCode.Space, "Space");
+            this.AddMsg(MsgCode.Preview, "预览");
+            this.AddMsg(MsgCode.Configuration, "配置");
+            this.AddMsg(MsgCode.Configurations, "配置");
+            this.AddMsg(MsgCode.Inputs, "输入");
+            this.AddMsg(MsgCode.Outputs, "输出");
+            this.AddMsg(MsgCode.Digital, "数字");
+            this.AddMsg(MsgCode.Analog, "模拟");
+            this.AddMsg(MsgCode.Step, "步");
+            this.AddMsg(MsgCode.Row, "排");
+            this.AddMsg(MsgCode.Column, "列");
 
         }
 

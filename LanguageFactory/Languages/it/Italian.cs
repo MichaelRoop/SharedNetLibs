@@ -145,6 +145,16 @@ namespace LanguageFactory.Net.Languages.it {
             this.AddMsg(MsgCode.Odd, "Dispari");
             this.AddMsg(MsgCode.Mark, "Indicatore");
             this.AddMsg(MsgCode.Space, "Spazio");
+            this.AddMsg(MsgCode.Preview, "Anteprima");
+            this.AddMsg(MsgCode.Configuration, "Configurazione");
+            this.AddMsg(MsgCode.Configurations, "Configurazioni");
+            this.AddMsg(MsgCode.Inputs, "Ingressi");
+            this.AddMsg(MsgCode.Outputs, "Uscite");
+            this.AddMsg(MsgCode.Digital, "Digitale");
+            this.AddMsg(MsgCode.Analog, "Analogico");
+            this.AddMsg(MsgCode.Step, "Passo");
+            this.AddMsg(MsgCode.Row, "Fila");
+            this.AddMsg(MsgCode.Column, "Colonna");
 
         }
 
