@@ -158,9 +158,9 @@ namespace LanguageFactory.Net.Languages.ro {
             this.AddMsg(MsgCode.Step, "Treaptă");
             this.AddMsg(MsgCode.Row, "Rând");
             this.AddMsg(MsgCode.Column, "Coloană");
+            this.AddMsg(MsgCode.Build, "Generare");
 
         }
-
 
     }
 

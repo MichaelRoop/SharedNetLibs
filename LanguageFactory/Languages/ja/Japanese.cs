@@ -152,7 +152,8 @@ namespace LanguageFactory.Net.Languages.ja {
             this.AddMsg(MsgCode.Analog, "アナログ");
             this.AddMsg(MsgCode.Step, "歩");
             this.AddMsg(MsgCode.Row, "漕ぐ");
-            this.AddMsg(MsgCode.Column, "Column");
+            this.AddMsg(MsgCode.Column, "列");
+            this.AddMsg(MsgCode.Build, "ビルド");
 
         }
 

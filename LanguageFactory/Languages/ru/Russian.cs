@@ -158,6 +158,7 @@ namespace LanguageFactory.Net.Languages.ru {
             this.AddMsg(MsgCode.Step, "Шаг");
             this.AddMsg(MsgCode.Row, "Ряд");
             this.AddMsg(MsgCode.Column, "Столбец");
+            this.AddMsg(MsgCode.Build, "Сборка");
 
         }
 

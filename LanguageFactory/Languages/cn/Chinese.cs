@@ -153,6 +153,7 @@ namespace LanguageFactory.Net.Languages.cn {
             this.AddMsg(MsgCode.Step, "步");
             this.AddMsg(MsgCode.Row, "排");
             this.AddMsg(MsgCode.Column, "列");
+            this.AddMsg(MsgCode.Build, "版本");
 
         }
 

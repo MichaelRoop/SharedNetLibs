@@ -155,9 +155,9 @@ namespace LanguageFactory.Net.Languages.cz {
             this.AddMsg(MsgCode.Step, "Krok");
             this.AddMsg(MsgCode.Row, "Veslovat");
             this.AddMsg(MsgCode.Column, "Sloupec");
+            this.AddMsg(MsgCode.Build, "Sestavení");
 
         }
-
 
     }
 }

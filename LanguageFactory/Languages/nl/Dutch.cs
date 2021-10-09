@@ -157,6 +157,7 @@ namespace LanguageFactory.Net.Languages.nl {
             this.AddMsg(MsgCode.Step, "Stap");
             this.AddMsg(MsgCode.Row, "Rij");
             this.AddMsg(MsgCode.Column, "Kolom");
+            this.AddMsg(MsgCode.Build, "Build");
 
         }
 

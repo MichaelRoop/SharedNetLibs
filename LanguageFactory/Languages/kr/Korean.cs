@@ -153,6 +153,7 @@ namespace LanguageFactory.Net.Languages.kr {
             this.AddMsg(MsgCode.Step, "걸음");
             this.AddMsg(MsgCode.Row, "행");
             this.AddMsg(MsgCode.Column, "열");
+            this.AddMsg(MsgCode.Build, "빌드");
 
         }
 

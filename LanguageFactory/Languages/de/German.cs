@@ -156,9 +156,9 @@ namespace LanguageFactory.Net.Languages.de {
             this.AddMsg(MsgCode.Step, "Schritt");
             this.AddMsg(MsgCode.Row, "Rudern");
             this.AddMsg(MsgCode.Column, "Spalte");
+            this.AddMsg(MsgCode.Build, "Build");
 
         }
-
 
     }
 

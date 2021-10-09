@@ -157,6 +157,7 @@ namespace LanguageFactory.Net.Languages.pt {
             this.AddMsg(MsgCode.Step, "Passo");
             this.AddMsg(MsgCode.Row, "Linha");
             this.AddMsg(MsgCode.Column, "Coluna");
+            this.AddMsg(MsgCode.Build, "Compilação");
 
         }
 

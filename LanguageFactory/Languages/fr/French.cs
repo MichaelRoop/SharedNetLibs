@@ -153,6 +153,7 @@ namespace LanguageFactory.Net.Languages.fr {
             this.AddMsg(MsgCode.Step, "Pas");
             this.AddMsg(MsgCode.Row, "Rangée");
             this.AddMsg(MsgCode.Column, "Colonne");
+            this.AddMsg(MsgCode.Build, "Version");
 
         }
 

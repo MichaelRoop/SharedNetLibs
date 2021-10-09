@@ -155,6 +155,7 @@ namespace LanguageFactory.Net.Languages.uk {
             this.AddMsg(MsgCode.Step, "Крок");
             this.AddMsg(MsgCode.Row, "Рядок");
             this.AddMsg(MsgCode.Column, "Стовпець");
+            this.AddMsg(MsgCode.Build, "Збірка");
 
         }
 

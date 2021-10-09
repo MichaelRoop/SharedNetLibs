@@ -146,7 +146,6 @@ namespace LanguageFactory.Net.Languages.id {
             this.AddMsg(MsgCode.Odd, "Ganjil");
             this.AddMsg(MsgCode.Mark, "Tanda");
             this.AddMsg(MsgCode.Space, "Spasi");
-
             this.AddMsg(MsgCode.Preview, "Pratayang");
             this.AddMsg(MsgCode.Configuration, "Konfigurasi");
             this.AddMsg(MsgCode.Configurations, "Konfigurasi");
@@ -157,6 +156,7 @@ namespace LanguageFactory.Net.Languages.id {
             this.AddMsg(MsgCode.Step, "Langkah");
             this.AddMsg(MsgCode.Row, "Mendayung");
             this.AddMsg(MsgCode.Column, "Kolom");
+            this.AddMsg(MsgCode.Build, "Build");
 
         }
     }

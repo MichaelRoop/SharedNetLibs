@@ -154,6 +154,7 @@ namespace LanguageFactory.Net.Languages.es {
             this.AddMsg(MsgCode.Step, "Paso");
             this.AddMsg(MsgCode.Row, "Fila");
             this.AddMsg(MsgCode.Column, "Columna");
+            this.AddMsg(MsgCode.Build, "Compilación");
 
         }
 

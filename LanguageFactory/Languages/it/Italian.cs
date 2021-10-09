@@ -155,6 +155,7 @@ namespace LanguageFactory.Net.Languages.it {
             this.AddMsg(MsgCode.Step, "Passo");
             this.AddMsg(MsgCode.Row, "Fila");
             this.AddMsg(MsgCode.Column, "Colonna");
+            this.AddMsg(MsgCode.Build, "Build");
 
         }
 

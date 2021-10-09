@@ -156,6 +156,7 @@ namespace LanguageFactory.Net.Languages.pl {
             this.AddMsg(MsgCode.Step, "Krok");
             this.AddMsg(MsgCode.Row, "Rzędu");
             this.AddMsg(MsgCode.Column, "Kolumna");
+            this.AddMsg(MsgCode.Build, "Kompilacja");
 
         }
 

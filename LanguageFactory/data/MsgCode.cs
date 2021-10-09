@@ -166,6 +166,7 @@
         Step,
         Row,
         Column,
+        Build,
 
         // Composite - no direct lookup
         ReadTimeout,

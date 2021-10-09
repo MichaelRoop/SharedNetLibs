@@ -158,6 +158,7 @@ namespace LanguageFactory.Net.Languages.ar {
             this.AddMsg(MsgCode.Step, "درج");
             this.AddMsg(MsgCode.Row, "صف");
             this.AddMsg(MsgCode.Column, "عمود");
+            this.AddMsg(MsgCode.Build, "تحديث الإصدار");
 
         }
 
