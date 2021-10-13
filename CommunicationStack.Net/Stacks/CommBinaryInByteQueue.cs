@@ -112,9 +112,15 @@ namespace CommunicationStack.Net.Stacks {
                 // Start afresh. Validate first bytes of incoming are delimiters
                 if (this.nextPos == 0 && data.Length > 0) {
                     if (!this.ValidateStartDelimiters(data)) {
-                        // Throw out the data
+                        // Walk through bytes to throw out leading bad parts
                         this.log.Error(9999, "", () => string.Format("Invalid entry data:{0}", data.ToFormatedByteString()));
-                        return false;
+                        byte[] tmp = this.WalkUntilValidData(data);
+                        if (tmp == null) {
+                            return false;
+                        }
+                        else {
+                            data = tmp;
+                        }
                     }
                 }
 
@@ -142,6 +148,31 @@ namespace CommunicationStack.Net.Stacks {
                 return result;
             }
         }
+
+
+        private byte[] WalkUntilValidData(byte[] msg) {
+            byte[] scratch = new byte[msg.Length];
+            for (int i = 0; i < msg.Length - this.startDelimiters.Length; i++) {
+                bool found = true;
+                for (int j = 0; j < this.startDelimiters.Length; j++) {
+                    if (msg[i + j] != this.startDelimiters[j]) {
+                        found = false;
+                        break;
+                    }   
+                }
+
+                if (found) {
+                    // Populate the byte array
+                    byte[] tmp = new byte[msg.Length - i];
+                    Array.Copy(msg, i, tmp, 0, tmp.Length);
+                    this.log.Error(9999, "", () => string.Format("CORRECTED IN BUFF:{0}", tmp.ToFormatedByteString()));
+                    return tmp;
+                }
+            }
+            this.log.Error(9999, "Failed on walkthrough of start of buffer");
+            return null;
+        }
+
 
 
         /// <summary>Used at start of new data to check if first bytes are start delimiters</summary>
