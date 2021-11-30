@@ -2,6 +2,8 @@
 using CommunicationStack.Net.Enumerations;
 using SerialCommon.Net.DataModels;
 using SerialCommon.Net.interfaces;
+using System;
+using System.Collections.Generic;
 
 namespace SerialCommon.Net {
 
