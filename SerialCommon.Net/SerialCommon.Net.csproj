@@ -9,6 +9,7 @@
     <ProjectReference Include="..\Common.Net\Common.Net.csproj" />
     <ProjectReference Include="..\CommunicationStack.Net\CommunicationStack.Net.csproj" />
     <ProjectReference Include="..\Ethernet.Common.Net\Ethernet.Common.Net.csproj" />
+    <ProjectReference Include="..\StorageFactory.Net\StorageFactory.Net.csproj" />
   </ItemGroup>
 
 </Project>

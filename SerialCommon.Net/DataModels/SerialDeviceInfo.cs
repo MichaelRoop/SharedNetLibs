@@ -1,12 +1,9 @@
 ﻿using Common.Net.Network;
-using MultiCommData.Net.interfaces;
 using SerialCommon.Net.Enumerations;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using StorageFactory.Net.interfaces;
 
 namespace SerialCommon.Net.DataModels {
-    
+
     public class SerialDeviceInfo : IDisplayableData, IIndexible {
 
         //// OLD UID - to transition over to new

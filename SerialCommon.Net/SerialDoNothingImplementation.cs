@@ -2,18 +2,16 @@
 using CommunicationStack.Net.Enumerations;
 using SerialCommon.Net.DataModels;
 using SerialCommon.Net.interfaces;
-using System;
-using System.Collections.Generic;
 
 namespace SerialCommon.Net {
 
     public class SerialDoNothingImplementation : ISerialInterface {
         public bool Connected { get { return false; } }
 
-        public event EventHandler<List<SerialDeviceInfo>> DiscoveredDevices;
-        public event EventHandler<SerialUsbError> OnError;
-        public event EventHandler<MsgPumpResults> OnSerialConnectionAttemptCompleted;
-        public event EventHandler<byte[]> MsgReceivedEvent;
+        public event EventHandler<List<SerialDeviceInfo>>? DiscoveredDevices;
+        public event EventHandler<SerialUsbError>? OnError;
+        public event EventHandler<MsgPumpResults>? OnSerialConnectionAttemptCompleted;
+        public event EventHandler<byte[]>? MsgReceivedEvent;
 
         public void ConnectAsync(SerialDeviceInfo dataModel) {
             this.OnSerialConnectionAttemptCompleted?.Invoke(this, new MsgPumpResults() {
@@ -37,7 +35,7 @@ namespace SerialCommon.Net {
 
         private void ToSatisfyCompiler() {
             this.OnError?.Invoke(this, new SerialUsbError());
-            this.MsgReceivedEvent?.Invoke(this, null);
+            this.MsgReceivedEvent?.Invoke(this, new byte[0]);
         }
 
     }
