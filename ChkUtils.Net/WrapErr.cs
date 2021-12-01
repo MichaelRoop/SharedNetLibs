@@ -30,7 +30,7 @@ namespace ChkUtils.Net {
         /// Delegate to log the original conversion of an exception to an
         /// ErrReportException or an ExceptionFault (ErrReport type)
         /// </summary>
-        static LogingMsgDelegate onExceptionLog = null;
+        static LogingMsgDelegate? onExceptionLog = null;
 
         /// <summary>
         /// lock to enforce safe access to exception log delegate
@@ -41,7 +41,7 @@ namespace ChkUtils.Net {
         private readonly static string REPLACE_WITH_EXCEPTION_MSG = "#_$$_#_REPLACE_#_MSG_#_TOKEN_#_$$_#";
 
         /// <summary>Tools to manipulate the stack based on OS</summary>
-        private static IStackTools stackTools = null;
+        private static IStackTools? stackTools = null;
 
         #endregion
 
@@ -106,7 +106,9 @@ namespace ChkUtils.Net {
             catch (Exception e) {
                 Debug.WriteLine("{0} on call to WrapErr.SafeAction:{1} - {2}", e.GetType().Name, e.Message, e.StackTrace);
                 // At this point we do not want to report on any error back to the application
+#pragma warning disable CS8603
                 return default(T);
+#pragma warning restore CS8603
             }
         }
 
@@ -491,7 +493,7 @@ namespace ChkUtils.Net {
         /// <param name="obj">The object to evaluate</param>
         /// <param name="code">The error code if null</param>
         /// <param name="msg">The error message</param>
-        public static void ChkVar(object obj, int code, string msg) {
+        public static void ChkVar(object? obj, int code, string msg) {
             if (obj == null) {
                 ErrReport err = WrapErr.GetErrReport(code, msg);
                 throw new ErrReportExceptionFromChk(err);
@@ -506,7 +508,7 @@ namespace ChkUtils.Net {
         /// <param name="code">The error code if null</param>
         /// <param name="obj">The object to evaluate</param>
         /// <param name="msg">The error message function</param>
-        public static void ChkVar(object obj, int code, Func<string> msgFunc) {
+        public static void ChkVar(object? obj, int code, Func<string> msgFunc) {
             if (obj == null) {
                 WrapErr.ChkVar(obj, code, WrapErr.SafeAction(msgFunc));
             }
@@ -592,9 +594,11 @@ namespace ChkUtils.Net {
             WrapErr.ChkTrue(value != null, nullCode, () => {
                 return String.Format("String '{0}' is Null", name);
             });
+            #pragma warning disable CS8602
             WrapErr.ChkTrue(value.Trim().Length > 0, zeroLenCode, () => {
                 return String.Format("String '{0}' is Empty", name);
             });
+            #pragma warning restore CS8602
         }
 
         #endregion
@@ -717,7 +721,10 @@ namespace ChkUtils.Net {
             finally {
                 WrapErr.SafeAction(() => finallyAction.Invoke());
             }
+#pragma warning disable CS8603
             return default(T);
+#pragma warning restore CS8603
+
         }
 
         #endregion

@@ -58,7 +58,7 @@ namespace ChkUtils.Net.ErrObjects {
         /// <param name="atMethod">Method of origine</param>
         /// <param name="msg">Error message</param>
         /// <param name="e">Exception of origine</param>
-        public ErrReportException (int code, string atClass, string atMethod, string msg, Exception e)
+        public ErrReportException (int code, string atClass, string atMethod, string msg, Exception? e)
             : this (new ErrReport (code, atClass, atMethod, msg, e)) {
         }
 

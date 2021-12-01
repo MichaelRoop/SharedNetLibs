@@ -13,7 +13,7 @@ namespace ChkUtils.Net.ExceptionParsers {
         /// <summary>
         /// Inner parser with information of inner execption or null if no inner exception
         /// </summary>
-        IExceptionParser InnerParser { get; }
+        IExceptionParser? InnerParser { get; }
 
         /// <summary>
         /// Retrieve the Exception Info object with basic information

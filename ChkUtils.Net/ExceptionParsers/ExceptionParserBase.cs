@@ -16,16 +16,16 @@ namespace ChkUtils.Net.ExceptionParsers {
 
         #region Data
 
-        private ExceptionInfo info = null;
+        private ExceptionInfo? info = null;
 
         private List<ExceptionExtraInfo> extraInfo = new List<ExceptionExtraInfo>();
 
         private List<string> stackFrames = new List<string>();
 
-        private IExceptionParser innerExceptionParser = null;
+        private IExceptionParser? innerExceptionParser = null;
 
         /// <summary>Tools to manipulate the stack based on OS TODO - REPLACE WITH DI</summary>
-        private static IStackTools stackTools = null;
+        private static IStackTools? stackTools = null;
 
         #endregion
 
@@ -34,7 +34,7 @@ namespace ChkUtils.Net.ExceptionParsers {
         /// <summary>
         /// Inner parser with information of inner execption or null if no inner exception
         /// </summary>
-        public IExceptionParser InnerParser {
+        public IExceptionParser? InnerParser {
             get {
                 return this.innerExceptionParser;
             }
@@ -46,7 +46,7 @@ namespace ChkUtils.Net.ExceptionParsers {
         /// <returns>The ExceptionInfo object</returns>
         public ExceptionInfo Info {
             get {
-                return this.info;
+                return this.info == null ? new ExceptionInfo(new Exception("empty")) : this.info;
             }
         }
 
@@ -143,7 +143,8 @@ namespace ChkUtils.Net.ExceptionParsers {
                         foreach (DictionaryEntry item in e.Data) {
                             // Note. we use the ToString to dump a representation of the User Data Key and Value
                             if (item.Key != null) {
-                                this.extraInfo.Add(new ExceptionExtraInfo(item.Key.ToString(), item.Value == null ? "NULL" : item.Value.ToString()));
+                                string? value = item.Value is null ? "--" : item.Value.ToString()??"--";
+                                this.extraInfo.Add(new ExceptionExtraInfo(item.Key.ToString() ?? "--", value));
                             }
                             else {
                                 Debug.WriteLine(String.Format("ExceptionParserBase.BuildExtraInfoItems : DictionaryEntry Item Key is null"));
@@ -168,7 +169,7 @@ namespace ChkUtils.Net.ExceptionParsers {
                     this.stackFrames = ExceptionParserBase.stackTools.FirstNonWrappedTraceStack(typeof(WrapErr), e, 0);
                 }
                 else {
-                    this.stackFrames.Add(e.StackTrace);
+                    this.stackFrames.Add(e.StackTrace?? "");
                 }
             }
             catch (Exception ex) {

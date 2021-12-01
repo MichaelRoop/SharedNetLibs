@@ -40,23 +40,34 @@ namespace ChkUtils.Net {
             int index = 1;
             StackTrace st = new StackTrace();
 
-            MethodBase mb = st.GetFrame(index).GetMethod();
-            while (true) {
-                if ((typeToIgnore == null) || (mb.DeclaringType.Name != typeToIgnore.Name && !this.IsInternalClass(mb.DeclaringType.Name)) && !mb.Name.Contains("<")) {
-                    return new ErrorLocation(mb.DeclaringType.Name, mb.Name);
-                }
+            MethodBase? mb = st.GetFrame(index)?.GetMethod();
+            if (mb != null) {
+                while (true) {
+                    Type? declaringType = mb.DeclaringType;
+                    if (declaringType == null) {
+                        return new ErrorLocation();
+                    }
 
-                ++index;
-                StackFrame sf = st.GetFrame(index);
-                if (sf == null) {
-                    return new ErrorLocation(mb.DeclaringType.Name, mb.Name);
-                }
+                    if ((typeToIgnore == null) || 
+                        (declaringType.Name != typeToIgnore.Name && !this.IsInternalClass(declaringType.Name)) && !mb.Name.Contains("<")) {
+                        return new ErrorLocation(declaringType.Name, mb.Name);
+                    }
 
-                MethodBase tmp = sf.GetMethod();
-                if (tmp == null) {
-                    return new ErrorLocation(mb.DeclaringType.Name, mb.Name);
+                    ++index;
+                    StackFrame? sf = st.GetFrame(index);
+                    if (sf == null) {
+                        return new ErrorLocation(declaringType.Name, mb.Name);
+                    }
+
+                    MethodBase? tmp = sf.GetMethod();
+                    if (tmp == null) {
+                        return new ErrorLocation(declaringType.Name, mb.Name);
+                    }
+                    mb = tmp;
                 }
-                mb = tmp;
+            }
+            else {
+                return new ErrorLocation();
             }
 #endif
         }
@@ -76,37 +87,46 @@ namespace ChkUtils.Net {
             int index = 1;
             StackTrace st = new StackTrace();
 
-            MethodBase mb = st.GetFrame(index).GetMethod();
-            while (true) {
-
-                if ((typesToIgnore == null)) {
-                    return new ErrorLocation(mb.DeclaringType.Name, mb.Name);
-                }
-
-                // It must not be equal to any of the ignore types to be the correct level
-                bool matchAny = false;
-                foreach (Type t in typesToIgnore) {
-                    if (mb.DeclaringType.Name == t.Name || mb.Name.Contains("<")) {
-                        matchAny = true;
-                        break;
+            MethodBase? mb = st.GetFrame(index)?.GetMethod();
+            if (mb != null) {
+                while (true) {
+                    Type? declaringType = mb.DeclaringType;
+                    if (declaringType == null) {
+                        return new ErrorLocation();
                     }
-                }
 
-                if (!matchAny) {
-                    return new ErrorLocation(mb.DeclaringType.Name, mb.Name);
-                }
+                    if ((typesToIgnore == null)) {
+                        return new ErrorLocation(declaringType.Name, mb.Name);
+                    }
 
-                ++index;
-                StackFrame sf = st.GetFrame(index);
-                if (sf == null) {
-                    return new ErrorLocation(mb.DeclaringType.Name, mb.Name);
-                }
+                    // It must not be equal to any of the ignore types to be the correct level
+                    bool matchAny = false;
+                    foreach (Type t in typesToIgnore) {
+                        if (declaringType.Name == t.Name || mb.Name.Contains("<")) {
+                            matchAny = true;
+                            break;
+                        }
+                    }
 
-                MethodBase tmp = sf.GetMethod();
-                if (tmp == null) {
-                    return new ErrorLocation(mb.DeclaringType.Name, mb.Name);
+                    if (!matchAny) {
+                        return new ErrorLocation(declaringType.Name, mb.Name);
+                    }
+
+                    ++index;
+                    StackFrame? sf = st.GetFrame(index);
+                    if (sf == null) {
+                        return new ErrorLocation(declaringType.Name, mb.Name);
+                    }
+
+                    MethodBase? tmp = sf.GetMethod();
+                    if (tmp == null) {
+                        return new ErrorLocation(declaringType.Name, mb.Name);
+                    }
+                    mb = tmp;
                 }
-                mb = tmp;
+            }
+            else {
+                return new ErrorLocation();
             }
 #endif
         }
@@ -130,7 +150,10 @@ namespace ChkUtils.Net {
 
             List<string> stackFrames = new List<string>();
             for (int i = 0; i < trace.FrameCount; i++) {
-                StackFrame sf = trace.GetFrame(i);
+                StackFrame? sf = trace.GetFrame(i);
+                if (sf == null) { 
+                    return stackFrames;
+                }
 
                 // Skip over all entries until you hit the first not to ignore
                 string frameClass = this.ClassName(sf);
@@ -171,7 +194,10 @@ namespace ChkUtils.Net {
                 string ignoreTypeName = typeToIgnore.Name;
 
                 for (int i = 0; i < trace.FrameCount; i++) {
-                    StackFrame sf = trace.GetFrame(i);
+                    StackFrame? sf = trace.GetFrame(i);
+                    if (sf == null) {
+                        return stackFrames;
+                    }
                     string frameClass = this.ClassName(sf);
 
                     // Skip over all entries until you hit the first not to ignore
@@ -212,12 +238,13 @@ namespace ChkUtils.Net {
         /// invoked when drill down is complete. If found the first parameter will be set true and the second 
         /// parameter will be the exception
         /// </param>
-        public void FindNestedExceptionType<T>(Exception e, Action<bool, T> onComplete) where T : Exception {
+        public void FindNestedExceptionType<T>(Exception e, Action<bool, T?> onComplete) where T : Exception {
             WrapErr.ToErrReport(22000, () => {
                 if (e.InnerException != null) {
-                    if (e.InnerException is T) {
+                    T? innerEx = e.InnerException as T;
+                    if (innerEx != null) {
                         WrapErr.ToErrReport(22001, "User thrown exception within onFoundFunction delegate", () => {
-                            onComplete.Invoke(true, (e.InnerException as T));
+                            onComplete.Invoke(true, innerEx);
                         });
                     }
                     else {
@@ -245,7 +272,7 @@ namespace ChkUtils.Net {
                 return "NoFileName";
             }
 
-            string name = frame.GetFileName();
+            string? name = frame.GetFileName();
             if (name == null) {
                 //Debug.WriteLine("StackFrameTools.GetFileName : Null name in frame");
                 return "NoFileName";
@@ -269,7 +296,11 @@ namespace ChkUtils.Net {
         /// <returns>The method name</returns>
         private string MethodName(StackFrame frame) {
             try {
-                return frame.GetMethod().Name;
+                MethodBase? mb = frame.GetMethod();
+                if (mb != null) {
+                    return mb.Name;
+                }
+                return "NA";
             }
             catch (Exception e) {
                 Debug.WriteLine(String.Format("WrapErr.GetMethodName : Exception {0} getting method name:{1}", e.GetType().Name, e.Message));
@@ -301,7 +332,11 @@ namespace ChkUtils.Net {
         /// <returns>The class name</returns>
         private string ClassName(StackFrame frame) {
             try {
-                return frame.GetMethod().DeclaringType.Name;
+                MethodBase? mb = frame.GetMethod();
+                if (mb != null && mb.DeclaringType != null) {
+                    return mb.DeclaringType.Name;
+                }
+                return "NA";
             }
             catch (Exception e) {
                 Debug.WriteLine(String.Format("WrapErr.GetClassName : Exception {0} getting class name:{1}", e.GetType().Name, e.Message));

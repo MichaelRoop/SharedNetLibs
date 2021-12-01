@@ -41,6 +41,6 @@ namespace ChkUtils.Net.Interfaces {
         /// invoked when drill down is complete. If found the first parameter will be set true and the second 
         /// parameter will be the exception
         /// </param>
-        void FindNestedExceptionType<T>(Exception e, Action<bool, T> onComplete) where T : Exception;
+        void FindNestedExceptionType<T>(Exception e, Action<bool, T?> onComplete) where T : Exception;
     }
 }

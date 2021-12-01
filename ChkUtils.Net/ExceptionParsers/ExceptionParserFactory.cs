@@ -15,7 +15,7 @@ namespace ChkUtils.Net.ExceptionParsers {
         /// </summary>
         /// <param name="e">The exception that requires a parser</param>
         /// <returns>An exception parser</returns>
-        public static IExceptionParser Get(Exception e) {
+        public static IExceptionParser? Get(Exception? e) {
             if (e == null) {
                 //Debug.WriteLine("ExceptionParserBase.AddStackFrames:Attempting to add stack frames from a null exception");
                 //return new DefaultExceptionParser(new Exception("The Exception passed in to the exception parser factory is null"));

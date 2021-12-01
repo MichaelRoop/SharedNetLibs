@@ -34,7 +34,8 @@ namespace ChkUtils.Net.ExceptionParsers {
                 XmlException ex = (XmlException)e;
                 this.ExtraInfo.Add(new ExceptionExtraInfo("Line Number", ex.LineNumber.ToString()));
                 this.ExtraInfo.Add(new ExceptionExtraInfo("Line Position", ex.LinePosition.ToString()));
-                this.ExtraInfo.Add(new ExceptionExtraInfo("Source URI", ex.SourceUri));
+                string? uri = ex.SourceUri;
+                this.ExtraInfo.Add(new ExceptionExtraInfo("Source URI", uri == null ? "--" : uri));
             }
             else {
                 WrapErr.SafeAction(() => 

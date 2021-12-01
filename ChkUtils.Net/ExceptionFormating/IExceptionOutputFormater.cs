@@ -16,7 +16,7 @@ namespace ChkUtils.Net.ExceptionFormating {
         /// </summary>
         /// <param name="parser">The parser to break down the exception</param>
         /// <param name="target">The target string builder for the stack string</param>
-        void FormatException(IExceptionParser parser, StringBuilder target);
+        void FormatException(IExceptionParser? parser, StringBuilder target);
 
     }
 }

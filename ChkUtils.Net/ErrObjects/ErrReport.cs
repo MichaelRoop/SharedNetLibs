@@ -118,7 +118,7 @@ namespace ChkUtils.Net.ErrObjects {
         /// <param name="atMethod">Originating method</param>
         /// <param name="msg">Error message</param>
         /// <param name="atException">Originating Exception</param>
-        public ErrReport(int code, string atClass, string atMethod, string msg, Exception atException) {
+        public ErrReport(int code, string atClass, string atMethod, string msg, Exception? atException) {
             this.code = code;
             this.atClass = atClass;
             this.atMethod = atMethod;
@@ -134,7 +134,7 @@ namespace ChkUtils.Net.ErrObjects {
         /// <param name="method">Originating stack frame method</param>
         /// <param name="msg">Error message</param>
         /// <param name="atException">Originating Exception</param>
-        public ErrReport(int code, ErrorLocation location, string msg, Exception atException)
+        public ErrReport(int code, ErrorLocation location, string msg, Exception? atException)
             : this(code, location.ClassName, location.MethodName, msg, atException) {
         }
 
@@ -167,14 +167,18 @@ namespace ChkUtils.Net.ErrObjects {
 
         /// <summary>Parse Exception to stack trace string and store in report</summary>
         /// <param name="e">The exception to parse</param>
-        private void InitialiseStackTraceInfo(Exception e) {
+        private void InitialiseStackTraceInfo(Exception? e) {
             // Translate any exception information to string but do not store the exception. This allows the 
             // object to be serialized and passed to a FaultException that can used to traverse WCF boundries
             try {
+                if (e == null) {
+                    throw new ArgumentNullException("null parameter");
+                }
                 ExceptionFormaterFactory.Get().FormatException(ExceptionParserFactory.Get(e), stackTrace);
             }
             catch (Exception ee) {
-                System.Diagnostics.Debug.WriteLine(string.Format("Exception caught from the exception formater - {0} - {1} {2}", e.Message, ee.Message, ee.StackTrace));
+                System.Diagnostics.Debug.WriteLine(string.Format("Exception caught from the exception formater - {0} - {1} {2}", 
+                    ee.Message, ee.Message, ee.StackTrace));
             }
         }
 
