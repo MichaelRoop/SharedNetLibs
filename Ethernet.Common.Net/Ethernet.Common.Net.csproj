@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\MultiCommTerminal\MultiCommData\MultiCommData.Net.csproj" />
-    <ProjectReference Include="..\CommunicationStack.Net\CommunicationStack.Net.csproj" />
   </ItemGroup>
 
 </Project>

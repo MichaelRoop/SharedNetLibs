@@ -4,9 +4,4 @@
     <TargetFramework>netstandard2.1</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\ChkUtils.Net\ChkUtils.Net.csproj" />
-    <ProjectReference Include="..\LogUtils.Net\LogUtils.Net.csproj" />
-  </ItemGroup>
-
 </Project>

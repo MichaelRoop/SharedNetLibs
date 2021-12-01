@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CommunicationStack.Net\CommunicationStack.Net6.csproj" />
+    <ProjectReference Include="..\StorageFactory.Net\StorageFactory.Net6.csproj" />
+  </ItemGroup>
+
+</Project>

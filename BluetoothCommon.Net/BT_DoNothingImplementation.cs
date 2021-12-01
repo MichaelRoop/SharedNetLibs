@@ -9,14 +9,14 @@ namespace BluetoothCommon.Net {
     /// </summary>
     public class BT_DoNothingImplementation : IBTInterface {
 
-        public event EventHandler<BTDeviceInfo> DiscoveredBTDevice;
-        public event EventHandler<BTDeviceInfo> BT_DeviceInfoGathered;
-        public event EventHandler<bool> DiscoveryComplete;
-        public event EventHandler<bool> ConnectionCompleted;
-        public event EventHandler<BT_PairInfoRequest> BT_PairInfoRequested;
-        public event EventHandler<BTPairOperationStatus> BT_PairStatus;
-        public event EventHandler<BTUnPairOperationStatus> BT_UnPairStatus;
-        public event EventHandler<byte[]> MsgReceivedEvent;
+        public event EventHandler<BTDeviceInfo>? DiscoveredBTDevice;
+        public event EventHandler<BTDeviceInfo>? BT_DeviceInfoGathered;
+        public event EventHandler<bool>? DiscoveryComplete;
+        public event EventHandler<bool>? ConnectionCompleted;
+        public event EventHandler<BT_PairInfoRequest>? BT_PairInfoRequested;
+        public event EventHandler<BTPairOperationStatus>? BT_PairStatus;
+        public event EventHandler<BTUnPairOperationStatus>? BT_UnPairStatus;
+        public event EventHandler<byte[]>? MsgReceivedEvent;
 
 
         public void ConnectAsync(BTDeviceInfo device) {

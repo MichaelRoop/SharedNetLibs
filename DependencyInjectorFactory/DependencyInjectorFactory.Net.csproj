@@ -6,8 +6,4 @@
     <RootNamespace>DependencyInjectorFactory.Net</RootNamespace>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\LogUtils.Net\LogUtils.Net.csproj" />
-  </ItemGroup>
-
 </Project>

@@ -4,9 +4,4 @@
     <TargetFramework>netstandard2.1</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\CommunicationStack.Net\CommunicationStack.Net.csproj" />
-    <ProjectReference Include="..\VariousUtils\VariousUtils.Net.csproj" />
-  </ItemGroup>
-
 </Project>

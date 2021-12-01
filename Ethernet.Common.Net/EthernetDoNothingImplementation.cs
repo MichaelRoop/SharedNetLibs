@@ -9,10 +9,10 @@ namespace Ethernet.Common.Net {
     public class EthernetDoNothingImplementation : IEthernetInterface {
         public bool Connected { get { return false; } }
 
-        public event EventHandler<EthernetParams> ParamsRequestedEvent;
-        public event EventHandler<MsgPumpResults> OnEthernetConnectionAttemptCompleted;
-        public event EventHandler<MsgPumpResults> OnError;
-        public event EventHandler<byte[]> MsgReceivedEvent;
+        public event EventHandler<EthernetParams>? ParamsRequestedEvent;
+        public event EventHandler<MsgPumpResults>? OnEthernetConnectionAttemptCompleted;
+        public event EventHandler<MsgPumpResults>? OnError;
+        public event EventHandler<byte[]>? MsgReceivedEvent;
 
         public void ConnectAsync(EthernetParams dataModel) {
             this.OnEthernetConnectionAttemptCompleted?.Invoke(this, new MsgPumpResults() {
@@ -33,7 +33,7 @@ namespace Ethernet.Common.Net {
         private void ToSatisfyCompiler() {
             this.ParamsRequestedEvent?.Invoke(this, new EthernetParams());
             this.OnError?.Invoke(this, new MsgPumpResults());
-            this.MsgReceivedEvent?.Invoke(this, null);
+            this.MsgReceivedEvent?.Invoke(this, new byte[0]);
         }
 
     }

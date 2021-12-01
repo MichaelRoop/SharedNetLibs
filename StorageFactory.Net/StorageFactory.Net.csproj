@@ -9,8 +9,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ChkUtils.Net\ChkUtils.Net.csproj" />
-    <ProjectReference Include="..\LogUtils.Net\LogUtils.Net.csproj" />
     <ProjectReference Include="..\VariousUtils\VariousUtils.Net.csproj" />
   </ItemGroup>
 

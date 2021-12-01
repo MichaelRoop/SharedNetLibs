@@ -33,6 +33,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WifiCommon.Net6", "WifiComm
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SerialCommon.Net6", "SerialCommon.Net\SerialCommon.Net6.csproj", "{1EAB4192-BDC0-4D87-BC3F-79D714C1CE18}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ethernet.Common.Net6", "Ethernet.Common.Net\Ethernet.Common.Net6.csproj", "{3D9EA8F7-837A-412E-B7E3-6FA9F01F6634}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IconFactory.Net6", "IconFactory\IconFactory.Net6.csproj", "{408F0D7E-99EB-4D62-BA12-7E85D9A4ECA0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,6 +103,14 @@ Global
 		{1EAB4192-BDC0-4D87-BC3F-79D714C1CE18}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1EAB4192-BDC0-4D87-BC3F-79D714C1CE18}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1EAB4192-BDC0-4D87-BC3F-79D714C1CE18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D9EA8F7-837A-412E-B7E3-6FA9F01F6634}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D9EA8F7-837A-412E-B7E3-6FA9F01F6634}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D9EA8F7-837A-412E-B7E3-6FA9F01F6634}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D9EA8F7-837A-412E-B7E3-6FA9F01F6634}.Release|Any CPU.Build.0 = Release|Any CPU
+		{408F0D7E-99EB-4D62-BA12-7E85D9A4ECA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{408F0D7E-99EB-4D62-BA12-7E85D9A4ECA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{408F0D7E-99EB-4D62-BA12-7E85D9A4ECA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{408F0D7E-99EB-4D62-BA12-7E85D9A4ECA0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
