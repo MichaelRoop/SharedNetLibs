@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace VariousUtils.Net {
+﻿namespace VariousUtils.Net {
 
     public class NumericRange {
 
-        public string Min { get; set; }
+        public string Min { get; set; } = "0";
 
-        public string Max { get; set; }
+        public string Max { get; set; } = "0";
 
         public NumericRange(object min, object max) {
-            this.Min = min.ToString();
-            this.Max = max.ToString();
+            this.Min = min.ToString()??"0";
+            this.Max = max.ToString()??"0";
         }
 
     }

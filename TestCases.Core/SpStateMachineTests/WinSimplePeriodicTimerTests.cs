@@ -12,7 +12,7 @@ namespace TestCases.SpStateMachineTests {
 
         #region Setup
 
-        WinSimpleTimer timer = null;
+        WinSimpleTimer? timer = null;
         HelperLogReader logReader = new HelperLogReader();
 
         [SetUp]

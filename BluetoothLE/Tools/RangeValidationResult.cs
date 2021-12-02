@@ -12,13 +12,13 @@ namespace BluetoothLE.Net.Tools {
         public byte[] Payload { get; set; } = new byte[0];
 
         /// <summary>The original data entered by user</summary>
-        public string UserEntryString { get; set; }
+        public string UserEntryString { get; set; } = "";
 
 
         /// <summary>Provide holder for translated message at higher level</summary>
-        public string Message { get; set; }
+        public string Message { get; set; } = "";
 
-        public DataTypeDisplay Range { get; set; }
+        public DataTypeDisplay Range { get; set; } = new DataTypeDisplay();
 
 
         public RangeValidationResult() { }

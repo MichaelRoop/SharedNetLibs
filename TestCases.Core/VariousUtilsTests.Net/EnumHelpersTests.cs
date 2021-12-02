@@ -38,6 +38,25 @@ namespace TestCases.VariousUtilsTests.Net {
             Nine = 9,
         }
 
+        public enum TestByteEnum : byte {
+            None = 0,
+            One = 1,
+            Two = 2,
+            Three = 3,
+            Four = 4,
+            Five = 5,
+            Six = 6,
+            Seven = 7,
+            Eight = 8,
+            Nine = 9,
+        }
+
+
+
+        // Something strange. Works if at least 2. Less and it adds a leading 0 entry
+        public enum EmptyEnum : int {
+        }
+
 
 
         #endregion
@@ -60,8 +79,10 @@ namespace TestCases.VariousUtilsTests.Net {
 
         #endregion
 
+        #region Flags
+
         [Test]
-        public void TestAdd() {
+        public void T01_Flags_01_Add() {
             TestHelpers.CatchUnexpected(() => {
                 TestEnum t = TestEnum.None;
                 Assert.AreEqual(TestEnum.None, t);
@@ -79,7 +100,7 @@ namespace TestCases.VariousUtilsTests.Net {
 
 
         [Test]
-        public void TestRemove() {
+        public void T01_Flags_02_Remove() {
             TestHelpers.CatchUnexpected(() => {
                 TestEnum t = TestEnum.Four | TestEnum.Eight | TestEnum.Two;
                 Assert.True(t.HasFlag(TestEnum.None));
@@ -101,61 +122,87 @@ namespace TestCases.VariousUtilsTests.Net {
             });
         }
 
+        #endregion
+
+        #region ToValues
 
         [Test]
-        public void GetEnumListTest() {
-            TestHelpers.CatchUnexpected(() => {
-                int count = 0;
-                foreach (TestEnum te in EnumHelpers.GetEnumList<TestEnum>()) {
-                    count++;
-                }
-                Assert.AreEqual(10, count);
-
-
-            });
-        }
-
-
-        [Test]
-        public void ToIntTest() {
+        public void T02_01_Enum_ToInt() {
             TestHelpers.CatchUnexpected(() => {
                 Assert.AreEqual(64, TestEnum.Seven.ToInt());
             });
         }
 
-
         [Test]
-        public void ToEnumTest() {
+        public void T02_02_Int_ToEnum_Valid() {
             TestHelpers.CatchUnexpected(() => {
-                Assert.AreEqual(TestEnum.Seven, 64.ToEnum<TestEnum>());
+                int value = 64;
+                Assert.AreEqual(TestEnum.Seven, value.ToEnum<TestEnum>());
                 // Just to make sure it does not throw an exception
-                Assert.AreNotEqual(TestEnum.Seven, 23356.ToEnum<TestEnum>());
+                //Assert.AreNotEqual(TestEnum.Seven, 23356.ToEnum<TestEnum>());
             });
         }
 
+        [Test]
+        public void T02_03_Int_ToEnum_InvalidNumber() {
+            // TODO - just returns a non existing enum of that value
+            int value = 3264;
+             Assert.AreEqual(3264, (int)value.ToEnum<TestEnum>());
+        }
 
         [Test]
-        public void FirstOrDefaultTest() {
+        public void T02_04_ToEnum_Int_InvalidNumberWithDefault() {
+            int value = 3264;
+            Assert.AreEqual(TestEnum.None, value.ToEnum<TestEnum>(TestEnum.None));
+        }
+
+
+
+
+        #endregion
+
+        #region FirstOrDefault
+
+        [Test]
+        public void T03_01_FirstOrDefault_byte() {
+            byte value = 254;
+            TestByteEnum e = value.FirstOrDefault(TestByteEnum.None);
+            Assert.AreEqual(TestByteEnum.None, e);
+
+            value = 4;
+            e = value.FirstOrDefault(TestByteEnum.None);
+            Assert.AreEqual(TestByteEnum.Four, e);
+        }
+
+
+
+        [Test]
+        public void T03_05_FirstOrDefault_uint() {
             TestHelpers.CatchUnexpected(() => {
                 uint value = 33333;
-
                 TestUintEnum e = value.FirstOrDefault(TestUintEnum.None);
                 Assert.AreEqual(TestUintEnum.None, e);
 
                 value = 4;
                 e = value.FirstOrDefault(TestUintEnum.None);
                 Assert.AreEqual(TestUintEnum.Four, e);
-
-
-
-                //Assert.AreEqual(TestEnum.Seven, 64.ToEnum<TestEnum>());
-                //// Just to make sure it does not throw an exception
-                //Assert.AreNotEqual(TestEnum.Seven, 23356.ToEnum<TestEnum>());
             });
         }
 
+        #endregion
 
+        #region GetEnumList
+        [Test]
+        public void T04_01_GetEnumList_Count() {
+            Assert.AreEqual(10, EnumHelpers.GetEnumList<TestEnum>().Count);
+        }
 
+        [Test]
+        public void T04_02_GetEnumList_Empty() {
+            Assert.AreEqual(0, EnumHelpers.GetEnumList<EmptyEnum>().Count);
+        }
+
+        #endregion
 
     }
 

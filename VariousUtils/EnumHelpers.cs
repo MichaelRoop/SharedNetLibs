@@ -1,22 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace VariousUtils.Net {
+﻿namespace VariousUtils.Net {
 
     /// <summary>Some helpers for enum usage</summary>
     public static class EnumHelpers {
 
-        public static T FirstOrDefault<T>(this uint value, T defaultValue) where T : new() {
-            foreach(T item in GetEnumList<T>()) {
-                if (((uint)(object)item) == value){
+        public static T FirstOrDefault<T>(this byte value, T defaultValue) where T : Enum {
+            return GetEnumList<T>().FirstOrDefault(e => (byte)(object)e == value, defaultValue);
+        }
+
+
+        public static T FirstOrDefault<T>(this int value, T defaultValue) where T : Enum {
+            foreach (T item in GetEnumList<T>()) {
+                if (((int)(object)item) == value) {
                     return item;
                 }
             }
             return defaultValue;
         }
 
-        public static T FirstOrDefault<T>(this ushort value, T defaultValue) where T : new() {
+
+        public static T FirstOrDefault<T>(this uint value, T defaultValue) where T : Enum {
+            return GetEnumList<T>().FirstOrDefault(e => (uint)(object)e == value, defaultValue);
+        }
+
+
+        public static T FirstOrDefault<T>(this ushort value, T defaultValue) where T : Enum {
             foreach (T item in GetEnumList<T>()) {
                 if (((ushort)(object)item) == value) {
                     return item;
@@ -29,12 +36,8 @@ namespace VariousUtils.Net {
         /// <summary>Get list of enums to use in foreach. You must use the Enum type rather than var</summary>
         /// <typeparam name="T">The enum type</typeparam>
         /// <returns>A list of enums of that type</returns>
-        public static List<T> GetEnumList<T>() where T : new() {
-            T valueType = new T();
-            return typeof(T).GetFields()
-                .Select(fieldInfo => (T)fieldInfo.GetValue(valueType))
-                .Distinct()
-                .ToList();
+        public static List<T> GetEnumList<T>() where T : Enum {
+            return Enum.GetValues(typeof(T)).Cast<T>().ToList();
         }
 
 
@@ -100,6 +103,7 @@ namespace VariousUtils.Net {
         /// <typeparam name="T">The type of enum</typeparam>
         /// <param name="intToCast">The int to cast to the enum</param>
         /// <returns>The enum cast from int</returns>
+        //[Obsolete] // TODO - maybe make private since used here when I know the enum is valid
         public static T ToEnum<T>(this int intToCast) where T : Enum {
             return (T)(object)intToCast;
         }
@@ -112,6 +116,37 @@ namespace VariousUtils.Net {
         public static T ToEnum<T>(this uint uintToCast) where T : Enum {
             return (T)(object)uintToCast;
         }
+
+
+        /// <summary>Pass by object to cast int to enum or return default value if non existing</summary>
+        /// <typeparam name="T">The type of enum</typeparam>
+        /// <param name="intToCast">The int to cast to the enum</param>
+        /// <param name="defaultValue">Default if number invalid</param>
+        /// <returns>The enum cast from int</returns>
+        public static T ToEnum<T>(this byte byteToCast, T defaultValue) where T : Enum {
+            return byteToCast.FirstOrDefault<T>(defaultValue);
+        }
+
+
+        /// <summary>Pass by object to cast int to enum or return default value if non existing</summary>
+        /// <typeparam name="T">The type of enum</typeparam>
+        /// <param name="intToCast">The int to cast to the enum</param>
+        /// <param name="defaultValue">Default if number invalid</param>
+        /// <returns>The enum cast from int</returns>
+        public static T ToEnum<T>(this int intToCast, T defaultValue) where T : Enum {
+            return intToCast.FirstOrDefault<T>(defaultValue);
+        }
+
+
+        /// <summary>Pass by object to cast uint to enum or return default value if non existing</summary>
+        /// <typeparam name="T">The type of enum</typeparam>
+        /// <param name="uintToCast">The uint to cast to the enum</param>
+        /// <param name="defaultValue">Default if number invalid</param>
+        /// <returns>The enum cast from int</returns>
+        public static T ToEnum<T>(this uint uintToCast, T defaultValue) where T : Enum {
+            return uintToCast.FirstOrDefault<T>(defaultValue);
+        }
+
 
 
     }
