@@ -20,25 +20,25 @@ namespace LogUtils.Net {
         #region Events
 
         /// <summary>Posts every message regardless of verbosity</summary>
-        public event EventHandler<string> EveryMsgEvent;
+        public event EventHandler<string>? EveryMsgEvent;
 
         /// <summary>Raised on messages of level Info</summary>
-        public event EventHandler<string> InfoMsgEvent;
+        public event EventHandler<string>? InfoMsgEvent;
 
         /// <summary>Raised on messages of level Debug</summary>
-        public event EventHandler<string> DebugMsgEvent;
+        public event EventHandler<string>? DebugMsgEvent;
 
         /// <summary>Raised on messages of level Warning</summary>
-        public event EventHandler<string> WarningMsgEvent;
+        public event EventHandler<string>? WarningMsgEvent;
 
         /// <summary>Raised on messages of level Error</summary>
-        public event EventHandler<string> ErrorMsgEvent;
+        public event EventHandler<string>? ErrorMsgEvent;
 
         /// <summary>Raised on messages of level Exception</summary>
-        public event EventHandler<string> ExceptionMsgEvent;
+        public event EventHandler<string>? ExceptionMsgEvent;
 
         /// <summary>Raised on every message with raw info</summary>
-        public Action<MsgLevel, ErrReport> RawCurrentVerbotsityMsgInfoEvent;
+        public Action<MsgLevel, ErrReport>? RawCurrentVerbotsityMsgInfoEvent;
 
         #endregion
 
@@ -53,7 +53,7 @@ namespace LogUtils.Net {
         /// </param>
         public void Setup(string build, MsgLevel verbosity, bool sendToDebug, int msgCountThreshold = 5) {
             this.Setup(
-                System.Reflection.Assembly.GetExecutingAssembly().GetName().Name, 
+                System.Reflection.Assembly.GetExecutingAssembly().GetName().Name??"---", 
                 build, 
                 verbosity, 
                 sendToDebug, 

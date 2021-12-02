@@ -11,10 +11,10 @@ namespace LogUtils.Net {
     /// <copyright>July 2012 Michael Roop Used by permission</copyright> 
     public class ConsoleWriter {
 
-        Action<MsgLevel, ErrReport> onMsgLogged = null;
+        Action<MsgLevel, ErrReport> onMsgLogged;
         private bool connected = false;
 
-        I_OS_ConsoleWriter writer = null;
+        I_OS_ConsoleWriter writer;
 
 
         public ConsoleWriter(I_OS_ConsoleWriter writer) {

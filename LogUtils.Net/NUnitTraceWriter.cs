@@ -10,7 +10,7 @@ namespace LogUtils.Net {
 
         #region Data
 
-        Action<MsgLevel, ErrReport> onMsgLogged = null;
+        Action<MsgLevel, ErrReport> onMsgLogged;
         private bool connected = false;
 
         #endregion

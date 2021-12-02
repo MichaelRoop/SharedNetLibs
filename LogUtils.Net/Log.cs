@@ -55,7 +55,7 @@ namespace LogUtils.Net {
         private static int msgNumberThreshold = 100;
 
         /// <summary>Alows OS specific parsing of stack for warning and up class and method names</summary>
-        private static IStackTools stackTools = null;
+        private static IStackTools? stackTools = null;
 
         #endregion
 
@@ -65,7 +65,7 @@ namespace LogUtils.Net {
         /// The event that is raised on each message logged that is equal or greater
         /// than the set verbosity.
         /// </summary>
-        public static event LogingMsgEventDelegate OnLogMsgEvent;
+        public static event LogingMsgEventDelegate? OnLogMsgEvent;
 
         #endregion
 
@@ -292,8 +292,7 @@ namespace LogUtils.Net {
 
 
         public static void Exception(int code, string atClass, string atMethod, Exception e) {
-            string msg = (e is ErrReportException) ? (e as ErrReportException).Report.Msg : e.Message;
-            //Log.LogMsg(MsgLevel.Exception, code, atClass, atMethod, e.Message, e);
+            string msg = (e is ErrReportException) ? ((ErrReportException)e).Report.Msg : e.Message;
             Log.LogMsg(MsgLevel.Exception, code, atClass, atMethod, msg, e);
         }
 
@@ -407,7 +406,7 @@ namespace LogUtils.Net {
         /// <param name="atMethod">Method of origine</param>
         /// <param name="msg">Message function</param>
         /// <param name="e">Exception to log</param>
-        public static void LogMsg(MsgLevel level, int code, string atClass, string atMethod, Func<string> msgFunc, Exception e) {
+        public static void LogMsg(MsgLevel level, int code, string atClass, string atMethod, Func<string> msgFunc, Exception? e) {
             // You must only invoke the formater function if the level is high enough to ensure maximum
             // performance gains if the message is not high enough level to be logged
             if (Log.IsVerboseEnough(level)) {
@@ -436,7 +435,7 @@ namespace LogUtils.Net {
         /// <param name="atMethod">Method of origine</param>
         /// <param name="msg">Message</param>
         /// <param name="e">Exception to log</param>
-        public static void LogMsg(MsgLevel level, int code, string atClass, string atMethod, string msg, Exception e) {
+        public static void LogMsg(MsgLevel level, int code, string atClass, string atMethod, string msg, Exception? e) {
             Log.LogMsg(level, new ErrReport(code, atClass, atMethod, msg, e));
         }
 
@@ -532,7 +531,7 @@ namespace LogUtils.Net {
         /// <param name="code">Error code</param>
         /// <param name="msg">Error message</param>
         /// <param name="e">The exception to parse for information</param>
-        private static void LogWarningAndUp(MsgLevel level, int code, string msg, Exception e) {
+        private static void LogWarningAndUp(MsgLevel level, int code, string msg, Exception? e) {
             // Do the verbosity check first to avoid the overhead of reflection if it is not being logged
             if (Log.IsVerboseEnough(level)) {
                 if (Log.stackTools != null) {
@@ -581,7 +580,7 @@ namespace LogUtils.Net {
         /// <param name="code">Error code</param>
         /// <param name="msg">Error message</param>
         /// <param name="e">The exception to parse for information</param>
-        private static void LogWarningAndUp(MsgLevel level, int code, Func<string> msgFunc, Exception e) {
+        private static void LogWarningAndUp(MsgLevel level, int code, Func<string> msgFunc, Exception? e) {
             // Do the verbosity check first to avoid the overhead of reflection if it is not being logged
             if (Log.IsVerboseEnough(level)) {
                 string msg = "";
