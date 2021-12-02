@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using VariousUtils.Net;
+﻿using VariousUtils.Net;
 
 
 namespace BluetoothLE.Net.Parsers.Types {
@@ -100,12 +97,8 @@ namespace BluetoothLE.Net.Parsers.Types {
         #endregion
 
         #region overrides
-        public override bool Equals(object obj) {
-            UInt48 u = obj as UInt48;
-            if (u != null) {
-                return this.Equals(u);
-            }
-            return false;
+        public override bool Equals(object? obj) {
+            return (obj is UInt48) ? this.Equals((UInt48)obj) : false;
         }
 
         public override int GetHashCode() {
@@ -119,7 +112,7 @@ namespace BluetoothLE.Net.Parsers.Types {
         #endregion
 
         #region IComparable
-        public int CompareTo(object obj) {
+        public int CompareTo(object? obj) {
             UInt24 u = (UInt24)obj;
             return CompareTo(u);
         }

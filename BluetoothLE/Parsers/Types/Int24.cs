@@ -146,12 +146,8 @@ namespace BluetoothLE.Net.Parsers.Types {
         #endregion
 
         #region overrides
-        public override bool Equals(object obj) {
-            Int24 u = obj as Int24;
-            if (u != null) {
-                return this.Equals(u);
-            }
-            return false;
+        public override bool Equals(object? obj) {
+            return (obj is Int24) ? this.Equals((Int24)obj) : false;
         }
 
         public override int GetHashCode() {
@@ -165,34 +161,31 @@ namespace BluetoothLE.Net.Parsers.Types {
         #endregion
 
         #region IComparable
-        public int CompareTo(object obj) {
-            Int24 u = (Int24)obj;
-            return CompareTo(u);
+        public int CompareTo(object? obj) {
+            return this.CompareTo(obj as Int24);
+
         }
         #endregion
 
         #region IComparable<Int24>
-        public int CompareTo(Int24 other) {
-            if (this.Value < other.Value) {
-                return 1;
+        public int CompareTo(Int24? other) {
+            if (other is not null) {
+                if (this.Value > other.Value) {
+                    return 1;
+                }
+                else if (this.Value < other.Value) {
+                    return -1;
+                }
             }
-            else if (this.Value > other.Value) {
-                return -1;
-            }
-            else {
-                return 0;
-            }
+            return 0;
         }
 
         #endregion
 
         #region IEquitable
 
-        public bool Equals(Int24 other) {
-            if (other != null) {
-                return this.Value == other.Value;
-            }
-            return false;
+        public bool Equals(Int24? other) {
+            return other is null ? false : this.Value == other.Value;
         }
 
         #endregion
@@ -203,69 +196,69 @@ namespace BluetoothLE.Net.Parsers.Types {
             return TypeCode.Object;
         }
 
-        public bool ToBoolean(IFormatProvider provider) {
+        public bool ToBoolean(IFormatProvider? provider) {
             return Convert.ToBoolean(this.Value, provider);
         }
 
-        public byte ToByte(IFormatProvider provider) {
+        public byte ToByte(IFormatProvider? provider) {
             return Convert.ToByte(this.Value, provider);
         }
 
-        public char ToChar(IFormatProvider provider) {
+        public char ToChar(IFormatProvider? provider) {
             return Convert.ToChar(this.Value, provider);
         }
 
-        public DateTime ToDateTime(IFormatProvider provider) {
+        public DateTime ToDateTime(IFormatProvider? provider) {
             return Convert.ToDateTime(this.Value, provider);
         }
 
-        public decimal ToDecimal(IFormatProvider provider) {
+        public decimal ToDecimal(IFormatProvider? provider) {
             return Convert.ToDecimal(this.Value, provider);
         }
 
-        public double ToDouble(IFormatProvider provider) {
+        public double ToDouble(IFormatProvider? provider) {
             return Convert.ToDouble(this.Value, provider);
         }
 
-        public short ToInt16(IFormatProvider provider) {
+        public short ToInt16(IFormatProvider? provider) {
             return Convert.ToInt16(this.Value, provider);
         }
 
-        public int ToInt32(IFormatProvider provider) {
+        public int ToInt32(IFormatProvider? provider) {
             return Convert.ToInt32(this.Value, provider);
         }
 
-        public long ToInt64(IFormatProvider provider) {
+        public long ToInt64(IFormatProvider? provider) {
             return Convert.ToInt64(this.Value, provider);
         }
 
-        public sbyte ToSByte(IFormatProvider provider) {
+        public sbyte ToSByte(IFormatProvider? provider) {
             return Convert.ToSByte(this.Value, provider);
         }
 
-        public float ToSingle(IFormatProvider provider) {
+        public float ToSingle(IFormatProvider? provider) {
             return Convert.ToSingle(this.Value, provider);
         }
 
-        public string ToString(IFormatProvider provider) {
+        public string ToString(IFormatProvider? provider) {
             // Modify this ?
             return Convert.ToString(this.Value, provider);
         }
 
-        public object ToType(Type conversionType, IFormatProvider provider) {
+        public object ToType(Type conversionType, IFormatProvider? provider) {
             // likely not
             return Convert.ChangeType(this.Value.ToString(), conversionType, provider);
         }
 
-        public ushort ToUInt16(IFormatProvider provider) {
+        public ushort ToUInt16(IFormatProvider? provider) {
             return Convert.ToUInt16(this.Value, provider);
         }
 
-        public uint ToUInt32(IFormatProvider provider) {
+        public uint ToUInt32(IFormatProvider? provider) {
             return Convert.ToUInt32(this.Value, provider);
         }
 
-        public ulong ToUInt64(IFormatProvider provider) {
+        public ulong ToUInt64(IFormatProvider? provider) {
             return Convert.ToUInt64(this.Value, provider);
         }
 
@@ -273,7 +266,7 @@ namespace BluetoothLE.Net.Parsers.Types {
 
         #region IFormatable
 
-        public string ToString(string format, IFormatProvider formatProvider) {
+        public string ToString(string? format, IFormatProvider? formatProvider) {
             return this.Value.ToString(format, formatProvider);
         }
 

@@ -148,12 +148,8 @@ namespace BluetoothLE.Net.Parsers.Types {
         #endregion
 
         #region overrides
-        public override bool Equals(object obj) {
-            Int48 u = obj as Int48;
-            if (u != null) {
-                return this.Equals(u);
-            }
-            return false;
+        public override bool Equals(object? obj) {
+            return (obj is Int48) ? this.Equals((Int48)obj) : false;
         }
 
         public override int GetHashCode() {
@@ -167,34 +163,30 @@ namespace BluetoothLE.Net.Parsers.Types {
         #endregion
 
         #region IComparable
-        public int CompareTo(object obj) {
-            Int48 u = (Int48)obj;
-            return CompareTo(u);
+        public int CompareTo(object? obj) {
+            return this.CompareTo(obj as Int48);
         }
         #endregion
 
         #region IComparable<Int48>
-        public int CompareTo(Int48 other) {
-            if (this.Value < other.Value) {
-                return 1;
+        public int CompareTo(Int48? other) {
+            if (other is not null) {
+                if (this.Value > other.Value) {
+                    return 1;
+                }
+                else if (this.Value < other.Value) {
+                    return -1;
+                }
             }
-            else if (this.Value > other.Value) {
-                return -1;
-            }
-            else {
-                return 0;
-            }
+            return 0;
         }
 
         #endregion
 
         #region IEquitable
 
-        public bool Equals(Int48 other) {
-            if (other != null) {
-                return this.Value == other.Value;
-            }
-            return false;
+        public bool Equals(Int48? other) {
+            return other is null ? false : this.Value == other.Value;
         }
 
         #endregion
@@ -275,7 +267,7 @@ namespace BluetoothLE.Net.Parsers.Types {
 
         #region IFormatable
 
-        public string ToString(string format, IFormatProvider formatProvider) {
+        public string ToString(string? format, IFormatProvider? formatProvider) {
             return this.Value.ToString(format, formatProvider);
         }
 

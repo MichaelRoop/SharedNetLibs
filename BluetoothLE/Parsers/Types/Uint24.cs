@@ -96,12 +96,8 @@ namespace BluetoothLE.Net.Parsers.Types {
         #endregion
 
         #region overrides
-        public override bool Equals(object obj) {
-            UInt24 u = obj as UInt24;
-            if (u != null) {
-                return this.Equals(u);
-            }
-            return false;
+        public override bool Equals(object? obj) {
+            return (obj is UInt24) ? this.Equals((UInt24)obj) : false;
         }
 
         public override int GetHashCode() {
