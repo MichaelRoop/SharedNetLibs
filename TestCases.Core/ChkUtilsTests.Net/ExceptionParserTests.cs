@@ -17,13 +17,13 @@ namespace TestCases.ChkUtilsTests.Net {
                 throw x;
             }
             catch (XmlException e) {
-                IExceptionParser parser = ExceptionParserFactory.Get(e);
+                IExceptionParser? parser = ExceptionParserFactory.Get(e);
                 // There are 3 for native Xml fields and 1 for user added above
                 this.TestRegularFields(parser, 4, "XmlException", "Blah Error Line 25, position 100.");
                 this.ValidateExtraInfo(parser, "User Key 1", "User Value 1");
                 this.ValidateExtraInfo(parser, "Line Number", "25");
                 this.ValidateExtraInfo(parser, "Line Position", "100");
-                this.ValidateExtraInfo(parser, "Source URI", null);
+                this.ValidateExtraInfo(parser, "Source URI", "--");
             }
         }
 
@@ -36,7 +36,7 @@ namespace TestCases.ChkUtilsTests.Net {
                 throw x;
             }
             catch (Exception e) {
-                IExceptionParser parser = ExceptionParserFactory.Get(e);
+                IExceptionParser? parser = ExceptionParserFactory.Get(e);
                 this.TestRegularFields(parser, 1, "Exception", "Default Blah Error");
                 this.ValidateExtraInfo(parser, "DefaultUserKey1", "DefaultUserValue1");
             }
@@ -62,7 +62,7 @@ namespace TestCases.ChkUtilsTests.Net {
                 new ChkUtilsTestHelpers.Level1().DoIt();
             }
             catch (Exception e) {
-                IExceptionParser parser = ExceptionParserFactory.Get(e);
+                IExceptionParser? parser = ExceptionParserFactory.Get(e);
 
                 StringBuilder stackTrace = new StringBuilder();
 
@@ -106,7 +106,7 @@ namespace TestCases.ChkUtilsTests.Net {
             Assert.AreEqual(value, i.Value);
         }
 
-        private void TestRegularFields(IExceptionParser parser, int extraCount, string name, string msg) {
+        private void TestRegularFields(IExceptionParser? parser, int extraCount, string name, string msg) {
             Assert.IsNotNull(parser);
             Assert.AreEqual(extraCount, parser.ExtraInfo.Count, "The count of extra info items is off");
             Assert.AreEqual(name, parser.Info.Name);

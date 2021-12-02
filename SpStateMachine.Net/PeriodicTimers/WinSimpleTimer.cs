@@ -1,7 +1,6 @@
 ﻿using ChkUtils.Net;
 using ChkUtils.Net.ErrObjects;
 using SpStateMachine.Net.Interfaces;
-using System;
 using System.Timers;
 
 namespace SpStateMachine.PeriodicTimers {
@@ -17,7 +16,7 @@ namespace SpStateMachine.PeriodicTimers {
         #region Data
 
         /// <summary>The timer object</summary>
-        private Timer timer = null;
+        private System.Timers.Timer? timer = null;
 
         /// <summary>Access lock to the timer object</summary>
         private object timerLock = new object();
@@ -89,7 +88,7 @@ namespace SpStateMachine.PeriodicTimers {
             WrapErr.ToErrorReportException(50004, () => {
                 lock (this.timerLock) {
                     this.Stop();
-                    this.timer = new Timer(this.timespan.TotalMilliseconds);
+                    this.timer = new System.Timers.Timer(this.timespan.TotalMilliseconds);
                     this.timer.Elapsed += this.onTimerWakeup;
                     this.timer.AutoReset = true;
                     this.timer.Start();

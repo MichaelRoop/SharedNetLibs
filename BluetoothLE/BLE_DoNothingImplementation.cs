@@ -8,16 +8,16 @@ namespace BluetoothLE.Net {
 
     public class BLE_DoNothingImplementation : IBLETInterface {
 
-        public event EventHandler<string> DeviceRemoved;
-        public event EventHandler<BluetoothLEDeviceInfo> DeviceDiscovered;
-        public event EventHandler<bool> DeviceDiscoveryCompleted;
-        public event EventHandler<NetPropertiesUpdateDataModel> DeviceUpdated;
-        public event EventHandler<BLEGetInfoStatus> DeviceInfoAssembled;
-        public event EventHandler<byte[]> MsgReceivedEvent;
-        public event EventHandler<BLEGetInfoStatus> DeviceConnectResult;
-        public event EventHandler<BLE_CharacteristicReadResult> CharacteristicReadValueChanged;
-        public event EventHandler<BLE_ConnectStatusChangeInfo> ConnectionStatusChanged;
-        public event EventHandler<BLEOperationStatus> BLE_Error;
+        public event EventHandler<string>? DeviceRemoved;
+        public event EventHandler<BluetoothLEDeviceInfo>? DeviceDiscovered;
+        public event EventHandler<bool>? DeviceDiscoveryCompleted;
+        public event EventHandler<NetPropertiesUpdateDataModel>? DeviceUpdated;
+        public event EventHandler<BLEGetInfoStatus>? DeviceInfoAssembled;
+        public event EventHandler<byte[]>? MsgReceivedEvent;
+        public event EventHandler<BLEGetInfoStatus>? DeviceConnectResult;
+        public event EventHandler<BLE_CharacteristicReadResult>? CharacteristicReadValueChanged;
+        public event EventHandler<BLE_ConnectStatusChangeInfo>? ConnectionStatusChanged;
+        public event EventHandler<BLEOperationStatus>? BLE_Error;
 
         public void Connect(BluetoothLEDeviceInfo deviceInfo) {
             // nothing at the moment
@@ -54,9 +54,9 @@ namespace BluetoothLE.Net {
             this.DeviceUpdated?.Invoke(this, new NetPropertiesUpdateDataModel());
             this.DeviceDiscovered?.Invoke(this, new BluetoothLEDeviceInfo());
             this.DeviceUpdated?.Invoke(this, new NetPropertiesUpdateDataModel());
-            this.DeviceConnectResult?.Invoke(this, null);
-            this.CharacteristicReadValueChanged.Invoke(this, null);
-            this.ConnectionStatusChanged?.Invoke(this, null);
+            this.DeviceConnectResult?.Invoke(this, new BLEGetInfoStatus());
+            this.CharacteristicReadValueChanged?.Invoke(this, new BLE_CharacteristicReadResult());
+            this.ConnectionStatusChanged?.Invoke(this, new BLE_ConnectStatusChangeInfo());
             this.BLE_Error?.Invoke(this, BLEOperationStatus.Success);
         }
 
