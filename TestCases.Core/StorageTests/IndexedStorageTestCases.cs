@@ -50,6 +50,10 @@ namespace TestCases.StorageTests {
         public class TstExtraInfo {
             public string Address { get; set; }
             public int ConnectType { get; set; }
+            public TstExtraInfo() {
+                this.Address = String.Empty; 
+                this.ConnectType = 0;  
+            }
             public TstExtraInfo(string address, int connectType) {
                 this.Address = address;
                 this.ConnectType = connectType;
