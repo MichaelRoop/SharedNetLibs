@@ -1,5 +1,6 @@
 ﻿using ChkUtils.Net;
 using ChkUtils.Net.ErrObjects;
+using ChkUtils.Net.Interfaces;
 using NUnit.Framework;
 using TestCaseSupport.Core;
 
@@ -7,6 +8,13 @@ namespace TestCases.ChkUtilsTests.Net {
 
     [TestFixture]
     public class ValidatorTests {
+
+        [OneTimeSetUp]
+        public void DoOneTimeSetup() {
+            // Need stack tools to get stack to validate exception class and method
+            IStackTools s = new StackTools();
+            WrapErr.SetStackTools(s);
+        }
 
         #region Param
 
@@ -137,8 +145,6 @@ namespace TestCases.ChkUtilsTests.Net {
 
         #endregion
 
-
-
         #region False
 
         [Test]
@@ -165,7 +171,7 @@ namespace TestCases.ChkUtilsTests.Net {
 
         [Test]
         public void String_Null() {
-            string zork = null;
+            string? zork = null;
             ErrReport err;
             WrapErr.ToErrReport(out err, 1111, "Validate arg", () => {
                 WrapErr.ChkStr(1111, 2222, "zork", zork);
@@ -185,7 +191,7 @@ namespace TestCases.ChkUtilsTests.Net {
 
         [Test]
         public void String_Null_FaultException() {
-            string zork = null;
+            string? zork = null;
             ErrReport err;
             WrapErr.ToErrReport(out err, 1111, "Validate arg", () => {
                 WrapErr.ChkStr(1111, 2222, "zork", zork);

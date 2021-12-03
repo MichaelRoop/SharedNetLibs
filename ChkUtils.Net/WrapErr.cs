@@ -476,7 +476,7 @@ namespace ChkUtils.Net {
         /// <param name="obj">The object to evaluate</param>
         /// <param name="code">The error code if null</param>
         /// <param name="name">The name of the object</param>
-        public static void ChkParam(object obj, string name, int code) {
+        public static void ChkParam(object? obj, string name, int code) {
             if (obj == null) {
                 ErrReport err = WrapErr.GetErrReport(code, String.Format("Null {0} Argument", name));
                 throw new ErrReportExceptionFromChk(err);
@@ -590,7 +590,7 @@ namespace ChkUtils.Net {
         /// <param name="zeroLenCode">Error code if string is empty</param>
         /// <param name="name">The string variable name</param>
         /// <param name="value">The string value to evaluate</param>
-        public static void ChkStr(int nullCode, int zeroLenCode, string name, string value) {
+        public static void ChkStr(int nullCode, int zeroLenCode, string name, string? value) {
             WrapErr.ChkTrue(value != null, nullCode, () => {
                 return String.Format("String '{0}' is Null", name);
             });
