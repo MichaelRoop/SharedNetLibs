@@ -32,7 +32,7 @@ namespace BluetoothLE.Net.Parsers {
 
         public virtual int RequiredBytes { get; protected set; } = 0;
 
-        public string DisplayString { get; protected set; } = "";
+        public string DisplayString { get; protected set; } = string.Empty;
 
         public virtual BLE_DataType DataType { get; protected set; } = BLE_DataType.Reserved;
 
@@ -43,7 +43,7 @@ namespace BluetoothLE.Net.Parsers {
         public string Translate(Func<string> translator) {
             string initial = this.DisplayString;
             try {
-                this.DisplayString = translator?.Invoke();
+                this.DisplayString = translator.Invoke();
             }
             catch(Exception e) {
                 this.baseLog.Exception(13327, "Translate", "", e);

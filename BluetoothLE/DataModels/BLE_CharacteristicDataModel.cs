@@ -26,31 +26,31 @@ namespace BluetoothLE.Net.DataModels {
         #region Events
 
         /// <summary>Raised from OS level when a read value changes</summary>
-        public event EventHandler<BLE_CharacteristicReadResult> OnReadValueChanged;
+        public event EventHandler<BLE_CharacteristicReadResult>? OnReadValueChanged;
 
         /// <summary>Raised from OS level when read write error detected on the Characteristic</summary>
-        public event EventHandler<BLE_CommunicationError> OnCommunicationsError; 
+        public event EventHandler<BLE_CommunicationError>? OnCommunicationsError; 
         
         /// <summary>Raised from User to request a read of characteristic</summary>
-        public event EventHandler ReadRequestEvent;
+        public event EventHandler? ReadRequestEvent;
 
         /// <summary>Raised from User to request a data write to the characteristic</summary>
-        public event EventHandler<byte[]> WriteRequestEvent;
+        public event EventHandler<byte[]>? WriteRequestEvent;
 
         #endregion
 
         /// <summary>Unique identifier given by device</summary>
-        public ushort AttributeHandle { get; set; }
+        public ushort AttributeHandle { get; set; } = 0;
 
         /// <summary>Determines what this characteristic can do</summary>
         public CharacteristicProperties PropertiesFlags { get; set; } = CharacteristicProperties.None; 
 
         /// <summary>Unique identifier</summary>
-        public Guid Uuid { get; set; }
+        public Guid Uuid { get; set; } = Guid.Empty;
 
-        public GattNativeCharacteristicUuid GattType { get; set; }
+        public GattNativeCharacteristicUuid GattType { get; set; } = GattNativeCharacteristicUuid.None;
 
-        public BLE_ProtectionLevel ProtectionLevel { get; set; }
+        public BLE_ProtectionLevel ProtectionLevel { get; set; } = BLE_ProtectionLevel.DefaultPlain;
 
         public string DisplayHeader { get; set; } = "Characteristic";
 
@@ -58,10 +58,10 @@ namespace BluetoothLE.Net.DataModels {
 
         public string CharName { get; set; } = "xxxx";
 
-        public string CharValue { get; set; } = "";
+        public string CharValue { get; set; } = string.Empty;
 
         /// <summary>User friendly description or empty</summary>
-        public string UserDescription { get; set; }
+        public string UserDescription { get; set; } = string.Empty;
 
         public string DataTypeDisplay { get { return this.Parser.DataType.ToStr(); } }
 
@@ -71,7 +71,7 @@ namespace BluetoothLE.Net.DataModels {
         public List<BLE_PresentationFormat> PresentationFormats { get; set; } = new List<BLE_PresentationFormat>();
 
         /// <summary>The service that holds this characteristic</summary>
-        public BLE_ServiceDataModel Service { get; set; }
+        public BLE_ServiceDataModel? Service { get; set; } 
 
         /// <summary>The parser to get read values for the characteristic</summary>
         public ICharParser Parser { get; set; } = new CharParser_Default();
@@ -145,13 +145,11 @@ namespace BluetoothLE.Net.DataModels {
         /// <param name="data">The data read</param>
         public void PushReadDataEvent(byte[] data, string strValue) {
             this.CharValue = strValue;
-            this.OnReadValueChanged?.Invoke(this, new BLE_CharacteristicReadResult() {
-                Status = BLE_CharacteristicCommunicationStatus.Success,
-                Data = data,
-                DataAsString = strValue,
-                DataModel = this,
-            }); 
-
+            this.OnReadValueChanged?.Invoke(this, new BLE_CharacteristicReadResult(
+                this,
+                BLE_CharacteristicCommunicationStatus.Success,
+                data,
+                strValue)); 
 
             // TODO - we could just write the data to a Data field in string format 
             // and inform user to update to refresh display
@@ -167,10 +165,7 @@ namespace BluetoothLE.Net.DataModels {
         /// <summary>Used by the OS to push up an error during read or write</summary>
         /// <param name="status"></param>
         public void PushCommunicationError(BLE_CharacteristicCommunicationStatus status) {
-            this.OnCommunicationsError?.Invoke(this, new BLE_CommunicationError() {
-                Status = status,
-                DataModel = this,
-            });
+            this.OnCommunicationsError?.Invoke(this, new BLE_CommunicationError(this, status));
         }
 
     }

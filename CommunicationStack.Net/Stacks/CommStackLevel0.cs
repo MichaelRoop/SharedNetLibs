@@ -1,9 +1,7 @@
 ﻿using ChkUtils.Net;
 using CommunicationStack.Net.interfaces;
 using LogUtils.Net;
-using System;
 using System.Text;
-using System.Threading.Tasks;
 using VariousUtils.Net;
 
 namespace CommunicationStack.Net.Stacks {
@@ -14,7 +12,7 @@ namespace CommunicationStack.Net.Stacks {
         #region Data
 
         /// <summary>The  comm channel</summary>
-        private ICommStackChannel commChannel = null;
+        private ICommStackChannel? commChannel = null;
 
         /// <summary>Input queue which defragments the incoming bytes into messages</summary>
         private CommCharInByteQueue queue = new CommCharInByteQueue("\n".ToAsciiByteArray());
@@ -27,7 +25,7 @@ namespace CommunicationStack.Net.Stacks {
 
         /// <summary>Event fired with the message stripped of terminators</summary>
         /// <remarks>Example of simple terminator is '\n\r'</remarks>
-        public event EventHandler<byte[]> MsgReceived;
+        public event EventHandler<byte[]>? MsgReceived;
 
         #endregion
 
@@ -75,6 +73,11 @@ namespace CommunicationStack.Net.Stacks {
         /// <param name="msg">The message to send</param>
         /// <returns>true on success, otherwise false</returns>
         public bool SendToComm(byte[] msg) {
+            if (this.commChannel == null) {
+                this.log.Error(9999, "null commChannel");
+                return false;
+            }
+
             byte[] outBuff = new byte[msg.Length + this.OutTerminators.Length];
             Array.Copy(msg, outBuff, msg.Length);
             Array.Copy(this.OutTerminators, 0, outBuff, msg.Length, this.OutTerminators.Length);
@@ -98,7 +101,7 @@ namespace CommunicationStack.Net.Stacks {
         /// <summary>Handle the comm channel bytes received event</summary>
         /// <param name="sender">Sender of the message</param>
         /// <param name="data">The incoming bytes from comm channel</param>
-        private void CommChannel_MsgReceivedEvent(object sender, byte[] data) {
+        private void CommChannel_MsgReceivedEvent(object? sender, byte[] data) {
             this.queue.AddBytes(data);
         }
 
@@ -106,7 +109,7 @@ namespace CommunicationStack.Net.Stacks {
         /// <summary>Handle the defragmented message from the queue</summary>
         /// <param name="sender">Sender of the message</param>
         /// <param name="msg">The incoming assembled message</param>
-        private void Queue_MsgReceived(object sender, byte[] msg) {
+        private void Queue_MsgReceived(object? sender, byte[] msg) {
             if (this.MsgReceived != null) {
                 Task.Run(() => {
                     // Feed to thread pool to free up the comm channel

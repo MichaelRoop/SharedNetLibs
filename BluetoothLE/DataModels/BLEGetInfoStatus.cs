@@ -3,7 +3,7 @@
 namespace BluetoothLE.Net.DataModels {
 
     public class BLEGetInfoStatus {
-        public BluetoothLEDeviceInfo DeviceInfo { get; set; } = null;
+        public BluetoothLEDeviceInfo? DeviceInfo { get; set; } = null;
         public BLEOperationStatus Status { get; set; } = BLEOperationStatus.Failed;
         public string Message { get; set; } = string.Empty;
 

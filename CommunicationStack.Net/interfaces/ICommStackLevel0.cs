@@ -11,7 +11,7 @@ namespace CommunicationStack.Net.interfaces {
         #region Properties
 
         /// <summary>Event fired with message stripped of termnators defined in InTerminators</summary>
-        event EventHandler<byte[]> MsgReceived;
+        event EventHandler<byte[]>? MsgReceived;
 
         /// <summary>Terminator used to recognize incoming msgs</summary>
         byte[] InTerminators { get; set; }

@@ -24,8 +24,6 @@ using LanguageFactory.Net.Languages.tr;
 using LanguageFactory.Net.Languages.uk;
 using LanguageFactory.Net.Languages.vi;
 using LogUtils.Net;
-using System;
-using System.Collections.Generic;
 
 namespace LanguageFactory.Net.Messaging {
 
@@ -38,7 +36,7 @@ namespace LanguageFactory.Net.Messaging {
         #region events
 
         /// <summary>Event raised when the language is changed</summary>
-        public event EventHandler<SupportedLanguage> LanguageChanged;
+        public event EventHandler<SupportedLanguage>? LanguageChanged;
 
         #endregion
 

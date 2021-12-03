@@ -8,7 +8,7 @@ namespace DependencyInjectorFactory.Net {
     public class ObjSingletonCreator : ObjCreator {
 
         /// <summary>Holds the single instance created</summary>
-        private object singleton = null;
+        private object? singleton = null;
 
 
         public ObjSingletonCreator(Func<object> constructor) 
@@ -24,7 +24,13 @@ namespace DependencyInjectorFactory.Net {
                 this.singleton = this.objBuilder();
                 WrapErr.ChkVar(this.singleton, 9999, () => string.Format("Class {0} constructor returned a null object", typeof(T).Name));
             }
+            if (this.singleton == null) {
+                // Compiler does not recognize the ChkVar check
+                throw new NullReferenceException();
+            }
+#pragma warning disable CS8603
             return this.singleton as T;
+#pragma warning restore CS8603
         }
     }
 }

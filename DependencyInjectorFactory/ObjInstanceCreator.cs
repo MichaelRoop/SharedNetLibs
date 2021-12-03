@@ -16,8 +16,13 @@ namespace DependencyInjectorFactory.Net {
         /// <typeparam name="T">The type of object to return</typeparam>
         /// <returns>Returns an instance of the object</returns>
         protected override T ReturnObj<T>() {
-            T result = this.objBuilder() as T;
+            // TODO - need to revisit this
+            T? result = this.objBuilder.Invoke() as T;
             WrapErr.ChkVar(result, 9999, () => string.Format("Class {0} constructor returned a null object", typeof(T).Name));
+            if (result == null) {
+                // Compiler does not recognize the ChkVar check
+                throw new NullReferenceException();
+            }
             return result;
         }
     }

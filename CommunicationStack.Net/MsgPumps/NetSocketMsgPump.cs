@@ -2,11 +2,8 @@
 using CommunicationStack.Net.Enumerations;
 using CommunicationStack.Net.interfaces;
 using LogUtils.Net;
-using System;
 using System.Net;
 using System.Net.Sockets;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace CommunicationStack.Net.MsgPumps {
 
@@ -19,8 +16,8 @@ namespace CommunicationStack.Net.MsgPumps {
         private const int buffSize = 256;
         private byte[] buff = new byte[buffSize];
         private bool doReading = false;
-        private Socket socket = null;
-        private SocketAsyncEventArgs receiveArgs = null;
+        private Socket? socket = null;
+        private SocketAsyncEventArgs? receiveArgs = null;
         private AutoResetEvent doneRead = new AutoResetEvent(false);
 
         #endregion
@@ -33,8 +30,8 @@ namespace CommunicationStack.Net.MsgPumps {
 
         #region Events
 
-        public event EventHandler<MsgPumpResults> MsgPumpConnectResultEvent;
-        public event EventHandler<byte[]> MsgReceivedEvent;
+        public event EventHandler<MsgPumpResults>? MsgPumpConnectResultEvent;
+        public event EventHandler<byte[]>? MsgReceivedEvent;
 
         #endregion
 
@@ -59,7 +56,7 @@ namespace CommunicationStack.Net.MsgPumps {
                     if (this.Connected) {
                         this.Disconnect();
                     }
-                    IPAddress ip;
+                    IPAddress? ip;
                     if (!IPAddress.TryParse(paramsObj.RemoteHostName, out ip)) {
                         this.RaiseConnectResult(MsgPumpResultCode.InvalidAddress, paramsObj.RemoteHostName);
                         return;
@@ -131,9 +128,14 @@ namespace CommunicationStack.Net.MsgPumps {
         public void WriteAsync(byte[] msg) {
             try {
                 if (this.Connected) {
-                    this.socket.BeginSend(
-                        msg, 0, msg.Length, SocketFlags.None,
-                        new AsyncCallback(this.SendCallback), this.socket);
+                    if (this.socket is not null) {
+                        this.socket.BeginSend(
+                            msg, 0, msg.Length, SocketFlags.None,
+                            new AsyncCallback(this.SendCallback), this.socket);
+                    }
+                    else {
+                        // TODO report error
+                    }
                 }
             }
             catch (Exception e) {
@@ -148,10 +150,15 @@ namespace CommunicationStack.Net.MsgPumps {
         /// <summary>Start a new asynchronous read</summary>
         /// <param name="args">The read event args where buffer is reset</param>
         private void StartReceive(SocketAsyncEventArgs args) {
-            args.SetBuffer(this.buff, 0, buffSize);
-            if (!socket.ReceiveAsync(args)) {
-                this.log.Info("StartReceive", "Synchronous processing");
-                this.ProcessReceivedEvent(args);
+            if (this.socket is not null) {
+                args.SetBuffer(this.buff, 0, buffSize);
+                if (!socket.ReceiveAsync(args)) {
+                    this.log.Info("StartReceive", "Synchronous processing");
+                    this.ProcessReceivedEvent(args);
+                }
+            }
+            else {
+                // TODO error report
             }
         }
 
@@ -167,17 +174,21 @@ namespace CommunicationStack.Net.MsgPumps {
                 this.log.Error(9999, "Error detected - keeping thread alive");
                 this.RaiseConnectResult(MsgPumpResultCode.ConnectionFailure, args.SocketError.ToString());
             }
+            else if (this.receiveArgs is null) {
+                this.log.Error(9999, "Receive args not initialized");
+                this.RaiseConnectResult(MsgPumpResultCode.ReadFailure, "receiveArgs not initialized");
+            }
             else if (receiveArgs.BytesTransferred > 0) {
                 this.log.Info("ProcessReceivedData", () => string.Format("{0} Bytes received", receiveArgs.BytesTransferred));
                 this.RaiseReceivedData(args);
             }
             else {
                 //this.log.Info("ProcessReceivedData", "0 Bytes received");
-
                 // Do a bit of a delay
                 Thread.Sleep(25);
             }
-            (args.UserToken as AutoResetEvent).Set();
+
+            (args.UserToken as AutoResetEvent)?.Set();
         }
 
 
@@ -224,7 +235,7 @@ namespace CommunicationStack.Net.MsgPumps {
         /// <summary>Process synchronous or asynchronous read event</summary>
         /// <param name="sender">Sender of the event</param>
         /// <param name="args">The event args</param>
-        private void ReceiveArgs_Completed(object sender, SocketAsyncEventArgs args) {
+        private void ReceiveArgs_Completed(object? sender, SocketAsyncEventArgs args) {
             //this.log.Info("ReceiveArgs_Completed", "Asynchronous data in handler - raise and set event");
             this.ProcessReceivedEvent(args);
         }
@@ -236,9 +247,14 @@ namespace CommunicationStack.Net.MsgPumps {
             int count = args.BytesTransferred;
             if (count > 0) {
                 try {
-                    byte[] tmpBuff = new byte[count];
-                    Array.Copy(args.Buffer, tmpBuff, count);
-                    this.MsgReceivedEvent?.Invoke(this, tmpBuff);
+                    if (args.Buffer != null) {
+                        byte[] tmpBuff = new byte[count];
+                        Array.Copy(args.Buffer, tmpBuff, count);
+                        this.MsgReceivedEvent?.Invoke(this, tmpBuff);
+                    }
+                    else {
+                        throw new NullReferenceException("Null args.Buffer");
+                    }
                 }
                 catch(Exception e) {
                     this.log.Exception(9999, "", e);
@@ -266,7 +282,7 @@ namespace CommunicationStack.Net.MsgPumps {
         /// <summary>Event handler for ConnectAsync set on the async event args</summary>
         /// <param name="sender">Sender of the event</param>
         /// <param name="args">Async event args</param>
-        private void ConnectCompletedHandler(object sender, SocketAsyncEventArgs args) {
+        private void ConnectCompletedHandler(object? sender, SocketAsyncEventArgs args) {
 
             this.log.Info("ConnectCompletedHandler", () => string.Format("args.ConnectSocket NULL:{0}", args.ConnectSocket == null));
             this.log.Info("ConnectCompletedHandler", () => string.Format("args.AcceptSocket NULL:{0}", args.AcceptSocket == null));
@@ -294,7 +310,14 @@ namespace CommunicationStack.Net.MsgPumps {
         /// <param name="result">The asynchronous result object</param>
         private void SendCallback(IAsyncResult result) {
             try {
-                Socket s = (Socket)result.AsyncState;
+                if (result.AsyncState == null) {
+                    throw new ArgumentNullException("null asyncState");
+                }
+
+                Socket? s = result.AsyncState as Socket;
+                if (s == null) {
+                    throw new ArgumentNullException("null Socket in AsyncState");
+                }
                 SocketError err;
                 s.EndSend(result, out err);
                 if (err != SocketError.Success) {

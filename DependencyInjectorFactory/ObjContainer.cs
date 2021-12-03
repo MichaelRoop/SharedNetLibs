@@ -32,7 +32,7 @@ namespace DependencyInjectorFactory.Net {
         /// the derived class. Then you can use that derived class and pass
         /// in the OS specific extra types when compiling under that OS
         /// </remarks>
-        public void Initialise(IObjExtraCreators osObjCreators = null) {
+        public void Initialise(IObjExtraCreators? osObjCreators = null) {
             // should only call once but will clear just in case
             this.instanceCreators.Clear();
             this.singletonCreators.Clear();
@@ -54,7 +54,7 @@ namespace DependencyInjectorFactory.Net {
         /// <summary>Get an instance of the requested object</summary>
         /// <typeparam name="T">The type of object requested</typeparam>
         /// <returns>An instance of the object</returns>
-        public T GetObjInstance<T>() where T : class {
+        public T? GetObjInstance<T>() where T : class {
             WrapErr.ChkTrue(this.HasObjInstanceCreator<T>(), 9999, 
                 () => string.Format("No class {0} in instance container", typeof(T).Name));
             return this.instanceCreators[typeof(T)].GetObj<T>();
@@ -64,7 +64,7 @@ namespace DependencyInjectorFactory.Net {
         /// <summary>Get a reference to the unique instance of the requested object</summary>
         /// <typeparam name="T">The type of object requested</typeparam>
         /// <returns>Reference to the unique instance of the object</returns>
-        public T GetObjSingleton<T>() where T : class {
+        public T? GetObjSingleton<T>() where T : class {
             WrapErr.ChkTrue(this.HasObjSingletonCreator<T>(), 9999,
                 () => string.Format("No class {0} in singleton container", typeof(T).Name));
             return this.singletonCreators[typeof(T)].GetObj<T>();

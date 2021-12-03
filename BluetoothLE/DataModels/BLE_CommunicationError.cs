@@ -8,5 +8,13 @@ namespace BluetoothLE.Net.DataModels {
 
         public BLE_CharacteristicCommunicationStatus Status { get; set; }
 
+        public BLE_CommunicationError(
+            BLE_CharacteristicDataModel dataModel,
+            BLE_CharacteristicCommunicationStatus status) { 
+            this.DataModel = dataModel;
+            this.Status = status;
+        }
+
+
     }
 }

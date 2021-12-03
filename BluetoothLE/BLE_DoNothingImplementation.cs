@@ -55,7 +55,11 @@ namespace BluetoothLE.Net {
             this.DeviceDiscovered?.Invoke(this, new BluetoothLEDeviceInfo());
             this.DeviceUpdated?.Invoke(this, new NetPropertiesUpdateDataModel());
             this.DeviceConnectResult?.Invoke(this, new BLEGetInfoStatus());
-            this.CharacteristicReadValueChanged?.Invoke(this, new BLE_CharacteristicReadResult());
+            this.CharacteristicReadValueChanged?.Invoke(this, 
+                new BLE_CharacteristicReadResult(
+                    new BLE_CharacteristicDataModel(), 
+                    BLE_CharacteristicCommunicationStatus.Success, 
+                    new byte[0], string.Empty));
             this.ConnectionStatusChanged?.Invoke(this, new BLE_ConnectStatusChangeInfo());
             this.BLE_Error?.Invoke(this, BLEOperationStatus.Success);
         }

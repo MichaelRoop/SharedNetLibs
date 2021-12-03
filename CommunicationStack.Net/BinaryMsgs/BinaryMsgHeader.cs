@@ -15,7 +15,7 @@ namespace CommunicationStack.Net.BinaryMsgs {
         public byte Id { get; set; } = 0;
 
 
-        public static BinaryMsgHeader Init(byte[] packet) {
+        public static BinaryMsgHeader? Init(byte[] packet) {
             if (packet.Length >= BinaryMsgDefines.SizeHeader) {
                 BinaryMsgHeader header = new BinaryMsgHeader() {
                     SOH = packet[BinaryMsgDefines.SOHPos],

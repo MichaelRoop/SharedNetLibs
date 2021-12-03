@@ -15,7 +15,7 @@ namespace Common.Net.Network {
                 this.Value = string.Format("\"{0}\"", data.Value.ToString());
             }
             else {
-                this.Value = data.Value.ToString();
+                this.Value = data.Value.ToString()??"---";
             }
             this.DataType = data.DataType.ToFriendlyString();
         }
@@ -30,7 +30,7 @@ namespace Common.Net.Network {
                 this.Value = boolTranslator((bool)data.Value);
             }
             else {
-                this.Value = data.Value.ToString();
+                this.Value = data.Value.ToString()??"---";
             }
             this.DataType = data.DataType.ToFriendlyString();
         }

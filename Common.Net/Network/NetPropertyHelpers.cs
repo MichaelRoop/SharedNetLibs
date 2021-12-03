@@ -10,7 +10,7 @@ namespace Common.Net.Network {
 
     public class NetPropertyHelpers {
 
-        private static INetPropertyKeys KEYS = null;
+        private static INetPropertyKeys? KEYS = null;
         private static ClassLog log = new ClassLog("NetPropertyHelpers");
 
         public static void SetPropertyKeys(INetPropertyKeys keys) {

@@ -15,21 +15,21 @@ namespace BluetoothLE.Net.DataModels {
     public class BluetoothLEDeviceInfo {
 
         private ClassLog log = new ClassLog("BluetoothLEDeviceInfo");
-        private INetPropertyKeys propertyKeys = null;
+        private INetPropertyKeys? propertyKeys;
 
-        public event EventHandler<StringProperyUpdate> OnStringPropertyChanged;
-        public event EventHandler<BoolProperyUpdate> OnBoolPropertyChanged;
-        public event EventHandler<GuidProperyUpdate> OnGuidPropertyChanged;
+        public event EventHandler<StringProperyUpdate>? OnStringPropertyChanged;
+        public event EventHandler<BoolProperyUpdate>? OnBoolPropertyChanged;
+        public event EventHandler<GuidProperyUpdate>? OnGuidPropertyChanged;
 
         /// <summary>So that we do not try multiple times to connect to gather info if connect failed</summary>
         public bool InfoAttempted { get; set; } = false;
 
         /// <summary>Name</summary>
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         /// <summary>Id which as info and BT Address</summary>
         /// <example>BluetoothLE#BluetoothLE10:08:b1:8a:b0:02-84:0d:8e:1e:d3:d6</example>
-        public string Id { get; set; }
+        public string Id { get; set; } = string.Empty;
 
         /// <summary>Get the Bluetooth type info only on connection</summary>
         public BluetoothType TypeBluetooth { get; set; } = BluetoothType.Unknown;
@@ -103,12 +103,11 @@ namespace BluetoothLE.Net.DataModels {
         /// specific implementations require a specific object 
         /// returned from discovery to make a connection
         /// </summary>
-        public object OSSpecificObj { get; set; }  
+        public object? OSSpecificObj { get; set; }  
 
 
         /// <summary>To satisfy XAML</summary>
         public BluetoothLEDeviceInfo() {
-
         }
 
         public BluetoothLEDeviceInfo(INetPropertyKeys propertyKeys) {
@@ -138,23 +137,24 @@ namespace BluetoothLE.Net.DataModels {
         /// <summary>Change class values based on updated property</summary>
         /// <param name="dm">The property data model</param>
         private void ChangeValueOnUpdate(NetPropertyDataModel dm) {
-            if (dm.Key == this.propertyKeys.ItemNameDisplay) {
-                this.Name = dm.Value as string;
+            if (this.propertyKeys != null) {
+                if (dm.Key == this.propertyKeys.ItemNameDisplay) {
+                    this.Name = (dm.Value as string)??string.Empty;
+                }
+                else if (dm.Key == this.propertyKeys.CanPair) {
+                    this.CanPair = (bool)dm.Value;
+                }
+                else if (dm.Key == this.propertyKeys.IsPaired) {
+                    this.IsPaired = (bool)dm.Value;
+                }
+                else if (dm.Key == this.propertyKeys.IsConnected) {
+                    this.IsConnected = (bool)dm.Value;
+                }
+                else if (dm.Key == this.propertyKeys.IsConnectable) {
+                    // Have never seen this property so remove from variables. Can still see in properties
+                    //this.IsConnectable = (bool)dm.Value;
+                }
             }
-            else if (dm.Key == this.propertyKeys.CanPair) {
-                this.CanPair = (bool)dm.Value;
-            }
-            else if (dm.Key == this.propertyKeys.IsPaired) {
-                this.IsPaired = (bool)dm.Value;
-            }
-            else if (dm.Key == this.propertyKeys.IsConnected) {
-                this.IsConnected = (bool)dm.Value;
-            }
-            else if (dm.Key == this.propertyKeys.IsConnectable) {
-                // Have never seen this property so remove from variables. Can still see in properties
-                //this.IsConnectable = (bool)dm.Value;
-            }
-
             // These are in the properties only 
             //this.propertyKeys.ContainerId
             //this.propertyKeys.IconPath
@@ -172,13 +172,13 @@ namespace BluetoothLE.Net.DataModels {
                     this.OnBoolPropertyChanged?.Invoke(this, new BoolProperyUpdate(dm.Key, (bool)dm.Value));
                     break;
                 case PropertyDataType.TypeString:
-                    this.OnStringPropertyChanged?.Invoke(this, new StringProperyUpdate(dm.Key, dm.Value as string));
+                    this.OnStringPropertyChanged?.Invoke(this, new StringProperyUpdate(dm.Key, (dm.Value as string)??string.Empty));
                     break;
                 case PropertyDataType.TypeGuid:
                     this.OnGuidPropertyChanged?.Invoke(this, new GuidProperyUpdate(dm.Key, (Guid)dm.Value));
                     break;
                 case PropertyDataType.TypeUnknown:
-                    this.OnStringPropertyChanged?.Invoke(this, new StringProperyUpdate(dm.Key, dm.Value.ToString()));
+                    this.OnStringPropertyChanged?.Invoke(this, new StringProperyUpdate(dm.Key, dm.Value.ToString()??string.Empty));
                     break;
 
                     // TODO add events for other types

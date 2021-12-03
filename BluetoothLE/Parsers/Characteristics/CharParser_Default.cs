@@ -25,7 +25,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
             BLEOperationStatus status = BLEOperationStatus.Success;
             this.formats.Clear();
 
-            DescParser_CharacteristicAggregateFormat aggregate = null;
+            DescParser_CharacteristicAggregateFormat? aggregate = null;
             foreach (var desc in this.DescriptorParsers) {
                 if (desc is DescParser_CharacteristicAggregateFormat) {
                     aggregate = desc as DescParser_CharacteristicAggregateFormat;
@@ -42,7 +42,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                     int count = this.DescriptorParsers.Count(y => y.AttributeHandle == handle);
                     if (count == 1) {
                         // Found Descriptro, now check if Format Descriptor type
-                        DescParser_PresentationFormat desc = this.DescriptorParsers.Find(
+                        DescParser_PresentationFormat? desc = this.DescriptorParsers.Find(
                             x => x.AttributeHandle == handle) as DescParser_PresentationFormat;
                         if (desc == null) {
                             status = BLEOperationStatus.AggregateFormatHandleNotFormatType;
@@ -98,10 +98,12 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
                 foreach (var desc in this.DescriptorParsers) {
                     if (desc is DescParser_PresentationFormat) {
-                        DescParser_PresentationFormat f = desc as DescParser_PresentationFormat;
+                        DescParser_PresentationFormat? f = desc as DescParser_PresentationFormat;
                         // Not handling multiple presentation format descriptors and aggregage formating
-                        this.DataType = f.DataType;
-                        this.formats.Add(f);
+                        if (f != null) {
+                            this.DataType = f.DataType;
+                            this.formats.Add(f);
+                        }
                         break;
                     }
                 }
@@ -294,7 +296,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
 
         private string ProcessData(DescParser_PresentationFormat desc, int remainingBytes, ref int pos, byte[] data) {
-            byte[] tmp = null;
+            byte[]? tmp = null;
             int exp = desc.Exponent;
             this.DataType = ((uint)EnumHelpers.ToByte(desc.Format)).ToEnum<BLE_DataType>();
             switch (desc.Format) {

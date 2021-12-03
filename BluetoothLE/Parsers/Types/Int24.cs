@@ -1,5 +1,4 @@
-﻿using System;
-using VariousUtils.Net;
+﻿using VariousUtils.Net;
 
 namespace BluetoothLE.Net.Parsers.Types {
 
@@ -134,12 +133,10 @@ namespace BluetoothLE.Net.Parsers.Types {
 
 
         public static bool operator ==(Int24 u1, Int32 u2) {
-            if (object.ReferenceEquals(u2, null)) { return false; }
             return u1.Value == u2;
         }
 
         public static bool operator !=(Int24 u1, Int32 u2) {
-            if (object.ReferenceEquals(u2, null)) { return true; }
             return u1.Value != u2;
         }
 
@@ -163,7 +160,6 @@ namespace BluetoothLE.Net.Parsers.Types {
         #region IComparable
         public int CompareTo(object? obj) {
             return this.CompareTo(obj as Int24);
-
         }
         #endregion
 

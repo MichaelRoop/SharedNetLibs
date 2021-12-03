@@ -7,7 +7,7 @@ namespace CommunicationStack.Net.Stacks {
     public class DummyOutCommChannel : ICommStackChannel {
 
         /// <summary>Fire when the msg is assembled</summary>
-        public event EventHandler<byte[]> MsgReceivedEvent;
+        public event EventHandler<byte[]>? MsgReceivedEvent;
 
 
         public bool SendOutMsg(byte[] msg) {
@@ -17,7 +17,7 @@ namespace CommunicationStack.Net.Stacks {
 
 
         private void ToSatisfyCompiler() {
-            this.MsgReceivedEvent?.Invoke(this, null);
+            this.MsgReceivedEvent?.Invoke(this, new byte[0]);
         }
 
     }

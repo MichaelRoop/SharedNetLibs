@@ -10,19 +10,19 @@ namespace DependencyInjectorFactory.Net.interfaces {
         /// <param name="osObjCreators">
         /// The list of OS specific object creators from derived classes
         /// </param>
-        void Initialise(IObjExtraCreators osObjCreators = null);
+        void Initialise(IObjExtraCreators? osObjCreators = null);
 
 
         /// <summary>Get an instance of the requested object</summary>
         /// <typeparam name="T">The type of object requested</typeparam>
         /// <returns>An instance of the object</returns>
-        T GetObjInstance<T>() where T : class;
+        T? GetObjInstance<T>() where T : class;
 
 
         /// <summary>Get a reference to the unique instance of the requested object</summary>
         /// <typeparam name="T">The type of object requested</typeparam>
         /// <returns>Reference to the unique instance of the object</returns>
-        T GetObjSingleton<T>() where T : class;
+        T? GetObjSingleton<T>() where T : class;
 
     }
 }

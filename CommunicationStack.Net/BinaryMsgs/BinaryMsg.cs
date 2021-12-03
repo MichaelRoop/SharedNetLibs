@@ -22,7 +22,7 @@ namespace CommunicationStack.Net.BinaryMsgs {
         public BinaryMsgDataType DataType { get; private set; }
         public byte Id { get; set; }
 
-        public T Value { get; set; }
+        public T? Value { get; set; } = default(T);
 
         public byte[] Payload { get { return this.GetPayload(); }  }
 
@@ -225,7 +225,7 @@ namespace CommunicationStack.Net.BinaryMsgs {
 
         #region Messages form byte array
 
-        public static BinaryMsgBool ToBoolMsg(this byte[] packet) {
+        public static BinaryMsgBool? ToBoolMsg(this byte[] packet) {
             if (packet.IsValidMsg(BinaryMsgDataType.typeBool)) {
                 return new BinaryMsgBool(
                     packet[BinaryMsgDefines.IdPos],
@@ -235,7 +235,7 @@ namespace CommunicationStack.Net.BinaryMsgs {
         }
 
 
-        public static BinaryMsgUInt8 ToUInt8Msg(this byte[] packet) {
+        public static BinaryMsgUInt8? ToUInt8Msg(this byte[] packet) {
             if (packet.IsValidMsg(BinaryMsgDataType.typeUInt8)) {
                 return new BinaryMsgUInt8(
                     packet[BinaryMsgDefines.IdPos],
@@ -245,7 +245,7 @@ namespace CommunicationStack.Net.BinaryMsgs {
         }
 
 
-        public static BinaryMsgInt8 ToInt8Msg(this byte[] packet) {
+        public static BinaryMsgInt8? ToInt8Msg(this byte[] packet) {
             if (packet.IsValidMsg(BinaryMsgDataType.typeInt8)) {
                 return new BinaryMsgInt8(
                     packet[BinaryMsgDefines.IdPos],
@@ -255,7 +255,7 @@ namespace CommunicationStack.Net.BinaryMsgs {
         }
 
 
-        public static BinaryMsgUInt16 ToUInt16Msg(this byte[] packet) {
+        public static BinaryMsgUInt16? ToUInt16Msg(this byte[] packet) {
             if (packet.IsValidMsg(BinaryMsgDataType.typeUInt16)) {
                 return new BinaryMsgUInt16(
                     packet[BinaryMsgDefines.IdPos],
@@ -265,7 +265,7 @@ namespace CommunicationStack.Net.BinaryMsgs {
         }
 
 
-        public static BinaryMsgInt16 ToInt16Msg(this byte[] packet) {
+        public static BinaryMsgInt16? ToInt16Msg(this byte[] packet) {
             if (packet.IsValidMsg(BinaryMsgDataType.typeInt16)) {
                 return new BinaryMsgInt16(
                     packet[BinaryMsgDefines.IdPos],
@@ -275,7 +275,7 @@ namespace CommunicationStack.Net.BinaryMsgs {
         }
 
 
-        public static BinaryMsgUInt32 ToUInt32Msg(this byte[] packet) {
+        public static BinaryMsgUInt32? ToUInt32Msg(this byte[] packet) {
             if (packet.IsValidMsg(BinaryMsgDataType.typeUInt32)) {
                 return new BinaryMsgUInt32(
                     packet[BinaryMsgDefines.IdPos],
@@ -285,7 +285,7 @@ namespace CommunicationStack.Net.BinaryMsgs {
         }
 
 
-        public static BinaryMsgInt32 ToInt32Msg(this byte[] packet) {
+        public static BinaryMsgInt32? ToInt32Msg(this byte[] packet) {
             if (packet.IsValidMsg(BinaryMsgDataType.typeInt32)) {
                 return new BinaryMsgInt32(
                     packet[BinaryMsgDefines.IdPos],
@@ -295,7 +295,7 @@ namespace CommunicationStack.Net.BinaryMsgs {
         }
 
 
-        public static BinaryMsgFloat32 ToFloat32Msg(this byte[] packet) {
+        public static BinaryMsgFloat32? ToFloat32Msg(this byte[] packet) {
             if (packet.IsValidMsg(BinaryMsgDataType.typeFloat32)) {
                 return new BinaryMsgFloat32(
                     packet[BinaryMsgDefines.IdPos],

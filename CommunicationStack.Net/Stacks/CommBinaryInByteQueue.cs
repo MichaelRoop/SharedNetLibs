@@ -32,7 +32,7 @@ namespace CommunicationStack.Net.Stacks {
         #region Events
 
         /// <summary>Event fired with a full message object is assembled</summary>
-        public event EventHandler<byte[]> MsgReceived;
+        public event EventHandler<byte[]>? MsgReceived;
 
         #endregion
 
@@ -114,7 +114,7 @@ namespace CommunicationStack.Net.Stacks {
                     if (!this.ValidateStartDelimiters(data)) {
                         // Walk through bytes to throw out leading bad parts
                         this.log.Error(9999, "", () => string.Format("Invalid entry data:{0}", data.ToFormatedByteString()));
-                        byte[] tmp = this.WalkUntilValidData(data);
+                        byte[]? tmp = this.WalkUntilValidData(data);
                         if (tmp == null) {
                             return false;
                         }
@@ -150,7 +150,7 @@ namespace CommunicationStack.Net.Stacks {
         }
 
 
-        private byte[] WalkUntilValidData(byte[] msg) {
+        private byte[]? WalkUntilValidData(byte[] msg) {
             byte[] scratch = new byte[msg.Length];
             for (int i = 0; i < msg.Length - this.startDelimiters.Length; i++) {
                 bool found = true;

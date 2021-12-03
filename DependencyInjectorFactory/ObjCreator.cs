@@ -8,7 +8,7 @@ namespace DependencyInjectorFactory.Net {
     public abstract class ObjCreator {
 
         /// <summary>pointer to the object constructor</summary>
-        protected Func<object> objBuilder = null;
+        protected Func<object> objBuilder;
 
         #region Constructors
 
@@ -22,7 +22,7 @@ namespace DependencyInjectorFactory.Net {
         #region Public
 
         public T GetObj<T>() where T : class {
-            T obj = WrapErr.ToErrorReportException(9999,
+            T? obj = WrapErr.ToErrorReportException(9999,
                 () => string.Format("Constructor for class {0} failed", typeof(T).Name),
                 () => { return this.ReturnObj<T>(); });
             return obj;

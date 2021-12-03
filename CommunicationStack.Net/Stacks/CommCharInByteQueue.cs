@@ -30,7 +30,7 @@ namespace CommunicationStack.Net.Stacks {
 
         /// <summary>Event fired with the message stripped of terminators</summary>
         /// <remarks>Example of simple wrapper terminator is '\n\r'</remarks>
-        public event EventHandler<byte[]> MsgReceived;
+        public event EventHandler<byte[]>? MsgReceived;
 
         #endregion
 

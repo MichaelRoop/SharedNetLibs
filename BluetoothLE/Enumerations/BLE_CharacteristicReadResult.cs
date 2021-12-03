@@ -12,6 +12,20 @@ namespace BluetoothLE.Net.Enumerations {
 
         public string DataAsString { get; set; }
 
+        public BLE_CharacteristicReadResult(
+            BLE_CharacteristicDataModel dataModel,
+            BLE_CharacteristicCommunicationStatus status,
+            byte[] data,
+            string dataAsString) {
+
+            DataModel = dataModel;
+            Status = status;
+            Data = data;
+            DataAsString = dataAsString;
+        }
+
+
+
     }
 
 }

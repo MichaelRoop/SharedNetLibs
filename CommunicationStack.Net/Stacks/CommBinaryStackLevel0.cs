@@ -15,7 +15,7 @@ namespace CommunicationStack.Net.Stacks {
 
         private ClassLog log = new ClassLog("CommBinaryStackLevel0");
         /// <summary>The  comm channel</summary>
-        private ICommStackChannel commChannel = null;
+        private ICommStackChannel? commChannel = null;
         // Reuse InTerminators for the start of packet delimiters
         //byte[] startDelimiters = new byte[0];
         //// Reuse OutTerminators for the end of packet delimiters
@@ -55,7 +55,7 @@ namespace CommunicationStack.Net.Stacks {
         #region ICommStackLevel0 Events
 
         /// <summary>Raised when the complete packet arrives</summary>
-        public event EventHandler<byte[]> MsgReceived;
+        public event EventHandler<byte[]>? MsgReceived;
 
         #endregion
 
@@ -76,8 +76,9 @@ namespace CommunicationStack.Net.Stacks {
             this.log.Info("SendToComm", () => string.Format("Data: {0}", msg.ToFormatedByteString()));
             if (this.commChannel != null) {
                 // wrapper should have built this
+                return this.commChannel.SendOutMsg(msg);
             }
-            return this.commChannel.SendOutMsg(msg);
+            return false;
         }
 
         public bool SendToComm(string msg) {
@@ -91,7 +92,7 @@ namespace CommunicationStack.Net.Stacks {
             this.queue.MsgReceived += this.queueMsgReceived;
         }
 
-        private void queueMsgReceived(object sender, byte[] msg) {
+        private void queueMsgReceived(object? sender, byte[] msg) {
             if (this.MsgReceived != null) {
                 Task.Run(() => {
                     // Feed to thread pool to free up the comm channel
@@ -100,7 +101,7 @@ namespace CommunicationStack.Net.Stacks {
             }
         }
 
-        private void commChannelMsgReceived(object sender, byte[] msg) {
+        private void commChannelMsgReceived(object? sender, byte[] msg) {
             this.queue.AddBytes(msg);
         }
 
