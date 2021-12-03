@@ -11,7 +11,9 @@ namespace TestCases.LanguageTests.Net {
 
         #region Setup
 
-        private ILangFactory factory = null;
+#pragma warning disable CS8618
+        private ILangFactory factory;
+#pragma warning restore CS8618
         private SupportedLanguage selectedLanguage = new SupportedLanguage();
         private bool isEventRaised = false;
 
@@ -22,7 +24,7 @@ namespace TestCases.LanguageTests.Net {
             this.factory.LanguageChanged += Factory_LanguageChanged;
         }
 
-        private void Factory_LanguageChanged(object sender, SupportedLanguage language) {
+        private void Factory_LanguageChanged(object? sender, SupportedLanguage language) {
             this.isEventRaised = true;
             this.selectedLanguage = language;
         }

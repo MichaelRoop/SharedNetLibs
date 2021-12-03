@@ -93,16 +93,19 @@ namespace TestCases.StorageTests {
 
         #region Data
 
-        private TstData data1 = null;
-        private TstData data2 = null;
-        private TstData data3 = null;
+#pragma warning disable CS8618
+        private TstData data1;
+        private TstData data2;
+        private TstData data3;
+        IIndexedStorageManager<TstData, TstExtraInfo> storage;
+#pragma warning restore CS8618
+
         private string subDir = "MR_TestCases/Cases";
         private ClassLog log = new ClassLog("IndexedStorageTestCases");
         private IReadWriteSerializer<TstData> dataSerializer = 
             new JsonReadWriteSerializerIndented<TstData>();
         private IReadWriteSerializer<IIndexGroup<TstExtraInfo>> indexSerializer =
             new JsonReadWriteSerializerIndented<IIndexGroup<TstExtraInfo>>();
-        IIndexedStorageManager<TstData, TstExtraInfo> storage = null;
 
         #endregion
 

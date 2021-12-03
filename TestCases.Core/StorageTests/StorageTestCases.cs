@@ -17,8 +17,11 @@ namespace TestCases.StorageTests {
 
         #region Setup
 
-        private tstData data = null;
-        private tstData data2 = null;
+#pragma warning disable CS8618
+        private tstData data;
+        private tstData data2;
+#pragma warning restore CS8618
+
         private string subDir = "MR_TestCases/Cases";
         private ClassLog log = new ClassLog("StorageTestCases");
 

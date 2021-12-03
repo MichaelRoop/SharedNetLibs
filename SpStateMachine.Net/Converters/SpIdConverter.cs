@@ -16,7 +16,7 @@ namespace SpStateMachine.Net.Converters {
         /// <param name="id">The id to convert to string</param>
         /// <returns>String value id converted back to enum</returns>
         public string StateId(int id) {
-            return SpConverter.IntToEnum<TState>(id).ToString();
+            return SpConverter.IntToEnum<TState>(id).ToString()??String.Empty;
         }
 
 
@@ -24,7 +24,7 @@ namespace SpStateMachine.Net.Converters {
         /// <param name="id">The id to convert to string</param>
         /// <returns>String value id converted back to enum</returns>
         public string EventId(int id) {
-            return SpConverter.IntToEnum<TEvent>(id).ToString();
+            return SpConverter.IntToEnum<TEvent>(id).ToString() ?? String.Empty;
         }
 
 
@@ -32,7 +32,7 @@ namespace SpStateMachine.Net.Converters {
         /// <param name="id">The message id to convert to string</param>
         /// <returns>String value id converted back to enum</returns>
         public string MsgTypeId(int id) {
-            return SpConverter.IntToEnum<TMsg>(id).ToString();
+            return SpConverter.IntToEnum<TMsg>(id).ToString() ?? String.Empty;
         }
 
         #endregion

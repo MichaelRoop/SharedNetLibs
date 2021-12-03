@@ -30,8 +30,10 @@ namespace TestCases.ChkUtilsTests.Net {
             obj1 o1 = new obj1();
             Assert.DoesNotThrow(() => {
                 o1= WrapErr.SafeAction(() => {
+#pragma warning disable CS8600,CS8602
                     string s2 = null;
                     string s3 = s2.Substring(0, 10);
+#pragma warning restore CS8600,CS8602
                     return new obj1();
                 });
             });
@@ -43,7 +45,7 @@ namespace TestCases.ChkUtilsTests.Net {
         [Test]
         public void ReturnsValidObj() {
             // The safe wrapper should overwrite the valid object with default(obj1)
-            obj1 o1 = null;
+            obj1? o1 = null;
             Assert.DoesNotThrow(() => {
                 o1 = WrapErr.SafeAction(() => {
                     return new obj1();

@@ -4,7 +4,8 @@ using System.Diagnostics;
 
 namespace NUnit.Framework {
     public class DebugExplicitAttribute : NUnitAttribute, IApplyToTest {
-        private readonly string _reason;
+
+        private readonly string _reason = String.Empty;
 
         /// <summary>
         /// Default constructor

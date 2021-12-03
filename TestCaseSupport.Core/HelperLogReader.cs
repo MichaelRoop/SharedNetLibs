@@ -24,7 +24,7 @@ namespace TestCaseSupport.Core {
 
         NUnitTraceWriter consoleWriter = new NUnitTraceWriter();
 
-        LogingMsgEventDelegate myLogReadDelegate = null;
+        LogingMsgEventDelegate? myLogReadDelegate = null;
 
         bool isStarted = false;
 
@@ -108,7 +108,7 @@ namespace TestCaseSupport.Core {
 
             // Since the thread results are dumped out by a separate thread we may have to wait for 
             // the results we will wait for 20 of 25ms time slices for max of half second
-            ErrReport err = null;
+            ErrReport? err = null;
             for (int i = 0; i < 26; i++) {
                 err = this.errors.Find((item) => item.Code == code);
                 if (err != null) {
@@ -126,7 +126,7 @@ namespace TestCaseSupport.Core {
 
 
             Assert.IsNotNull(err, String.Format("There was no error logged for code:{0}", code));
-            return err;
+            return err??new ErrReport();// For compiler. the Assert throws
         }
 
 

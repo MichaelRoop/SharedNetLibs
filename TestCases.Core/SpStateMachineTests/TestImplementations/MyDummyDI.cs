@@ -6,7 +6,7 @@ namespace TestCases.SpStateMachineTests.TestImplementations {
 
         #region static singleton instances
 
-        private static ISpMsgFactory msgFactoryInstance = null;
+        private static ISpMsgFactory? msgFactoryInstance = null;
 
         #endregion
 

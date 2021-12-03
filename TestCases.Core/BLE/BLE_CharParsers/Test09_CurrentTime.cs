@@ -9,7 +9,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
     [TestFixture]
     public class Test09_CurrentTime : TestCaseBase {
-        public object BitHelpers { get; private set; }
+        //public object BitHelpers { get; private set; }
 
         #region Setup
 

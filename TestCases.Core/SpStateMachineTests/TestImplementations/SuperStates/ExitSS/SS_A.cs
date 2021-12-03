@@ -3,7 +3,7 @@
 namespace TestCases.SpStateMachineTests.TestImplementations.SuperStates.ExitSS {
     public class SS_A : MySuperState {
 
-        ISpState<MyMsgId> doneSt = null;
+        ISpState<MyMsgId> doneSt;
 
         public SS_A(ISpState<MyMsgId> parent, MyDataClass dataClass) 
             : base(parent, MyStateID.SS_A1, dataClass) {

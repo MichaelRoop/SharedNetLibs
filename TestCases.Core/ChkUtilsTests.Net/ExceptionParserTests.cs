@@ -100,17 +100,22 @@ namespace TestCases.ChkUtilsTests.Net {
 
         #region Private Methods
 
-        private void ValidateExtraInfo(IExceptionParser parser, string key, string value) {
+        private void ValidateExtraInfo(IExceptionParser? parser, string key, string value) {
+            Assert.NotNull(parser);
+#pragma warning disable CS8600,CS8602
             ExceptionExtraInfo i = parser.ExtraInfo.Find((item) => item.Name == key);
             Assert.IsNotNull(i);
             Assert.AreEqual(value, i.Value);
+#pragma warning restore CS8602,CS8602
         }
 
         private void TestRegularFields(IExceptionParser? parser, int extraCount, string name, string msg) {
             Assert.IsNotNull(parser);
+#pragma warning disable CS8600,CS8602
             Assert.AreEqual(extraCount, parser.ExtraInfo.Count, "The count of extra info items is off");
             Assert.AreEqual(name, parser.Info.Name);
             Assert.AreEqual(msg, parser.Info.Msg);
+#pragma warning restore CS8602,CS8602
         }
 
         #endregion

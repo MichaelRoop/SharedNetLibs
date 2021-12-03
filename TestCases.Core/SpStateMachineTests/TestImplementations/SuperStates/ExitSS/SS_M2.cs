@@ -14,8 +14,8 @@ namespace TestCases.SpStateMachineTests.TestImplementations.SuperStates.ExitSS {
     public class SS_M2 : MySuperState {
 
         //ISpState<MyMsgId> firstState = null;
-        ISpState<MyMsgId> ssADoneOnEntry = null;
-        ISpState<MyMsgId> ssB = null;
+        ISpState<MyMsgId> ssADoneOnEntry;
+        ISpState<MyMsgId> ssB;
 
         public SS_M2(MyDataClass dataClass)
             : base(MyStateID.SS_M2, dataClass) {

@@ -95,22 +95,19 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _0_SimpleDequeQueue_AddSequencing() {
-            ISpEventStore d = null;
+            ISpEventStore d;
             TestHelpers.CatchUnexpected(() => {
                 d = new SimpleDequeEventStore(new MyBaseMsg(MyMsgType.SimpleMsg, MyMsgId.Tick));
                 d.Add(new MyBaseMsg(MyMsgType.DataStrMsg, MyMsgId.Abort));
                 d.Add(new MyBaseMsg( MyMsgType.SimpleMsg,  MyMsgId.Start));
                 d.Add(new MyBaseMsg(MyMsgType.DataStrMsg, MyMsgId.Stop));
+                this.MsgEqual(new MyBaseMsg(MyMsgType.DataStrMsg, MyMsgId.Abort), d.Get());
+                this.MsgEqual(new MyBaseMsg(MyMsgType.SimpleMsg, MyMsgId.Start), d.Get());
+                this.MsgEqual(new MyBaseMsg(MyMsgType.DataStrMsg, MyMsgId.Stop), d.Get());
+                this.MsgEqual(new MyBaseMsg(MyMsgType.SimpleMsg, MyMsgId.Tick), d.Get());
+                TestHelpers.CatchUnexpected(d.Dispose);
             });
 
-            this.MsgEqual(new MyBaseMsg(MyMsgType.DataStrMsg, MyMsgId.Abort), d.Get());
-            this.MsgEqual(new MyBaseMsg(MyMsgType.SimpleMsg, MyMsgId.Start), d.Get());
-            this.MsgEqual(new MyBaseMsg(MyMsgType.DataStrMsg, MyMsgId.Stop), d.Get());
-            this.MsgEqual(new MyBaseMsg(MyMsgType.SimpleMsg, MyMsgId.Tick), d.Get());
-
-            TestHelpers.CatchUnexpected(() => {
-                d.Dispose();
-            });
         }
 
         #endregion
@@ -131,7 +128,7 @@ namespace TestCases.SpStateMachineTests {
         
         [Test]
         public void _0_PriorityEventStore_AddSequence() {
-            ISpEventStore d = null;
+            ISpEventStore? d = null;
             TestHelpers.CatchUnexpected(() => {
                 // Note: This is the priority store, not the simple deque
                 d = new PriorityEventStore(new MyBaseMsg(MyMsgType.SimpleMsg, MyMsgId.Tick));
@@ -147,6 +144,10 @@ namespace TestCases.SpStateMachineTests {
                 d.Add(new MyBaseMsg(MyMsgType.SimpleMsg, MyMsgId.Abort, SpEventPriority.Urgent));
                 d.Add(new MyBaseMsg(MyMsgType.SimpleMsg, MyMsgId.ExitAborted, SpEventPriority.Urgent));
             });
+            Assert.NotNull(d);
+            if (d == null) {
+                return;
+            }
 
             // Validate sequence by priority and sequence within priority
 

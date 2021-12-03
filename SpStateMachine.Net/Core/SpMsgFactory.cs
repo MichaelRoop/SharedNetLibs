@@ -15,7 +15,7 @@ namespace SpStateMachine.Net.Core {
 
         #region Data
 
-        ISpMsgProvider provider = null;
+        ISpMsgProvider provider;
 
         #endregion
 

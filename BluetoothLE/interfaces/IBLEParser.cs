@@ -24,7 +24,7 @@ namespace BluetoothLE.Net.interfaces {
         /// <summary>Parse out the variable values from the read bytes</summary>
         /// <param name="data">The bytes from Descriptor read</param>
         /// <returns>Display string with the parsed data</returns>
-        string Parse(byte[] data);
+        string Parse(byte[]? data);
 
     }
 }

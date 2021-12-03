@@ -17,21 +17,23 @@ namespace SpStateMachine.Net.Core {
 
         #region Data
 
-        ISpPeriodicTimer timer = null;
+        ISpPeriodicTimer timer;
 
-        ISpStateMachine stateMachine = null;
+        ISpStateMachine stateMachine;
 
-        ISpEventStore msgStore = null;
+        ISpEventStore msgStore;
 
-        ISpEventListner msgListner = null;
+        ISpEventListner msgListner;
 
-        ISpBehaviorOnEvent eventBehavior = null;
+        ISpBehaviorOnEvent eventBehavior;
 
-        Action wakeUpAction = null;
+        Action wakeUpAction;
 
         private bool terminateThread = false;
 
-        private Thread driverThread = null;
+        private Thread driverThread;
+
+        private readonly CancellationTokenSource cancelToken;
 
         ClassLog log = new ClassLog(typeof(SpStateMachineEngine).Name);
 
@@ -39,9 +41,9 @@ namespace SpStateMachine.Net.Core {
 
         #region Constructors
 
-        /// <summary>Default constructor in private scope to prevent usage</summary>
-        private SpStateMachineEngine() {
-        }
+        ///// <summary>Default constructor in private scope to prevent usage</summary>
+        //private SpStateMachineEngine() {
+        //}
 
 
         /// <summary>Constructor</summary>
@@ -63,12 +65,14 @@ namespace SpStateMachine.Net.Core {
             WrapErr.ChkParam(stateMachine, "stateMachine", 50053);
             WrapErr.ChkParam(timer, "timer", 50054);
 
-            WrapErr.ToErrorReportException(50055, () => {
+            try {
                 this.msgListner = msgListner;
                 this.msgStore = msgStore;
                 this.eventBehavior = eventBehavior;
                 this.stateMachine = stateMachine;
                 this.timer = timer;
+                this.cancelToken = new CancellationTokenSource(1000);
+                this.cancelToken.Token.ThrowIfCancellationRequested();
 
                 this.driverThread = new Thread(new ThreadStart(this.DriverThread));
                 this.driverThread.Start();
@@ -77,7 +81,10 @@ namespace SpStateMachine.Net.Core {
                 this.wakeUpAction = new Action(this.timer_OnWakeup);
                 this.msgListner.MsgReceived += this.eventListner_MsgReceived;
                 this.timer.OnWakeup += this.wakeUpAction;
-            });
+            }
+            catch (Exception ex) {
+                this.log.Exception(50055, "", ex);
+            }
         }
 
 
@@ -115,6 +122,10 @@ namespace SpStateMachine.Net.Core {
 
             while (!this.terminateThread) {
                 WrapErr.ToErrReport(50058, () => {
+                    if (this.cancelToken.IsCancellationRequested) {
+                        return;
+                    }
+
                     if (!this.terminateThread) {
                         this.eventBehavior.WaitOnEvent();
                     }
@@ -157,7 +168,7 @@ namespace SpStateMachine.Net.Core {
                 if (this.driverThread != null) {
                     if (this.driverThread.IsAlive) {
                         if (!this.driverThread.Join(1000)) {
-                            WrapErr.SafeAction(() => this.driverThread.Abort());
+                            WrapErr.SafeAction(this.cancelToken.Cancel);
                         }
                     }
                     this.driverThread = null;

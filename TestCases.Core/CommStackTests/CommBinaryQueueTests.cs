@@ -16,7 +16,7 @@ namespace TestCases.Core.CommStackTests {
         int waitMs = 5;
 
         public class MyComm : ICommStackChannel {
-            public event EventHandler<byte[]> MsgReceivedEvent;
+            public event EventHandler<byte[]>? MsgReceivedEvent;
 
             public bool SendOutMsg(byte[] msg) {
                 // Just bounce it back for now
@@ -175,7 +175,7 @@ namespace TestCases.Core.CommStackTests {
                 BinaryMsgBool msg = new BinaryMsgBool(22, true);
                 byte[] packet = msg.ToByteArray();
                 byte[] returnedPacket = this.GetQueuePopData(packet);
-                BinaryMsgBool received = returnedPacket.ToBoolMsg();
+                BinaryMsgBool? received = returnedPacket.ToBoolMsg();
                 this.ValidateReturnedObj(msg, received);
             });
         }
@@ -186,7 +186,7 @@ namespace TestCases.Core.CommStackTests {
                 BinaryMsgUInt8 msg = new BinaryMsgUInt8(16, 202);
                 byte[] packet = msg.ToByteArray();
                 byte[] returnedPacket = this.GetQueuePopData(packet);
-                BinaryMsgUInt8 received = returnedPacket.ToUInt8Msg();
+                BinaryMsgUInt8? received = returnedPacket.ToUInt8Msg();
                 this.ValidateReturnedObj(msg, received);
             });
         }
@@ -197,7 +197,7 @@ namespace TestCases.Core.CommStackTests {
                 BinaryMsgInt8 msg = new BinaryMsgInt8(6, 122);
                 byte[] packet = msg.ToByteArray();
                 byte[] returnedPacket = this.GetQueuePopData(packet);
-                BinaryMsgInt8 received = returnedPacket.ToInt8Msg();
+                BinaryMsgInt8? received = returnedPacket.ToInt8Msg();
                 this.ValidateReturnedObj(msg, received);
             });
         }
@@ -209,7 +209,7 @@ namespace TestCases.Core.CommStackTests {
                 BinaryMsgUInt16 msg = new BinaryMsgUInt16(16, 32111);
                 byte[] packet = msg.ToByteArray();
                 byte[] returnedPacket = this.GetQueuePopData(packet);
-                BinaryMsgUInt16 received = returnedPacket.ToUInt16Msg();
+                BinaryMsgUInt16? received = returnedPacket.ToUInt16Msg();
                 this.ValidateReturnedObj(msg, received);
             });
         }
@@ -220,7 +220,7 @@ namespace TestCases.Core.CommStackTests {
                 BinaryMsgInt16 msg = new BinaryMsgInt16(6, 3211);
                 byte[] packet = msg.ToByteArray();
                 byte[] returnedPacket = this.GetQueuePopData(packet);
-                BinaryMsgInt16 received = returnedPacket.ToInt16Msg();
+                BinaryMsgInt16? received = returnedPacket.ToInt16Msg();
                 this.ValidateReturnedObj(msg, received);
             });
         }
@@ -255,8 +255,10 @@ namespace TestCases.Core.CommStackTests {
 
 
 
-        private void ValidateReturnedObj<T>(BinaryMsg<T> expected, BinaryMsg<T> received) {
+        private void ValidateReturnedObj<T>(BinaryMsg<T> expected, BinaryMsg<T>? received) {
             TestHelpers.CatchUnexpected(() => {
+#pragma warning disable CS8602,CS8602
+
                 Assert.NotNull(received, "Failed to build object");
                 Assert.AreEqual(expected.SOH, received.SOH);
                 Assert.AreEqual(expected.STX, received.STX);
@@ -265,7 +267,7 @@ namespace TestCases.Core.CommStackTests {
                 Assert.AreEqual(expected.Value, received.Value);
                 Assert.AreEqual(expected.ETX, received.ETX);
                 Assert.AreEqual(expected.EOT, received.EOT);
-
+#pragma warning restore CS8602,CS8602
             });
         }
 

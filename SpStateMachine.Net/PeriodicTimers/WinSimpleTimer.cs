@@ -16,7 +16,7 @@ namespace SpStateMachine.PeriodicTimers {
         #region Data
 
         /// <summary>The timer object</summary>
-        private System.Timers.Timer? timer = null;
+        private System.Timers.Timer timer = null;
 
         /// <summary>Access lock to the timer object</summary>
         private object timerLock = new object();

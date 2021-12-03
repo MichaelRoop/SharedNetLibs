@@ -5,8 +5,8 @@ namespace TestCases.SpStateMachineTests.TestImplementations.SuperStates {
 
     public class RecoverySs : MySuperState {
 
-        ISpState<MyMsgId> idle = null;
-        ISpState<MyMsgId> active = null;
+        ISpState<MyMsgId> idle;
+        ISpState<MyMsgId> active;
 
 
         public RecoverySs(ISpState<MyMsgId> parent, MyDataClass dataClass)

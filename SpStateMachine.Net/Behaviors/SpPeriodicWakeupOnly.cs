@@ -2,8 +2,6 @@
 using LogUtils.Net;
 using SpStateMachine.Net.Core;
 using SpStateMachine.Net.Interfaces;
-using System;
-using System.Threading;
 
 namespace SpStateMachine.Net.Behaviours {
 
@@ -100,14 +98,14 @@ namespace SpStateMachine.Net.Behaviours {
         private void Dispose(bool disposeManagedResources) {
             if (!disposed) {
                 // In case something is waiting on it
-                if (this.wakeEvent != null) {
+                try {
                     this.wakeEvent.Set();
+                    if (disposeManagedResources) {
+                        this.DisposeManagedResources();
+                    }
+                    this.DisposeNativeResources();
                 }
-
-                if (disposeManagedResources) {
-                    this.DisposeManagedResources();
-                }
-                this.DisposeNativeResources();
+                catch { }
             }
             this.disposed = true;
         }
@@ -116,10 +114,7 @@ namespace SpStateMachine.Net.Behaviours {
         /// <summary>Dispose managed resources (those with Dispose methods)</summary>
         private void DisposeManagedResources() {
             WrapErr.ToErrReport(50083, "Error Disposing wakeEvent", () => {
-                if (this.wakeEvent != null) {
-                    wakeEvent.Dispose();
-                    wakeEvent = null;
-                }
+                try { wakeEvent.Dispose(); } catch { }
             });
         }
 

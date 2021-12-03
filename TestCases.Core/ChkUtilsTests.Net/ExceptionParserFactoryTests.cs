@@ -38,8 +38,11 @@ namespace TestCases.ChkUtilsTests.Net {
                 action.Invoke();
             }
             catch (Exception e) {
-                IExceptionParser parser = ExceptionParserFactory.Get(e);
-                Assert.AreEqual(expected.Name, parser.GetType().Name, "Factory returned wrong type of parser");
+                IExceptionParser? parser = ExceptionParserFactory.Get(e);
+                Assert.IsNotNull(parser);
+                if (parser != null) {
+                    Assert.AreEqual(expected.Name, parser.GetType().Name, "Factory returned wrong type of parser");
+                }
             }
         }
 

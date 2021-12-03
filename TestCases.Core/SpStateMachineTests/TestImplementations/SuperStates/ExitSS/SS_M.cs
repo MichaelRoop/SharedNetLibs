@@ -3,8 +3,8 @@
 namespace TestCases.SpStateMachineTests.TestImplementations.SuperStates.ExitSS {
     public class SS_M : MySuperState {
 
-        ISpState<MyMsgId> ssA = null;
-        ISpState<MyMsgId> ssB = null;
+        ISpState<MyMsgId> ssA;
+        ISpState<MyMsgId> ssB;
 
         public SS_M(MyDataClass dataClass) 
             : base(MyStateID.SS_M, dataClass) {

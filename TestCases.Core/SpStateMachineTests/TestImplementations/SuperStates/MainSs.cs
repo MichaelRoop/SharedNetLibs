@@ -7,8 +7,8 @@ namespace TestCases.SpStateMachineTests.TestImplementations.SuperStates {
 
         #region Data
 
-        ISpState<MyMsgId> notStarted = null;
-        ISpState<MyMsgId> recovery = null;
+        ISpState<MyMsgId> notStarted;
+        ISpState<MyMsgId> recovery;
 
         #endregion
 

@@ -16,7 +16,9 @@ namespace TestCases.SpStateMachineTests {
         #region Data
 
         HelperLogReader logReader = new HelperLogReader();
-        private ISpEventListner listner = null;
+#pragma warning disable CS8618
+        private ISpEventListner listner;
+#pragma warning restore CS8600
         private ClassLog log = new ClassLog("SimpleEventListnerTests");
 
         #endregion
@@ -36,7 +38,6 @@ namespace TestCases.SpStateMachineTests {
             this.logReader.StopLogging();
             this.logReader.Clear();
             this.listner.Dispose();
-            this.listner = null;
         }
 
         #endregion
@@ -71,7 +72,7 @@ namespace TestCases.SpStateMachineTests {
         [Test]
         public void _0_MessageReceived_validMsg() {
             bool received = false;
-            ISpEventMessage msgCopy = null;
+            ISpEventMessage? msgCopy = null;
             TestHelpers.CatchUnexpected(() => {
                 this.listner.MsgReceived += new EventHandler((o, e) => {
                     this.log.Info("_0_MessageReceived_validMsg", "Woke up on msg received");
@@ -93,6 +94,7 @@ namespace TestCases.SpStateMachineTests {
 
             Assert.IsTrue(received, "The received event was not raised");
             Assert.IsNotNull(msgCopy, "Message was not copied");
+            if (msgCopy == null) { return; } // For compiler
             Assert.AreEqual((int)MyMsgType.SimpleMsg, msgCopy.TypeId);
             Assert.AreEqual((int)MyMsgId.Start, msgCopy.EventId);
         }
@@ -104,7 +106,7 @@ namespace TestCases.SpStateMachineTests {
         [Test]
         public void _0_ResponseReceived_validMsg() {
             bool received = false;
-            ISpEventMessage msgCopy = null;
+            ISpEventMessage? msgCopy = null;
 
             TestHelpers.CatchUnexpected(() => {
                 this.listner.ResponseReceived += new EventHandler((o, e) => {
@@ -127,6 +129,7 @@ namespace TestCases.SpStateMachineTests {
             }
             Assert.IsTrue(received, "The received event was not raised");
             Assert.IsNotNull(msgCopy, "Message was not copied");
+            if (msgCopy == null) { return; } // for compiler
             Assert.AreEqual((int)MyMsgType.SimpleMsg, msgCopy.TypeId);
             Assert.AreEqual((int)MyMsgId.Tick, msgCopy.EventId);
         }
