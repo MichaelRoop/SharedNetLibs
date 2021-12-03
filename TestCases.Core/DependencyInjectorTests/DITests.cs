@@ -15,30 +15,34 @@ namespace TestCases.DependencyInjectorTests {
         public class TestInstClassBase {
             public int Value1 { get; set; }
             public int Value2 { get; set; }
-            public int Count { get; protected set; }
+            public int InstanceID { get; protected set; }
 
-            public static int Counter { get; set; }
+            public static int InstanceIDCounter { get; set; }
 
             public TestInstClassBase() {
-                this.Count = (Counter++);
+                this.InstanceID = (++InstanceIDCounter);
             }
         };
 
         public class TestSinglClassBase {
             public int Value1 { get; set; }
             public int Value2 { get; set; }
-            public int Count { get; protected set; }
+            public int InstanceID { get; protected set; }
 
-            public static int Counter { get; set; }
+            public static int InstanceIDCounter { get; set; }
 
             public TestSinglClassBase() {
-                this.Count = (Counter++);
+                this.InstanceID = (++InstanceIDCounter);
             }
         };
 
         #region Simple classes
-        public class SingleFirst : TestInstClassBase { };
-        public class SingleSecond : TestInstClassBase { };
+        public class SingleFirst : TestSinglClassBase { 
+            public SingleFirst() : base() {} 
+        };
+        public class SingleSecond : TestSinglClassBase { 
+            public SingleSecond() : base() { } 
+        };
 
         public class InstanceFirst : TestSinglClassBase { public InstanceFirst() : base() { } };
         public class InstanceSecond : TestSinglClassBase { public InstanceSecond() : base() { } };
@@ -46,24 +50,30 @@ namespace TestCases.DependencyInjectorTests {
 
 
         public class TstSinglWithIns {
-            public InstanceFirst InstClass { get; private set; } = null;
-            public int Count { get; protected set; }
-            private static int counter = 0;
+            public InstanceFirst InstClass { get; private set; }
+            public int InstanceID { get; protected set; }
+            private static int InstanceIDCounter = 0;
 
-            public TstSinglWithIns(InstanceFirst cl) {
+            public TstSinglWithIns(InstanceFirst? cl) {
+                if (cl == null) {
+                    throw new ArgumentNullException();
+                }
                 this.InstClass = cl;
-                this.Count = (counter++);
+                this.InstanceID = (InstanceIDCounter++);
             }
         }
 
         public class TstInsWithSingl {
-            public SingleFirst SinglClass { get; private set; } = null;
-            public int Count { get; protected set; }
-            private static int counter = 0;
+            public SingleFirst SinglClass { get; private set; }
+            public int InstanceID { get; protected set; }
+            private static int InstanceIDCounter = 0;
 
-            public TstInsWithSingl(SingleFirst cl) {
+            public TstInsWithSingl(SingleFirst? cl) {
+                if (cl == null) {
+                    throw new ArgumentNullException();
+                }
                 this.SinglClass = cl;
-                this.Count = (counter++);
+                this.InstanceID = (InstanceIDCounter++);
             }
         }
 
@@ -96,7 +106,9 @@ namespace TestCases.DependencyInjectorTests {
             }
         }
 
-        IObjContainer container = null;
+#pragma warning disable CS8618
+        IObjContainer container;
+#pragma warning restore CS8618
 
         //var v = new TstInsWithSingl(new SingleFirst());
 
@@ -119,6 +131,7 @@ namespace TestCases.DependencyInjectorTests {
 
         [SetUp]
         public void SetupPerTest() {
+            
         }
 
         [TearDown]
@@ -129,58 +142,102 @@ namespace TestCases.DependencyInjectorTests {
 
         [Test]
         public void CheckInstanceTest() {
-            InstanceFirst f = null;
-            InstanceFirst s = null;
+            InstanceFirst? f = null;
+            InstanceFirst? s = null;
 
             TestHelpers.CatchUnexpected(() => {
                 f = this.container.GetObjInstance<InstanceFirst>();
                 s = this.container.GetObjInstance<InstanceFirst>();
 
             });
-            Assert.AreNotEqual(f.Count, s.Count);
+
+            Assert.IsNotNull(f);
+            Assert.IsNotNull(s);
+#pragma warning disable CS8602,CS8602
+            Assert.AreNotEqual(f.InstanceID, s.InstanceID);
+#pragma warning restore CS8602,CS8602
         }
 
 
         [Test]
-        public void CheckSingletonTest() {
-            SingleFirst f = null;
-            SingleFirst s = null;
+        public void CheckSingleton_MultipleCallsForSameInstance() {
+            SingleFirst? f = null;
+            SingleFirst? s = null;
             TestHelpers.CatchUnexpected(() => {
                 f = this.container.GetObjSingleton<SingleFirst>();
                 s = this.container.GetObjSingleton<SingleFirst>();
             });
-            Assert.AreEqual(f.Count, s.Count);
+            Assert.IsNotNull(f);
+            Assert.IsNotNull(s);
+#pragma warning disable CS8602,CS8602
+            Assert.AreEqual(f.InstanceID, s.InstanceID);
+#pragma warning restore CS8602,CS8602
+        }
+
+
+        [Test]
+        public void CheckSingleton_CallsForDiffSingletons() {
+            SingleFirst? f1 = null;
+            SingleFirst? f2 = null;
+            SingleSecond? s1 = null;
+            SingleSecond? s2 = null;
+
+
+            TestHelpers.CatchUnexpected(() => {
+                f1 = this.container.GetObjSingleton<SingleFirst>();
+                f2 = this.container.GetObjSingleton<SingleFirst>();
+                s1 = this.container.GetObjSingleton<SingleSecond>();
+                s2 = this.container.GetObjSingleton<SingleSecond>();
+            });
+            Assert.IsNotNull(f1);
+            Assert.IsNotNull(f2);
+            Assert.IsNotNull(s1);
+            Assert.IsNotNull(s2);
+
+#pragma warning disable CS8602,CS8602
+            Assert.AreEqual(f1.InstanceID, f2.InstanceID);
+            Assert.AreEqual(s1.InstanceID, s2.InstanceID);
+            Assert.AreNotEqual(f1.InstanceID, s2.InstanceID, "instance id of diff singletons");
+#pragma warning restore CS8602,CS8602
         }
 
 
         [Test]
         public void CheckInstacesWithSingletonParamTest() {
-            TstInsWithSingl f = null;
-            TstInsWithSingl s = null;
+            TstInsWithSingl? f = null;
+            TstInsWithSingl? s = null;
             TestHelpers.CatchUnexpected(() => {
                 f = this.container.GetObjInstance<TstInsWithSingl>();
                 s = this.container.GetObjInstance<TstInsWithSingl>();
             });
+            Assert.IsNotNull(f);
+            Assert.IsNotNull(s);
+#pragma warning disable CS8602,CS8602
             // Instance should have different instance count
-            Assert.AreNotEqual(f.Count, s.Count);
+            Assert.AreNotEqual(f.InstanceID, s.InstanceID);
             // They share a singleton parameter
-            Assert.AreEqual(f.SinglClass.Count, s.SinglClass.Count);
+            Assert.AreEqual(f.SinglClass.InstanceID, s.SinglClass.InstanceID);
+#pragma warning restore CS8602,CS8602
         }
 
 
         [Test]
         public void CheckSingletonWithInstanceParamTest() {
-            TstSinglWithIns f = null;
-            TstSinglWithIns s = null;
+            TstSinglWithIns? f = null;
+            TstSinglWithIns? s = null;
             TestHelpers.CatchUnexpected(() => {
                 f = this.container.GetObjSingleton<TstSinglWithIns>();
                 s = this.container.GetObjSingleton<TstSinglWithIns>();
             });
-            // Singletons should have different instance count
-            Assert.AreEqual(f.Count, s.Count);
+            Assert.IsNotNull(f);
+            Assert.IsNotNull(s);
+#pragma warning disable CS8602,CS8602
+            // Singletons should have same instance id
+            Assert.AreEqual(f.InstanceID, s.InstanceID);
             // Although the parameter is instance, that secondary constructor only
             // called once on intantiation of parent singleton class
-            Assert.AreEqual(f.InstClass.Count, s.InstClass.Count);
+            Assert.AreEqual(f.InstClass.InstanceID, s.InstClass.InstanceID);
+#pragma warning restore CS8602,CS8602
         }
 
 
