@@ -9,14 +9,14 @@ using VariousUtils.Net;
 
 namespace StorageFactory.Net.StorageManagers {
 
-    public class SimpleStorageManger<T> : IStorageManager<T> where T : class {
+    public class SimpleStorageManger<T> : IStorageManager<T> where T : class, new() {
 
         #region Data
 
         private string root = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         private string subDir = "DEFAULT_SUB_DIR";
         private string file = "DEFAULT_FILE_NAME.TXT";
-        IReadWriteSerializer<T> serializer = null;
+        IReadWriteSerializer<T> serializer;
 
         #endregion
 
@@ -158,7 +158,7 @@ namespace StorageFactory.Net.StorageManagers {
             lock (this) {
                 ErrReport report;
                 string name = FileHelpers.GetFullFileName(this.StoragePath, filename);
-                T ret = WrapErr.ToErrReport(out report, 9999,
+                T? ret = WrapErr.ToErrReport(out report, 9999,
                     () => string.Format("Failed to read: {0}", name),
                     () => {
                         DirectoryHelpers.CreateStorageDir(this.StoragePath);
@@ -169,7 +169,7 @@ namespace StorageFactory.Net.StorageManagers {
                         }
                         return default(T);
                     });
-                return report.Code == 0 ? ret : default(T);
+                return report.Code == 0 ? ret??new T() : new T();
             }
         }
 

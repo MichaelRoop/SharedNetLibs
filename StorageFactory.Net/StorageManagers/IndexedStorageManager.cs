@@ -10,7 +10,7 @@ using VariousUtils.Net;
 namespace StorageFactory.Net.StorageManagers {
 
     public class IndexedStorageManager<TData, TExtraInfo> 
-        : IIndexedStorageManager<TData, TExtraInfo> where TData : class where TExtraInfo : class {
+        : IIndexedStorageManager<TData, TExtraInfo> where TData : class, new() where TExtraInfo : class, new() {
 
         #region Data
 
@@ -18,8 +18,8 @@ namespace StorageFactory.Net.StorageManagers {
         private string root = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         private string subDir = "DEFAULT_SUB_DIR";
         private string indexName = "DEFAULT_INDEX_FILE_NAME.TXT";
-        private IReadWriteSerializer<TData> dataSerializer = null;
-        private IReadWriteSerializer<IIndexGroup<TExtraInfo>> indexSerializer = null;
+        private IReadWriteSerializer<TData> dataSerializer;
+        private IReadWriteSerializer<IIndexGroup<TExtraInfo>> indexSerializer;
 
         private IIndexGroup<TExtraInfo> indexItems = new IndexGroup<TExtraInfo>();
         private ClassLog log = new ClassLog("IndexedStorageManager");
@@ -175,16 +175,16 @@ namespace StorageFactory.Net.StorageManagers {
             lock (this) {
                 ErrReport report;
                 string name = FileHelpers.GetFullFileName(this.StoragePath, fileInfo.UId_FileName);
-                TData ret = default(TData);
+                TData ret = new TData();
                 ret = WrapErr.ToErrReport(out report, 9999,
                     () => string.Format("Failed to read index '{0}'", name),
                     () => { return this.Retrieve(fileInfo); });
-                if (report.Code != 0) {
-                    ret = default(TData);
+                if (report.Code != 0 || ret == null) {
+                    ret = new TData();
                 }
                 outPut.RetrievedOk = (ret != default(TData));
                 outPut.Info = fileInfo;
-                outPut.StoredObject = ret;
+                outPut.StoredObject = ret??new TData();
                 return outPut;
             }
         }
@@ -197,7 +197,7 @@ namespace StorageFactory.Net.StorageManagers {
             lock (this) {
                 ErrReport report;
                 string name = FileHelpers.GetFullFileName(this.StoragePath, indexItem.UId_FileName);
-                TData ret = WrapErr.ToErrReport(out report, 9999,
+                TData? ret = WrapErr.ToErrReport(out report, 9999,
                     () => string.Format("Failed to retrieve object '{0}'", name),
                     () => {
                         DirectoryHelpers.CreateStorageDir(this.StoragePath);
@@ -212,7 +212,7 @@ namespace StorageFactory.Net.StorageManagers {
                         }
                         return default(TData);
                     });
-                return report.Code == 0 ? ret : default(TData);
+                return report.Code == 0 ? ret??new TData() : new TData();
             }
         }
 
@@ -288,12 +288,12 @@ namespace StorageFactory.Net.StorageManagers {
         }
 
 
-        private IIndexGroup<TExtraInfo> ReadIndexFromFile() {
+        private IIndexGroup<TExtraInfo>? ReadIndexFromFile() {
             // TODO - more robust recovery in case of failure. Likely abort at this one place
             lock (this) {
                 ErrReport report;
                 string name = FileHelpers.GetFullFileName(this.StoragePath, this.IndexFileName);
-                IIndexGroup<TExtraInfo> ret = WrapErr.ToErrReport(out report, 9999,
+                IIndexGroup<TExtraInfo>? ret = WrapErr.ToErrReport(out report, 9999,
                     () => string.Format("Failed to read index '{0}'", name),
                     () => {
                         DirectoryHelpers.CreateStorageDir(this.StoragePath);
@@ -308,7 +308,7 @@ namespace StorageFactory.Net.StorageManagers {
                             return this.indexItems;
                         }
                     });
-                return report.Code == 0 ? ret : default(IIndexGroup<TExtraInfo>);
+                return report.Code == 0 ? ret?? default(IIndexGroup<TExtraInfo>) : default(IIndexGroup<TExtraInfo>);
             }
         }
 
@@ -318,13 +318,16 @@ namespace StorageFactory.Net.StorageManagers {
         private IIndexGroup<TExtraInfo> GetIndex() {
             if (!this.isIndexRead) {
                 isIndexRead = true;
-                this.indexItems = this.ReadIndexFromFile();
+                IIndexGroup <TExtraInfo>? tmp = this.ReadIndexFromFile();
+                if (tmp != null) {
+                    this.indexItems = tmp;
+                }
+                else {
+                    // TODO How to handle error conditions here. And check if default returned above is really null
+                }
             }
             return this.indexItems;
         }
-
-
-
 
 
         private string FullFileName(IIndexItem<TExtraInfo> fileInfo) {

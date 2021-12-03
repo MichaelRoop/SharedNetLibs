@@ -3,7 +3,7 @@ using StorageFactory.Net.interfaces;
 
 namespace StorageFactory.Net.StorageManagers {
 
-    public class IndexItem<T> : IIndexItem<T> where T : class {
+    public class IndexItem<T> : IIndexItem<T> where T : class,new() {
 
         #region Properties
 
@@ -25,7 +25,7 @@ namespace StorageFactory.Net.StorageManagers {
 
         /// <summary>Extra information about the stored object to return with index info</summary>
         [JsonProperty]
-        public T ExtraInfoObj { get; private set; } = default(T);
+        public T ExtraInfoObj { get; private set; } = new T();
 
         #endregion
 
@@ -37,7 +37,7 @@ namespace StorageFactory.Net.StorageManagers {
 
 
         public IndexItem(string objUId) {
-            this.ExtraInfoObj = default(T);
+            this.ExtraInfoObj = new T();
             this.UId_Object = objUId;
             this.UId_FileName = string.Format("{0}.txt", this.UId_Object);
         }
