@@ -53,7 +53,7 @@ namespace BluetoothLE.Net.Parsers {
         }
 
 
-        public string Parse(byte[] data) {
+        public string Parse(byte[]? data) {
             try {
                 this.ResetMembers();
                 if (this.CopyToRawData(data)) {
@@ -107,7 +107,7 @@ namespace BluetoothLE.Net.Parsers {
         /// <param name="data">The data to copy</param>
         /// <param name="length">The length of data to copy</param>
         /// <returns>true on success, otherwise false on exception or if data null or smaller than length</returns>
-        private bool CopyToRawData(byte[] data) {
+        private bool CopyToRawData(byte[]? data) {
             // TODO - the numbers here are from the char parser
             try {
                 if (data != null) {
