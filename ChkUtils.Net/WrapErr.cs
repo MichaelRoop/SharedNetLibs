@@ -52,7 +52,7 @@ namespace ChkUtils.Net {
         /// where the original transformation of Exception to ExceptionFault occurs
         /// </summary>
         /// <param name="logDelegate">The delegate to invoke when exception occurs</param>
-        public static void InitialiseOnExceptionLogDelegate(LogingMsgDelegate logDelegate) {
+        public static void InitialiseOnExceptionLogDelegate(LogingMsgDelegate? logDelegate) {
             lock (WrapErr.onExceptionLogLock) {
                 WrapErr.onExceptionLog = logDelegate;
             }
