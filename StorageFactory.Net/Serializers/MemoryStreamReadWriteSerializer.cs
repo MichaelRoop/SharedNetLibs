@@ -1,7 +1,6 @@
 ﻿using ChkUtils.Net;
 using ChkUtils.Net.ErrObjects;
 using StorageFactory.Net.interfaces;
-using System.IO;
 
 namespace StorageFactory.Net.Serializers {
 

@@ -13,8 +13,8 @@ namespace StorageFactory.Net.Serializers {
 
         #region Data
 
-        private ICryptoTransform encryptKey = null;
-        private ICryptoTransform decryptKey = null;
+        private ICryptoTransform encryptKey;
+        private ICryptoTransform decryptKey;
 
         // To serialize the class before saving and deserializing
         private IReadWriteSerializer<T> primarySerializer = new JsonReadWriteSerializer<T>();
@@ -23,13 +23,17 @@ namespace StorageFactory.Net.Serializers {
 
         #region Constructors
 
+
         /// <summary>Default constructor which sets up the encryption</summary>
         public EncryptingReadWriteSerializer() {
+#pragma warning disable SYSLIB0021
+            // We keep this due to legacy installations of storage data
             DESCryptoServiceProvider service = new DESCryptoServiceProvider();
             byte[] key = Encoding.ASCII.GetBytes("64bitPas");
             byte[] IV = Encoding.ASCII.GetBytes("xytT26**D0k87jIJ5*s8S");
             this.encryptKey = service.CreateEncryptor(key, IV);
             this.decryptKey = service.CreateDecryptor(key, IV);
+#pragma warning restore SYSLIB0021
         }
 
 
@@ -47,9 +51,9 @@ namespace StorageFactory.Net.Serializers {
         /// <summary>Decrypt from stream then deserialize to T type</summary>
         /// <param name="stream">The input stream with encrypted value</param>
         /// <returns>Decrypted and deserialized value to T type</returns>
-        public T Deserialize(Stream stream) {
+        public T? Deserialize(Stream stream) {
             ErrReport report;
-            T obj = WrapErr.ToErrReport(out report, 9999,
+            T? obj = WrapErr.ToErrReport(out report, 9999,
                 () => string.Format("Failed read type {0}", typeof(T).Name),
                 () => {
                     using (CryptoStream cs = new CryptoStream(stream, this.decryptKey, CryptoStreamMode.Read)) {

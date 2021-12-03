@@ -11,7 +11,7 @@ namespace StorageFactory.Net.Serializers {
     /// <typeparam name="T">The type of class to stream</typeparam>
     public class JsonReadWriteSerializer<T> : IReadWriteSerializer<T> where T : class {
 
-        JsonSerializer serializer = null;
+        JsonSerializer serializer;
 
         public JsonReadWriteSerializer(bool indented = false) {
 
@@ -32,9 +32,9 @@ namespace StorageFactory.Net.Serializers {
         /// <summary>Deserialize a class from JSON in stream to a class</summary>
         /// <param name="stream">The input stream with the stored JSON</param>
         /// <returns>The class deserialized from the JSON</returns>
-        public T Deserialize(Stream stream) {
+        public T? Deserialize(Stream stream) {
             ErrReport err;
-            T obj = WrapErr.ToErrReport(out err, 9999,
+            T? obj = WrapErr.ToErrReport(out err, 9999,
                 () => string.Format("Failed read type {0}", typeof(T).Name),
                 () => {
                     using (StreamReader r = new StreamReader(stream)) {

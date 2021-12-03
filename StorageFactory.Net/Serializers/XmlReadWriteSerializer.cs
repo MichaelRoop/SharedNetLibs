@@ -1,7 +1,6 @@
 ﻿using ChkUtils.Net;
 using ChkUtils.Net.ErrObjects;
 using StorageFactory.Net.interfaces;
-using System.IO;
 using System.Runtime.Serialization;
 using System.Xml;
 
@@ -24,9 +23,9 @@ namespace StorageFactory.Net.Serializers {
         /// <summary>Deserialize the XML in stream into a class</summary>
         /// <param name="stream">The stream containing the XML</param>
         /// <returns>A class T</returns>
-        public T Deserialize(Stream stream) {
+        public T? Deserialize(Stream stream) {
             ErrReport report;
-            T result = WrapErr.ToErrReport(out report, 9999, "", () => {
+            T? result = WrapErr.ToErrReport(out report, 9999, "", () => {
                 return this.serializer.ReadObject(stream) as T;
             });
             return report.Code == 0 ? result : default(T);

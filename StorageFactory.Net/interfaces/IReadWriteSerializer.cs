@@ -9,7 +9,7 @@ namespace StorageFactory.Net.interfaces {
         /// <summary>Deserialize input from stream to a class</summary>
         /// <param name="stream">The input stream with the stored class</param>
         /// <returns>The class from deserialized stream contents</returns>
-        T Deserialize(Stream stream);
+        T? Deserialize(Stream stream);
 
 
         /// <summary>Serialize a class to stream</summary>

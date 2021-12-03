@@ -44,7 +44,7 @@ namespace StorageFactory.Net.Serializers {
         protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization) {
             JsonProperty property = base.CreateProperty(member, memberSerialization);
             if (!property.Writable) {
-                PropertyInfo propertyInfo = member as PropertyInfo;
+                PropertyInfo? propertyInfo = member as PropertyInfo;
                 bool hasPrivateSetter = propertyInfo?.GetSetMethod(true) != null;
                 property.Writable = hasPrivateSetter;
             }
