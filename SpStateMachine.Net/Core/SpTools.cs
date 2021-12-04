@@ -17,7 +17,7 @@ namespace SpStateMachine.Net.Core {
         /// <param name="currentStrings">The dictionary of strings to query and add to</param>
         /// <param name="converterFunc">The converted to convert the key to a string value if not in the Dictionary</param>
         /// <returns></returns>
-        public static string GetIdString(int key, Dictionary<int, string> currentStrings, Func<int, string> converterFunc) {
+        public static string GetIdString(int key, Dictionary<int, string>? currentStrings, Func<int, string>? converterFunc) {
             WrapErr.ChkParam(currentStrings, "currentStrings", 51000);
             WrapErr.ChkParam(converterFunc, "converterFunc", 51001);
             return WrapErr.ToErrorReportException(51002, () => {
@@ -41,7 +41,7 @@ namespace SpStateMachine.Net.Core {
         /// <param name="msgId">The event message id</param>
         /// <param name="transition">Transition object</param>
         /// <param name="store">Transition store</param>
-        public static void RegisterTransition<TMsgId>(string type, TMsgId msgId, ISpStateTransition<TMsgId> transition, Dictionary<int, ISpStateTransition<TMsgId>> store) where TMsgId : struct {
+        public static void RegisterTransition<TMsgId>(string type, TMsgId msgId, ISpStateTransition<TMsgId>? transition, Dictionary<int, ISpStateTransition<TMsgId>>? store) where TMsgId : struct {
             //WrapErr.ChkParam(eventId, "msgId", 51004);
             WrapErr.ChkParam(transition, "transition", 51005);
             WrapErr.ChkParam(store, "store", 51006);
@@ -66,7 +66,7 @@ namespace SpStateMachine.Net.Core {
         /// <param name="store">The store to search</param>
         /// <param name="eventMsg">The message to insert in the transition object</param>
         /// <returns>The transition object from the store or null if not found</returns>
-        public static ISpStateTransition<TMsgId>? GetTransitionCloneFromStore<TMsgId>(Dictionary<int, ISpStateTransition<TMsgId>> store, ISpEventMessage eventMsg) where TMsgId : struct {
+        public static ISpStateTransition<TMsgId>? GetTransitionCloneFromStore<TMsgId>(Dictionary<int, ISpStateTransition<TMsgId>>? store, ISpEventMessage? eventMsg) where TMsgId : struct {
             WrapErr.ChkParam(store, "store", 51009);
             WrapErr.ChkParam(eventMsg, "eventMsg", 51010);
 

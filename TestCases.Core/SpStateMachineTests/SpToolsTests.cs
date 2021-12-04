@@ -8,6 +8,7 @@ using TestCaseSupport.Core;
 using TestCases.SpStateMachineTests.TestImplementations;
 using TestCases.SpStateMachineTests.TestImplementations.Messages;
 using FakeItEasy;
+using ChkUtils.Net;
 
 namespace TestCases.SpStateMachineTests {
 
@@ -178,7 +179,9 @@ namespace TestCases.SpStateMachineTests {
 
             });
 
-            ISpStateTransition<MyMsgId> t = SpTools.GetTransitionCloneFromStore(store, this.validMsg2);
+            ISpStateTransition<MyMsgId>? t = SpTools.GetTransitionCloneFromStore(store, this.validMsg2);
+            WrapErr.ChkVar(t, 9999, "");
+            WrapErr.ChkVar(t.ReturnMessage, 9999, "");
             Assert.AreEqual(t.NextState, this.validTransition2.NextState);
             Assert.AreEqual(t.ReturnMessage.EventId, this.validMsg2.EventId);
         }
@@ -191,7 +194,8 @@ namespace TestCases.SpStateMachineTests {
                 SpTools.RegisterTransition("OnResult", MyMsgId.Start, this.validTransition2, store);
             });
 
-            ISpStateTransition<MyMsgId> t = SpTools.GetTransitionCloneFromStore(store, this.validMsg2);
+            ISpStateTransition<MyMsgId>? t = SpTools.GetTransitionCloneFromStore(store, this.validMsg2);
+            WrapErr.ChkVar(t, 9999, "");
             Assert.AreEqual(t.TransitionType, this.validTransition2.TransitionType);
 
             // TODO - determine what is transfered

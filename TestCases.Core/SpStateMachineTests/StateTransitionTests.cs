@@ -8,6 +8,8 @@ using TestCases.SpStateMachineTests.TestImplementations;
 using TestCases.SpStateMachineTests.TestImplementations.Messages;
 using TestCases.SpStateMachineTests.TestImplementations.SuperStates;
 using TestCases.SpStateMachineTests.TestImplementations.SuperStates.CascadeOnExit;
+using System.Diagnostics.CodeAnalysis;
+using ChkUtils.Net;
 
 namespace TestCases.SpStateMachineTests {
 
@@ -143,9 +145,9 @@ namespace TestCases.SpStateMachineTests {
             return new MyBaseMsg(MyMsgType.SimpleMsg, MyMsgId.Abort);
         }
 
-
+        [return:MaybeNull]
         private ISpEventMessage Tick(ISpEventMessage msg, ISpStateMachine sm) {
-            ISpEventMessage ret = null;
+            ISpEventMessage? ret = null;
             TestHelpers.CatchUnexpected(() => {
                 ret = sm.Tick(msg);
             });
@@ -155,9 +157,10 @@ namespace TestCases.SpStateMachineTests {
 
 
         private void TickAndValidateState(ISpEventMessage msg, ISpStateMachine sm, string expected) {
-            ISpEventMessage ret = this.Tick(msg, sm);
+            ISpEventMessage? ret = this.Tick(msg, sm);
             Thread.Sleep(0);
             this.ValidateState(sm, expected);
+            WrapErr.ChkVar(ret, 9999, "");
             this.ValidateReturn(msg, ret);
         }
 

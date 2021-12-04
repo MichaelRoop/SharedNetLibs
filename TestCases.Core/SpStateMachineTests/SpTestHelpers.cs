@@ -17,16 +17,16 @@ namespace TestCases.SpStateMachineTests {
 
 
 
-        public void ListnerMsgDumpDelegate(object sender, EventArgs e) {
+        public void ListnerMsgDumpDelegate(object? sender, EventArgs e) {
             this.ListnerMsgDebugRespDump(sender, e, true);
         }
 
-        public void ListnerResponseDumpDelegate(object sender, EventArgs e) {
+        public void ListnerResponseDumpDelegate(object? sender, EventArgs e) {
             this.ListnerMsgDebugRespDump(sender, e, false);
         }
 
 
-        private void ListnerMsgDebugRespDump(object sender, EventArgs e, bool isMsg) {
+        private void ListnerMsgDebugRespDump(object? sender, EventArgs e, bool isMsg) {
             SpMessagingArgs args = (SpMessagingArgs)e;
             ISpEventMessage msg = args.Payload;
 

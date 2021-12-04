@@ -1,5 +1,6 @@
 ﻿using SpStateMachine.Net.Interfaces;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SpStateMachine.Net.EventStores {
 
@@ -22,7 +23,7 @@ namespace SpStateMachine.Net.EventStores {
         /// <param name="defaultTick">
         /// The default tick event if to provide if there are no queued event objects
         /// </param>
-        public SimpleDequeEventStore(ISpEventMessage defaultTick)
+        public SimpleDequeEventStore( [NotNull] ISpEventMessage? defaultTick)
             : base(defaultTick) {
         }
         

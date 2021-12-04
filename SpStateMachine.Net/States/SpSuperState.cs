@@ -73,7 +73,7 @@ namespace SpStateMachine.Net.States {
         /// <param name="msgFactory">Message Factory</param>
         /// <param name="id">Unique state id</param>
         /// <param name="wrappedObject">The generic object that the states represent</param>
-        public SpSuperState(ISpState<TMsgId> parent, ISpMsgFactory msgFactory, TState id, TMachine wrappedObject)
+        public SpSuperState(ISpState<TMsgId>? parent, ISpMsgFactory msgFactory, TState id, TMachine wrappedObject)
             : base(parent, msgFactory, id, wrappedObject) {
         }
 

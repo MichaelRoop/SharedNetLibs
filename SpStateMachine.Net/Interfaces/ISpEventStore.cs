@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SpStateMachine.Net.Interfaces {
 
@@ -9,7 +10,7 @@ namespace SpStateMachine.Net.Interfaces {
 
         /// <summary>Add and event object to the store</summary>
         /// <param name="eventObject"></param>
-        void Add(ISpEventMessage eventObject);
+        void Add([NotNull]ISpEventMessage? eventObject);
 
 
         /// <summary>Pop the next event object from the store</summary>

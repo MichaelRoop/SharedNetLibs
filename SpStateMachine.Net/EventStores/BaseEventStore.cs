@@ -1,7 +1,7 @@
 ﻿using ChkUtils.Net;
 using SpStateMachine.Net.Interfaces;
 using System;
-
+using System.Diagnostics.CodeAnalysis;
 
 namespace SpStateMachine.Net.EventStores {
 
@@ -29,7 +29,7 @@ namespace SpStateMachine.Net.EventStores {
         /// <param name="defaultTick">
         /// The default tick event if to provide if there are no queued event objects
         /// </param>
-        public BaseEventStore(ISpEventMessage defaultTick) {
+        public BaseEventStore([NotNull] ISpEventMessage? defaultTick) {
             WrapErr.ChkParam(defaultTick, "defaultTick", 50110);
             this.defaultTick = defaultTick;
         }
@@ -46,7 +46,7 @@ namespace SpStateMachine.Net.EventStores {
 
         /// <summary>Add and event object to the store</summary>
         /// <param name="msg">The message event</param>
-        public void Add(ISpEventMessage msg) {
+        public void Add([NotNull] ISpEventMessage? msg) {
             WrapErr.ChkDisposed(this.disposed, 50111);
             WrapErr.ChkParam(msg, "msg", 50112);
             lock (this.queueLock) {

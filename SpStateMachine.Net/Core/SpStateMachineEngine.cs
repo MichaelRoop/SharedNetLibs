@@ -2,6 +2,7 @@
 using LogUtils.Net;
 using SpStateMachine.Net.EventListners;
 using SpStateMachine.Net.Interfaces;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SpStateMachine.Net.Core {
 
@@ -51,11 +52,11 @@ namespace SpStateMachine.Net.Core {
         /// <param name="stateMachine">The state machine that interprets the events</param>
         /// <param name="timer">The periodic timer</param>
         public SpStateMachineEngine(
-            ISpEventListner msgListner,
-            ISpEventStore msgStore,
-            ISpBehaviorOnEvent eventBehavior,
-            ISpStateMachine stateMachine,
-            ISpPeriodicTimer timer) {
+            [NotNull]ISpEventListner? msgListner,
+            [NotNull] ISpEventStore? msgStore,
+            [NotNull] ISpBehaviorOnEvent? eventBehavior,
+            [NotNull] ISpStateMachine? stateMachine,
+            [NotNull] ISpPeriodicTimer? timer) {
 
             WrapErr.ChkParam(msgListner, "msgListner", 50050);
             WrapErr.ChkParam(msgStore, "msgStore", 50051);

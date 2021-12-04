@@ -54,8 +54,8 @@ namespace TestCases.SpStateMachineTests {
                 
 
         public class EnumTestClass {
-            public Enum TypeId { get; set; }
-            public Enum MsgId { get; set; }
+            public Enum TypeId { get; set; } = MyMsgType.DataStrMsg;
+            public Enum MsgId { get; set; } = MyMsgId.Tick;
         }
 
 

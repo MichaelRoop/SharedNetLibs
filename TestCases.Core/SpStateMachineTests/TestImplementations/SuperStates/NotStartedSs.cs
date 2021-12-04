@@ -13,7 +13,7 @@ namespace TestCases.SpStateMachineTests.TestImplementations.SuperStates {
 
         #endregion
 
-        public NotStartedSs(ISpState<MyMsgId> parent, MyDataClass dataClass)
+        public NotStartedSs(ISpState<MyMsgId>? parent, MyDataClass dataClass)
             : base(parent, MyStateID.NotStarted, dataClass) {
 
             // Setup sub-states

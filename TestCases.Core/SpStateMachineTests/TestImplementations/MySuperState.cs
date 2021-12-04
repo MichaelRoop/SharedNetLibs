@@ -16,7 +16,7 @@ namespace TestCases.SpStateMachineTests.TestImplementations {
             : base(MyDummyDI.MsgFactoryInstance, id, dataClass) {
         }
 
-        public MySuperState(ISpState<MyMsgId> parent, MyStateID id, MyDataClass dataClass)
+        public MySuperState(ISpState<MyMsgId>? parent, MyStateID id, MyDataClass dataClass)
             : base(parent, MyDummyDI.MsgFactoryInstance, id, dataClass) {
         }
 
