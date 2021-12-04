@@ -2,8 +2,7 @@
 using LogUtils.Net;
 using SpStateMachine.Net.Core;
 using SpStateMachine.Net.Interfaces;
-using System;
-using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SpStateMachine.Net.States {
 
@@ -17,15 +16,19 @@ namespace SpStateMachine.Net.States {
     /// <typeparam name="TMsgType">Message type</typeparam>
     /// <author>Michael Roop</author>
     /// <copyright>July 2019 Michael Roop Used by permission</copyright> 
-    public class SpSuperState<TMachine,TMsgId,TState,TMsgType> : SpStateBase<TMachine,TMsgId,TState,TMsgType> where TMachine : class where TMsgId : struct where TState : struct where TMsgType : struct {
+    public class SpSuperState<TMachine,TMsgId,TState,TMsgType> : SpStateBase<TMachine,TMsgId,TState,TMsgType> 
+        where TMachine : class, new() 
+        where TMsgId : struct 
+        where TState : struct 
+        where TMsgType : struct {
 
         #region Data 
 
         /// <summary>The current sub state of this super state</summary>
-        ISpState<TMsgId> currentState = null;
+        ISpState<TMsgId>? currentState = null;
 
         /// <summary>The sub state that is the starting state of this super state</summary>
-        ISpState<TMsgId> entryState = null;
+        ISpState<TMsgId>? entryState = null;
 
         /// <summary>List of this state's substates</summary>
         List<ISpState<TMsgId>> substates = new List<ISpState<TMsgId>>();
@@ -51,7 +54,7 @@ namespace SpStateMachine.Net.States {
                 }
             }
         }
-        
+
         #endregion
 
         #region Constructors
@@ -107,7 +110,8 @@ namespace SpStateMachine.Net.States {
         /// </summary>
         /// <param name="msg">The incoming message with event</param>
         /// <returns>The return transition object with result information</returns>
-        public sealed override ISpStateTransition<TMsgId> OnEntry(ISpEventMessage msg) {
+        public sealed override ISpStateTransition<TMsgId> OnEntry([NotNull] ISpEventMessage? msg) {
+            WrapErr.ChkVar(msg, 9999, "msg null");
             Log.Info(this.className, "OnEntry", String.Format("'{0}' State Event {1}", this.FullName, this.GetCachedEventId(msg.EventId)));
             WrapErr.ChkVar(this.entryState, 9999, "The 'SentEntryState() Must be Called in the Constructor");
 
@@ -129,7 +133,7 @@ namespace SpStateMachine.Net.States {
             // to get the registered next state transistion and call exit on the current and 
             // entry on that new substate
             if (tr.TransitionType == SpStateTransitionType.ExitState) {
-                ISpStateTransition<TMsgId> sstr = null;
+                ISpStateTransition<TMsgId>? sstr = null;
                 if (tr.ReturnMessage != null) {
                     sstr = this.GetSuperStateOnResultTransition(tr.ReturnMessage);
                     if (sstr != null) {
@@ -162,7 +166,7 @@ namespace SpStateMachine.Net.States {
 
             // If there are OnEvent transitions registered at the superstate level return immediately
             ISpStateTransition<TMsgId> tr = GetSuperStateOnEventTransition(msg);
-            if (tr != null) {
+            if (tr != null) {// TODO - this may be reverse logic
                 return tr;
             }
             return this.GetTransition(this.currentState.OnTick, msg);
@@ -182,7 +186,7 @@ namespace SpStateMachine.Net.States {
         ISpStateTransition<TMsgId> GetTransition(Func<ISpEventMessage, ISpStateTransition<TMsgId>> stateFunc, ISpEventMessage msg) {
             ISpStateTransition<TMsgId> tr = stateFunc.Invoke(msg);
             if (tr.TransitionType == SpStateTransitionType.ExitState) {
-                ISpStateTransition<TMsgId> sstr = null;
+                ISpStateTransition<TMsgId>? sstr = null;
                 if (tr.ReturnMessage != null) {
                     sstr = this.GetSuperStateOnResultTransition(tr.ReturnMessage);
                     if (sstr != null) {
@@ -234,10 +238,9 @@ namespace SpStateMachine.Net.States {
         /// <returns></returns>
         private ISpStateTransition<TMsgId> HandleNextStateTransitionType(ISpStateTransition<TMsgId> tr, ISpEventMessage msg) {
             Log.Info(this.className, "HandleNextStateTransitionType", String.Format("'{0}' State", this.FullName));
-
             WrapErr.ChkTrue(tr.TransitionType == SpStateTransitionType.NextState, 9999, 
                 () => { return String.Format("{0} is not NextState", tr.TransitionType);});
-
+            WrapErr.ChkVar(this.currentState, 9999, "this.currentState null");
             WrapErr.ChkVar(tr.NextState, 9999, () => { return
                 String.Format(
                     "State {0} Specified Next State on Event {1} but Next State Null",
@@ -269,6 +272,7 @@ namespace SpStateMachine.Net.States {
 
             // Check super state registered result transitions against Sub State event id
             ISpStateTransition<TMsgId> tr = this.GetSuperStateOnResultTransition(msg);
+            WrapErr.ChkVar(this.currentState, 9999, "this.currentState null");
             WrapErr.ChkVar(tr, 9999, () => {
                 return String.Format(
                     "State {0} Specified Exit but SuperState {1} has no handlers for that event id:{2}",
@@ -310,27 +314,27 @@ namespace SpStateMachine.Net.States {
         /// <param name="msg"></param>
         /// <returns></returns>
         private ISpStateTransition<TMsgId> GetSuperStateOnResultTransition(ISpEventMessage msg) {
-            
             // Check super state registered result transitions against Sub State event id
-            ISpStateTransition<TMsgId> tr = this.GetOnResultTransition(msg);
+            WrapErr.ChkVar(this.currentState, 9999, "this.currentState null");
+            ISpStateTransition<TMsgId>? tr = this.GetOnResultTransition(msg);
             WrapErr.ChkVar(tr, 9999, () => {
                 return String.Format(
                     "State {0} Specified Exit but SuperState {1} has no handlers for that event id:{2}",
                     this.currentState.FullName, this.FullName, this.GetCachedEventId(msg.EventId));
             });
-
             tr.ReturnMessage = this.MsgFactory.GetResponse(msg, tr.ReturnMessage);
             return tr;
         }
 
 
         private ISpStateTransition<TMsgId> GetSuperStateOnEventTransition(ISpEventMessage msg) {
-            ISpStateTransition<TMsgId> tr = this.GetOnEventTransition(msg);
+            ISpStateTransition<TMsgId>? tr = this.GetOnEventTransition(msg);
             if (tr != null) {
                 tr.ReturnMessage = (tr.ReturnMessage == null) 
                     ? this.MsgFactory.GetResponse(msg) 
                     : this.MsgFactory.GetResponse(tr.ReturnMessage); 
             }
+            WrapErr.ChkVar(tr, 9999, "state transition null null");
             return tr;
         }
 

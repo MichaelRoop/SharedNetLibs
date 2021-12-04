@@ -14,11 +14,11 @@ namespace SpStateMachine.Net.Interfaces {
 
 
         /// <summary>Registered next state for NextState transitions</summary>
-        ISpState<TMsgId> NextState { get; set; }
+        ISpState<TMsgId>? NextState { get; set; }
 
 
         /// <summary>Response message to return to caller</summary>
-        ISpEventMessage ReturnMessage { get; set; }
+        ISpEventMessage? ReturnMessage { get; set; }
         
     }
 }

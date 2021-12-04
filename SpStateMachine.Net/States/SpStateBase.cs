@@ -6,6 +6,7 @@ using SpStateMachine.Net.Converters;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SpStateMachine.Net.States {
 
@@ -16,12 +17,12 @@ namespace SpStateMachine.Net.States {
     /// <typeparam name="TMsgType">Message type</typeparam>
     /// <author>Michael Roop</author>
     /// <copyright>July 2019 Michael Roop Used by permission</copyright> 
-    public class SpStateBase<TMachine,TMsgId,TState,TMsgType> : ISpState<TMsgId> where TMachine : class where TMsgId: struct where TState : struct where TMsgType : struct {
+    public class SpStateBase<TMachine,TMsgId,TState,TMsgType> : ISpState<TMsgId> where TMachine : class, new() where TMsgId: struct where TState : struct where TMsgType : struct {
 
         #region Data
 
         /// <summary>Holds data and method accessible to all states</summary>
-        private TMachine wrappedObject = default(TMachine);
+        private TMachine wrappedObject;
 
         /// <summary>Tracks the if current state OnEntry has been called</summary>
         private bool isEntered = false;
@@ -36,10 +37,10 @@ namespace SpStateMachine.Net.States {
         private Dictionary<int, ISpStateTransition<TMsgId>> onResultTransitions = new Dictionary<int, ISpStateTransition<TMsgId>>();
 
         /// <summary>state name without reference to ancestors</summary>
-        private string name = "";
+        private string name = string.Empty;
 
         /// <summary>Fully resolved state name</summary>
-        private string fullName = "";
+        private string fullName = string.Empty;
 
         /// <summary>Name cache for state int Id lookups</summary>
         private Dictionary<int,string> stateIdCache = new Dictionary<int, string>();
@@ -50,11 +51,9 @@ namespace SpStateMachine.Net.States {
         /// <summary>Name cache for msg int Id lookups</summary>
         private Dictionary<int,string> msgIdCache = new Dictionary<int, string>();
 
-        /// <summary>Factory to produce messages</summary>
-        private ISpMsgFactory msgFactory = null;
 
         /// <summary>Convert the id integers to implementation level string equivalents</summary>
-        private ISpIdConverter<TState,TMsgId,TMsgType> idConverter = null;
+        private ISpIdConverter<TState,TMsgId,TMsgType> idConverter;
 
         private ClassLog log = new ClassLog("SpStateBase");
 
@@ -69,12 +68,8 @@ namespace SpStateMachine.Net.States {
             }
         }
 
-        /// <summary>The message factory</summary>
-        protected ISpMsgFactory MsgFactory {
-            get {
-                return this.msgFactory;
-            }
-        }
+        /// <summary>Factory to produce messages</summary>
+        protected ISpMsgFactory MsgFactory { get; private set; }
 
         #endregion
 
@@ -140,11 +135,6 @@ namespace SpStateMachine.Net.States {
 
         #region Constructors
 
-        /// <summary>Default constructor in private scope to prevent usage</summary>
-        private SpStateBase() {
-        }
-
-
         /// <summary>Constructor for first level state</summary>
         /// <param name="msgFactory">Message Factory</param>
         /// <param name="idConverter">The integer id to string converter</param>
@@ -160,10 +150,10 @@ namespace SpStateMachine.Net.States {
         /// <param name="msgFactory">Message Factory</param>
         /// <param name="id">Unique state id</param>
         /// <param name="wrappedObject">The generic object that the states represent</param>
-        public SpStateBase(ISpState<TMsgId> parent, ISpMsgFactory msgFactory, TState id, TMachine wrappedObject) {
+        public SpStateBase(ISpState<TMsgId>? parent, ISpMsgFactory msgFactory, TState id, TMachine wrappedObject) {
             WrapErr.ChkParam(msgFactory, "msgFactory", 9999);
             WrapErr.ChkParam(wrappedObject, "wrappedObject", 50200);
-            this.msgFactory = msgFactory;
+            this.MsgFactory = msgFactory;
             this.idConverter = new SpIdConverter<TState,TMsgId,TMsgType>();
             this.InitStateIds(parent, id);
             this.wrappedObject = wrappedObject;
@@ -179,7 +169,8 @@ namespace SpStateMachine.Net.States {
         /// <remarks>Only override in super state</remarks>        
         /// <param name="msg">The incoming message</param>
         /// <returns>A state transition object</returns>
-        public virtual ISpStateTransition<TMsgId> OnEntry(ISpEventMessage msg) {
+        public virtual ISpStateTransition<TMsgId> OnEntry([NotNull] ISpEventMessage? msg) {
+            WrapErr.ChkVar(msg, 9999, "msg null");
             this.log.Info("OnEntry", String.Format("'{0}' State {1} - Event", this.FullName, this.GetCachedEventId(msg.EventId)));
             WrapErr.ChkFalse(this.IsEntryExcecuted, 50201, "OnEntry Cannot be Executed More Than Once Until OnExit is Called");
             return WrapErr.ToErrorReportException(9999, () => {
@@ -362,7 +353,7 @@ namespace SpStateMachine.Net.States {
         /// <summary>Wrapper to retrieve OnEvent Transition Object</summary>
         /// <param name="eventMsg">The incomming event message</param>
         /// <returns>The transition if present, otherwise null</returns>
-        protected ISpStateTransition<TMsgId> GetOnEventTransition(ISpEventMessage eventMsg) {
+        protected ISpStateTransition<TMsgId>? GetOnEventTransition(ISpEventMessage eventMsg) {
             return this.GetTransitionFromStore(this.onEventTransitions, eventMsg);
         }
 
@@ -370,7 +361,7 @@ namespace SpStateMachine.Net.States {
         /// <summary>Wrapper to retrieve OnResult Transition Object</summary>
         /// <param name="eventMsg">The incomming event message</param>
         /// <returns>The transition if present, otherwise null</returns>
-        protected ISpStateTransition<TMsgId> GetOnResultTransition(ISpEventMessage eventMsg) {
+        protected ISpStateTransition<TMsgId>? GetOnResultTransition(ISpEventMessage eventMsg) {
             return this.GetTransitionFromStore(this.onResultTransitions, eventMsg);
         }
 
@@ -432,7 +423,7 @@ namespace SpStateMachine.Net.States {
                 //this.log.Warning(88, "||||||| State get result transition");
 
                 // Query the OnEvent queue for a transition BEFORE calling state function (OnEntry, OnTick)
-                ISpStateTransition<TMsgId> tr = this.GetOnEventTransition(msg);
+                ISpStateTransition<TMsgId>? tr = this.GetOnEventTransition(msg);
                 if (tr != null) {
                     tr.ReturnMessage = (tr.ReturnMessage == null) 
                         ? this.MsgFactory.GetResponse(msg) 
@@ -464,9 +455,9 @@ namespace SpStateMachine.Net.States {
         /// <param name="store">The store to search</param>
         /// <param name="eventMsg">The message to insert in the transition object</param>
         /// <returns>The transition object from the store or null if not found</returns>
-        private ISpStateTransition<TMsgId> GetTransitionFromStore(Dictionary<int, ISpStateTransition<TMsgId>> store, ISpEventMessage eventMsg) {
+        private ISpStateTransition<TMsgId>? GetTransitionFromStore(Dictionary<int, ISpStateTransition<TMsgId>> store, ISpEventMessage eventMsg) {
             return WrapErr.ToErrorReportException(50204, () => {
-                ISpStateTransition<TMsgId> t = SpTools.GetTransitionCloneFromStore(store, eventMsg);
+                ISpStateTransition<TMsgId>? t = SpTools.GetTransitionCloneFromStore(store, eventMsg);
                 if (t != null) {
                     this.LogTransition(t, eventMsg);
                 }
@@ -478,16 +469,21 @@ namespace SpStateMachine.Net.States {
         /// <summary>Factor out the reporting of state transitions for clarity</summary>
         /// <param name="tr">The transition object</param>
         /// <param name="eventMsg">The event message which pushed this transition</param>
-        private void LogTransition(ISpStateTransition<TMsgId> tr, ISpEventMessage eventMsg) {
+        private void LogTransition(ISpStateTransition<TMsgId>? tr, ISpEventMessage eventMsg) {
             WrapErr.ToErrorReportException(9999, () => {
-                this.log.Debug("LogTransition",
-                    String.Format(
-                        "{0} OnMsg({1} - {2}) - From:{3} To:{4}",
-                        tr.TransitionType,
-                        this.GetCachedMsgTypeId(eventMsg.TypeId),
-                        this.GetCachedEventId(eventMsg.EventId),
-                        this.FullName,
-                        tr.NextState == null ? "Unknown(null)" : tr.NextState.FullName));
+                if (tr != null) {
+                    this.log.Debug("LogTransition",
+                        String.Format(
+                            "{0} OnMsg({1} - {2}) - From:{3} To:{4}",
+                            tr.TransitionType,
+                            this.GetCachedMsgTypeId(eventMsg.TypeId),
+                            this.GetCachedEventId(eventMsg.EventId),
+                            this.FullName,
+                            tr.NextState == null ? "Unknown(null)" : tr.NextState.FullName));
+                }
+                else {
+                    this.log.Error(9999, "Null transition");
+                }
             });
         }
 
@@ -495,7 +491,7 @@ namespace SpStateMachine.Net.States {
         /// <summary>Initialise the state id chain from ancestors to this state</summary>
         /// <param name="parent">The parent state</param>
         /// <param name="id">The enum state id</param>
-        private void InitStateIds(ISpState<TMsgId> parent, TState id) {
+        private void InitStateIds(ISpState<TMsgId>? parent, TState id) {
             // Add any ancestor state ids to the chain
             WrapErr.ToErrorReportException(50207, () => {
                 WrapErr.ChkTrue(typeof(TState).IsEnum, 9999, () => string.Format("State type {0} must be Enum", id.GetType().Name));

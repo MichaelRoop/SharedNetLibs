@@ -21,11 +21,6 @@ namespace SpStateMachine.Net.Core {
 
         #region Constructors
 
-        /// <summary>Default constructor in private scope to prevent usage</summary>
-        private SpMsgFactory() {
-        }
-
-
         /// <summary>Constructor</summary>
         /// <param name="provider">The message provider</param>
         public SpMsgFactory(ISpMsgProvider provider) {
@@ -56,7 +51,7 @@ namespace SpStateMachine.Net.Core {
             });
         }
 
-        public ISpEventMessage GetResponse(ISpEventMessage msg, ISpEventMessage registeredMsg) {
+        public ISpEventMessage GetResponse(ISpEventMessage msg, ISpEventMessage? registeredMsg) {
             return this.GetMsg(msg, () => {
                 return this.provider.Response(msg, registeredMsg);
             });

@@ -1,8 +1,6 @@
 ﻿using ChkUtils.Net;
 using LogUtils.Net;
 using SpStateMachine.Net.Interfaces;
-using System;
-using System.Threading;
 
 namespace SpStateMachine.Net.EventListners {
 
@@ -37,14 +35,14 @@ namespace SpStateMachine.Net.EventListners {
         /// outside and be subscribed to by the engine to be pushed to the 
         /// state machine
         /// </summary>
-        public event EventHandler MsgReceived;
+        public event EventHandler? MsgReceived;
 
         /// <summary>
         /// Event raised when a response is received. This would originate from the
         /// state machine and be subscribed to by the originator of original message 
         /// to the state machine
         /// </summary>
-        public event EventHandler ResponseReceived;
+        public event EventHandler? ResponseReceived;
 
         #endregion
 
@@ -91,7 +89,7 @@ namespace SpStateMachine.Net.EventListners {
         /// <param name="action">The action to raise</param>
         /// <param name="msg">The message or response to push</param>
         /// <param name="type">Either message or response identifier string</param>
-        private void RaiseEvent(EventHandler action, ISpEventMessage msg, string type) {
+        private void RaiseEvent(EventHandler? action, ISpEventMessage msg, string type) {
             Log.Info("SimpleEventListner", "RaiseEvent", String.Format("Raising Event:{0} type:{1} Event Id:{2}", type, msg.TypeId, msg.EventId));
             
             if (action != null) {

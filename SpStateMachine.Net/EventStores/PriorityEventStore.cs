@@ -47,7 +47,7 @@ namespace SpStateMachine.Net.EventStores {
 
         /// <summary>Get event from the highest level queue descending</summary>
         /// <returns>The next event or null if none found</returns>
-        protected override ISpEventMessage GetEvent() {
+        protected override ISpEventMessage? GetEvent() {
             if (this.UrgentPriorityQueue.Count > 0) {
                 return this.UrgentPriorityQueue.Dequeue();
             }

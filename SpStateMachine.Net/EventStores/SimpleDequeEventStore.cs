@@ -32,7 +32,7 @@ namespace SpStateMachine.Net.EventStores {
 
         /// <summary>Get an event from the queue</summary>
         /// <returns>The next event or null if none found</returns>
-        protected override ISpEventMessage GetEvent() {
+        protected override ISpEventMessage? GetEvent() {
             return this.queue.Count == 0 ? null : this.queue.Dequeue();
         }
 

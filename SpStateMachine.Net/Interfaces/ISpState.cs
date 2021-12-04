@@ -1,5 +1,6 @@
 ﻿
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SpStateMachine.Net.Interfaces {
 
@@ -39,7 +40,7 @@ namespace SpStateMachine.Net.Interfaces {
         /// <summary>Excecuted once when the state becomes the current state</summary>
         /// <param name="msg">The incoming message</param>
         /// <returns>A state transition object</returns>
-        ISpStateTransition<TMsgId> OnEntry(ISpEventMessage msg);
+        ISpStateTransition<TMsgId> OnEntry([NotNull] ISpEventMessage? msg);
 
 
         /// <summary>Called on every other period after entry</summary>

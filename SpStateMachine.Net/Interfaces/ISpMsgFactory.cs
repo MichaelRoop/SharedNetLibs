@@ -26,7 +26,7 @@ namespace SpStateMachine.Net.Interfaces {
         /// <param name="msg">The message received by the state machine</param>
         /// <param name="registeredMsg">The return message stored in the registered transaction</param>
         /// <returns>The response message</returns>
-        ISpEventMessage GetResponse(ISpEventMessage msg, ISpEventMessage registeredMsg);
+        ISpEventMessage GetResponse(ISpEventMessage msg, ISpEventMessage? registeredMsg);
 
     }
 }

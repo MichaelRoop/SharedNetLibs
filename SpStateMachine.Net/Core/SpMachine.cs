@@ -1,9 +1,9 @@
-﻿using System;
-using ChkUtils.Net;
+﻿using ChkUtils.Net;
 using SpStateMachine.Net.Interfaces;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SpStateMachine.Net.Core {
-    
+
     /// <summary>Base class for an ISpStateMachine that owns, controls and disposes the wrapped object</summary>
     /// <remarks>
     /// The state machine allows only one state to be active at a time. Each state can act on the wrapped object
@@ -17,10 +17,10 @@ namespace SpStateMachine.Net.Core {
         #region Data
 
         /// <summary>The main state for the State Machine</summary>
-        ISpState<TMsgId> state = null;
+        ISpState<TMsgId> state;
 
         /// <summary>The object that the State Machine represents</summary>
-        TMachine wrappedObject = null;
+        TMachine wrappedObject;
 
         /// <summary>Flag to indicate if the first 'OnEntry' has been called</summary>
         private bool isStarted = false;
@@ -43,11 +43,6 @@ namespace SpStateMachine.Net.Core {
 
         #region Constructors
 
-        /// <summary>Default constructor in private scope to prevent usage</summary>
-        private SpMachine() {
-        }
-
-
         /// <summary>Constructor</summary>
         /// <param name="wrappedObject">Has common data and functions for all states</param>
         /// <param name="state">The state machine's main state</param>
@@ -56,7 +51,7 @@ namespace SpStateMachine.Net.Core {
         /// can use a single state implementation if you only want the wrapped object to be 
         /// driven by periodic timer and have access to the messaging architecture
         /// </remarks>
-        public SpMachine(TMachine wrappedObject, ISpState<TMsgId> state) {
+        public SpMachine([NotNull]TMachine? wrappedObject, [NotNull]ISpState<TMsgId>? state) {
             WrapErr.ChkParam(wrappedObject, "wrappedObject", 50170);
             WrapErr.ChkParam(state, "state", 50171);
             this.wrappedObject = wrappedObject;
@@ -77,12 +72,12 @@ namespace SpStateMachine.Net.Core {
         /// <summary>Tick current state to execute the action based on the inputed message</summary>
         /// <param name="msg">The inputed message</param>
         /// <returns>The return message from the action</returns>
-        public ISpEventMessage Tick(ISpEventMessage msg) {
+        public ISpEventMessage Tick([NotNull] ISpEventMessage? msg) {
             WrapErr.ChkDisposed(this.disposed, 50176);
             WrapErr.ChkParam(msg, "msg", 50172);
 
             // First tick to drive it from entry to regular
-            ISpStateTransition<TMsgId> tr = null;
+            ISpStateTransition<TMsgId>? tr = null;
             bool tmpIsStarted = this.isStarted;
 
             //Log.Debug("SpMachine", "Tick", String.Format("isStarted:{0}", this.isStarted));
@@ -98,6 +93,7 @@ namespace SpStateMachine.Net.Core {
             }
             WrapErr.ChkVar(tr, 50177, () => String.Format(
                 "The State '{0}' {1} Returned a Null Transition", this.state.FullName, tmpIsStarted ? "OnTick" : "OnEntry" ));
+            WrapErr.ChkVar(tr.ReturnMessage, 9999, "Null ReturnMessage");
             return tr.ReturnMessage;
         }
 

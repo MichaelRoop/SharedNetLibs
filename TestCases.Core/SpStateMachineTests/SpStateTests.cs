@@ -9,6 +9,10 @@ using TestCases.SpStateMachineTests.TestImplementations.Messages;
 
 namespace TestCases.SpStateMachineTests {
 
+    // TODO Problem using IDisposable
+    /*
+
+
     #region Test class implementations
 
     //internal interface ITstObj : IDisposable {
@@ -31,9 +35,13 @@ namespace TestCases.SpStateMachineTests {
 
 
 
-    public class StImpl<T,T2,T3,TMsg> : SpState<T,T2,T3,TMsg> where T : class, IDisposable where T2 : struct where T3 : struct where TMsg : struct {
+    public class StImpl<T,T2,T3,TMsg> : SpState<T,T2,T3,TMsg> 
+        where T : class, IDisposable, new() 
+        where T2 : struct 
+        where T3 : struct 
+        where TMsg : struct {
 
-        public StImpl(ISpState<T2> parent, ISpMsgFactory msgFactory, T3 id, T wo)
+        public StImpl(ISpState<T2>? parent, ISpMsgFactory msgFactory, T3 id, T wo)
             : base(parent, msgFactory, id, wo) {
         }
 
@@ -224,4 +232,5 @@ namespace TestCases.SpStateMachineTests {
 
 
     }
+    */
 }

@@ -39,7 +39,7 @@ namespace SpStateMachine.Net.Interfaces {
         /// message will be copied into it.
         /// </param>
         /// <returns>The response message</returns>
-        ISpEventMessage Response(ISpEventMessage msg, ISpEventMessage registeredMsg);
+        ISpEventMessage Response(ISpEventMessage msg, ISpEventMessage? registeredMsg);
 
 
     }

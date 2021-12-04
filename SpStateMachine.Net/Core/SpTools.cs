@@ -1,8 +1,5 @@
 ﻿using ChkUtils.Net;
 using SpStateMachine.Net.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace SpStateMachine.Net.Core {
 
@@ -69,7 +66,7 @@ namespace SpStateMachine.Net.Core {
         /// <param name="store">The store to search</param>
         /// <param name="eventMsg">The message to insert in the transition object</param>
         /// <returns>The transition object from the store or null if not found</returns>
-        public static ISpStateTransition<TMsgId> GetTransitionCloneFromStore<TMsgId>(Dictionary<int, ISpStateTransition<TMsgId>> store, ISpEventMessage eventMsg) where TMsgId : struct {
+        public static ISpStateTransition<TMsgId>? GetTransitionCloneFromStore<TMsgId>(Dictionary<int, ISpStateTransition<TMsgId>> store, ISpEventMessage eventMsg) where TMsgId : struct {
             WrapErr.ChkParam(store, "store", 51009);
             WrapErr.ChkParam(eventMsg, "eventMsg", 51010);
 

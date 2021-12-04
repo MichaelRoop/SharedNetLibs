@@ -16,7 +16,7 @@ namespace SpStateMachine.PeriodicTimers {
         #region Data
 
         /// <summary>The timer object</summary>
-        private System.Timers.Timer timer = null;
+        private System.Timers.Timer? timer = null;
 
         /// <summary>Access lock to the timer object</summary>
         private object timerLock = new object();
@@ -25,7 +25,7 @@ namespace SpStateMachine.PeriodicTimers {
         private TimeSpan timespan = new TimeSpan(0, 0, 1);
 
         /// <summary>The handler for the timer Elapsed event</summary>
-        private ElapsedEventHandler onTimerWakeup = null;
+        private ElapsedEventHandler? onTimerWakeup = null;
 
         /// <summary>Disposed flag</summary>
         private bool disposed = false;
@@ -38,6 +38,7 @@ namespace SpStateMachine.PeriodicTimers {
         /// Default constructor
         /// </summary>
         public WinSimpleTimer() {
+            this.timer = new System.Timers.Timer(this.timespan.TotalMilliseconds);
             this.onTimerWakeup = new ElapsedEventHandler(this.timer_Elapsed);
         }
 
@@ -61,7 +62,7 @@ namespace SpStateMachine.PeriodicTimers {
         
         #region IPeriodicTimer Events
 
-        public event Action  OnWakeup;
+        public event Action? OnWakeup;
 
         #endregion
         
@@ -170,13 +171,11 @@ namespace SpStateMachine.PeriodicTimers {
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void timer_Elapsed(object sender, ElapsedEventArgs e) {
+        private void timer_Elapsed(object? sender, ElapsedEventArgs e) {
             // Trap any exceptions using the OnWakeup event handler
             ErrReport err = new ErrReport();
             WrapErr.ToErrReport(out err, 9999, "", () => {
-                if (this.OnWakeup != null) {
-                    this.OnWakeup();
-                }
+                this.OnWakeup?.Invoke();
             });
             // We will have no decision based on results
         }

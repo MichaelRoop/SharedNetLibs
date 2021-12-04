@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 namespace SpStateMachine.Net.Interfaces {
 
     /// <summary>Interface to define a listner for ISpMessages</summary>
@@ -14,14 +13,14 @@ namespace SpStateMachine.Net.Interfaces {
         /// outside and be subscribed to by the engine to be pushed to the 
         /// state machine
         /// </summary>
-        event EventHandler MsgReceived;
+        event EventHandler? MsgReceived;
 
         /// <summary>
         /// Event raised when a response is received. This would originate from the
         /// state machine and be subscribed to by the originator of original message 
         /// to the state machine
         /// </summary>
-        event EventHandler ResponseReceived;
+        event EventHandler? ResponseReceived;
         
         #endregion
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SpStateMachine.Net.Interfaces {
 
@@ -14,7 +15,7 @@ namespace SpStateMachine.Net.Interfaces {
         /// <summary>Tick current state to execute the action based on the event message</summary>
         /// <param name="msg">The message pulled from the incoming message queue</param>
         /// <returns>The return message from registered event handling or internal results</returns>
-        ISpEventMessage Tick(ISpEventMessage msg);
+        ISpEventMessage Tick([NotNull] ISpEventMessage? msg);
 
     }
 }

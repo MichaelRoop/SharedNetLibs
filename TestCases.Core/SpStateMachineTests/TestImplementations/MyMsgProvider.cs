@@ -29,7 +29,7 @@ namespace TestCases.SpStateMachineTests.TestImplementations {
             };
         }
 
-        public ISpEventMessage Response(ISpEventMessage msg, ISpEventMessage registeredMsg) {
+        public ISpEventMessage Response(ISpEventMessage msg, ISpEventMessage? registeredMsg) {
             if (registeredMsg == null) {
                 return this.Response(msg);
             }

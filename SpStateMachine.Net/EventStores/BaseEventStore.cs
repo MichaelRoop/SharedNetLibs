@@ -19,16 +19,11 @@ namespace SpStateMachine.Net.EventStores {
         private object queueLock = new object();
 
         /// <summary>Used to hold the tick event when there are no queued event objects</summary>
-        private ISpEventMessage defaultTick = null;
+        private ISpEventMessage defaultTick;
 
         #endregion
 
         #region Constructors
-
-        /// <summary>Default constructor in private scope to prevent usage</summary>
-        private BaseEventStore() {
-        }
-
 
         /// <summary>Constructorsummary>
         /// <param name="defaultTick">
@@ -66,7 +61,7 @@ namespace SpStateMachine.Net.EventStores {
             WrapErr.ChkDisposed(this.disposed, 50113);
             // Make stack variable and only lock the queue for the duration of the copy to
             // free it up for other threads to add events
-            ISpEventMessage eventCopy = null;
+            ISpEventMessage? eventCopy = null;
             lock (this.queueLock) {
                 eventCopy = this.GetEvent();
             }
@@ -118,7 +113,7 @@ namespace SpStateMachine.Net.EventStores {
 
         /// <summary>Get an event from the store child implementation</summary>
         /// <returns>The next event or null if none found</returns>
-        protected abstract ISpEventMessage GetEvent();
+        protected abstract ISpEventMessage? GetEvent();
 
 
         /// <summary>Add an event to the child implementation</summary>

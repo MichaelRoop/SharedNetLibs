@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading;
-using ChkUtils.Net;
+﻿using ChkUtils.Net;
 using LogUtils.Net;
 using SpStateMachine.Net.EventListners;
 using SpStateMachine.Net.Interfaces;
@@ -84,6 +82,7 @@ namespace SpStateMachine.Net.Core {
             }
             catch (Exception ex) {
                 this.log.Exception(50055, "", ex);
+                throw;
             }
         }
 
@@ -149,7 +148,7 @@ namespace SpStateMachine.Net.Core {
 
         /// <summary>Event from the event listner gets stuffed in the store</summary>
         /// <param name="msg"></param>
-        void eventListner_MsgReceived(object sender, EventArgs e) {
+        void eventListner_MsgReceived(object? sender, EventArgs e) {
             this.msgStore.Add(((SpMessagingArgs)e).Payload);
             this.eventBehavior.EventReceived(BehaviorResponseEventType.MsgArrived);
         }
@@ -171,7 +170,6 @@ namespace SpStateMachine.Net.Core {
                             WrapErr.SafeAction(this.cancelToken.Cancel);
                         }
                     }
-                    this.driverThread = null;
                 }
             });
             this.log.DebugExit("ShutDownThread");
@@ -225,12 +223,6 @@ namespace SpStateMachine.Net.Core {
             this.DisposeObject(this.stateMachine, "stateMachine");
             this.DisposeObject(this.msgStore, "msgStore");
             this.DisposeObject(this.msgListner, "msgListner");
-
-            this.timer = null;
-            this.eventBehavior = null;
-            this.stateMachine = null;
-            this.msgStore = null;
-            this.msgListner = null;
         }
 
 

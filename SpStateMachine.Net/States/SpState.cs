@@ -1,4 +1,5 @@
 ﻿using SpStateMachine.Net.Interfaces;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SpStateMachine.Net.States {
 
@@ -6,7 +7,11 @@ namespace SpStateMachine.Net.States {
     /// <typeparam name="TMachine">Generic type that the state represents</typeparam>
     /// <author>Michael Roop</author>
     /// <copyright>July 2019 Michael Roop Used by permission</copyright> 
-    public class SpState<TMachine,TMsgId,TState,TMsgType> : SpStateBase<TMachine,TMsgId,TState,TMsgType> where TMachine : class where TMsgId : struct where TState : struct where TMsgType : struct {
+    public class SpState<TMachine,TMsgId,TState,TMsgType> : SpStateBase<TMachine,TMsgId,TState,TMsgType> 
+        where TMachine : class, new() 
+        where TMsgId : struct 
+        where TState : struct 
+        where TMsgType : struct {
 
         #region ISpState Sealed Properties
 
@@ -56,7 +61,7 @@ namespace SpStateMachine.Net.States {
         /// </summary>
         /// <param name="msg">The incoming message</param>
         /// <returns>A state transition object</returns>
-        public sealed override ISpStateTransition<TMsgId> OnEntry(ISpEventMessage msg) {
+        public sealed override ISpStateTransition<TMsgId> OnEntry([NotNull] ISpEventMessage? msg) {
             return base.OnEntry(msg);
         }
 
