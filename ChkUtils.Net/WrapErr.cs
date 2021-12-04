@@ -5,6 +5,7 @@ using ChkUtils.Net.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace ChkUtils.Net {
@@ -476,7 +477,7 @@ namespace ChkUtils.Net {
         /// <param name="obj">The object to evaluate</param>
         /// <param name="code">The error code if null</param>
         /// <param name="name">The name of the object</param>
-        public static void ChkParam(object? obj, string name, int code) {
+        public static void ChkParam([NotNull]object? obj, string name, int code) {
             if (obj == null) {
                 ErrReport err = WrapErr.GetErrReport(code, String.Format("Null {0} Argument", name));
                 throw new ErrReportExceptionFromChk(err);
@@ -493,7 +494,7 @@ namespace ChkUtils.Net {
         /// <param name="obj">The object to evaluate</param>
         /// <param name="code">The error code if null</param>
         /// <param name="msg">The error message</param>
-        public static void ChkVar(object? obj, int code, string msg) {
+        public static void ChkVar([NotNull] object? obj, int code, string msg) {
             if (obj == null) {
                 ErrReport err = WrapErr.GetErrReport(code, msg);
                 throw new ErrReportExceptionFromChk(err);
@@ -508,7 +509,7 @@ namespace ChkUtils.Net {
         /// <param name="code">The error code if null</param>
         /// <param name="obj">The object to evaluate</param>
         /// <param name="msg">The error message function</param>
-        public static void ChkVar(object? obj, int code, Func<string> msgFunc) {
+        public static void ChkVar([NotNull]object? obj, int code, Func<string> msgFunc) {
             if (obj == null) {
                 WrapErr.ChkVar(obj, code, WrapErr.SafeAction(msgFunc));
             }
