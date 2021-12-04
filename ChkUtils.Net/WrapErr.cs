@@ -525,7 +525,7 @@ namespace ChkUtils.Net {
         /// <param name="condition">The condition to evaluate</param>
         /// <param name="code">The error code if false</param>
         /// <param name="msg">The error message</param>
-        public static void ChkTrue(bool condition, int code, string msg) {
+        public static void ChkTrue([DoesNotReturnIf(false)] bool condition, int code, string msg) {
             if (!condition) {
                 ErrReport err = WrapErr.GetErrReport(code, msg);
                 throw new ErrReportExceptionFromChk(err);
@@ -540,7 +540,7 @@ namespace ChkUtils.Net {
         /// <param name="condition">The condition to evaluate</param>
         /// <param name="code">The error code if false</param>
         /// <param name="msg">The error message function</param>
-        public static void ChkTrue(bool condition, int code, Func<string> msgFunc) {
+        public static void ChkTrue([DoesNotReturnIf(false)] bool condition, int code, Func<string> msgFunc) {
             if (!condition) {
                 // Format method only invoked on failure of condition
                 WrapErr.ChkTrue(condition, code, WrapErr.SafeAction(msgFunc));
@@ -557,7 +557,7 @@ namespace ChkUtils.Net {
         /// <param name="condition">The condition to evaluate</param>
         /// <param name="code">The error code if true</param>
         /// <param name="msg">The error message</param>
-        public static void ChkFalse(bool condition, int code, string msg) {
+        public static void ChkFalse([DoesNotReturnIf(true)] bool condition, int code, string msg) {
             if (condition) {
                 ErrReport err = WrapErr.GetErrReport(code, msg);
                 throw new ErrReportExceptionFromChk(err);
@@ -572,7 +572,7 @@ namespace ChkUtils.Net {
         /// <param name="condition">The condition to evaluate</param>
         /// <param name="code">The error code if true</param>
         /// <param name="msg">The error message function</param>
-        public static void ChkFalse(bool condition, int code, Func<string> msgFunc) {
+        public static void ChkFalse([DoesNotReturnIf(true)] bool condition, int code, Func<string> msgFunc) {
             if (condition) {
                 // Format method only invoked on failure of condition
                 WrapErr.ChkFalse(condition, code, WrapErr.SafeAction(msgFunc));

@@ -19,10 +19,6 @@ namespace DependencyInjectorFactory.Net {
             // TODO - need to revisit this
             T? result = this.objBuilder.Invoke() as T;
             WrapErr.ChkVar(result, 9999, () => string.Format("Class {0} constructor returned a null object", typeof(T).Name));
-            if (result == null) {
-                // Compiler does not recognize the ChkVar check
-                throw new NullReferenceException();
-            }
             return result;
         }
     }

@@ -113,6 +113,24 @@ namespace TestCases.ChkUtilsTests.Net {
         }
 
         [Test]
+        public void True_Fail_WithNullable() {
+            //ErrReport err = new ErrReport();
+            // To show that it will not flag a nullable error to compiler 
+            // because of attribute it knows ChkTrue will throw and so
+            // the operation on null string never happens
+            string? n = null;
+            try {
+                WrapErr.ChkTrue(false, 8889, "zork error");
+                string x = n;
+                Assert.True(false, "Should not get here");
+            }
+            catch {
+                Assert.True(true, "Should get here");
+            }
+        }
+
+
+        [Test]
         public void True_Valid() {
             ErrReport err;
             WrapErr.ToErrReport(out err, 1111, "Validate arg", () => {

@@ -24,13 +24,10 @@ namespace DependencyInjectorFactory.Net {
                 this.singleton = this.objBuilder();
                 WrapErr.ChkVar(this.singleton, 9999, () => string.Format("Class {0} constructor returned a null object", typeof(T).Name));
             }
-            if (this.singleton == null) {
-                // Compiler does not recognize the ChkVar check
-                throw new NullReferenceException();
-            }
-#pragma warning disable CS8603
-            return this.singleton as T;
-#pragma warning restore CS8603
+            T? result = this.singleton as T;
+            WrapErr.ChkVar(result, 9999, () => string.Format("Singleton is type {0} rather than type {1}", 
+                this.singleton.GetType().Name, typeof(T).Name));
+            return result;
         }
     }
 }
