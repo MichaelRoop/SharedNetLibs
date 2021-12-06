@@ -8,8 +8,8 @@ namespace TestCases.SpStateMachineTests.TestImplementations.SuperStates {
 
         #region Data
 
-        ISpState<MyMsgId> StateIdle;
-        ISpState<MyMsgId> StateActive;
+        readonly ISpState<MyMsgId> StateIdle;
+        readonly ISpState<MyMsgId> StateActive;
 
         #endregion
 
