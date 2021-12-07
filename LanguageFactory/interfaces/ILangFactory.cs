@@ -33,6 +33,19 @@ namespace LanguageFactory.Net.interfaces {
         /// <returns>The display string</returns>
         string GetMsgDisplay(MsgCode code);
 
+
+        /// <summary>Load a language</summary>
+        /// <remarks>Standard set of all languages loaded in constructor</remarks>
+        /// <param name="language">The language to load</param>
+        void LoadLanguage(SupportedLanguage language);
+
+
+        /// <summary>Unloads a language if loaded</summary>
+        /// <param name="code">The language to unload</param>
+        /// <returns>true on success, otherwise false if not found or failure</returns>
+        bool UnloadLanguage(LangCode code);
+
+
     }
 
 }

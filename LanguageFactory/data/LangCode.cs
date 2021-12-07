@@ -1,6 +1,7 @@
 ﻿namespace LanguageFactory.Net.data {
 
     /// <summary>Enumeration of supported languages</summary>
+    /// <remarks>Do not change order</remarks>
     public enum LangCode {
         English,
         French,
@@ -23,5 +24,13 @@
         Polish,
         Romanian,
         Indonesian,
+        Marathi,
+        Punjabi,
+
+
+
+        // Always last. For testing only
+        BOGUS_TEST_LANGUAGE,
+
     }
 }

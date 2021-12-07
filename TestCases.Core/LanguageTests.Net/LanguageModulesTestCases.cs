@@ -9,6 +9,20 @@ namespace TestCases.LanguageTests.Net {
     [TestFixture]
     public class LanguageModulesTestCases : TestCaseBase {
 
+        #region Data
+
+        internal class TestDefaultLanguageDefined : SupportedLanguage {
+            public TestDefaultLanguageDefined() : base() {
+                this.SetLanguage(LangCode.BOGUS_TEST_LANGUAGE, "Bogussssss");
+                this.AddMsg(MsgCode.save, "Blippo Blippo");
+                // Others should have the default english
+
+            }
+        }
+
+
+        #endregion
+
         #region Setup
 
 #pragma warning disable CS8618
@@ -43,10 +57,62 @@ namespace TestCases.LanguageTests.Net {
 
         #endregion
 
-        #region Test1
+        #region Load Unload
 
         [Test]
-        public void TestDefaultLanguage() {
+        public void T01_01_UnloadNonLoaded() {
+            TestHelpers.CatchUnexpected(() => {
+                bool result = this.factory.UnloadLanguage(LangCode.BOGUS_TEST_LANGUAGE);
+                Assert.False(result, "Faile to unload");
+            });
+        }
+
+
+        [Test]
+        public void T01_02_LoadUnload() {
+            TestHelpers.CatchUnexpected(() => {
+                this.factory.LoadLanguage(new TestDefaultLanguageDefined());
+                this.factory.SetCurrentLanguage(LangCode.BOGUS_TEST_LANGUAGE);
+                string msg = this.factory.GetMsgDisplay(MsgCode.save);
+                Assert.AreEqual("Blippo Blippo", msg);
+                bool result = this.factory.UnloadLanguage(LangCode.BOGUS_TEST_LANGUAGE);
+                Assert.True(result, "Faile to unload");
+            });
+        }
+
+
+        [Test]
+        public void T01_03_LoadTwice() {
+            TestHelpers.CatchUnexpected(() => {
+                this.factory.LoadLanguage(new TestDefaultLanguageDefined());
+                this.factory.LoadLanguage(new TestDefaultLanguageDefined());
+                bool result = this.factory.UnloadLanguage(LangCode.BOGUS_TEST_LANGUAGE);
+                Assert.True(result, "Faile to unload");
+                result = this.factory.UnloadLanguage(LangCode.BOGUS_TEST_LANGUAGE);
+                Assert.False(result, "Should have failed on second unload");
+            });
+        }
+
+
+        [Test]
+        public void T01_04_UnloadTwice() {
+            TestHelpers.CatchUnexpected(() => {
+                this.factory.LoadLanguage(new TestDefaultLanguageDefined());
+                bool result = this.factory.UnloadLanguage(LangCode.BOGUS_TEST_LANGUAGE);
+                Assert.True(result, "Should have unloaded on first try");
+                result = this.factory.UnloadLanguage(LangCode.BOGUS_TEST_LANGUAGE);
+                Assert.False(result, "Should have failed on second unload");
+            });
+        }
+
+
+
+        #endregion
+
+        #region Test language messages
+
+        [Test]
+        public void T02_01_DefaultLanguage() {
             TestHelpers.CatchUnexpected(() => {
                 //this.factory.SetCurrentLanguage(LangCode.English);
                 string msg = this.factory.GetMsgDisplay(MsgCode.exit);
@@ -54,8 +120,11 @@ namespace TestCases.LanguageTests.Net {
             });
         }
 
+
+
+
         [Test]
-        public void ChangeToChinese() {
+        public void T02_02_ChangeToChinese() {
             TestHelpers.CatchUnexpected(() => {
                 // language is always set to english at start of tests
                 this.factory.SetCurrentLanguage(LangCode.Chinese);
@@ -68,7 +137,7 @@ namespace TestCases.LanguageTests.Net {
 
 
         [Test]
-        public void ChangeToSpanish() {
+        public void T02_03_ChangeToSpanish() {
             TestHelpers.CatchUnexpected(() => {
                 // language is always set to english at start of tests
                 this.factory.SetCurrentLanguage(LangCode.Spanish);
@@ -80,8 +149,29 @@ namespace TestCases.LanguageTests.Net {
         }
 
 
+        [Test]
+        public void T02_04_MissingEntryInLanguage() {
+            TestHelpers.CatchUnexpected(() => {
+                this.factory.LoadLanguage(new TestDefaultLanguageDefined());
+                this.factory.SetCurrentLanguage(LangCode.BOGUS_TEST_LANGUAGE);
+                string msg = this.factory.GetMsgDisplay(MsgCode.save);
+                Assert.AreEqual("Blippo Blippo", msg);
+                // This message is not defined in test language
+                msg = this.factory.GetMsgDisplay(MsgCode.exit);
+                Assert.AreEqual("Exit", msg);
+                bool result = this.factory.UnloadLanguage(LangCode.BOGUS_TEST_LANGUAGE);
+                Assert.True(result, "Should have unloaded test language");
+            });
+        }
+
+
 
         #endregion
+
+
+
+
+
 
         /*
         TestHelpers.CatchUnexpected(() => {

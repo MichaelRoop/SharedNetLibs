@@ -15,8 +15,10 @@ using LanguageFactory.Net.Languages.id;
 using LanguageFactory.Net.Languages.it;
 using LanguageFactory.Net.Languages.ja;
 using LanguageFactory.Net.Languages.kr;
+using LanguageFactory.Net.Languages.mr;
 using LanguageFactory.Net.Languages.nl;
 using LanguageFactory.Net.Languages.pl;
+using LanguageFactory.Net.Languages.pr;
 using LanguageFactory.Net.Languages.pt;
 using LanguageFactory.Net.Languages.ro;
 using LanguageFactory.Net.Languages.ru;
@@ -125,6 +127,34 @@ namespace LanguageFactory.Net.Messaging {
             }
         }
 
+
+        /// <summary>Safely load a language module or flag error</summary>
+        /// <param name="language">The language module to load</param>
+        public void LoadLanguage(SupportedLanguage language) {
+            //this.log.Info("LoadLanguage", () => string.Format("Loading language: {0}", language.Language.Code));
+            if (!this.languages.ContainsKey(language.Language.Code)) {
+                this.languages.Add(language.Language.Code, language);
+                this.AvailableLanguages.Add(language.Language);
+            }
+            else {
+                this.log.Error(9999, () => string.Format("Language {0} already loaded", language.Language.Code));
+            }
+        }
+
+
+        public bool UnloadLanguage(LangCode code) {
+            LanguageDataModel? dm = this.AvailableLanguages.FirstOrDefault(x => x.Code == code);
+            bool result = this.languages.ContainsKey(code);
+            if (result == true) {
+                result = this.languages.Remove(code);
+            }
+            // Make sure it is also removed from the list
+            if (dm != null) {
+                result = this.AvailableLanguages.Remove(dm);
+            }
+            return result;
+        }
+
         #endregion
 
         #region Private
@@ -143,30 +173,18 @@ namespace LanguageFactory.Net.Messaging {
             this.LoadLanguage(new Hindi());     // Pronounced Hindi
             this.LoadLanguage(new Indonesian());// Indonesia
             this.LoadLanguage(new Italian());   // Italian
+            this.LoadLanguage(new Marathi());   // Marathi (India)
             this.LoadLanguage(new Dutch());     // Nederlands
             this.LoadLanguage(new Japanese());  // Nihongo
             this.LoadLanguage(new Polish());    // Polski
             this.LoadLanguage(new Portuguese());// Portugaisa
+            this.LoadLanguage(new Punjabi());   // Punjabi
             this.LoadLanguage(new Romanian());  // Romana
             this.LoadLanguage(new Russian());   // Pronounced Ruski
             this.LoadLanguage(new Vietnamese());// Tiếng Việt Nam
             this.LoadLanguage(new Turkish());   // Turce
             this.LoadLanguage(new Ukranian());  // Ukraiinska
             //this.LoadLanguage(new);
-        }
-
-
-        /// <summary>Safely load a language module or flag error</summary>
-        /// <param name="language">The language module to load</param>
-        private void LoadLanguage(SupportedLanguage language) {
-            //this.log.Info("LoadLanguage", () => string.Format("Loading language: {0}", language.Language.Code));
-            if (!this.languages.ContainsKey(language.Language.Code)) {
-                this.languages.Add(language.Language.Code, language);
-                this.AvailableLanguages.Add(language.Language);
-            }
-            else {
-                this.log.Error(9999, () => string.Format("Language {0} already loaded", language.Language.Code));
-            }
         }
 
 
