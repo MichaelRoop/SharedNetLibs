@@ -2,7 +2,6 @@
 using CommunicationStack.Net.Enumerations;
 using Ethernet.Common.Net.interfaces;
 using MultiCommData.Net.StorageDataModels;
-using System;
 
 namespace Ethernet.Common.Net {
 
@@ -30,10 +29,12 @@ namespace Ethernet.Common.Net {
         }
 
 
+#pragma warning disable IDE0051 // Remove unused private members
         private void ToSatisfyCompiler() {
+#pragma warning restore IDE0051 // Remove unused private members
             this.ParamsRequestedEvent?.Invoke(this, new EthernetParams());
             this.OnError?.Invoke(this, new MsgPumpResults());
-            this.MsgReceivedEvent?.Invoke(this, new byte[0]);
+            this.MsgReceivedEvent?.Invoke(this, Array.Empty<byte>());
         }
 
     }

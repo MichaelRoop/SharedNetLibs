@@ -13,7 +13,7 @@ namespace CommunicationStack.Net.Stacks {
 
         #region Data
 
-        private ClassLog log = new ClassLog("CommBinaryStackLevel0");
+        private readonly ClassLog log = new("CommBinaryStackLevel0");
         /// <summary>The  comm channel</summary>
         private ICommStackChannel? commChannel = null;
         // Reuse InTerminators for the start of packet delimiters
@@ -21,7 +21,7 @@ namespace CommunicationStack.Net.Stacks {
         //// Reuse OutTerminators for the end of packet delimiters
         //byte[] endDelimiters = new byte[0];
 
-        private CommBinaryInByteQueue queue = new CommBinaryInByteQueue(new byte[0], new byte[0]);
+        private readonly CommBinaryInByteQueue queue = new (Array.Empty<byte>(), Array.Empty<byte>());
 
 
         #endregion
@@ -63,8 +63,8 @@ namespace CommunicationStack.Net.Stacks {
 
         public CommBinaryStackLevel0() {
             // Need to set inTerminator default since cannot be done on Property init
-            this.InTerminators = new byte[0];
-            this.OutTerminators = new byte[0];
+            this.InTerminators = Array.Empty<byte>();
+            this.OutTerminators = Array.Empty<byte>();
         }
 
         #endregion
@@ -88,11 +88,11 @@ namespace CommunicationStack.Net.Stacks {
 
         public void SetCommChannel(ICommStackChannel commChannel) {
             this.commChannel = commChannel;
-            this.commChannel.MsgReceivedEvent += this.commChannelMsgReceived;
-            this.queue.MsgReceived += this.queueMsgReceived;
+            this.commChannel.MsgReceivedEvent += this.CommChannelMsgReceived;
+            this.queue.MsgReceived += this.QueueMsgReceived;
         }
 
-        private void queueMsgReceived(object? sender, byte[] msg) {
+        private void QueueMsgReceived(object? sender, byte[] msg) {
             if (this.MsgReceived != null) {
                 Task.Run(() => {
                     // Feed to thread pool to free up the comm channel
@@ -101,7 +101,7 @@ namespace CommunicationStack.Net.Stacks {
             }
         }
 
-        private void commChannelMsgReceived(object? sender, byte[] msg) {
+        private void CommChannelMsgReceived(object? sender, byte[] msg) {
             this.queue.AddBytes(msg);
         }
 

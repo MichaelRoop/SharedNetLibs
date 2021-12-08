@@ -1,8 +1,5 @@
 ﻿using CommunicationStack.Net.DataModels;
 using CommunicationStack.Net.interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using WifiCommon.Net.DataModels;
 
 namespace WifiCommon.Net.interfaces {
@@ -12,8 +9,8 @@ namespace WifiCommon.Net.interfaces {
 
         #region Events
 
-        /// <summary>Raised with list of adapters found in discovery</summary>
-        event EventHandler<List<WifiAdapterInfo>> DiscoveredAdapters;
+        ///// <summary>Raised with list of adapters found in discovery</summary>
+        //event EventHandler<List<WifiAdapterInfo>> DiscoveredAdapters;
 
         /// <summary>Raised with list of networks found in discovery</summary>
         event EventHandler<List<WifiNetworkInfo>> DiscoveredNetworks;
@@ -25,7 +22,7 @@ namespace WifiCommon.Net.interfaces {
         event EventHandler<MsgPumpResults> OnWifiConnectionAttemptCompleted;
 
         /// <summary>Raised if there is no password, host name or service name in the connection data model</summary>
-        event EventHandler<WifiCredentials> CredentialsRequestedEvent;
+        //event EventHandler<WifiCredentials> CredentialsRequestedEvent;
 
         #endregion
 

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace WifiCommon.Net.Enumerations {
 
-namespace WifiCommon.Net.Enumerations {
-    
     /// <summary>Physical layer characteristics</summary>
     public enum WifiPhyPhysicalLayerKind : int {
 

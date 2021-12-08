@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace WifiCommon.Net.DataModels {
+﻿namespace WifiCommon.Net.DataModels {
 
     /// <summary>Information required to connect to a wifi network</summary>
     public class WifiCredentials {

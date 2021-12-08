@@ -7,7 +7,7 @@ namespace LanguageFactory.Net.Messaging {
     /// <summary>Base class that holds information for all messages of one language</summary>
     public class SupportedLanguage {
 
-        ClassLog log = new ClassLog("SupportedLanguage");
+        private readonly ClassLog log = new("SupportedLanguage");
 
         public LanguageDataModel Language { get; protected set; } = new LanguageDataModel();
         public Dictionary<MsgCode, MessageDataModel> Messages { get; protected set; } = new Dictionary<MsgCode, MessageDataModel>();

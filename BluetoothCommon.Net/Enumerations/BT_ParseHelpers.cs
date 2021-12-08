@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Linq;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace BluetoothCommon.Net.Enumerations {
 
@@ -19,8 +15,7 @@ namespace BluetoothCommon.Net.Enumerations {
 
         public static BT_ServiceType GetServiceType(Guid serviceUuid) {
             if (IsSigDefinedUuid(serviceUuid)) {
-                BT_ServiceType serviceType;
-                if (Enum.TryParse(serviceUuid.ToShortId().ToString(), out serviceType)) {
+                if (Enum.TryParse(serviceUuid.ToShortId().ToString(), out BT_ServiceType serviceType)) {
                     return serviceType;
                 }
             }
@@ -29,8 +24,7 @@ namespace BluetoothCommon.Net.Enumerations {
 
 
         public static BT_ServiceType GetServiceType(uint id) {
-            BT_ServiceType service;
-            if (Enum.TryParse(id.ToString(), out service)) {
+            if (Enum.TryParse(id.ToString(), out BT_ServiceType service)) {
                 return service;
             }
             return BT_ServiceType.NotHandled;

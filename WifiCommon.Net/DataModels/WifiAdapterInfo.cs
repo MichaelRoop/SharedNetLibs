@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using WifiCommon.Net.Enumerations;
+﻿using WifiCommon.Net.Enumerations;
 
 namespace WifiCommon.Net.DataModels {
 

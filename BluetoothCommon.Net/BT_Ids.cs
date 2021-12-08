@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BluetoothCommon.Net {
+﻿namespace BluetoothCommon.Net {
 
     /// <summary>Full Guid identifiers</summary>
     public static class BT_Ids {

@@ -1,5 +1,4 @@
 ﻿using CommunicationStack.Net.interfaces;
-using System;
 
 namespace BluetoothCommon.Net.interfaces {
 

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Ethernet.Common.Net.DataModels {
+﻿namespace Ethernet.Common.Net.DataModels {
 
     /// <summary>This file is to port Ethernet data over to object with Extra Index info</summary>
     /// <remarks>
