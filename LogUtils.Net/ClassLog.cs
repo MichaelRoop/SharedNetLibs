@@ -6,9 +6,11 @@ namespace LogUtils.Net {
     /// <summary>Log wrapper to use in one class</summary>
     public class ClassLog {
 
+        #pragma warning disable CA1822 // Mark members as static
+
         #region Data
 
-        private string loggedClass = "NAClass";
+        private readonly string loggedClass = "NAClass";
 
         #endregion
 
@@ -259,6 +261,8 @@ namespace LogUtils.Net {
         }
 
         #endregion
+
+        #pragma warning restore CA1822 // Mark members as static
 
     }
 }

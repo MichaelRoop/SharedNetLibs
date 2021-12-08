@@ -45,12 +45,12 @@ namespace LanguageFactory.Net.Messaging {
         #region Data
 
         /// <summary>Set of supported language modules</summary>
-        private Dictionary<LangCode, SupportedLanguage> languages = new Dictionary<LangCode, SupportedLanguage>();
+        private readonly Dictionary<LangCode, SupportedLanguage> languages = new();
         /// <summary>Currently selected language module</summary>
         private SupportedLanguage current = new English();
         /// <summary>Default language module (English)</summary>
-        private SupportedLanguage defaultLang = new English();
-        private ClassLog log = new ClassLog("SupportedLanguageFactory");
+        private readonly SupportedLanguage defaultLang = new English();
+        private readonly ClassLog log = new("SupportedLanguageFactory");
 
         #endregion
 
@@ -83,30 +83,19 @@ namespace LanguageFactory.Net.Messaging {
         /// <param name="code">The message code</param>
         /// <returns>The display string</returns>
         public string GetMsgDisplay(MsgCode code) {
-            switch (code) {
-                case MsgCode.ReadTimeout:
-                    return string.Format("{0}({1})", this.GetMsg(MsgCode.Timeout), this.GetMsg(MsgCode.Read));
-                case MsgCode.WriteTimeout:
-                    return string.Format("{0}({1})", this.GetMsg(MsgCode.Timeout), this.GetMsg(MsgCode.Write));
-                case MsgCode.PairedWithSecureConnection:
-                    return string.Format("{0} ({1})", this.GetMsg(MsgCode.Paired), this.GetMsg(MsgCode.SecureConnection));
-                case MsgCode.PairingAllowed:
-                    return string.Format("{0} ({1})", this.GetMsg(MsgCode.Pair), this.GetMsg(MsgCode.Allowed));
-                case MsgCode.ServicesFailure:
-                    return string.Format("{0} ({1})", this.GetMsg(MsgCode.ReadFailure), this.GetMsg(MsgCode.Services));
-                case MsgCode.NotFoundSettings:
-                    return string.Format("{0} ({1})", this.GetMsg(MsgCode.NotFound), this.GetMsg(MsgCode.Settings));
-                case MsgCode.EmptySSID:
-                    return string.Format("{0} ({1})", this.GetMsg(MsgCode.EmptyParameter), "SSID");
-                case MsgCode.EmptyHostName:
-                    return string.Format("{0} ({1})", this.GetMsg(MsgCode.EmptyParameter), this.GetMsg(MsgCode.HostName));
-                case MsgCode.EmptyPort:
-                    return string.Format("{0} ({1})", this.GetMsg(MsgCode.EmptyParameter), this.GetMsg(MsgCode.Port));
-                case MsgCode.EmptyPwd:
-                    return string.Format("{0} ({1})", this.GetMsg(MsgCode.EmptyParameter), this.GetMsg(MsgCode.Password));
-                default:
-                    return this.GetMsg(code);
-            }
+            return code switch {
+                MsgCode.ReadTimeout => string.Format("{0}({1})", this.GetMsg(MsgCode.Timeout), this.GetMsg(MsgCode.Read)),
+                MsgCode.WriteTimeout => string.Format("{0}({1})", this.GetMsg(MsgCode.Timeout), this.GetMsg(MsgCode.Write)),
+                MsgCode.PairedWithSecureConnection => string.Format("{0} ({1})", this.GetMsg(MsgCode.Paired), this.GetMsg(MsgCode.SecureConnection)),
+                MsgCode.PairingAllowed => string.Format("{0} ({1})", this.GetMsg(MsgCode.Pair), this.GetMsg(MsgCode.Allowed)),
+                MsgCode.ServicesFailure => string.Format("{0} ({1})", this.GetMsg(MsgCode.ReadFailure), this.GetMsg(MsgCode.Services)),
+                MsgCode.NotFoundSettings => string.Format("{0} ({1})", this.GetMsg(MsgCode.NotFound), this.GetMsg(MsgCode.Settings)),
+                MsgCode.EmptySSID => string.Format("{0} ({1})", this.GetMsg(MsgCode.EmptyParameter), "SSID"),
+                MsgCode.EmptyHostName => string.Format("{0} ({1})", this.GetMsg(MsgCode.EmptyParameter), this.GetMsg(MsgCode.HostName)),
+                MsgCode.EmptyPort => string.Format("{0} ({1})", this.GetMsg(MsgCode.EmptyParameter), this.GetMsg(MsgCode.Port)),
+                MsgCode.EmptyPwd => string.Format("{0} ({1})", this.GetMsg(MsgCode.EmptyParameter), this.GetMsg(MsgCode.Password)),
+                _ => this.GetMsg(code),
+            };
         }
 
 
@@ -193,8 +182,7 @@ namespace LanguageFactory.Net.Messaging {
         /// <param name="code">The message code</param>
         /// <returns>The display string</returns>
         private string GetMsg(MsgCode code) {
-            ErrReport report;
-            string msg = WrapErr.ToErrReport(out report, 0, () => string.Format(""), () => {
+            string msg = WrapErr.ToErrReport(out ErrReport report, 0, () => string.Format(""), () => {
                 if (this.current.HasMsg(code)) {
                     return this.current.GetMsg(code).Display;
                 }

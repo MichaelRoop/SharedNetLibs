@@ -28,7 +28,7 @@ namespace TestCases.LanguageTests.Net {
 #pragma warning disable CS8618
         private ILangFactory factory;
 #pragma warning restore CS8618
-        private SupportedLanguage selectedLanguage = new SupportedLanguage();
+        private SupportedLanguage selectedLanguage = new();
         private bool isEventRaised = false;
 
         [OneTimeSetUp]
