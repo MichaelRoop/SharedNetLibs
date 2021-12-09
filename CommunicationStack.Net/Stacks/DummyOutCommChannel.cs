@@ -1,6 +1,5 @@
 ﻿using CommunicationStack.Net.interfaces;
 using LogUtils.Net;
-using System;
 
 namespace CommunicationStack.Net.Stacks {
 
@@ -16,8 +15,10 @@ namespace CommunicationStack.Net.Stacks {
         }
 
 
+#pragma warning disable IDE0051 // Remove unused private members
         private void ToSatisfyCompiler() {
-            this.MsgReceivedEvent?.Invoke(this, new byte[0]);
+#pragma warning restore IDE0051 // Remove unused private members
+            this.MsgReceivedEvent?.Invoke(this, Array.Empty<byte>());
         }
 
     }

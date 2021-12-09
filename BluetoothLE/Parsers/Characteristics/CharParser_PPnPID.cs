@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 
 namespace BluetoothLE.Net.Parsers.Characteristics {
 
@@ -16,7 +15,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
             // field2 - 2 byte Uint16 - product vendor namespace
             // field3 - 2 byte Uint16 - manufacturer ID
             // field4 - 2 byte Uint16 - manufacturer version of product
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new ();
             sb
                 .Append("Vendor ID:")
                 .Append(data[0]).Append(", ")

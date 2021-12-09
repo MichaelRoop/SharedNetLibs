@@ -57,69 +57,68 @@ namespace CommunicationStack.Net.Stacks {
 
 
         public static string ToStringChar(this Terminator code) {
-            switch (code) {
-                case Terminator.BEL: return "\a";
-                case Terminator.BS: return "\b";
-                case Terminator.TAB: return "\t";
-                case Terminator.LF: return "\n";
-                case Terminator.VT: return "\v";
-                case Terminator.FF: return "\f";
-                case Terminator.CR: return "\r";
-                default: return "*";
-            }
+            return code switch {
+                Terminator.BEL => "\a",
+                Terminator.BS => "\b",
+                Terminator.TAB => "\t",
+                Terminator.LF => "\n",
+                Terminator.VT => "\v",
+                Terminator.FF => "\f",
+                Terminator.CR => "\r",
+                _ => "*",
+            };
         }
 
         public static string ToStringCharDisplay(this Terminator code) {
-            switch (code) {
-                case Terminator.BEL: return @"\a";
-                case Terminator.BS: return @"\b";
-                case Terminator.TAB: return @"\t";
-                case Terminator.LF: return @"\n";
-                case Terminator.VT: return @"\v";
-                case Terminator.FF: return @"\f";
-                case Terminator.CR: return @"\r";
-                default: return code.ToString();
-            }
+            return code switch {
+                Terminator.BEL => @"\a",
+                Terminator.BS => @"\b",
+                Terminator.TAB => @"\t",
+                Terminator.LF => @"\n",
+                Terminator.VT => @"\v",
+                Terminator.FF => @"\f",
+                Terminator.CR => @"\r",
+                _ => code.ToString(),
+            };
         }
 
 
         public static string Description(this Terminator code) {
-            switch (code) {
-                case Terminator.NUL: return "Null";
-                case Terminator.SOH: return "Start of heading";
-                case Terminator.STX: return "Start of text";
-                case Terminator.ETX: return "End of text";
-                case Terminator.EOT: return "End of transmission";
-                case Terminator.ENQ: return "Enquiry";
-                case Terminator.ACK: return "Acknowledge";
-                case Terminator.BEL: return "Bell (alert)";
-                case Terminator.BS: return "Back space";
-                case Terminator.TAB: return "Horizontal tab";
-                case Terminator.LF: return "Line feed";
-                case Terminator.VT: return "Vertical tab";
-                case Terminator.FF: return "Form feed";
-                case Terminator.CR: return "Carriage return";
-                case Terminator.SO: return "Shift out";
-                case Terminator.SI: return "Shift in";
-                case Terminator.DLE: return "Data link escape";
-                case Terminator.DC1: return "Device control 1";
-                case Terminator.DC2: return "Device control 2";
-                case Terminator.DC3: return "Device control 3";
-                case Terminator.DC4: return "Device control 4";
-                case Terminator.NAK: return "Negative acknowledge";
-                case Terminator.SYN: return "Synchronous idle";
-                case Terminator.ETB: return "End of transmission block";
-                case Terminator.CAN: return "Cancel";
-                case Terminator.EM: return "End of medium";
-                case Terminator.SUB: return "Substitute";
-                case Terminator.ESC: return "Escape";
-                case Terminator.FS: return "File separator (->)";
-                case Terminator.GS: return "Group separator (<-)";
-                case Terminator.RS: return "Record separator (up arrow)";
-                case Terminator.US: return "Unit separator (down arrow)";
-                default:
-                    return "*NA*";
-            }
+            return code switch {
+                Terminator.NUL => "Null",
+                Terminator.SOH => "Start of heading",
+                Terminator.STX => "Start of text",
+                Terminator.ETX => "End of text",
+                Terminator.EOT => "End of transmission",
+                Terminator.ENQ => "Enquiry",
+                Terminator.ACK => "Acknowledge",
+                Terminator.BEL => "Bell (alert)",
+                Terminator.BS => "Back space",
+                Terminator.TAB => "Horizontal tab",
+                Terminator.LF => "Line feed",
+                Terminator.VT => "Vertical tab",
+                Terminator.FF => "Form feed",
+                Terminator.CR => "Carriage return",
+                Terminator.SO => "Shift out",
+                Terminator.SI => "Shift in",
+                Terminator.DLE => "Data link escape",
+                Terminator.DC1 => "Device control 1",
+                Terminator.DC2 => "Device control 2",
+                Terminator.DC3 => "Device control 3",
+                Terminator.DC4 => "Device control 4",
+                Terminator.NAK => "Negative acknowledge",
+                Terminator.SYN => "Synchronous idle",
+                Terminator.ETB => "End of transmission block",
+                Terminator.CAN => "Cancel",
+                Terminator.EM => "End of medium",
+                Terminator.SUB => "Substitute",
+                Terminator.ESC => "Escape",
+                Terminator.FS => "File separator (->)",
+                Terminator.GS => "Group separator (<-)",
+                Terminator.RS => "Record separator (up arrow)",
+                Terminator.US => "Unit separator (down arrow)",
+                _ => "*NA*",
+            };
         }
 
 

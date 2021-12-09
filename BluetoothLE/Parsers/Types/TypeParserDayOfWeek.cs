@@ -1,5 +1,4 @@
 ﻿using BluetoothLE.Net.Parsers.Characteristics;
-using System;
 using VariousUtils.Net;
 
 namespace BluetoothLE.Net.Parsers.Types {

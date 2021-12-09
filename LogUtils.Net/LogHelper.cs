@@ -1,6 +1,5 @@
 ﻿using ChkUtils.Net;
 using ChkUtils.Net.ErrObjects;
-using System;
 using System.Diagnostics;
 
 namespace LogUtils.Net {
@@ -9,7 +8,7 @@ namespace LogUtils.Net {
 
         #region Data
 
-        private ClassLog log = new ClassLog("Logger");
+        private readonly ClassLog log = new ("Logger");
         private DateTime currentDate = DateTime.Now;
         private bool sendToDebug = true;
         private string build = "0.0.0.0";
@@ -77,14 +76,14 @@ namespace LogUtils.Net {
             // TODO - this is done in the TestCases but not in app
             WrapErr.InitialiseOnExceptionLogDelegate(Log.LogExceptionDelegate);
             Log.SetStackTools(new StackTools());
-            this.SetVerbosity(verbosity);
+            SetVerbosity(verbosity);
             Log.SetMsgNumberThreshold(msgCountThreshold);
             Log.OnLogMsgEvent += new LogingMsgEventDelegate(this.Log_OnLogMsgEvent);
             DumpLogHeader();
         }
 
 
-        public void SetVerbosity(MsgLevel verbosity) {
+        public static void SetVerbosity(MsgLevel verbosity) {
             Log.SetVerbosity(verbosity);
         }
 

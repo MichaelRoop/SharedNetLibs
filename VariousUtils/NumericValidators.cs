@@ -1,8 +1,4 @@
-﻿using System;
-
-namespace VariousUtils.Net {
-
-
+﻿namespace VariousUtils.Net {
 
     public static class NumericValidators {
 
@@ -17,8 +13,7 @@ namespace VariousUtils.Net {
 
 
         public static void IsSByte(this string value, Action onSuccess, Action<NumericRange> onError) {
-            sbyte v;
-            if (sbyte.TryParse(value, out v)) {
+            if (sbyte.TryParse(value, out sbyte v)) {
                 onSuccess();
             }
             else {
@@ -28,8 +23,7 @@ namespace VariousUtils.Net {
 
 
         public static void IsInt16(this string value, Action onSuccess, Action<NumericRange> onError) {
-            Int16 v;
-            if (Int16.TryParse(value, out v)) {
+            if (Int16.TryParse(value, out Int16 v)) {
                 onSuccess();
             }
             else {
@@ -39,8 +33,7 @@ namespace VariousUtils.Net {
 
 
         public static void IsInt32(this string value, Action onSuccess, Action<NumericRange> onError) {
-            Int32 v;
-            if (Int32.TryParse(value, out v)) {
+            if (Int32.TryParse(value, out Int32 v)) {
                 onSuccess();
             }
             else {
@@ -50,8 +43,7 @@ namespace VariousUtils.Net {
 
 
         public static void IsInt64(this string value, Action onSuccess, Action<NumericRange> onError) {
-            Int64 v;
-            if (Int64.TryParse(value, out v)) {
+            if (Int64.TryParse(value, out Int64 v)) {
                 onSuccess();
             }
             else {
@@ -61,8 +53,7 @@ namespace VariousUtils.Net {
 
 
         public static void IsByte(this string value, Action onSuccess, Action<NumericRange> onError) {
-            byte b;
-            if (Byte.TryParse(value, out b)) {
+            if (Byte.TryParse(value, out byte b)) {
                 onSuccess();
             }
             else {
@@ -72,8 +63,7 @@ namespace VariousUtils.Net {
 
 
         public static void IsUInt16(this string value, Action onSuccess, Action<NumericRange> onError) {
-            UInt16 v;
-            if (UInt16.TryParse(value, out v)) {
+            if (UInt16.TryParse(value, out UInt16 v)) {
                 onSuccess();
             }
             else {
@@ -83,8 +73,7 @@ namespace VariousUtils.Net {
 
 
         public static void IsUInt32(this string value, Action onSuccess, Action<NumericRange> onError) {
-            UInt32 v;
-            if (UInt32.TryParse(value, out v)) {
+            if (UInt32.TryParse(value, out UInt32 v)) {
                 onSuccess();
             }
             else {
@@ -94,8 +83,7 @@ namespace VariousUtils.Net {
 
 
         public static void IsUInt64(this string value, Action onSuccess, Action<NumericRange> onError) {
-            UInt64 v;
-            if (UInt64.TryParse(value, out v)) {
+            if (UInt64.TryParse(value, out UInt64 v)) {
                 onSuccess();
             }
             else {
@@ -105,8 +93,7 @@ namespace VariousUtils.Net {
 
 
         public static void IsFloat32(this string value, Action onSuccess, Action<NumericRange> onError) {
-            Single v;
-            if (Single.TryParse(value, out v)) {
+            if (Single.TryParse(value, out Single v)) {
                 onSuccess();
             }
             else {
@@ -116,8 +103,7 @@ namespace VariousUtils.Net {
 
 
         public static void IsDouble(this string value, Action onSuccess, Action<NumericRange> onError) {
-            double v;
-            if (double.TryParse(value, out v)) {
+            if (double.TryParse(value, out double v)) {
                 onSuccess();
             }
             else {

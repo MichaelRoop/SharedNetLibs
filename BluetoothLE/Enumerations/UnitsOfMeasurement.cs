@@ -1,7 +1,4 @@
-﻿
-using System;
-
-namespace BluetoothLE.Net.Enumerations {
+﻿namespace BluetoothLE.Net.Enumerations {
 
     /// <summary>
     /// Units of measurement from the BLE SIG
@@ -149,7 +146,9 @@ namespace BluetoothLE.Net.Enumerations {
 
 
         public static string ToStr(this UnitsOfMeasurement units) {
+#pragma warning disable IDE0066 // Convert switch statement to expression
             switch (units) {
+#pragma warning restore IDE0066 // Convert switch statement to expression
                 case UnitsOfMeasurement.LengthMetre:
                     return "m";
                 #region Mass

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BluetoothLE.Net.Parsers.Characteristics {
+﻿namespace BluetoothLE.Net.Parsers.Characteristics {
 
     /// <summary>Heart rate mesurement data parser</summary>
     public class CharParser_HeartRateMeasurement : CharParser_Base {

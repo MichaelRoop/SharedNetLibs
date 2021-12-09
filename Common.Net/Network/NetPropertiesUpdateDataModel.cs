@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Common.Net.Network {
+﻿namespace Common.Net.Network {
 
     public class NetPropertiesUpdateDataModel {
         public string Id { get; set; } = "";

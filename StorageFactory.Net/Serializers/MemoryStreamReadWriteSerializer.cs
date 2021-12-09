@@ -16,12 +16,11 @@ namespace StorageFactory.Net.Serializers {
         /// <param name="inputStream">The input stream read in fromm file</param>
         /// <returns>The built MemoryStream with contents of the input stream</returns>
         public MemoryStream Deserialize(Stream inputStream) {
-            ErrReport report;
-            MemoryStream result = WrapErr.ToErrReport(out report, 9999,
+            MemoryStream result = WrapErr.ToErrReport(out ErrReport report, 9999,
                 () => string.Format("Failed to copy inputStream to MemoryStream"),
                 () => {
                     // Pass ownership to the caller
-                    MemoryStream memStream = new MemoryStream((int)inputStream.Length);
+                    MemoryStream memStream = new ((int)inputStream.Length);
                     inputStream.CopyTo(memStream);
                     return memStream;
                 });
@@ -34,8 +33,7 @@ namespace StorageFactory.Net.Serializers {
         /// <param name="outputStream">The stream that returns the output</param>
         /// <returns>true on success, otherwise false</returns>
         public bool Serialize(MemoryStream inputMemStream, Stream outputStream) {
-            ErrReport report;
-            WrapErr.ToErrReport(out report, 9999,
+            WrapErr.ToErrReport(out ErrReport report, 9999,
                 () => string.Format("Failed to serialize MemoryStream to outputStream"),
                 () => {
                     inputMemStream.WriteTo(outputStream);

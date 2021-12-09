@@ -3,7 +3,6 @@ using BluetoothLE.Net.Parsers.Types;
 using ChkUtils.Net;
 using ChkUtils.Net.ErrObjects;
 using LogUtils.Net;
-using System;
 
 namespace BluetoothLE.Net.Parsers.Characteristics {
 
@@ -12,19 +11,20 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
         #region Data
 
-        private ClassLog log = new ClassLog("CharParserFactory");
+        private readonly ClassLog log = new ("CharParserFactory");
 
         #endregion
 
 
         public ICharParser GetParser(Guid characteristicUuid, UInt16 handle) {
-            ErrReport report;
-            ICharParser parser = WrapErr.ToErrReport<ICharParser>(out report, 9999,
+            ICharParser parser = WrapErr.ToErrReport<ICharParser>(out ErrReport report, 9999,
                 () => string.Format("Failed to find characteristic parser"),
                 () => {
                     if (BLE_ParseHelpers.IsSigDefinedUuid(characteristicUuid)) {
                         GattNativeCharacteristicUuid charEnum = BLE_ParseHelpers.GetCharacteristicEnum(characteristicUuid, "");
+#pragma warning disable IDE0066 // Convert switch statement to expression
                         switch (charEnum) {
+#pragma warning restore IDE0066 // Convert switch statement to expression
                             #region String formaters
                             // Common UTF8 strings    
                             case GattNativeCharacteristicUuid.DeviceName:

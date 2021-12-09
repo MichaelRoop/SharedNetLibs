@@ -9,7 +9,7 @@ namespace BluetoothLE.Net.Tools {
         /// <summary>Result of validation test</summary>
         public BLE_DataValidationStatus Status { get; set; } = BLE_DataValidationStatus.NotHandled;
 
-        public byte[] Payload { get; set; } = new byte[0];
+        public byte[] Payload { get; set; } = Array.Empty<byte>();
 
         /// <summary>The original data entered by user</summary>
         public string UserEntryString { get; set; } = "";

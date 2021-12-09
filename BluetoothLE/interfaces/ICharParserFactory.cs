@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace BluetoothLE.Net.interfaces {
+﻿namespace BluetoothLE.Net.interfaces {
 
     public interface ICharParserFactory {
 

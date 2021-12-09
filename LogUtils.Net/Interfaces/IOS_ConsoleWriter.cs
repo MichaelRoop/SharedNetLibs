@@ -1,12 +1,9 @@
 ﻿using ChkUtils.Net.ErrObjects;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace LogUtils.Net.Interfaces {
 
     /// <summary>Abstract to OS specific way of writing to a console or other debut output</summary>
-    public interface I_OS_ConsoleWriter {
+    public interface IOS_ConsoleWriter {
 
         /// <summary>Write to equivalent of a console</summary>
         /// <param name="logLine">The line to log to the output</param>

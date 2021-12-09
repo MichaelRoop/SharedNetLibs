@@ -18,22 +18,15 @@ namespace Common.Net.Enumerations {
         /// <param name="dataType">The enum to transform</param>
         /// <returns>A freindly string</returns>
         public static string ToFriendlyString(this PropertyDataType dataType) {
-            switch (dataType) {
-                case PropertyDataType.TypeUnknown:
-                    return "Unknown";
-                case PropertyDataType.TypeString:
-                    return "String";
-                case PropertyDataType.TypeBool:
-                    return "Bool";
-                case PropertyDataType.TypeGuid:
-                    return "Guid";
-                case PropertyDataType.TypeInt:
-                    return "Int";
-                case PropertyDataType.TypeDouble:
-                    return "Double";
-                default:
-                    return dataType.ToString();
-            }
+            return dataType switch {
+                PropertyDataType.TypeUnknown => "Unknown",
+                PropertyDataType.TypeString => "String",
+                PropertyDataType.TypeBool => "Bool",
+                PropertyDataType.TypeGuid => "Guid",
+                PropertyDataType.TypeInt => "Int",
+                PropertyDataType.TypeDouble => "Double",
+                _ => dataType.ToString(),
+            };
         }
 
     }

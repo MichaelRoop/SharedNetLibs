@@ -1,10 +1,6 @@
 ﻿using ChkUtils.Net;
 using ChkUtils.Net.ErrObjects;
 using ChkUtils.Net.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace LogUtils.Net {
 
@@ -31,25 +27,25 @@ namespace LogUtils.Net {
         #region Data
 
         /// <summary>Protects the verbosity level on change</summary>
-        private static object levelLock = new object();
+        private readonly static object levelLock = new ();
 
         /// <summary>The current verbosity level</summary>
         private static MsgLevel verbosity = MsgLevel.Off;
 
         /// <summary>The queue of log messages to push</summary>
-        private static List<KeyValuePair<MsgLevel, ErrReport>> messages = new List<KeyValuePair<MsgLevel, ErrReport>>();
+        private readonly static List<KeyValuePair<MsgLevel, ErrReport>> messages = new ();
 
         /// <summary>Protects access to the message queue</summary>
-        private static object msgQLock = new object();
+        private readonly static object msgQLock = new ();
 
         /// <summary>Thread that pulls messages off the queue and logs them</summary>
-        private static Task pushThread = new Task(Log.MsgPushThread);
+        private readonly static Task pushThread = new (Log.MsgPushThread);
 
         /// <summary>flag for thread to terminate</summary>
         private static bool terminateThread = false;
 
         /// <summary>Event to wait on for processing interval</summary>
-        private static AutoResetEvent msgWaitEvent = new AutoResetEvent(false);
+        private readonly static AutoResetEvent msgWaitEvent = new (false);
 
         /// <summary>Threshold where the messages get logged even if timeout not expired</summary>
         private static int msgNumberThreshold = 100;
@@ -292,7 +288,7 @@ namespace LogUtils.Net {
 
 
         public static void Exception(int code, string atClass, string atMethod, Exception e) {
-            string msg = (e is ErrReportException) ? ((ErrReportException)e).Report.Msg : e.Message;
+            string msg = (e is ErrReportException exception) ? exception.Report.Msg : e.Message;
             Log.LogMsg(MsgLevel.Exception, code, atClass, atMethod, msg, e);
         }
 
@@ -410,7 +406,7 @@ namespace LogUtils.Net {
             // You must only invoke the formater function if the level is high enough to ensure maximum
             // performance gains if the message is not high enough level to be logged
             if (Log.IsVerboseEnough(level)) {
-                string msg = "";
+                string msg;
                 try {
                     msg = msgFunc.Invoke();
                 }
@@ -583,7 +579,7 @@ namespace LogUtils.Net {
         private static void LogWarningAndUp(MsgLevel level, int code, Func<string> msgFunc, Exception? e) {
             // Do the verbosity check first to avoid the overhead of reflection if it is not being logged
             if (Log.IsVerboseEnough(level)) {
-                string msg = "";
+                string msg;
                 try {
                     msg = msgFunc.Invoke();
                 }
@@ -640,7 +636,7 @@ namespace LogUtils.Net {
         /// </remarks>
         private static void MsgPushThread() {
             // New way. Terminate only at end of current push
-            List<KeyValuePair<MsgLevel, ErrReport>> messageSet = new List<KeyValuePair<MsgLevel, ErrReport>>();
+            List<KeyValuePair<MsgLevel, ErrReport>> messageSet = new ();
             while (!Log.terminateThread) {
                 Log.msgWaitEvent.WaitOne(500);
                 lock (Log.msgQLock) {
@@ -676,14 +672,14 @@ namespace LogUtils.Net {
         /// <param name="level">The log level</param>
         /// <returns>One char level or 'U' is not found</returns>
         private static string LogLevelShort(MsgLevel level) {
-            switch (level) {
-                case MsgLevel.Info: return "I";
-                case MsgLevel.Debug: return "D";
-                case MsgLevel.Warning: return "W";
-                case MsgLevel.Error: return "E";
-                case MsgLevel.Exception: return "X";
-                default: return "U";
-            }
+            return level switch {
+                MsgLevel.Info => "I",
+                MsgLevel.Debug => "D",
+                MsgLevel.Warning => "W",
+                MsgLevel.Error => "E",
+                MsgLevel.Exception => "X",
+                _ => "U",
+            };
         }
 
         #endregion

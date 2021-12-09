@@ -1,5 +1,4 @@
-﻿using System;
-using VariousUtils.Net;
+﻿using VariousUtils.Net;
 
 namespace BluetoothLE.Net.Parsers.Types {
 
@@ -76,15 +75,15 @@ namespace BluetoothLE.Net.Parsers.Types {
 
         public static bool operator ==(Int12 u1, Int12 u2) {
             if (object.ReferenceEquals(u1, u2)) { return true; }
-            if (object.ReferenceEquals(u1, null)) { return false; }
-            if (object.ReferenceEquals(u2, null)) { return false; }
+            if (u1 is null) { return false; }
+            if (u2 is null) { return false; }
             return u1.Equals(u2);
         }
 
         public static bool operator !=(Int12 u1, Int12 u2) {
             if (object.ReferenceEquals(u1, u2)) { return false; }
-            if (object.ReferenceEquals(u1, null)) { return true; }
-            if (object.ReferenceEquals(u2, null)) { return true; }
+            if (u1 is null) { return true; }
+            if (u2 is null) { return true; }
             return !u1.Equals(u2);
         }
 
@@ -101,7 +100,7 @@ namespace BluetoothLE.Net.Parsers.Types {
 
         #region overrides
         public override bool Equals(object? obj) {
-            return (obj is Int12) ? this.Equals((Int12)obj) : false;
+            return (obj is Int12 @int) && this.Equals(@int);
         }
 
         public override int GetHashCode() {
@@ -138,7 +137,7 @@ namespace BluetoothLE.Net.Parsers.Types {
         #region IEquitable
 
         public bool Equals(Int12? other) {
-            return other is null ? false : this.Value == other.Value;
+            return other is not null && this.Value == other.Value;
         }
 
         #endregion

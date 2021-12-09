@@ -1,5 +1,4 @@
 ﻿using LogUtils.Net;
-using System;
 using VariousUtils.Net;
 
 namespace BluetoothLE.Net.Parsers.Descriptor {
@@ -7,7 +6,7 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
     /// <summary>For descriptors not yet specifically implemented to return byte string</summary>
     public class DescParser_Default : DescParser_Base {
 
-        private readonly ClassLog log = new ClassLog("DescParser_Default");
+        private readonly ClassLog log = new ("DescParser_Default");
 
         #region Properties
 

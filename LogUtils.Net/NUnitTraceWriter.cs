@@ -1,5 +1,4 @@
 ﻿using ChkUtils.Net.ErrObjects;
-using System;
 
 namespace LogUtils.Net {
 
@@ -10,7 +9,7 @@ namespace LogUtils.Net {
 
         #region Data
 
-        Action<MsgLevel, ErrReport> onMsgLogged;
+        private readonly Action<MsgLevel, ErrReport> onMsgLogged;
         private bool connected = false;
 
         #endregion
@@ -52,7 +51,7 @@ namespace LogUtils.Net {
 
         private void LogToConsole(MsgLevel level, ErrReport report) {
 
-            string msg = "";
+            string msg;
             if (report.StackTrace.Length > 0) {
                 //System.Diagnostics.Trace.WriteLine(String.Format("{0:00000}\t{1}\t{2}.{3} - {4}{5}{6}", report.Code, level.ShortName(), report.AtClass, report.AtMethod, report.Msg, Environment.NewLine, report.StackTrace));
                 //msg = String.Format("{0:00000}\t{1}\t{2}.{3} - {4}{5}{6}", report.Code, level.ShortName(), report.AtClass, report.AtMethod, report.Msg, Environment.NewLine, report.StackTrace);

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BluetoothLE.Net.Parsers.Types {
+﻿namespace BluetoothLE.Net.Parsers.Types {
 
     // TODO Implement at a later date
 

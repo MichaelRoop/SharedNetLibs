@@ -1,6 +1,5 @@
 ﻿using BluetoothCommon.Net.Enumerations;
 using BluetoothCommon.Net.interfaces;
-using System;
 
 namespace BluetoothCommon.Net {
 
@@ -75,7 +74,9 @@ namespace BluetoothCommon.Net {
 
 
 
+#pragma warning disable IDE0051 // Remove unused private members
         private void ToEliminateCompilerWarnings(byte[] msg) {
+#pragma warning restore IDE0051 // Remove unused private members
             this.MsgReceivedEvent?.Invoke(this, msg);
             this.BT_PairInfoRequested?.Invoke(this, new BT_PairInfoRequest() {
                 DeviceName = "NOT IMPLEMENTED"

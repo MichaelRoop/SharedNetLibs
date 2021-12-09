@@ -1,4 +1,5 @@
-﻿using CommunicationStack.Net.DataModels;
+﻿using ChkUtils.Net;
+using CommunicationStack.Net.DataModels;
 using CommunicationStack.Net.Enumerations;
 using CommunicationStack.Net.interfaces;
 using LogUtils.Net;
@@ -12,13 +13,13 @@ namespace CommunicationStack.Net.MsgPumps {
 
         #region Data
 
-        private ClassLog log = new ClassLog("NetSocketMsgPump");
+        private readonly ClassLog log = new ("NetSocketMsgPump");
         private const int buffSize = 256;
-        private byte[] buff = new byte[buffSize];
+        private readonly byte[] buff = new byte[buffSize];
         private bool doReading = false;
         private Socket? socket = null;
         private SocketAsyncEventArgs? receiveArgs = null;
-        private AutoResetEvent doneRead = new AutoResetEvent(false);
+        private readonly AutoResetEvent doneRead = new (false);
 
         #endregion
 
@@ -56,8 +57,7 @@ namespace CommunicationStack.Net.MsgPumps {
                     if (this.Connected) {
                         this.Disconnect();
                     }
-                    IPAddress? ip;
-                    if (!IPAddress.TryParse(paramsObj.RemoteHostName, out ip)) {
+                    if (!IPAddress.TryParse(paramsObj.RemoteHostName, out IPAddress? ip)) {
                         this.RaiseConnectResult(MsgPumpResultCode.InvalidAddress, paramsObj.RemoteHostName);
                         return;
                     }
@@ -67,7 +67,7 @@ namespace CommunicationStack.Net.MsgPumps {
 
                     this.socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-                    SocketAsyncEventArgs args = new SocketAsyncEventArgs();
+                    SocketAsyncEventArgs args = new ();
                     args.Completed += ConnectCompletedHandler;
                     args.AcceptSocket = this.socket;
                     args.RemoteEndPoint = new IPEndPoint(ip, paramsObj.RemotePort);
@@ -209,7 +209,7 @@ namespace CommunicationStack.Net.MsgPumps {
                     this.receiveArgs.AcceptSocket = this.socket;
                     this.receiveArgs.SocketFlags = SocketFlags.Partial;
 
-                    this.log.Info("LaunchReadThread", () => string.Format("Thread:{0} number:{1}", Thread.CurrentThread.Name, Thread.CurrentThread.ManagedThreadId));
+                    this.log.Info("LaunchReadThread", () => string.Format("Thread:{0} number:{1}", Thread.CurrentThread.Name, Environment.CurrentManagedThreadId));
                     while (this.doReading) {
                         this.doneRead.Reset();
                         this.StartReceive(this.receiveArgs);
@@ -310,16 +310,9 @@ namespace CommunicationStack.Net.MsgPumps {
         /// <param name="result">The asynchronous result object</param>
         private void SendCallback(IAsyncResult result) {
             try {
-                if (result.AsyncState == null) {
-                    throw new ArgumentNullException("null asyncState");
-                }
-
-                Socket? s = result.AsyncState as Socket;
-                if (s == null) {
-                    throw new ArgumentNullException("null Socket in AsyncState");
-                }
-                SocketError err;
-                s.EndSend(result, out err);
+                WrapErr.ChkTrue(result.AsyncState is Socket, 9999, "result.AsyncState not a Socket");
+                Socket s = (Socket)result.AsyncState;
+                s.EndSend(result, out SocketError err);
                 if (err != SocketError.Success) {
                     this.log.Error(999, () => string.Format("Send Failed:{0}", err));
                     // TODO - raise error

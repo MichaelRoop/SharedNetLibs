@@ -2,8 +2,6 @@
 using ChkUtils.Net.ExceptionFormating;
 using ChkUtils.Net.ExceptionParsers;
 using ChkUtils.Net.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
@@ -36,7 +34,7 @@ namespace ChkUtils.Net {
         /// <summary>
         /// lock to enforce safe access to exception log delegate
         /// </summary>
-        static object onExceptionLogLock = new object();
+        static readonly object onExceptionLogLock = new();
 
         /// <summary>Internal token string used to flag that the ErrReport MSG should be replaced with exception message</summary>
         private readonly static string REPLACE_WITH_EXCEPTION_MSG = "#_$$_#_REPLACE_#_MSG_#_TOKEN_#_$$_#";
@@ -108,7 +106,7 @@ namespace ChkUtils.Net {
                 Debug.WriteLine("{0} on call to WrapErr.SafeAction:{1} - {2}", e.GetType().Name, e.Message, e.StackTrace);
                 // At this point we do not want to report on any error back to the application
 #pragma warning disable CS8603
-                return default(T);
+                return default;
 #pragma warning restore CS8603
             }
         }
@@ -595,11 +593,9 @@ namespace ChkUtils.Net {
             WrapErr.ChkTrue(value != null, nullCode, () => {
                 return String.Format("String '{0}' is Null", name);
             });
-            #pragma warning disable CS8602
             WrapErr.ChkTrue(value.Trim().Length > 0, zeroLenCode, () => {
                 return String.Format("String '{0}' is Empty", name);
             });
-            #pragma warning restore CS8602
         }
 
         #endregion
@@ -723,7 +719,7 @@ namespace ChkUtils.Net {
                 WrapErr.SafeAction(() => finallyAction.Invoke());
             }
 #pragma warning disable CS8603
-            return default(T);
+            return default;
 #pragma warning restore CS8603
 
         }
@@ -789,7 +785,7 @@ namespace ChkUtils.Net {
                     stackFrames = new List<string>();
                 }
 
-                StringBuilder sb = new StringBuilder(100);
+                StringBuilder sb = new (100);
                 foreach (string frame in stackFrames) {
                     sb.AppendLine(frame);
                 }

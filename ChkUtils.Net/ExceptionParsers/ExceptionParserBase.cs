@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using ChkUtils.Net.Interfaces;
 using System.Collections;
-using ChkUtils.Net.Interfaces;
+using System.Diagnostics;
 
 namespace ChkUtils.Net.ExceptionParsers {
 
@@ -16,11 +14,11 @@ namespace ChkUtils.Net.ExceptionParsers {
 
         #region Data
 
-        private ExceptionInfo? info = null;
+        private readonly ExceptionInfo? info = null;
 
-        private List<ExceptionExtraInfo> extraInfo = new List<ExceptionExtraInfo>();
+        private readonly List<ExceptionExtraInfo> extraInfo = new();
 
-        private List<string> stackFrames = new List<string>();
+        private List<string> stackFrames = new();
 
         private IExceptionParser? innerExceptionParser = null;
 
@@ -46,7 +44,7 @@ namespace ChkUtils.Net.ExceptionParsers {
         /// <returns>The ExceptionInfo object</returns>
         public ExceptionInfo Info {
             get {
-                return this.info == null ? new ExceptionInfo(new Exception("empty")) : this.info;
+                return this.info??new ExceptionInfo(new Exception("empty"));
             }
         }
 
@@ -103,7 +101,7 @@ namespace ChkUtils.Net.ExceptionParsers {
         public List<string> GetStackFrames(bool reversed) {
             if (reversed) {
                 // Clone it since we do not want to reverse the original
-                List<string> tmp = new List<string>();
+                List<string> tmp = new();
                 // TO-DO this.stackFrames.ForEach(item => tmp.Add(item));
                 foreach (string frame in this.stackFrames) {
                     tmp.Add(frame);

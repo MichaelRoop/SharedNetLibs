@@ -1,6 +1,4 @@
 ﻿using LogUtils.Net;
-using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace VariousUtils.Net {
@@ -8,12 +6,12 @@ namespace VariousUtils.Net {
 
         #region Data
 
-        private static List<UInt64> masks = new List<UInt64>();
-        private static ClassLog LOG = new ClassLog("BitTools");
-        private static ushort BYTE_BITS = sizeof(byte) * 8;
-        private static ushort UINT16_BITS = sizeof(ushort) * 8;
-        private static ushort UINT32_BITS = sizeof(UInt32) * 8;
-        private static ushort UINT64_BITS = sizeof(UInt64) * 8;
+        private readonly static List<UInt64> masks = new ();
+        private readonly static ClassLog LOG = new ("BitTools");
+        private readonly static ushort BYTE_BITS = sizeof(byte) * 8;
+        private readonly static ushort UINT16_BITS = sizeof(ushort) * 8;
+        private readonly static ushort UINT32_BITS = sizeof(UInt32) * 8;
+        private readonly static ushort UINT64_BITS = sizeof(UInt64) * 8;
 
         #endregion
 
@@ -68,7 +66,7 @@ namespace VariousUtils.Net {
         public static void SetMask(this byte[] mask, int pos,
             bool zero, bool one, bool two, bool three, bool four, bool five, bool six, bool seven) {
             // set all bits off
-            byte b = mask[pos];
+            byte b;
             b = 0;
             b = BitTools.SetBit(b, 0, zero);
             b = BitTools.SetBit(b, 1, one);
@@ -257,16 +255,16 @@ namespace VariousUtils.Net {
         }
 
         private static string GetBitString(byte[] array) {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new ();
             for(int i = 0; i < array.Length; i++) {
                 // Then iterate each bit of each byte
                 if (i > 0) {
-                    sb.Append(" ");
+                    sb.Append(' ');
                 }
 
                 for (int j = 7; j >= 0; j--) {
                     if (j == 3) {
-                        sb.Append(" ");
+                        sb.Append(' ');
                     }
                     sb.Append(IsBitSet(array[i], j) ? "1" : "0");
                 }

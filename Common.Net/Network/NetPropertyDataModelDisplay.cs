@@ -1,5 +1,4 @@
 ﻿using Common.Net.Enumerations;
-using System;
 
 namespace Common.Net.Network {
 

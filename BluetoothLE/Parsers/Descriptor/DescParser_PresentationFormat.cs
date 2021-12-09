@@ -19,7 +19,7 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
 
         #region Data
 
-        private ClassLog log = new ClassLog("DescParser_PresentationFormat");
+        private readonly ClassLog log = new ("DescParser_PresentationFormat");
 
         #endregion
 

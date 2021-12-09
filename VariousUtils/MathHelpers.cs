@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Numerics;
-using System.Text;
-
-namespace VariousUtils.Net {
+﻿namespace VariousUtils.Net {
 
     public static class MathHelper {
 

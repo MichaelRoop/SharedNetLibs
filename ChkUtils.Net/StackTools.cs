@@ -1,9 +1,6 @@
 ﻿using ChkUtils.Net.ErrObjects;
 using ChkUtils.Net.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Reflection;
 
 namespace ChkUtils.Net {
@@ -16,10 +13,10 @@ namespace ChkUtils.Net {
 
         #region Data
 
-        private static string CLASS = typeof(StackTools).Name;
-        private static string errReportExceptionClass = typeof(ErrReportException).Name;
-        private static string chkExceptionClass = typeof(ErrReportExceptionFromChk).Name;
-        private static string chkErrReportClass = typeof(ErrReport).Name;
+        private static readonly string CLASS = typeof(StackTools).Name;
+        private static readonly string errReportExceptionClass = typeof(ErrReportException).Name;
+        private static readonly string chkExceptionClass = typeof(ErrReportExceptionFromChk).Name;
+        private static readonly string chkErrReportClass = typeof(ErrReport).Name;
 
         #endregion
 
@@ -38,7 +35,7 @@ namespace ChkUtils.Net {
 #else
             // Go at least one up to ignore this method.
             int index = 1;
-            StackTrace st = new StackTrace();
+            StackTrace st = new();
 
             MethodBase? mb = st.GetFrame(index)?.GetMethod();
             if (mb != null) {
@@ -49,7 +46,7 @@ namespace ChkUtils.Net {
                     }
 
                     if ((typeToIgnore == null) || 
-                        (declaringType.Name != typeToIgnore.Name && !this.IsInternalClass(declaringType.Name)) && !mb.Name.Contains("<")) {
+                        (declaringType.Name != typeToIgnore.Name && !IsInternalClass(declaringType.Name)) && !mb.Name.Contains('<')) {
                         return new ErrorLocation(declaringType.Name, mb.Name);
                     }
 
@@ -85,7 +82,7 @@ namespace ChkUtils.Net {
 #else
             // Go at least one up to ignore this method.
             int index = 1;
-            StackTrace st = new StackTrace();
+            StackTrace st = new();
 
             MethodBase? mb = st.GetFrame(index)?.GetMethod();
             if (mb != null) {
@@ -102,7 +99,7 @@ namespace ChkUtils.Net {
                     // It must not be equal to any of the ignore types to be the correct level
                     bool matchAny = false;
                     foreach (Type t in typesToIgnore) {
-                        if (declaringType.Name == t.Name || mb.Name.Contains("<")) {
+                        if (declaringType.Name == t.Name || mb.Name.Contains('<')) {
                             matchAny = true;
                             break;
                         }
@@ -144,11 +141,11 @@ namespace ChkUtils.Net {
             stackFrames.Add(Environment.StackTrace);
             return stackFrames;
 #else
-            StackTrace trace = new StackTrace(fromLevel, true);
+            StackTrace trace = new(fromLevel, true);
             bool firstNonWrapErr = false;
             string ignoreTypeName = typeToIgnore.Name;
 
-            List<string> stackFrames = new List<string>();
+            List<string> stackFrames = new();
             for (int i = 0; i < trace.FrameCount; i++) {
                 StackFrame? sf = trace.GetFrame(i);
                 if (sf == null) { 
@@ -156,9 +153,9 @@ namespace ChkUtils.Net {
                 }
 
                 // Skip over all entries until you hit the first not to ignore
-                string frameClass = this.ClassName(sf);
+                string frameClass = ClassName(sf);
                 if (!firstNonWrapErr) {
-                    if (frameClass != ignoreTypeName && !this.IsInternalClass(frameClass)) {
+                    if (frameClass != ignoreTypeName && !IsInternalClass(frameClass)) {
                         firstNonWrapErr = true;
                     }
                     else {
@@ -166,14 +163,14 @@ namespace ChkUtils.Net {
                     }
                 }
 
-                if (frameClass != ignoreTypeName && !this.IsInternalClass(frameClass)) {
+                if (frameClass != ignoreTypeName && !IsInternalClass(frameClass)) {
                     stackFrames.Add(
                     // Also ignore all instances of type to ignore
                     String.Format("     {0} : Line:{1} - {2}.{3}",
-                        this.FileName(sf),
-                        this.Line(sf),
+                        FileName(sf),
+                        Line(sf),
                         frameClass,
-                        this.MethodName(sf)));
+                        MethodName(sf)));
                 }
             }
             return stackFrames;
@@ -188,8 +185,8 @@ namespace ChkUtils.Net {
             return stackFrames;
 #else
             try {
-                List<string> stackFrames = new List<string>();
-                StackTrace trace = new StackTrace(ex, fromLevel, true);
+                List<string> stackFrames = new();
+                StackTrace trace = new(ex, fromLevel, true);
                 bool firstNonWrapErr = false;
                 string ignoreTypeName = typeToIgnore.Name;
 
@@ -198,11 +195,11 @@ namespace ChkUtils.Net {
                     if (sf == null) {
                         return stackFrames;
                     }
-                    string frameClass = this.ClassName(sf);
+                    string frameClass = ClassName(sf);
 
                     // Skip over all entries until you hit the first not to ignore
                     if (!firstNonWrapErr) {
-                        if (frameClass != ignoreTypeName && !this.IsInternalClass(frameClass)) {
+                        if (frameClass != ignoreTypeName && !IsInternalClass(frameClass)) {
                             firstNonWrapErr = true;
                         }
                         else {
@@ -210,20 +207,20 @@ namespace ChkUtils.Net {
                         }
                     }
 
-                    if (frameClass != ignoreTypeName && !this.IsInternalClass(frameClass)) {
+                    if (frameClass != ignoreTypeName && !IsInternalClass(frameClass)) {
                         stackFrames.Add(
                         // Also ignore all instances of type to ignore
                         String.Format("     {0} : Line:{1} - {2}.{3}",
-                            this.FileName(sf),
-                            this.Line(sf),
+                            FileName(sf),
+                            Line(sf),
                             frameClass,
-                            this.MethodName(sf)));
+                            MethodName(sf)));
                     }
                 }
                 return stackFrames;
             }
             catch (Exception) {
-                List<string> stackFrames = new List<string>();
+                List<string> stackFrames = new();
                 stackFrames.Add("BLAH");
                 return stackFrames;
             }
@@ -241,8 +238,7 @@ namespace ChkUtils.Net {
         public void FindNestedExceptionType<T>(Exception e, Action<bool, T?> onComplete) where T : Exception {
             WrapErr.ToErrReport(22000, () => {
                 if (e.InnerException != null) {
-                    T? innerEx = e.InnerException as T;
-                    if (innerEx != null) {
+                    if (e.InnerException is T innerEx) {
                         WrapErr.ToErrReport(22001, "User thrown exception within onFoundFunction delegate", () => {
                             onComplete.Invoke(true, innerEx);
                         });
@@ -266,7 +262,7 @@ namespace ChkUtils.Net {
         /// </summary>
         /// <param name="frame">The frame with the information</param>
         /// <returns>The file name</returns>
-        private string FileName(StackFrame frame) {
+        private static string FileName(StackFrame frame) {
             if (frame == null) {
                 //Debug.WriteLine("StackFrameTools.GetFileName : Null frame");
                 return "NoFileName";
@@ -282,7 +278,7 @@ namespace ChkUtils.Net {
             if (name.Length > 0) {
                 int pos = name.LastIndexOf('\\');
                 if (name.Length > 0 && pos != -1 && pos < (name.Length - 1)) {
-                    name = name.Substring(pos + 1);
+                    name = name[(pos + 1)..];
                 }
             }
             return name;
@@ -294,7 +290,7 @@ namespace ChkUtils.Net {
         /// </summary>
         /// <param name="frame">The frame with the information</param>
         /// <returns>The method name</returns>
-        private string MethodName(StackFrame frame) {
+        private static string MethodName(StackFrame frame) {
             try {
                 MethodBase? mb = frame.GetMethod();
                 if (mb != null) {
@@ -314,7 +310,7 @@ namespace ChkUtils.Net {
         /// </summary>
         /// <param name="frame">The frame with the information</param>
         /// <returns>The method name</returns>
-        private int Line(StackFrame frame) {
+        private static int Line(StackFrame frame) {
             try {
                 return frame.GetFileLineNumber();
             }
@@ -330,7 +326,7 @@ namespace ChkUtils.Net {
         /// </summary>
         /// <param name="frame">The frame with the information</param>
         /// <returns>The class name</returns>
-        private string ClassName(StackFrame frame) {
+        private static string ClassName(StackFrame frame) {
             try {
                 MethodBase? mb = frame.GetMethod();
                 if (mb != null && mb.DeclaringType != null) {
@@ -349,7 +345,7 @@ namespace ChkUtils.Net {
         /// <param name="className">The current stack class name to evaluate</param>
         /// <returns>true if an internal class that can be ignored</returns>
         /// <remarks>At this point an exception has occured so efficiency is not a concern</remarks>
-        private bool IsInternalClass(string className) {
+        private static bool IsInternalClass(string className) {
             return className == CLASS ||
                 className == errReportExceptionClass ||
                 className == chkExceptionClass ||

@@ -1,5 +1,4 @@
 ﻿using LogUtils.Net;
-using System;
 using VariousUtils.Net;
 
 namespace BluetoothLE.Net.Parsers.Descriptor {
@@ -16,7 +15,7 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
     /// </remarks>
     public class DescParser_ValidRange : DescParser_Base {
 
-        private ClassLog log = new ClassLog("DescParser_ValidRange");
+        private readonly ClassLog log = new ("DescParser_ValidRange");
 
 
         public ushort Min { get; set; } = 0;

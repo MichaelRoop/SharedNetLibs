@@ -1,7 +1,6 @@
 ﻿using CommunicationStack.Net.DataModels;
 using CommunicationStack.Net.interfaces;
 using MultiCommData.Net.StorageDataModels;
-using System;
 
 namespace Ethernet.Common.Net.interfaces {
 

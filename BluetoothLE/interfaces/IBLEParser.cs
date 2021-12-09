@@ -1,5 +1,4 @@
 ﻿using BluetoothLE.Net.Enumerations;
-using System;
 
 namespace BluetoothLE.Net.interfaces {
 

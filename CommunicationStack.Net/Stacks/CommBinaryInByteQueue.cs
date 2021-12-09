@@ -1,8 +1,5 @@
 ﻿using CommunicationStack.Net.BinaryMsgs;
 using LogUtils.Net;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using VariousUtils.Net;
 
 namespace CommunicationStack.Net.Stacks {
@@ -18,14 +15,14 @@ namespace CommunicationStack.Net.Stacks {
 
         #region Data
 
-        private static int BUFF_MAX_LEN = 1000;
-        private byte[] buff = new byte[BUFF_MAX_LEN];
+        private readonly static int BUFF_MAX_LEN = 1000;
+        private readonly byte[] buff = new byte[BUFF_MAX_LEN];
         // Next pos is also length of data contained
         private int nextPos = 0;
         private byte[] startDelimiters = "\n".ToAsciiByteArray();
         private byte[] endDelimiters = "\n".ToAsciiByteArray();
         private uint expectedLength = 0;
-        private ClassLog log = new ClassLog("CommBinaryInByteQueue");
+        private readonly ClassLog log = new ("CommBinaryInByteQueue");
 
         #endregion
 

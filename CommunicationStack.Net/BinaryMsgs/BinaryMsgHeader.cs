@@ -1,7 +1,4 @@
 ﻿using CommunicationStack.Net.Enumerations;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using VariousUtils.Net;
 
 namespace CommunicationStack.Net.BinaryMsgs {
@@ -17,7 +14,7 @@ namespace CommunicationStack.Net.BinaryMsgs {
 
         public static BinaryMsgHeader? Init(byte[] packet) {
             if (packet.Length >= BinaryMsgDefines.SizeHeader) {
-                BinaryMsgHeader header = new BinaryMsgHeader() {
+                BinaryMsgHeader header = new () {
                     SOH = packet[BinaryMsgDefines.SOHPos],
                     STX = packet[BinaryMsgDefines.STXPos],
                     DataType = packet.GetDataType(),

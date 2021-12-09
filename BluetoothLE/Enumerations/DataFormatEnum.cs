@@ -53,106 +53,82 @@ namespace BluetoothLE.Net.Enumerations {
 
 
         public static bool IsHandled(this DataFormatEnum value) {
-            switch (value) {
-                case DataFormatEnum.Reserved:
-                case DataFormatEnum.OpaqueStructure:
-                case DataFormatEnum.Int_128bit:
-                case DataFormatEnum.UInt_128bit:
-                // IEEE 11073 float is used in medical
-                // https://stackoverflow.com/questions/60841331/dart-convert-ieee-11073-32-bit-float-to-a-simple-double
-                case Enumerations.DataFormatEnum.IEEE_11073_16bit_SFLOAT:
-                case Enumerations.DataFormatEnum.IEEE_11073_32bit_FLOAT:
-                case DataFormatEnum.Unhandled:
-                    return false;
-                default:
-                    return true;
-            }
+            return value switch {
+                DataFormatEnum.Reserved or 
+                DataFormatEnum.OpaqueStructure or 
+                DataFormatEnum.Int_128bit or 
+                DataFormatEnum.UInt_128bit or 
+                Enumerations.DataFormatEnum.IEEE_11073_16bit_SFLOAT or 
+                Enumerations.DataFormatEnum.IEEE_11073_32bit_FLOAT or 
+                DataFormatEnum.Unhandled => false,
+                _ => true,
+            };
         }
 
 
         public static bool HasLengthRequirement(this DataFormatEnum value) {
-            switch (value) {
-                case DataFormatEnum.Reserved:
-                case DataFormatEnum.UTF8_String:
-                case DataFormatEnum.UTF16_String:
-                case DataFormatEnum.OpaqueStructure:
-                case DataFormatEnum.Unhandled:
-                    return false;
-                default:
-                    return true;
-            }
+            return value switch {
+                DataFormatEnum.Reserved or 
+                DataFormatEnum.UTF8_String or 
+                DataFormatEnum.UTF16_String or 
+                DataFormatEnum.OpaqueStructure or 
+                DataFormatEnum.Unhandled => false,
+                _ => true,
+            };
         }
 
 
         public static int BytesRequired(this DataFormatEnum value) {
-            switch (value) {
-                case DataFormatEnum.Boolean:
-                case DataFormatEnum.UInt_2bit:
-                case DataFormatEnum.UInt_4bit:
-                case DataFormatEnum.UInt_8bit:
-                case DataFormatEnum.Int_8bit:
-                    return 1;
-                case DataFormatEnum.UInt_12bit:
-                case DataFormatEnum.Int_12bit:
-                case DataFormatEnum.UInt_16bit:
-                case DataFormatEnum.Int_16bit:
-                case DataFormatEnum.IEEE_11073_16bit_SFLOAT:
-                    return 2;
-                case DataFormatEnum.UInt_24bit:
-                case DataFormatEnum.Int_24bit:
-                    return 3;
-                case DataFormatEnum.UInt_32bit:
-                case DataFormatEnum.Int_32bit:
-                case DataFormatEnum.IEEE_754_32bit_floating_point:
-                case DataFormatEnum.IEEE_11073_32bit_FLOAT:
-                case DataFormatEnum.IEEE_20601_format:
-                    return 4;
-                case DataFormatEnum.UInt_48bit:
-                case DataFormatEnum.Int_48bit:
-                    return 6;
-                case DataFormatEnum.UInt_64bit:
-                case DataFormatEnum.Int_64bit:
-                case DataFormatEnum.IEEE_754_64bit_floating_point:
-                    return 8;
-                case DataFormatEnum.UInt_128bit:
-                case DataFormatEnum.Int_128bit:
-                    return 16;
-
+            return value switch {
+                DataFormatEnum.Boolean or 
+                DataFormatEnum.UInt_2bit or 
+                DataFormatEnum.UInt_4bit or 
+                DataFormatEnum.UInt_8bit or 
+                DataFormatEnum.Int_8bit => 1,
+                DataFormatEnum.UInt_12bit or 
+                DataFormatEnum.Int_12bit or 
+                DataFormatEnum.UInt_16bit or 
+                DataFormatEnum.Int_16bit or 
+                DataFormatEnum.IEEE_11073_16bit_SFLOAT => 2,
+                DataFormatEnum.UInt_24bit or 
+                DataFormatEnum.Int_24bit => 3,
+                DataFormatEnum.UInt_32bit or 
+                DataFormatEnum.Int_32bit or 
+                DataFormatEnum.IEEE_754_32bit_floating_point or 
+                DataFormatEnum.IEEE_11073_32bit_FLOAT or 
+                DataFormatEnum.IEEE_20601_format => 4,
+                DataFormatEnum.UInt_48bit or 
+                DataFormatEnum.Int_48bit => 6,
+                DataFormatEnum.UInt_64bit or 
+                DataFormatEnum.Int_64bit or 
+                DataFormatEnum.IEEE_754_64bit_floating_point => 8,
+                DataFormatEnum.UInt_128bit or 
+                DataFormatEnum.Int_128bit => 16,
                 // You will use the HasLengthRequirement before calling this
-                case DataFormatEnum.UTF8_String:
-                case DataFormatEnum.UTF16_String:
-
-                case DataFormatEnum.OpaqueStructure:
-                case DataFormatEnum.Reserved:
-                case DataFormatEnum.Unhandled:
-                default:
-                    return 9999;
-            }
+                _ => 9999,
+            };
         }
 
 
         public static bool ExponentAccepted(this DataFormatEnum value) {
-            switch (value) {
-                case DataFormatEnum.UInt_12bit:
-                case DataFormatEnum.UInt_16bit:
-                case DataFormatEnum.UInt_24bit:
-                case DataFormatEnum.UInt_32bit:
-                case DataFormatEnum.UInt_48bit:
-                case DataFormatEnum.UInt_64bit:
-                case DataFormatEnum.UInt_128bit:
-                case DataFormatEnum.Int_8bit:
-                case DataFormatEnum.Int_12bit:
-                case DataFormatEnum.Int_16bit:
-                case DataFormatEnum.Int_24bit:
-                case DataFormatEnum.Int_32bit:
-                case DataFormatEnum.Int_48bit:
-                case DataFormatEnum.Int_64bit:
-                case DataFormatEnum.Int_128bit:
-                    return true;
-                default:
-                    return false;
-            }
-
+            return value switch {
+                DataFormatEnum.UInt_12bit or 
+                DataFormatEnum.UInt_16bit or 
+                DataFormatEnum.UInt_24bit or 
+                DataFormatEnum.UInt_32bit or 
+                DataFormatEnum.UInt_48bit or 
+                DataFormatEnum.UInt_64bit or 
+                DataFormatEnum.UInt_128bit or 
+                DataFormatEnum.Int_8bit or 
+                DataFormatEnum.Int_12bit or 
+                DataFormatEnum.Int_16bit or 
+                DataFormatEnum.Int_24bit or 
+                DataFormatEnum.Int_32bit or 
+                DataFormatEnum.Int_48bit or 
+                DataFormatEnum.Int_64bit or 
+                DataFormatEnum.Int_128bit => true,
+                _ => false,
+            };
         }
 
 

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BluetoothLE.Net.Enumerations {
+﻿namespace BluetoothLE.Net.Enumerations {
 
 
     public enum BLE_AppearanceCategory : uint {

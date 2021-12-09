@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BluetoothLE.Net.Parsers.Characteristics {
+﻿namespace BluetoothLE.Net.Parsers.Characteristics {
 
     // TODO - this looks more like where you send commands rather than parsing incomming
 

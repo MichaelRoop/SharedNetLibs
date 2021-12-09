@@ -2,7 +2,6 @@
 using BluetoothLE.Net.Enumerations;
 using BluetoothLE.Net.interfaces;
 using Common.Net.Network;
-using System;
 
 namespace BluetoothLE.Net {
 
@@ -48,7 +47,9 @@ namespace BluetoothLE.Net {
 
 
 
+#pragma warning disable IDE0051 // Remove unused private members
         private void ToEliminateCompilerWarnings(byte[] msg) {
+#pragma warning restore IDE0051 // Remove unused private members
             this.MsgReceivedEvent?.Invoke(this, msg);
             this.DeviceRemoved?.Invoke(this, "NOT IMPLEMENTED");
             this.DeviceUpdated?.Invoke(this, new NetPropertiesUpdateDataModel());
@@ -59,7 +60,7 @@ namespace BluetoothLE.Net {
                 new BLE_CharacteristicReadResult(
                     new BLE_CharacteristicDataModel(), 
                     BLE_CharacteristicCommunicationStatus.Success, 
-                    new byte[0], string.Empty));
+                    Array.Empty<byte>(), string.Empty));
             this.ConnectionStatusChanged?.Invoke(this, new BLE_ConnectStatusChangeInfo());
             this.BLE_Error?.Invoke(this, BLEOperationStatus.Success);
         }

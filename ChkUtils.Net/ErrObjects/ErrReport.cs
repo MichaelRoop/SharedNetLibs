@@ -1,6 +1,5 @@
 ﻿using ChkUtils.Net.ExceptionFormating;
 using ChkUtils.Net.ExceptionParsers;
-using System;
 using System.Runtime.Serialization;
 using System.Text;
 
@@ -22,7 +21,7 @@ namespace ChkUtils.Net.ErrObjects {
 
         private string msg = "";
 
-        private StringBuilder stackTrace = new StringBuilder();
+        private readonly StringBuilder stackTrace = new();
 
         DateTime stamp = DateTime.Now;
 
@@ -171,9 +170,6 @@ namespace ChkUtils.Net.ErrObjects {
             // Translate any exception information to string but do not store the exception. This allows the 
             // object to be serialized and passed to a FaultException that can used to traverse WCF boundries
             try {
-                if (e == null) {
-                    throw new ArgumentNullException("null parameter");
-                }
                 ExceptionFormaterFactory.Get().FormatException(ExceptionParserFactory.Get(e), stackTrace);
             }
             catch (Exception ee) {

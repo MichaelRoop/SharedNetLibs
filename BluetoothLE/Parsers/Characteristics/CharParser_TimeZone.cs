@@ -7,7 +7,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
     public class CharParser_TimeZone : CharParser_Base {
 
-        ClassLog log = new ClassLog("CharParser_TimeZone");
+        private readonly ClassLog log = new ("CharParser_TimeZone");
 
         public override int RequiredBytes { get; protected set; } = BYTE_LEN;
 
@@ -15,7 +15,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
 
         protected override void DoParse(byte[] data) {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new ();
             // org.bluetooth.characteristic.time_zone
             // Time zone 15 minute increments / by 60 minutes gives UTC hour offset
             sb.Append("UTC[");
@@ -29,7 +29,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                     sb.Append("ERR]");
                 }
                 else {
-                    sb.Append(((zone * 15) / 60)).Append("]");
+                    sb.Append(((zone * 15) / 60)).Append(']');
                 }
             }
             this.DisplayString = sb.ToString();

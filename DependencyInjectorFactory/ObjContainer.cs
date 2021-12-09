@@ -1,7 +1,5 @@
 ﻿using ChkUtils.Net;
 using DependencyInjectorFactory.Net.interfaces;
-using System;
-using System.Collections.Generic;
 
 namespace DependencyInjectorFactory.Net {
 
@@ -10,10 +8,10 @@ namespace DependencyInjectorFactory.Net {
         #region Data
 
         /// <summary>Dictionary of multi instance object creators</summary>
-        private Dictionary<Type, ObjCreator> instanceCreators = new Dictionary<Type, ObjCreator>();
+        private readonly Dictionary<Type, ObjCreator> instanceCreators = new ();
 
         /// <summary>Dictionary of single instance object creators</summary>
-        private Dictionary<Type, ObjCreator> singletonCreators = new Dictionary<Type, ObjCreator>();
+        private readonly Dictionary<Type, ObjCreator> singletonCreators = new ();
 
         #endregion
 

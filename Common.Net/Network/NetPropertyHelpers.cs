@@ -2,16 +2,13 @@
 using Common.Net.Network.Enumerations;
 using Common.Net.Network.interfaces;
 using LogUtils.Net;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Common.Net.Network {
 
     public class NetPropertyHelpers {
 
         private static INetPropertyKeys? KEYS = null;
-        private static ClassLog log = new ClassLog("NetPropertyHelpers");
+        private readonly static ClassLog log = new("NetPropertyHelpers");
 
         public static void SetPropertyKeys(INetPropertyKeys keys) {
             KEYS = keys;
@@ -19,10 +16,10 @@ namespace Common.Net.Network {
 
 
         public static Dictionary<string, NetPropertyDataModel> CreatePropertiesDictionary(IReadOnlyDictionary<string, object> propertyDict) {
-            Dictionary<string, NetPropertyDataModel> properties = new Dictionary<string, NetPropertyDataModel>();
+            Dictionary<string, NetPropertyDataModel> properties = new();
             if (propertyDict != null) {
                 foreach (var p in propertyDict) {
-                    NetPropertyDataModel model = new NetPropertyDataModel() {
+                    NetPropertyDataModel model = new() {
                         Key = p.Key,
                         Target = GetPropertyTarget(p.Key),
                     };

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Xml;
 
 namespace ChkUtils.Net.ExceptionParsers {
@@ -35,7 +34,7 @@ namespace ChkUtils.Net.ExceptionParsers {
                 this.ExtraInfo.Add(new ExceptionExtraInfo("Line Number", ex.LineNumber.ToString()));
                 this.ExtraInfo.Add(new ExceptionExtraInfo("Line Position", ex.LinePosition.ToString()));
                 string? uri = ex.SourceUri;
-                this.ExtraInfo.Add(new ExceptionExtraInfo("Source URI", uri == null ? "--" : uri));
+                this.ExtraInfo.Add(new ExceptionExtraInfo("Source URI", uri??"--"));
             }
             else {
                 WrapErr.SafeAction(() => 

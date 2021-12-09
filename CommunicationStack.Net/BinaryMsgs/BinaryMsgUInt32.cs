@@ -1,5 +1,4 @@
 ﻿using CommunicationStack.Net.Enumerations;
-using System;
 using VariousUtils.Net;
 
 namespace CommunicationStack.Net.BinaryMsgs {

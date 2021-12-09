@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace StorageFactory.Net.interfaces {
+﻿namespace StorageFactory.Net.interfaces {
 
     /// <summary>Interface to serialize a class to and from a stream</summary>
     /// <typeparam name="T">The class to read or write</typeparam>

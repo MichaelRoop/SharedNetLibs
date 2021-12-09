@@ -1,6 +1,5 @@
 ﻿using BluetoothLE.Net.Enumerations;
 using BluetoothLE.Net.Parsers.Types;
-using System;
 using VariousUtils.Net;
 
 namespace BluetoothLE.Net.Parsers.Characteristics {
@@ -11,9 +10,9 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
         public MonthOfYear Month { get { return this.monthParser.Month; } }
         public DayOfWeek Day { get { return this.dayParser.Day; }  }
 
-        private TypeParserYear yearParser = new TypeParserYear();
-        private TypeParserMonthOfYear monthParser = new TypeParserMonthOfYear();
-        private TypeParserDayOfWeek dayParser = new TypeParserDayOfWeek();
+        private readonly TypeParserYear yearParser = new ();
+        private readonly TypeParserMonthOfYear monthParser = new ();
+        private readonly TypeParserDayOfWeek dayParser = new ();
 
         public CharParser_DateOfBirth() : base() {
             this.RequiredBytes = 

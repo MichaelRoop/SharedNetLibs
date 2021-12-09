@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace StorageFactory.Net.interfaces {
+﻿namespace StorageFactory.Net.interfaces {
 
 
     /// <summary>An object to encapsulate the index file</summary>

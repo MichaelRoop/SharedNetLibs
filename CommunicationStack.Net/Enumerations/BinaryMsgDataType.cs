@@ -1,5 +1,4 @@
-﻿using System;
-using VariousUtils.Net;
+﻿using VariousUtils.Net;
 
 namespace CommunicationStack.Net.Enumerations {
 
@@ -52,56 +51,34 @@ namespace CommunicationStack.Net.Enumerations {
 
 
         public static string ToStr(this BinaryMsgDataType dataType) {
-            switch (dataType) {
-                case BinaryMsgDataType.typeBool:
-                    return "Bool";
-                case BinaryMsgDataType.typeInt8:
-                    return "Int8";
-                case BinaryMsgDataType.typeUInt8:
-                    return "UInt8";
-                case BinaryMsgDataType.typeInt16:
-                    return "Int16";
-                case BinaryMsgDataType.typeUInt16:
-                    return "UInt16";
-                case BinaryMsgDataType.typeInt32:
-                    return "Int32";
-                case BinaryMsgDataType.typeUInt32:
-                    return "UInt32";
-                case BinaryMsgDataType.typeFloat32:
-                    return "Float32";
-                case BinaryMsgDataType.tyepUndefined:
-                    return "Undefined";
-                case BinaryMsgDataType.typeInvalid:
-                    return "Invalid";
-                default:
-                    return "Unhandled";
-            }
+            return dataType switch {
+                BinaryMsgDataType.typeBool => "Bool",
+                BinaryMsgDataType.typeInt8 => "Int8",
+                BinaryMsgDataType.typeUInt8 => "UInt8",
+                BinaryMsgDataType.typeInt16 => "Int16",
+                BinaryMsgDataType.typeUInt16 => "UInt16",
+                BinaryMsgDataType.typeInt32 => "Int32",
+                BinaryMsgDataType.typeUInt32 => "UInt32",
+                BinaryMsgDataType.typeFloat32 => "Float32",
+                BinaryMsgDataType.tyepUndefined => "Undefined",
+                BinaryMsgDataType.typeInvalid => "Invalid",
+                _ => "Unhandled",
+            };
         }
 
 
         public static NumericRange Range(this BinaryMsgDataType dataType) {
-            switch (dataType) {
-                case BinaryMsgDataType.typeBool:
-                    return true.GetRange();
-                case BinaryMsgDataType.typeInt8:
-                    return sbyte.MinValue.GetRange();
-                case BinaryMsgDataType.typeUInt8:
-                    return byte.MinValue.GetRange();
-                case BinaryMsgDataType.typeInt16:
-                    return Int16.MinValue.GetRange();
-                case BinaryMsgDataType.typeUInt16:
-                    return UInt16.MinValue.GetRange();
-                case BinaryMsgDataType.typeInt32:
-                    return Int32.MinValue.GetRange();
-                case BinaryMsgDataType.typeUInt32:
-                    return UInt32.MinValue.GetRange();
-                case BinaryMsgDataType.typeFloat32:
-                    return Single.MinValue.GetRange();
-                case BinaryMsgDataType.tyepUndefined:
-                case BinaryMsgDataType.typeInvalid:
-                default:
-                    return new NumericRange(0, 0);
-            }
+            return dataType switch {
+                BinaryMsgDataType.typeBool => true.GetRange(),
+                BinaryMsgDataType.typeInt8 => sbyte.MinValue.GetRange(),
+                BinaryMsgDataType.typeUInt8 => byte.MinValue.GetRange(),
+                BinaryMsgDataType.typeInt16 => Int16.MinValue.GetRange(),
+                BinaryMsgDataType.typeUInt16 => UInt16.MinValue.GetRange(),
+                BinaryMsgDataType.typeInt32 => Int32.MinValue.GetRange(),
+                BinaryMsgDataType.typeUInt32 => UInt32.MinValue.GetRange(),
+                BinaryMsgDataType.typeFloat32 => Single.MinValue.GetRange(),
+                _ => new NumericRange(0, 0),
+            };
         }
 
 
@@ -175,54 +152,32 @@ namespace CommunicationStack.Net.Enumerations {
 
 
         public static double Min(this BinaryMsgDataType dataType) {
-            switch (dataType) {
-                case BinaryMsgDataType.typeBool:
-                    return 0;
-                case BinaryMsgDataType.typeInt8:
-                    return sbyte.MinValue;
-                case BinaryMsgDataType.typeUInt8:
-                    return byte.MinValue;
-                case BinaryMsgDataType.typeInt16:
-                    return Int16.MinValue;
-                case BinaryMsgDataType.typeUInt16:
-                    return UInt16.MinValue;
-                case BinaryMsgDataType.typeInt32:
-                    return Int32.MinValue;
-                case BinaryMsgDataType.typeUInt32:
-                    return UInt32.MinValue;
-                case BinaryMsgDataType.typeFloat32:
-                    return Single.MinValue;
-                case BinaryMsgDataType.tyepUndefined:
-                case BinaryMsgDataType.typeInvalid:
-                default:
-                    return 0;
-            }
+            return dataType switch {
+                BinaryMsgDataType.typeBool => 0,
+                BinaryMsgDataType.typeInt8 => sbyte.MinValue,
+                BinaryMsgDataType.typeUInt8 => byte.MinValue,
+                BinaryMsgDataType.typeInt16 => Int16.MinValue,
+                BinaryMsgDataType.typeUInt16 => UInt16.MinValue,
+                BinaryMsgDataType.typeInt32 => Int32.MinValue,
+                BinaryMsgDataType.typeUInt32 => UInt32.MinValue,
+                BinaryMsgDataType.typeFloat32 => Single.MinValue,
+                _ => 0,
+            };
         }
 
 
         public static double Max(this BinaryMsgDataType dataType) {
-            switch (dataType) {
-                case BinaryMsgDataType.typeBool:
-                    return 1;
-                case BinaryMsgDataType.typeInt8:
-                    return sbyte.MaxValue;
-                case BinaryMsgDataType.typeUInt8:
-                    return byte.MaxValue;
-                case BinaryMsgDataType.typeInt16:
-                    return Int16.MaxValue;
-                case BinaryMsgDataType.typeUInt16:
-                    return UInt16.MaxValue;
-                case BinaryMsgDataType.typeInt32:
-                    return Int32.MaxValue;
-                case BinaryMsgDataType.typeUInt32:
-                    return UInt32.MaxValue;
-                case BinaryMsgDataType.typeFloat32:
-                    return Single.MaxValue;
-                case BinaryMsgDataType.tyepUndefined:
-                case BinaryMsgDataType.typeInvalid:
-                default:
-                    return 0;
-            }
+            return dataType switch {
+                BinaryMsgDataType.typeBool => 1,
+                BinaryMsgDataType.typeInt8 => sbyte.MaxValue,
+                BinaryMsgDataType.typeUInt8 => byte.MaxValue,
+                BinaryMsgDataType.typeInt16 => Int16.MaxValue,
+                BinaryMsgDataType.typeUInt16 => UInt16.MaxValue,
+                BinaryMsgDataType.typeInt32 => Int32.MaxValue,
+                BinaryMsgDataType.typeUInt32 => UInt32.MaxValue,
+                BinaryMsgDataType.typeFloat32 => Single.MaxValue,
+                _ => 0,
+            };
         }
 
 

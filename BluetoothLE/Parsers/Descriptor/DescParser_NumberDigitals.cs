@@ -1,5 +1,4 @@
 ﻿using LogUtils.Net;
-using System;
 using VariousUtils.Net;
 
 namespace BluetoothLE.Net.Parsers.Descriptor {
@@ -7,7 +6,7 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
     /// <summary> Number of Digitals (0x2909) Data type: uint8 </summary>
     public class DescParser_NumberDigitals : DescParser_Base {
 
-        private readonly ClassLog log = new ClassLog("DescParser_NumberDecimals");
+        private readonly ClassLog log = new ("DescParser_NumberDecimals");
 
         public byte Number { get; set; }
 

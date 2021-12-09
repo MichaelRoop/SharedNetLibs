@@ -9,20 +9,12 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
         public override BLE_DataType DataType => BLE_DataType.UInt_8bit;
 
         protected override void DoParse(byte[] data) {
-            switch (data[0]) {
-                case 0:
-                    this.DisplayString = "No Alert";
-                    break;
-                case 1:
-                    this.DisplayString = "Mild Alert";
-                    break;
-                case 2:
-                    this.DisplayString = "High Alert";
-                    break;
-                default:
-                    this.DisplayString = "ERR";
-                    break;
-            }
+            this.DisplayString = data[0] switch {
+                0 => "No Alert",
+                1 => "Mild Alert",
+                2 => "High Alert",
+                _ => "ERR",
+            };
         }
 
     }

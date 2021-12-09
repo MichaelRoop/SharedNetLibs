@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using VariousUtils.Net;
+﻿using VariousUtils.Net;
 
 namespace BluetoothLE.Net.Parsers.Types {
 
@@ -12,8 +9,8 @@ namespace BluetoothLE.Net.Parsers.Types {
         public float Value { get; private set; } = 0;
 
 
-        public float MinValue { get { return 0; } }
-        public float MaxValue { get { return 0; } }
+        public static float MinValue { get { return 0; } }
+        public static float MaxValue { get { return 0; } }
 
 
         public static Float16_IEEE11073 GetNew(byte[] data, ref int pos) {
@@ -24,15 +21,15 @@ namespace BluetoothLE.Net.Parsers.Types {
 
         #region Solution 1
 
-        private static Float16_IEEE11073 GetNew1(byte[] data, ref int pos) {
-            //https://stackoverflow.com/questions/28899195/converting-two-bytes-to-an-ieee-11073-16-bit-sfloat-in-c-sharp
-            byte[] tmp = data.ToByteArray(2, ref pos);
-            int mantissa = unsignedToSigned(ToInt(tmp[0]) + ((ToInt(tmp[1]) & 0x0F) << 8), 12);
-            int exponent = unsignedToSigned(ToInt(tmp[1]) >> 4, 4);
-            return new Float16_IEEE11073() {
-                Value = (float)(mantissa * Math.Pow(10, exponent)),
-            };
-        }
+        //private static Float16_IEEE11073 GetNew1(byte[] data, ref int pos) {
+        //    //https://stackoverflow.com/questions/28899195/converting-two-bytes-to-an-ieee-11073-16-bit-sfloat-in-c-sharp
+        //    byte[] tmp = data.ToByteArray(2, ref pos);
+        //    int mantissa = unsignedToSigned(ToInt(tmp[0]) + ((ToInt(tmp[1]) & 0x0F) << 8), 12);
+        //    int exponent = unsignedToSigned(ToInt(tmp[1]) >> 4, 4);
+        //    return new Float16_IEEE11073() {
+        //        Value = (float)(mantissa * Math.Pow(10, exponent)),
+        //    };
+        //}
 
 
         /// <summary>Not sure what this does also. Seems to just pass in the entire value
@@ -40,21 +37,21 @@ namespace BluetoothLE.Net.Parsers.Types {
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        private static int ToInt(byte value) {
-            return value & 0xFF;
-        }
+        //private static int ToInt(byte value) {
+        //    return value & 0xFF;
+        //}
 
 
         /// <summary>Not sure exactly what this does</summary>
         /// <param name="unsigned"></param>
         /// <param name="size"></param>
         /// <returns></returns>
-        private static int unsignedToSigned(int unsigned, int size) {
-            if ((unsigned & (1 << size - 1)) != 0) {
-                unsigned = -1 * ((1 << size - 1) - (unsigned & ((1 << size - 1) - 1)));
-            }
-            return unsigned;
-        }
+        //private static int unsignedToSigned(int unsigned, int size) {
+        //    if ((unsigned & (1 << size - 1)) != 0) {
+        //        unsigned = -1 * ((1 << size - 1) - (unsigned & ((1 << size - 1) - 1)));
+        //    }
+        //    return unsigned;
+        //}
 
         #endregion
 
@@ -85,7 +82,7 @@ namespace BluetoothLE.Net.Parsers.Types {
 
 
         // These are the values for the Single and not the 11073 
-        private static Dictionary<Int32, Single> reservedValues = new Dictionary<Int32, Single> {
+        private readonly static Dictionary<Int32, Single> reservedValues = new() {
           { 0x07FE, Single.PositiveInfinity },
           { 0x07FF, Single.NaN },
           { 0x0800, Single.NaN },

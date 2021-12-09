@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace StorageFactory.Net.interfaces {
+﻿namespace StorageFactory.Net.interfaces {
 
 
     /// <summary>Manage files with an index object that contains subset of its data</summary>

@@ -2,7 +2,6 @@
 using BluetoothLE.Net.interfaces;
 using ChkUtils.Net;
 using LogUtils.Net;
-using System;
 using VariousUtils.Net;
 
 namespace BluetoothLE.Net.Parsers {
@@ -11,8 +10,8 @@ namespace BluetoothLE.Net.Parsers {
 
         #region Data
 
-        private ClassLog baseLog = new ClassLog("BLEParserBase");
-        private byte[] RawData { get; set; } = new byte[0];
+        private readonly ClassLog baseLog = new ("BLEParserBase");
+        private byte[] RawData { get; set; } = Array.Empty<byte>();
 
         /// <summary>Number of bytes in byte field</summary>
         protected const int BYTE_LEN = 1;
@@ -83,7 +82,7 @@ namespace BluetoothLE.Net.Parsers {
 
         /// <summary>Derived to reset specific data properties before parse</summary>
         protected virtual void ResetMembers() {
-            this.RawData = new byte[0];
+            this.RawData = Array.Empty<byte>();
             this.DisplayString = "";
         }
 

@@ -10,7 +10,7 @@ namespace CommunicationStack.Net.BinaryMsgs {
 
         private static ushort SIZE_HEADER = 0;
         private static ushort SIZE_FOOTER = 0;
-        private ClassLog log = new ClassLog("BinaryMsg<T>");
+        //private static ClassLog log = new ("BinaryMsg<T>");
 
         #endregion
 
@@ -22,7 +22,7 @@ namespace CommunicationStack.Net.BinaryMsgs {
         public BinaryMsgDataType DataType { get; private set; }
         public byte Id { get; set; }
 
-        public T? Value { get; set; } = default(T);
+        public T? Value { get; set; } = default;
 
         public byte[] Payload { get { return this.GetPayload(); }  }
 
@@ -109,7 +109,7 @@ namespace CommunicationStack.Net.BinaryMsgs {
 
     public static class BinaryMsgExtensions {
 
-        private static ClassLog log = new ClassLog("BinaryMsgExtensions");
+        private readonly static ClassLog log = new ("BinaryMsgExtensions");
 
         /// <summary>Use after popped from FIFO queue with valid start and end terminators</summary>
         /// <param name="packet">The raw data</param>
@@ -173,28 +173,17 @@ namespace CommunicationStack.Net.BinaryMsgs {
 
 
         public static bool IsValidSizeForMessage(this BinaryMsgDataType dataType, ushort size) {
-            switch (dataType) {
-                case BinaryMsgDataType.typeBool:
-                    return size == BinaryMsgDefines.SizeMsgBool;
-                case BinaryMsgDataType.typeInt8:
-                    return size == BinaryMsgDefines.SizeMsgInt8;
-                case BinaryMsgDataType.typeUInt8:
-                    return size == BinaryMsgDefines.SizeMsgUInt8;
-                case BinaryMsgDataType.typeInt16:
-                    return size == BinaryMsgDefines.SizeMsgInt16;
-                case BinaryMsgDataType.typeUInt16:
-                    return size == BinaryMsgDefines.SizeMsgUInt16;
-                case BinaryMsgDataType.typeInt32:
-                    return size == BinaryMsgDefines.SizeMsgInt32;
-                case BinaryMsgDataType.typeUInt32:
-                    return size == BinaryMsgDefines.SizeMsgUInt32;
-                case BinaryMsgDataType.typeFloat32:
-                    return size == BinaryMsgDefines.SizeMsgFloat;
-                case BinaryMsgDataType.tyepUndefined:
-                case BinaryMsgDataType.typeInvalid:
-                default:
-                    return false;
-            }
+            return dataType switch {
+                BinaryMsgDataType.typeBool => size == BinaryMsgDefines.SizeMsgBool,
+                BinaryMsgDataType.typeInt8 => size == BinaryMsgDefines.SizeMsgInt8,
+                BinaryMsgDataType.typeUInt8 => size == BinaryMsgDefines.SizeMsgUInt8,
+                BinaryMsgDataType.typeInt16 => size == BinaryMsgDefines.SizeMsgInt16,
+                BinaryMsgDataType.typeUInt16 => size == BinaryMsgDefines.SizeMsgUInt16,
+                BinaryMsgDataType.typeInt32 => size == BinaryMsgDefines.SizeMsgInt32,
+                BinaryMsgDataType.typeUInt32 => size == BinaryMsgDefines.SizeMsgUInt32,
+                BinaryMsgDataType.typeFloat32 => size == BinaryMsgDefines.SizeMsgFloat,
+                _ => false,
+            };
         }
 
 

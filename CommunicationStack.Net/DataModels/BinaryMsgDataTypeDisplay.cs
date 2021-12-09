@@ -1,5 +1,4 @@
 ﻿using CommunicationStack.Net.Enumerations;
-using System.Collections.Generic;
 
 namespace CommunicationStack.Net.DataModels {
 
@@ -8,15 +7,16 @@ namespace CommunicationStack.Net.DataModels {
         /// <summary>Generate a list of valid data type display units</summary>
         public static List<BinaryMsgDataTypeDisplay> TypeList {
             get {
-                List<BinaryMsgDataTypeDisplay> list = new List<BinaryMsgDataTypeDisplay>();
-                list.Add(new BinaryMsgDataTypeDisplay(BinaryMsgDataType.typeBool));
-                list.Add(new BinaryMsgDataTypeDisplay(BinaryMsgDataType.typeInt8));
-                list.Add(new BinaryMsgDataTypeDisplay(BinaryMsgDataType.typeInt16));
-                list.Add(new BinaryMsgDataTypeDisplay(BinaryMsgDataType.typeInt32));
-                list.Add(new BinaryMsgDataTypeDisplay(BinaryMsgDataType.typeUInt8));
-                list.Add(new BinaryMsgDataTypeDisplay(BinaryMsgDataType.typeUInt16));
-                list.Add(new BinaryMsgDataTypeDisplay(BinaryMsgDataType.typeUInt32));
-                list.Add(new BinaryMsgDataTypeDisplay(BinaryMsgDataType.typeFloat32));
+                List<BinaryMsgDataTypeDisplay> list = new() {
+                    new BinaryMsgDataTypeDisplay(BinaryMsgDataType.typeBool),
+                    new BinaryMsgDataTypeDisplay(BinaryMsgDataType.typeInt8),
+                    new BinaryMsgDataTypeDisplay(BinaryMsgDataType.typeInt16),
+                    new BinaryMsgDataTypeDisplay(BinaryMsgDataType.typeInt32),
+                    new BinaryMsgDataTypeDisplay(BinaryMsgDataType.typeUInt8),
+                    new BinaryMsgDataTypeDisplay(BinaryMsgDataType.typeUInt16),
+                    new BinaryMsgDataTypeDisplay(BinaryMsgDataType.typeUInt32),
+                    new BinaryMsgDataTypeDisplay(BinaryMsgDataType.typeFloat32)
+                };
                 return list;
             }
         }

@@ -1,8 +1,6 @@
 ﻿using Common.Net.Network;
 using SerialCommon.Net.Enumerations;
 using StorageFactory.Net.interfaces;
-using System;
-using System.Collections.Generic;
 
 namespace SerialCommon.Net.DataModels {
 

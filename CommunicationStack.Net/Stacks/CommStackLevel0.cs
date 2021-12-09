@@ -15,9 +15,9 @@ namespace CommunicationStack.Net.Stacks {
         private ICommStackChannel? commChannel = null;
 
         /// <summary>Input queue which defragments the incoming bytes into messages</summary>
-        private CommCharInByteQueue queue = new CommCharInByteQueue("\n".ToAsciiByteArray());
+        private readonly CommCharInByteQueue queue = new ("\n".ToAsciiByteArray());
 
-        private ClassLog log = new ClassLog("CommStackLevel0");
+        private readonly ClassLog log = new ("CommStackLevel0");
 
         #endregion
 

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace VariousUtils.Net {
+﻿namespace VariousUtils.Net {
 
     public static class ByteHelpers {
 
@@ -53,7 +51,7 @@ namespace VariousUtils.Net {
             int terminatorPos = buff.FindFirstBytePatternPos(terminator, nextPos);
             //nextPos = dataLen;
             if (terminatorPos == -1) {
-                return new byte[0];
+                return Array.Empty<byte>();
             }
             int msgLen = terminatorPos;
             byte[] result = new byte[msgLen];

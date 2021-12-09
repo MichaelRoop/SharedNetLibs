@@ -1,6 +1,5 @@
 ﻿using BluetoothLE.Net.Enumerations;
 using LogUtils.Net;
-using System;
 using VariousUtils.Net;
 
 namespace BluetoothLE.Net.Parsers.Descriptor {
@@ -22,7 +21,7 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
 
         #region Data
 
-        private ClassLog log = new ClassLog("DescParser_TimeTriggerSetting");
+        //private readonly ClassLog log = new ("DescParser_TimeTriggerSetting");
 
         #endregion
 
@@ -43,17 +42,13 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
 
         private string BuildDisplayString() {
             if (this.IsValid) {
-                switch (this.Condition) {
-                    case TimeTriggerCondition.None:
-                        return string.Format("Time Trigger Condition:{0} Value:-", this.Condition.ToString());
-                    case TimeTriggerCondition.Count:
-                        return string.Format("Time Trigger Condition:{0} Value:{1}", this.Condition.ToString(), this.Count);
-                    case TimeTriggerCondition.TimeIntervalContinuousAfterSettableTime:
-                    case TimeTriggerCondition.TimeIntervalOnTimeExpiredOrDifferentState:
-                        return string.Format("Time Trigger Condition:{0} Value:{1}", this.Condition.ToString(), this.TimeInterval);
-                    default:
-                        return string.Format("Time Trigger Condition:{0} UNHANDLED", this.Condition.ToString());
-                }
+                return this.Condition switch {
+                    TimeTriggerCondition.None => string.Format("Time Trigger Condition:{0} Value:-", this.Condition.ToString()),
+                    TimeTriggerCondition.Count => string.Format("Time Trigger Condition:{0} Value:{1}", this.Condition.ToString(), this.Count),
+                    TimeTriggerCondition.TimeIntervalContinuousAfterSettableTime or 
+                    TimeTriggerCondition.TimeIntervalOnTimeExpiredOrDifferentState => string.Format("Time Trigger Condition:{0} Value:{1}", this.Condition.ToString(), this.TimeInterval),
+                    _ => string.Format("Time Trigger Condition:{0} UNHANDLED", this.Condition.ToString()),
+                };
             }
             else {
                 return "* N/A *";

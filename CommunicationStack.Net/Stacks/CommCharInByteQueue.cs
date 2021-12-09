@@ -1,5 +1,4 @@
 ﻿using LogUtils.Net;
-using System;
 using VariousUtils.Net;
 
 namespace CommunicationStack.Net.Stacks {
@@ -17,12 +16,12 @@ namespace CommunicationStack.Net.Stacks {
 
         #region Data
 
-        private static int BUFF_MAX_LEN = 1000;
-        private byte[] buff = new byte[BUFF_MAX_LEN];
+        private readonly static int BUFF_MAX_LEN = 1000;
+        private readonly byte[] buff = new byte[BUFF_MAX_LEN];
         // Next pos is also length of data contained
         private int nextPos = 0;
         private byte[] terminator = "\n".ToAsciiByteArray();
-        private ClassLog log = new ClassLog("CommCharInByteQueue");
+        private readonly ClassLog log = new ("CommCharInByteQueue");
 
         #endregion
 
@@ -85,9 +84,7 @@ namespace CommunicationStack.Net.Stacks {
                     result = this.buff.FifoPush(data, ref this.nextPos);
                     byte[] msg = this.buff.FifoPop(this.Terminator, ref this.nextPos);
                     if (msg.Length > 0) {
-                        if (this.MsgReceived != null) {
-                            this.MsgReceived(this, msg);
-                        }
+                        this.MsgReceived?.Invoke(this, msg);
                     }
                 }
                 return result;

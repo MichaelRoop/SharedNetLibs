@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CommunicationStack.Net.interfaces {
+﻿namespace CommunicationStack.Net.interfaces {
 
     /// <summary>Stack object closest to the communication channel.  Assembles 
     /// incoming bytes into messages based on terminators and adds terminators 

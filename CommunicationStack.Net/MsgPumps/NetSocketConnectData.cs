@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CommunicationStack.Net.MsgPumps {
+﻿namespace CommunicationStack.Net.MsgPumps {
 
     public class NetSocketConnectData {
 

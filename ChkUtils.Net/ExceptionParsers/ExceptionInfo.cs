@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ChkUtils.Net.ExceptionParsers {
+﻿namespace ChkUtils.Net.ExceptionParsers {
 
     /// <summary>
     /// Central parser for displayable common exception iformation
@@ -11,9 +9,9 @@ namespace ChkUtils.Net.ExceptionParsers {
 
         #region Data
 
-        private string name = "";
+        private readonly string name = "";
 
-        private string msg = "";
+        private readonly string msg = "";
 
         #endregion
 

@@ -1,5 +1,4 @@
 ﻿using SerialCommon.Net.Enumerations;
-using System;
 
 namespace SerialCommon.Net.DataModels {
 

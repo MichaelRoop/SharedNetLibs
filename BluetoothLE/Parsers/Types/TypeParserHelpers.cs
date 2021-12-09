@@ -1,5 +1,4 @@
 ﻿using BluetoothLE.Net.Enumerations;
-using System;
 using System.Globalization;
 using System.Text;
 using VariousUtils.Net;
@@ -9,24 +8,16 @@ namespace BluetoothLE.Net.Parsers.Types {
     public static class TypeParserHelpers {
 
         public static byte GetBleDayByte(this DayOfWeek day) {
-            switch (day) {
-                case DayOfWeek.Sunday:
-                    return 7;
-                case DayOfWeek.Monday:
-                    return 1;
-                case DayOfWeek.Tuesday:
-                    return 2;
-                case DayOfWeek.Wednesday:
-                    return 3;
-                case DayOfWeek.Thursday:
-                    return 4;
-                case DayOfWeek.Friday:
-                    return 5;
-                case DayOfWeek.Saturday:
-                    return 6;
-                default:
-                    return 0;
-            }
+            return day switch {
+                DayOfWeek.Sunday => 7,
+                DayOfWeek.Monday => 1,
+                DayOfWeek.Tuesday => 2,
+                DayOfWeek.Wednesday => 3,
+                DayOfWeek.Thursday => 4,
+                DayOfWeek.Friday => 5,
+                DayOfWeek.Saturday => 6,
+                _ => 0,
+            };
         }
 
         /// <summary>Culture dependent day of week name</summary>
@@ -64,7 +55,7 @@ namespace BluetoothLE.Net.Parsers.Types {
 
 
         public static string CurrentTimeAdjustReasonStr(this byte bitmap) {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new ();
             sb.Append("Manual Update:").Append(bitmap.IsBitSet(0) ? "Enabled" : "Disabled")
               .Append("External Reference Cime Change:").Append(bitmap.IsBitSet(1) ? "Enabled" : "Disabled")
               .Append("Time zone Change:").Append(bitmap.IsBitSet(2) ? "Enabled" : "Disabled")

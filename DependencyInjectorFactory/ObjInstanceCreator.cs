@@ -1,5 +1,4 @@
 ﻿using ChkUtils.Net;
-using System;
 
 namespace DependencyInjectorFactory.Net {
 

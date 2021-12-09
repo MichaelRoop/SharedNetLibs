@@ -1,7 +1,4 @@
-﻿
-using System.Collections.Generic;
-
-namespace BluetoothCommon.Net {
+﻿namespace BluetoothCommon.Net {
 
     /// <summary>To get information about the BT Classic radio</summary>
     public class BTRadioInfo {

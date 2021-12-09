@@ -1,7 +1,5 @@
 ﻿using BluetoothCommon.Net.Enumerations;
 using Common.Net.Network;
-using System;
-using System.Collections.Generic;
 
 namespace BluetoothCommon.Net {
 

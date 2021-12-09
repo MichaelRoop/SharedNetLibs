@@ -1,7 +1,4 @@
-﻿using LogUtils.Net;
-using System;
-using System.Text;
-using VariousUtils.Net;
+﻿using System.Text;
 
 namespace BluetoothLE.Net.Parsers.Characteristics {
 
@@ -17,7 +14,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
             // 2. Maximum Connect interval 6-3200
             // 3. Slave latency 0-1000
             // 4. Connection Supervisor Timeout Multiplier 10-3200
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new ();
             sb
                 .Append("Min Connect Interval:")
                 .Append(BitConverter.ToInt16(data, 0)).Append(", ")

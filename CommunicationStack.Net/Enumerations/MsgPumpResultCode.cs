@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace CommunicationStack.Net.Enumerations {
 
-namespace CommunicationStack.Net.Enumerations {
-    
     public enum MsgPumpResultCode {
         //Success,
         Connected,

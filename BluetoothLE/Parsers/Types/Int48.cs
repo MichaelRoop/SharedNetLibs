@@ -1,5 +1,4 @@
-﻿using System;
-using VariousUtils.Net;
+﻿using VariousUtils.Net;
 
 namespace BluetoothLE.Net.Parsers.Types {
 
@@ -26,17 +25,17 @@ namespace BluetoothLE.Net.Parsers.Types {
         /// <returns>6 byte array with 48bit Int</returns>
         public static byte[] GetBytes(Int64 value) {
             if (value < Int48.MinValue || value > Int48.MaxValue) {
-                throw new ArgumentOutOfRangeException("value",
+                throw new ArgumentOutOfRangeException(nameof(value),
                     string.Format("{0} out or range {1} to {2}",
                     value, Int48.MinValue, Int48.MaxValue));
             }
 
             bool negative = value < 0;
             // Filter out anything over 48 bits (6th byte) of incoming Int64
-            value = value & 0x0000FFFFFFFFFFFF;
+            value &= 0x0000FFFFFFFFFFFF;
             if (negative) {
                 // Set the 48th sign bit
-                value = value | 0x800000000000;
+                value |= 0x800000000000;
             }
             byte[] resultData = new byte[6];
             byte[] tmp = new byte[8];
@@ -109,7 +108,7 @@ namespace BluetoothLE.Net.Parsers.Types {
             // If we filter on range, the sign bit for int48 will always be set
             if (val < Int48.MinValue || val > Int48.MaxValue) {
                 throw new ArgumentOutOfRangeException(
-                    "val", string.Format(
+                    nameof(val), string.Format(
                         "{0} out or range {1} to {2}",
                         val, Int48.MinValue, Int48.MaxValue));
             }
@@ -121,16 +120,14 @@ namespace BluetoothLE.Net.Parsers.Types {
         #region Operators
 
         public static bool operator ==(Int48 u1, Int48 u2) {
-            if (object.ReferenceEquals(u1, u2)) { return true; }
-            if (object.ReferenceEquals(u1, null)) { return false; }
-            if (object.ReferenceEquals(u2, null)) { return false; }
+            if (ReferenceEquals(u1, u2)) { return true; }
+            if (u1 is null || u2 is null) { return false; }
             return u1.Equals(u2);
         }
 
         public static bool operator !=(Int48 u1, Int48 u2) {
-            if (object.ReferenceEquals(u1, u2)) { return false; }
-            if (object.ReferenceEquals(u1, null)) { return true; }
-            if (object.ReferenceEquals(u2, null)) { return true; }
+            if (ReferenceEquals(u1, u2)) { return false; }
+            if (u1 is null || u2 is null) { return true; }
             return !u1.Equals(u2);
         }
 
@@ -146,9 +143,7 @@ namespace BluetoothLE.Net.Parsers.Types {
         #endregion
 
         #region overrides
-        public override bool Equals(object? obj) {
-            return (obj is Int48) ? this.Equals((Int48)obj) : false;
-        }
+        public override bool Equals(object? obj) => (obj is Int48 @int) && this.Equals(@int);
 
         public override int GetHashCode() {
             return base.GetHashCode();
@@ -183,9 +178,7 @@ namespace BluetoothLE.Net.Parsers.Types {
 
         #region IEquitable
 
-        public bool Equals(Int48? other) {
-            return other is null ? false : this.Value == other.Value;
-        }
+        public bool Equals(Int48? other) => other is not null && this.Value == other.Value;
 
         #endregion
 

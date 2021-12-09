@@ -6,7 +6,7 @@ namespace BluetoothLE.Net.Parsers.Types {
 
         #region Data
 
-        private UInt16 value = 0;
+        private readonly UInt16 value = 0;
 
         #endregion
 
@@ -56,16 +56,14 @@ namespace BluetoothLE.Net.Parsers.Types {
         #region Operators
 
         public static bool operator ==(UInt12 u1, UInt12 u2) {
-            if (object.ReferenceEquals(u1, u2)) { return true; }
-            if (object.ReferenceEquals(u1, null)) { return false; }
-            if (object.ReferenceEquals(u2, null)) { return false; }
+            if (ReferenceEquals(u1, u2)) { return true; }
+            if (u1 is null || u2 is null) { return false; }
             return u1.Equals(u2);
         }
 
         public static bool operator !=(UInt12 u1, UInt12 u2) {
-            if (object.ReferenceEquals(u1, u2)) { return false; }
-            if (object.ReferenceEquals(u1, null)) { return true; }
-            if (object.ReferenceEquals(u2, null)) { return true; }
+            if (ReferenceEquals(u1, u2)) { return false; }
+            if (u1 is null || u2 is null) { return true; }
             return !u1.Equals(u2);
         }
 
@@ -81,9 +79,7 @@ namespace BluetoothLE.Net.Parsers.Types {
         #endregion
 
         #region overrides
-        public override bool Equals(object? obj) {
-            return (obj is UInt12) ? this.Equals((UInt12)obj) : false;
-        }
+        public override bool Equals(object? obj) => (obj is UInt12 @int) && this.Equals(@int);
 
         public override int GetHashCode() {
             return base.GetHashCode();
@@ -118,9 +114,7 @@ namespace BluetoothLE.Net.Parsers.Types {
 
         #region IEquitable
 
-        public bool Equals(UInt12? other) {
-            return other is null ? false : this.Value == other.Value;
-        }
+        public bool Equals(UInt12? other) => other is not null && this.Value == other.Value;
 
         #endregion
 

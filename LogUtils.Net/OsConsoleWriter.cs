@@ -1,13 +1,11 @@
 ﻿using ChkUtils.Net.ErrObjects;
-using LogUtils.Net;
 using LogUtils.Net.Interfaces;
-using System;
 
 
 namespace LogUtils.Net {
 
     /// <summary>Console writer specific to Windows</summary>
-    public class OsConsoleWriter : I_OS_ConsoleWriter {
+    public class OsConsoleWriter : IOS_ConsoleWriter {
 
         public void WriteToConsole(string logLine) {
             Console.WriteLine(logLine);

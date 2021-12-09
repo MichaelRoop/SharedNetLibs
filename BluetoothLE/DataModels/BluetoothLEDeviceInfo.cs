@@ -5,8 +5,6 @@ using Common.Net.Network;
 using Common.Net.Network.interfaces;
 using Common.Net.Properties;
 using LogUtils.Net;
-using System;
-using System.Collections.Generic;
 
 namespace BluetoothLE.Net.DataModels {
 
@@ -14,8 +12,8 @@ namespace BluetoothLE.Net.DataModels {
     /// <summary>Information particular to Bluetooth LE devices</summary>
     public class BluetoothLEDeviceInfo {
 
-        private ClassLog log = new ClassLog("BluetoothLEDeviceInfo");
-        private INetPropertyKeys? propertyKeys;
+        private readonly ClassLog log = new ("BluetoothLEDeviceInfo");
+        private readonly INetPropertyKeys? propertyKeys;
 
         public event EventHandler<StringProperyUpdate>? OnStringPropertyChanged;
         public event EventHandler<BoolProperyUpdate>? OnBoolPropertyChanged;

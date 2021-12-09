@@ -1,6 +1,5 @@
 ﻿using LanguageFactory.Net.data;
 using LogUtils.Net;
-using System.Collections.Generic;
 
 namespace LanguageFactory.Net.Messaging {
 

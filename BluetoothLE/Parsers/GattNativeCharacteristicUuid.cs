@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BluetoothLE.Net.Parsers {
+﻿namespace BluetoothLE.Net.Parsers {
 
     /// <summary>
     /// This enum is nice for finding a string representation of a BT SIG assigned value for Characteristic UUIDs

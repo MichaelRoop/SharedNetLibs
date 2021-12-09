@@ -13,7 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Parsers\Attributes\" />
     <Folder Include="Parsers\Services\" />
     <Folder Include="Storage\" />
   </ItemGroup>

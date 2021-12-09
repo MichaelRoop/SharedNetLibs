@@ -1,8 +1,5 @@
 ﻿using LanguageFactory.Net.data;
 using LanguageFactory.Net.Messaging;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace LanguageFactory.Net.Languages.ru {
 

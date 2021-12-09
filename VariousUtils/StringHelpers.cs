@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -29,7 +27,7 @@ namespace VariousUtils.Net {
         /// <param name="data">The data to display</param>
         /// <returns>String with 0x00,0x12 type format</returns>
         public static string ToHexByteString(this byte[] data) {
-            StringBuilder sb = new StringBuilder(data.Length + 10);
+            StringBuilder sb = new (data.Length + 10);
             for (int i = 0; i < data.Length; i++) {
                 sb.Append(string.Format("{0}0x{1:X2}", (i > 0 ? "," : ""), data[i]));
             }
@@ -56,10 +54,10 @@ namespace VariousUtils.Net {
 
         public static string CamelCaseToSpaces(this string data) {
             string[] pieces = Regex.Split(data, @"(?<!^)(?=[A-Z])");
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new ();
             for (int i = 0; i< pieces.Length; i++) {
                 if (i > 0) {
-                    sb.Append(" ");
+                    sb.Append(' ');
                 }
                 sb.Append(pieces[i]);
             }
@@ -96,28 +94,18 @@ namespace VariousUtils.Net {
 
 
         public static string ToExpFormat(this int exponent) {
-            switch (exponent) {
-                case -1:
-                    return "#######0.0";
-                case -2:
-                    return "#######0.00";
-                case -3:
-                    return "#######0.000";
-                case -4:
-                    return "#######0.0000";
-                case -5:
-                    return "#######0.00000";
-                case -6:
-                    return "#######0.000000";
-                case -7:
-                    return "#######0.0000000";
-                case -8:
-                    return "#######0.00000000";
-                case -9:
-                    return "#######0.000000000";
-                default:
-                    return "0";
-            }
+            return exponent switch {
+                -1 => "#######0.0",
+                -2 => "#######0.00",
+                -3 => "#######0.000",
+                -4 => "#######0.0000",
+                -5 => "#######0.00000",
+                -6 => "#######0.000000",
+                -7 => "#######0.0000000",
+                -8 => "#######0.00000000",
+                -9 => "#######0.000000000",
+                _ => "0",
+            };
         }
 
 
@@ -143,7 +131,7 @@ namespace VariousUtils.Net {
             Char[] arr = binary.ToCharArray();
             Array.Reverse(arr);
 
-            List<char> target = new List<char>();
+            List<char> target = new ();
             for (int i = 0; i < arr.Length; i++) {
                 if (i % 4 == 0) {
                     target.Add(' ');

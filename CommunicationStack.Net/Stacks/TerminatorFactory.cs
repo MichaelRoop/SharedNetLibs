@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using VariousUtils.Net;
+﻿using VariousUtils.Net;
 
 namespace CommunicationStack.Net.Stacks {
 
@@ -7,7 +6,7 @@ namespace CommunicationStack.Net.Stacks {
     public class TerminatorFactory {
 
         /// <summary>The terminator info list</summary>
-        private List<TerminatorInfo> items = new List<TerminatorInfo>();
+        private readonly List<TerminatorInfo> items = new ();
 
         /// <summary>The terminator info list exposed to user</summary>
         public List<TerminatorInfo> Items { get { return this.items; } }

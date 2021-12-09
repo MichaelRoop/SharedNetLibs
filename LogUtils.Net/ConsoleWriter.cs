@@ -1,6 +1,5 @@
 ﻿using ChkUtils.Net.ErrObjects;
 using LogUtils.Net.Interfaces;
-using System;
 
 namespace LogUtils.Net {
 
@@ -11,13 +10,11 @@ namespace LogUtils.Net {
     /// <copyright>July 2012 Michael Roop Used by permission</copyright> 
     public class ConsoleWriter {
 
-        Action<MsgLevel, ErrReport> onMsgLogged;
+        private readonly Action<MsgLevel, ErrReport> onMsgLogged;
         private bool connected = false;
+        private readonly IOS_ConsoleWriter writer;
 
-        I_OS_ConsoleWriter writer;
-
-
-        public ConsoleWriter(I_OS_ConsoleWriter writer) {
+        public ConsoleWriter(IOS_ConsoleWriter writer) {
             this.writer = writer;
             this.onMsgLogged = new Action<MsgLevel, ErrReport>(this.LogToConsole);
         }

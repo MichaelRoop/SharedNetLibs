@@ -2,7 +2,6 @@
 using BluetoothLE.Net.Enumerations;
 using Common.Net.Network;
 using CommunicationStack.Net.interfaces;
-using System;
 
 namespace BluetoothLE.Net.interfaces {
 

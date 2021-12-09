@@ -1,8 +1,6 @@
 ﻿using ChkUtils.Net;
 using ChkUtils.Net.ErrObjects;
 using LogUtils.Net;
-using System.Collections.Generic;
-using System.IO;
 
 namespace VariousUtils.Net {
 
@@ -10,7 +8,7 @@ namespace VariousUtils.Net {
 
         #region Data
 
-        private static ClassLog log = new ClassLog("FileHelpers");
+        //private readonly static ClassLog log = new ("FileHelpers");
 
         #endregion
 
@@ -59,8 +57,7 @@ namespace VariousUtils.Net {
         /// <param name="filename">The full path and file name to delete</param>
         /// <returns>true on success, otherwise false</returns>
         public static bool DeleteFile(string fullFileName) {
-            ErrReport report;
-            WrapErr.ToErrReport(out report, 9999,
+            WrapErr.ToErrReport(out ErrReport report, 9999,
                 () => string.Format("Failed to delete: {0}", fullFileName),
                 () => {
                     if (File.Exists(fullFileName)) {
@@ -85,8 +82,7 @@ namespace VariousUtils.Net {
         /// <param name="pattern">The pattern such as '*.txt' to delete</param>
         /// <returns>true on success, otherwise false</returns>
         public static bool DeleteFiles(string path, string pattern) {
-            ErrReport report;
-            WrapErr.ToErrReport(out report, 9999,
+            WrapErr.ToErrReport(out ErrReport report, 9999,
                 () => string.Format("Failed to delete files in {0} with pattern '{1}'", path, pattern),
                 () => {
                     if (Directory.Exists(path)) {
@@ -100,9 +96,8 @@ namespace VariousUtils.Net {
 
 
         public static List<string> GetFileList(string dir, bool includePath = false) {
-            List<string> results = new List<string>();
-            ErrReport report;
-            WrapErr.ToErrReport(out report, 9999,
+            List<string> results = new ();
+            WrapErr.ToErrReport(out ErrReport report, 9999,
                 () => string.Format("Failed to get file list from '{0}'", dir),
                 () => {
                     if (Directory.Exists(dir)) {

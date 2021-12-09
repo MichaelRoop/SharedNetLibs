@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CommunicationStack.Net.BinaryMsgs {
+﻿namespace CommunicationStack.Net.BinaryMsgs {
 
     /// <summary>Return the object as minimal display info</summary>
     public class BinaryMsgMinData {

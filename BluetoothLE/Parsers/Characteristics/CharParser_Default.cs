@@ -1,22 +1,19 @@
 ﻿using BluetoothLE.Net.Enumerations;
 using BluetoothLE.Net.Parsers.Descriptor;
+using BluetoothLE.Net.Parsers.Types;
 using LogUtils.Net;
-using System;
-using System.Linq;
-using System.Collections.Generic;
 using System.Text;
 using VariousUtils.Net;
-using BluetoothLE.Net.Parsers.Types;
 
 namespace BluetoothLE.Net.Parsers.Characteristics {
 
     /// <summary>For Characteristics not yet implemented to return byte string</summary>
     public class CharParser_Default : CharParser_Base {
 
-        private readonly ClassLog log = new ClassLog("CharParser_Default");
+        private readonly ClassLog log = new ("CharParser_Default");
 
         // This becomes list
-        private List<DescParser_PresentationFormat> formats = new List<DescParser_PresentationFormat>();
+        private readonly List<DescParser_PresentationFormat> formats = new ();
 
         protected override bool IsDataVariableLength { get; set; } = true;
 
@@ -42,9 +39,8 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                     int count = this.DescriptorParsers.Count(y => y.AttributeHandle == handle);
                     if (count == 1) {
                         // Found Descriptro, now check if Format Descriptor type
-                        DescParser_PresentationFormat? desc = this.DescriptorParsers.Find(
-                            x => x.AttributeHandle == handle) as DescParser_PresentationFormat;
-                        if (desc == null) {
+                        if (this.DescriptorParsers.Find(
+                            x => x.AttributeHandle == handle) is not DescParser_PresentationFormat desc) {
                             status = BLEOperationStatus.AggregateFormatHandleNotFormatType;
                             break;
                         }
@@ -66,21 +62,12 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
                 // Now validate the total count if no other error
                 if (status == BLEOperationStatus.Success) {
-                    switch (this.formats.Count) {
-                        case 0:
-                            // According to spec 0 Format Desc is legal
-                            // Mark as Reserved to display byte hex values
-                            this.DataType = BLE_DataType.Reserved;
-                            break;
-                        case 1:
-                            // Just assume the type of the one data type present
-                            this.DataType = this.formats[0].DataType;
-                            break;
-                        default:
-                            // We will display the results in a comma delimited string
-                            this.DataType = BLE_DataType.OpaqueStructure;
-                            break;
-                    }
+                    this.DataType = this.formats.Count switch {
+                        0 => BLE_DataType.Reserved,// According to spec 0 Format Desc is legal
+                                                   // Mark as Reserved to display byte hex values
+                        1 => this.formats[0].DataType,// Just assume the type of the one data type present
+                        _ => BLE_DataType.OpaqueStructure,// We will display the results in a comma delimited string
+                    };
                 }
             }
             else {
@@ -98,9 +85,8 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
                 foreach (var desc in this.DescriptorParsers) {
                     if (desc is DescParser_PresentationFormat) {
-                        DescParser_PresentationFormat? f = desc as DescParser_PresentationFormat;
                         // Not handling multiple presentation format descriptors and aggregage formating
-                        if (f != null) {
+                        if (desc is DescParser_PresentationFormat f) {
                             this.DataType = f.DataType;
                             this.formats.Add(f);
                         }
@@ -123,7 +109,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
             }
             else {
                 int pos = 0;
-                StringBuilder sb = new StringBuilder();
+                StringBuilder sb = new ();
                 foreach(var f in this.formats) {
                     if (pos > 0) {
                         sb.Append("  |  ");
@@ -152,9 +138,9 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
             }
             string unit = desc.MeasurementUnitsEnum.ToStr();
             if (unit.Length > 0) {
-                return string.Format("{0}{1}", this.ProcessData(desc, remainingBytes, ref pos, data), unit);
+                return string.Format("{0}{1}", this.ProcessData(desc, ref pos, data), unit);
             }
-            return this.ProcessData(desc, remainingBytes, ref pos, data);
+            return this.ProcessData(desc, ref pos, data);
 
 #if REMOVE
             
@@ -295,8 +281,8 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
         }
 
 
-        private string ProcessData(DescParser_PresentationFormat desc, int remainingBytes, ref int pos, byte[] data) {
-            byte[]? tmp = null;
+        private string ProcessData(DescParser_PresentationFormat desc, ref int pos, byte[] data) {
+            byte[]? tmp;
             int exp = desc.Exponent;
             this.DataType = ((uint)EnumHelpers.ToByte(desc.Format)).ToEnum<BLE_DataType>();
             switch (desc.Format) {
@@ -405,7 +391,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
                 case Enumerations.DataFormatEnum.UTF8_String:
                     // TODO - Copy from pos - but how long? Until end I expect
-                    remainingBytes = data.Length - pos;
+                    int remainingBytes = data.Length - pos;
                     tmp = new byte[remainingBytes];
                     Array.Copy(data, pos, tmp, 0, remainingBytes);
                     pos += remainingBytes;

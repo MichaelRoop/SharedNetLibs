@@ -1,5 +1,4 @@
 ﻿using ChkUtils.Net.ErrObjects;
-using System;
 
 namespace LogUtils.Net {
 

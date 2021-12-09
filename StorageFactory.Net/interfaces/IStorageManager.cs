@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace StorageFactory.Net.interfaces {
+﻿namespace StorageFactory.Net.interfaces {
 
     public interface IStorageManager<T> where T :class {
 

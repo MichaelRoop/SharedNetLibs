@@ -1,8 +1,6 @@
 ﻿using BluetoothLE.Net.Enumerations;
 using BluetoothLE.Net.interfaces;
 using BluetoothLE.Net.Parsers;
-using System;
-using System.Collections.Generic;
 
 namespace BluetoothLE.Net.DataModels {
 

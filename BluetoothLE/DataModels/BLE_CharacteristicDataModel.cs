@@ -4,8 +4,6 @@ using BluetoothLE.Net.Parsers;
 using BluetoothLE.Net.Parsers.Characteristics;
 using BluetoothLE.Net.Tools;
 using LogUtils.Net;
-using System;
-using System.Collections.Generic;
 
 namespace BluetoothLE.Net.DataModels {
 
@@ -18,8 +16,8 @@ namespace BluetoothLE.Net.DataModels {
 
         #region Data
 
-        BLERangeValidator validator = new BLERangeValidator();
-        ClassLog log = new ClassLog("BLE_CharacteristicDataModel");
+        private readonly BLERangeValidator validator = new ();
+        private readonly ClassLog log = new ("BLE_CharacteristicDataModel");
 
         #endregion
 
@@ -78,7 +76,7 @@ namespace BluetoothLE.Net.DataModels {
 
         /// <summary>Bind the Characteristic parser with Descriptor parsers after both set</summary>
         public BLEOperationStatus SetDescriptorParsers() {
-            List<IDescParser> descParsers = new List<IDescParser>();
+            List<IDescParser> descParsers = new ();
             foreach (var des in this.Descriptors) {
                 descParsers.Add(des.Parser);
             }
@@ -111,7 +109,7 @@ namespace BluetoothLE.Net.DataModels {
         /// <summary>Get data type and range information to display to user</summary>
         /// <returns>The data type display info for the Characteristic</returns>
         public DataTypeDisplay GetDataDisplayInfo() {
-            return this.validator.GetRange(this.Parser.DataType);
+            return BLERangeValidator.GetRange(this.Parser.DataType);
         }
 
 

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace BluetoothLE.Net.Enumerations {
 
-namespace BluetoothLE.Net.Enumerations {
-    
     /// <summary>From BLE specs
     /// 
     /// </summary>

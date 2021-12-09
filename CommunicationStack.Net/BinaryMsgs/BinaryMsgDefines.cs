@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CommunicationStack.Net.BinaryMsgs {
+﻿namespace CommunicationStack.Net.BinaryMsgs {
 
     public static class BinaryMsgDefines {
 
         #region Data
 
-        private static byte[] startDelimiters = new byte[] { BinaryMsgDefines.SOH, BinaryMsgDefines.STX };
-        private static byte[] endDelimiters = new byte[] { BinaryMsgDefines.ETX, BinaryMsgDefines.EOT };
+        private readonly static byte[] startDelimiters = new byte[] { BinaryMsgDefines.SOH, BinaryMsgDefines.STX };
+        private readonly static byte[] endDelimiters = new byte[] { BinaryMsgDefines.ETX, BinaryMsgDefines.EOT };
 
         #endregion
 

@@ -1,5 +1,4 @@
 ﻿using BluetoothLE.Net.Enumerations;
-using System;
 using System.Text;
 
 namespace BluetoothLE.Net.Parsers.Characteristics {
@@ -12,7 +11,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
 
         protected override void DoParse(byte[] data) {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new ();
             // org.bluetooth.characteristic.dst_offset
             // Byte 2 Daylight savings uint8_t 0-8
             switch (Convert.ToInt32(data[0])) {

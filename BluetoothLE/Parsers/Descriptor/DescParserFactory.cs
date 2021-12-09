@@ -2,7 +2,6 @@
 using ChkUtils.Net;
 using ChkUtils.Net.ErrObjects;
 using LogUtils.Net;
-using System;
 
 namespace BluetoothLE.Net.Parsers.Descriptor {
 
@@ -11,51 +10,33 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
 
         #region Data
 
-        private ClassLog log = new ClassLog("DescParserFactory");
+        private readonly ClassLog log = new ("DescParserFactory");
 
         #endregion
 
 
         public IDescParser GetParser(Guid descriptorUuid, UInt16 handle) {
-            ErrReport report;
-            IDescParser parser = WrapErr.ToErrReport<IDescParser>(out report, 9999, 
+            IDescParser parser = WrapErr.ToErrReport<IDescParser>(out ErrReport report, 9999, 
                 () => string.Format("Failed to find descriptor parser"), 
                 () => {
                     if (BLE_ParseHelpers.IsSigDefinedUuid(descriptorUuid)) {
-                        GattNativeDescriptorUuid descriptorEnum;
-                        if (Enum.TryParse(descriptorUuid.ToUShortId().ToString(), out descriptorEnum)) {
-                            switch (descriptorEnum) {
-                                case GattNativeDescriptorUuid.CharacteristicExtendedProperties:
-                                    return new DescParser_CharacteristicExtendedProperties();
-                                case GattNativeDescriptorUuid.CharacteristicUserDescription:
-                                    return new DescParser_UserDescription();
-                                case GattNativeDescriptorUuid.ClientCharacteristicConfiguration:
-                                    return new DescParser_ClientCharacteristicConfig();
-                                case GattNativeDescriptorUuid.ServerCharacteristicConfiguration:
-                                    return new DescParser_ServerCharacteristicConfig();
-                                case GattNativeDescriptorUuid.CharacteristicPresentationFormat:
-                                    return new DescParser_PresentationFormat();
-                                case GattNativeDescriptorUuid.CharacteristicAggregateFormat:
-                                    return new DescParser_CharacteristicAggregateFormat();
-                                case GattNativeDescriptorUuid.ValidRange:
-                                    return new DescParser_ValidRange();
-                                case GattNativeDescriptorUuid.ExternalReportReference:
-                                    return new DescParser_Default(); // TODO implement ***
-                                case GattNativeDescriptorUuid.ReportReference:
-                                    return new DescParser_ReportReference();
-                                case GattNativeDescriptorUuid.NumberOfDigitals:
-                                    return new DescParser_NumberDigitals();
-                                case GattNativeDescriptorUuid.ValueTriggerSetting:
-                                    return new DescParser_Default(); // TODO implement ***
-                                case GattNativeDescriptorUuid.EnvironmentalSensingConfiguration:
-                                case GattNativeDescriptorUuid.EnvironmentalSensingMeasurement:
-                                case GattNativeDescriptorUuid.EnvironmentalSensingTriggerSetting:
-                                    return new DescParser_Default(); // TODO implement ***
-                                case GattNativeDescriptorUuid.TimeTriggerSetting:
-                                    return new DescParser_TimeTriggerSetting();
-                                default:
-                                    return new DescParser_Default();
-                            }
+                        if (Enum.TryParse(descriptorUuid.ToUShortId().ToString(), out GattNativeDescriptorUuid descriptorEnum)) {
+                            return descriptorEnum switch {
+                                GattNativeDescriptorUuid.CharacteristicExtendedProperties => new DescParser_CharacteristicExtendedProperties(),
+                                GattNativeDescriptorUuid.CharacteristicUserDescription => new DescParser_UserDescription(),
+                                GattNativeDescriptorUuid.ClientCharacteristicConfiguration => new DescParser_ClientCharacteristicConfig(),
+                                GattNativeDescriptorUuid.ServerCharacteristicConfiguration => new DescParser_ServerCharacteristicConfig(),
+                                GattNativeDescriptorUuid.CharacteristicPresentationFormat => new DescParser_PresentationFormat(),
+                                GattNativeDescriptorUuid.CharacteristicAggregateFormat => new DescParser_CharacteristicAggregateFormat(),
+                                GattNativeDescriptorUuid.ValidRange => new DescParser_ValidRange(),
+                                GattNativeDescriptorUuid.ExternalReportReference => new DescParser_Default(),// TODO implement ***
+                                GattNativeDescriptorUuid.ReportReference => new DescParser_ReportReference(),
+                                GattNativeDescriptorUuid.NumberOfDigitals => new DescParser_NumberDigitals(),
+                                GattNativeDescriptorUuid.ValueTriggerSetting => new DescParser_Default(),// TODO implement ***
+                                GattNativeDescriptorUuid.EnvironmentalSensingConfiguration or GattNativeDescriptorUuid.EnvironmentalSensingMeasurement or GattNativeDescriptorUuid.EnvironmentalSensingTriggerSetting => new DescParser_Default(),// TODO implement ***
+                                GattNativeDescriptorUuid.TimeTriggerSetting => new DescParser_TimeTriggerSetting(),
+                                _ => new DescParser_Default(),
+                            };
                         }
                         else {
                             this.log.Error(9999, "GetParser", () => 

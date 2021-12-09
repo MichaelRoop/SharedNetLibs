@@ -1,5 +1,4 @@
 ﻿using BluetoothLE.Net.Parsers.Characteristics;
-using System;
 using System.Text;
 using VariousUtils.Net;
 
@@ -7,8 +6,8 @@ namespace BluetoothLE.Net.Parsers.Types {
 
     public class TypeParserDayDateTime : CharParser_Base {
 
-        private TypeParserDateTime dateTime = new TypeParserDateTime();
-        private TypeParserDayOfWeek dayOfWeek = new TypeParserDayOfWeek();
+        private readonly TypeParserDateTime dateTime = new ();
+        private readonly TypeParserDayOfWeek dayOfWeek = new ();
 
         public DayOfWeek Day { get {  return this.dayOfWeek.Day; } }
 
@@ -24,9 +23,9 @@ namespace BluetoothLE.Net.Parsers.Types {
             int pos = 0;
             byte[] dtBlock = data.ToByteArray(this.dateTime.RequiredBytes, ref pos);
             byte[] dowBlock = data.ToByteArray(this.dayOfWeek.RequiredBytes, ref pos);
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new ();
             sb.Append(this.dayOfWeek.Parse(dowBlock))
-                .Append(" ")
+                .Append(' ')
                 .Append(this.dateTime.Parse(dtBlock));
             this.DisplayString = sb.ToString();
         }

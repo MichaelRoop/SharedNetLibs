@@ -1,6 +1,5 @@
 ﻿using BluetoothLE.Net.Enumerations;
 using LogUtils.Net;
-using System;
 using System.Text;
 using VariousUtils.Net;
 
@@ -8,7 +7,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
     public class CharParser_Appearance : CharParser_Base {
 
-        private readonly ClassLog log = new ClassLog("CharParser_Appearance");
+        private readonly ClassLog log = new ("CharParser_Appearance");
 
         public override int RequiredBytes { get; protected set; } = UINT16_LEN;
 
@@ -30,8 +29,8 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
             this.Category = this.Raw & catMask;
             this.SubCategory = this.Raw & subMask;
 
-            StringBuilder sb = new StringBuilder();
-            sb.Append(this.Category).Append(",").Append(this.SubCategory);
+            StringBuilder sb = new ();
+            sb.Append(this.Category).Append(',').Append(this.SubCategory);
             this.DisplayString = sb.ToString();
             this.log.Info("DoParse", () =>
                 string.Format("{0} from {1} ({2})", this.DisplayString, this.Raw, data.ToFormatedByteString()));

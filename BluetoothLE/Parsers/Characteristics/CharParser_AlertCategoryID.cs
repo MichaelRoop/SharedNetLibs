@@ -9,41 +9,19 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
         public override BLE_DataType DataType => BLE_DataType.UInt_8bit;
 
         protected override void DoParse(byte[] data) {
-            switch (data[0]) {
-                case 0:
-                    this.DisplayString = "Simple Alert";
-                    break;
-                case 1:
-                    this.DisplayString = "Email";
-                    break;
-                case 2:
-                    this.DisplayString = "News";
-                    break;
-                case 3:
-                    this.DisplayString = "Incoming call";
-                    break;
-                case 4:
-                    this.DisplayString = "Missed call";
-                    break;
-                case 5:
-                    this.DisplayString = "SMS/MMS arrives";
-                    break;
-                case 6:
-                    this.DisplayString = "Voice mail";
-                    break;
-                case 7:
-                    this.DisplayString = "Scheduler";
-                    break;
-                case 8:
-                    this.DisplayString = "High Prioritized";
-                    break;
-                case 9:
-                    this.DisplayString = "Instant Message";
-                    break;
-                default:
-                    this.DisplayString = "Unknown";
-                    break;
-            }
+            this.DisplayString = data[0] switch {
+                0 => "Simple Alert",
+                1 => "Email",
+                2 => "News",
+                3 => "Incoming call",
+                4 => "Missed call",
+                5 => "SMS/MMS arrives",
+                6 => "Voice mail",
+                7 => "Scheduler",
+                8 => "High Prioritized",
+                9 => "Instant Message",
+                _ => "Unknown",
+            };
         }
 
     }

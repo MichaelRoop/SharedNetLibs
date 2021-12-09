@@ -1,5 +1,4 @@
 ﻿using ChkUtils.Net.ExceptionParsers;
-using System;
 using System.Text;
 
 namespace ChkUtils.Net.ExceptionFormating {

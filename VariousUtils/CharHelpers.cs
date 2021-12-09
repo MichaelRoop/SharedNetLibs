@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace VariousUtils.Net {
+﻿namespace VariousUtils.Net {
     public static class CharHelpers {
 
 

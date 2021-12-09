@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CommunicationStack.Net.interfaces {
+﻿namespace CommunicationStack.Net.interfaces {
 
     /// <summary>Minimal interface for comm channels to implement to be used with stack</summary>
     public interface ICommStackChannel {

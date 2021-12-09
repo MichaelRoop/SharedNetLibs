@@ -1,6 +1,5 @@
 ﻿using BluetoothLE.Net.Enumerations;
 using LogUtils.Net;
-using System;
 using VariousUtils.Net;
 
 namespace BluetoothLE.Net.Parsers.Descriptor {
@@ -17,7 +16,7 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
     /// </remarks>
     public class DescParser_ClientCharacteristicConfig : DescParser_Base {
         
-        private readonly ClassLog log = new ClassLog("DescParser_ClientCharacteristicConfig");
+        private readonly ClassLog log = new ("DescParser_ClientCharacteristicConfig");
 
         public EnabledDisabled Notifications { get; set; } = EnabledDisabled.Enabled;
         public EnabledDisabled Indications { get; set; } = EnabledDisabled.Enabled;

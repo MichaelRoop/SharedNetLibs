@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace ChkUtils.Net.Interfaces {
+﻿namespace ChkUtils.Net.Interfaces {
 
     /// <summary>Interface to calls that must be compiled in OS specific libraries for parsing the stack</summary>
     public interface IStackTools {

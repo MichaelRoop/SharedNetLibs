@@ -1,15 +1,13 @@
 ﻿using BluetoothLE.Net.Parsers.Characteristics;
 using LogUtils.Net;
-using System;
 using VariousUtils.Net;
 
 namespace BluetoothLE.Net.Parsers.Types {
 
     public class TypeParserDateTime : CharParser_Base {
 
-        private ClassLog log = new ClassLog("TypeParser_DateTime");
-
-        private TypeParserYear yearParser = new TypeParserYear();
+        private readonly ClassLog log = new ("TypeParser_DateTime");
+        private readonly TypeParserYear yearParser = new ();
 
         public DateTime Value { get; private set; } = DateTime.Now;
 
@@ -26,7 +24,7 @@ namespace BluetoothLE.Net.Parsers.Types {
                 byte hour = data.ToByte(ref pos);
                 byte minutes = data.ToByte(ref pos);
                 byte seconds = data.ToByte(ref pos);
-                if (this.Validate(month, day, hour, minutes, seconds)) {
+                if (Validate(month, day, hour, minutes, seconds)) {
                     try {
                         this.Value = new DateTime(this.yearParser.Year, month, day, hour, minutes, seconds, DateTimeKind.Local);
                         this.DisplayString =
@@ -58,7 +56,7 @@ namespace BluetoothLE.Net.Parsers.Types {
         }
 
 
-        private bool Validate(byte month, byte day, byte hour, byte minutes, byte seconds) {
+        private static bool Validate(byte month, byte day, byte hour, byte minutes, byte seconds) {
             if (month.IsMonthValid() &&
                 day.IsDayValid() && hour.IsHourValid()&&
                 minutes.IsMinuteValid() && seconds.IsSecondsValid()) {

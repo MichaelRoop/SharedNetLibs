@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ChkUtils.Net.ExceptionParsers {
+﻿namespace ChkUtils.Net.ExceptionParsers {
 
     /// <summary>
     /// Default exception parser

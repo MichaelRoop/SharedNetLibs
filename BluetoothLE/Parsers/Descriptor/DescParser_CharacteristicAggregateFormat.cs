@@ -1,6 +1,4 @@
 ﻿using LogUtils.Net;
-using System;
-using System.Collections.Generic;
 using System.Text;
 using VariousUtils.Net;
 
@@ -10,7 +8,7 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
     /// </summary>
     public class DescParser_CharacteristicAggregateFormat :DescParser_Base {
 
-        private ClassLog log = new ClassLog("DescParser_CharacteristicAggregateFormat");
+        private readonly ClassLog log = new ("DescParser_CharacteristicAggregateFormat");
 
 
         /// <summary>List of attribute handles</summary>
@@ -32,7 +30,7 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
                 this.AttributeHandles.Add(data.ToUint16(ref pos));
             }
 
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new ();
             sb.Append("Aggregate Format - Format Handles (");
             bool first = true;
             foreach (ushort val in this.AttributeHandles) {
@@ -44,7 +42,7 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
                 }
                 sb.Append(val);
             }
-            sb.Append(")");
+            sb.Append(')');
             this.DisplayString = sb.ToString();
             this.log.Info("DoParse", this.DisplayString);
         }

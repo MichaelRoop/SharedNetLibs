@@ -1,7 +1,4 @@
-﻿
-using System;
-
-namespace LogUtils.Net {
+﻿namespace LogUtils.Net {
 
     /// <summary>
     /// Used to set the message level as well as the verbosity level to log
@@ -62,7 +59,7 @@ namespace LogUtils.Net {
         /// <summary>
         /// Short form of the above levels. Warning, it must match order and number
         /// </summary>
-        private static string[] shortName = new string[] { "I", "D", "W", "E", "C", "X", "O" };
+        private readonly static string[] shortName = new string[] { "I", "D", "W", "E", "C", "X", "O" };
 
         /// <summary>
         /// Returns the one letter equivalent of the level name

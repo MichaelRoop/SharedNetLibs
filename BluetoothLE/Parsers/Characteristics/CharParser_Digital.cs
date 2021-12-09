@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BluetoothLE.Net.Parsers.Characteristics {
+﻿namespace BluetoothLE.Net.Parsers.Characteristics {
 
     public class CharParser_Digital : CharParser_Base {
 

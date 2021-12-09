@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BluetoothLE.Net.Enumerations {
+﻿namespace BluetoothLE.Net.Enumerations {
 
     /// <summary>Portable implementation of location on panel</summary>
     public enum BLE_DevicePanelLocation {
