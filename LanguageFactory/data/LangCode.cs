@@ -26,7 +26,7 @@
         Indonesian,
         Marathi,
         Punjabi,
-
+        Catalan,
 
 
         // Always last. For testing only

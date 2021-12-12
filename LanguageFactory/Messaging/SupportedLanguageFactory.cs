@@ -4,6 +4,7 @@ using LanguageFactory.Net.data;
 using LanguageFactory.Net.interfaces;
 using LanguageFactory.Net.Languages.ar;
 using LanguageFactory.Net.Languages.bn;
+using LanguageFactory.Net.Languages.ca;
 using LanguageFactory.Net.Languages.cn;
 using LanguageFactory.Net.Languages.cz;
 using LanguageFactory.Net.Languages.de;
@@ -152,6 +153,7 @@ namespace LanguageFactory.Net.Messaging {
         private void LoadLanguages() {
             this.LoadLanguage(new Arabic());    // earabiin - arabionne
             this.LoadLanguage(new Bengali());   // pronounced Bangla
+            this.LoadLanguage(new Catalan());   // Català - north east Spain
             this.LoadLanguage(new Czech());     // Chez - pronounced seksha
             this.LoadLanguage(new English());   // English
             this.LoadLanguage(new Spanish());   // Espanol
