@@ -3,10 +3,7 @@ using ChkUtils.Net.ErrObjects;
 using ChkUtils.Net.Interfaces;
 using LogUtils.Net;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Threading;
 
 namespace TestCaseSupport.Core {
 
@@ -20,11 +17,11 @@ namespace TestCaseSupport.Core {
 
         #region Data
 
-        List<ErrReport> errors = new List<ErrReport>();
+        private readonly List<ErrReport> errors = new ();
 
-        NUnitTraceWriter consoleWriter = new NUnitTraceWriter();
+        private readonly NUnitTraceWriter consoleWriter = new ();
 
-        LogingMsgEventDelegate? myLogReadDelegate = null;
+        private readonly LogingMsgEventDelegate? myLogReadDelegate = null;
 
         bool isStarted = false;
 
@@ -162,7 +159,7 @@ namespace TestCaseSupport.Core {
         /// Set level message needs before being logged
         /// </summary>
         /// <param name="level">Required level</param>
-        public void SetVerbosity(MsgLevel level) {
+        public static void SetVerbosity(MsgLevel level) {
             Log.SetVerbosity(level);
         }
 
@@ -171,7 +168,7 @@ namespace TestCaseSupport.Core {
         /// Set the threshold of messages needing to be logged before dump thread is woken
         /// </summary>
         /// <param name="numberOfMsgBeforeDumpToLog"></param>
-        public void SetLogThreshold(int numberOfMsgBeforeDumpToLog) {
+        public static void SetLogThreshold(int numberOfMsgBeforeDumpToLog) {
             Log.SetMsgNumberThreshold(numberOfMsgBeforeDumpToLog);
         }
 

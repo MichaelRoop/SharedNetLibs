@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace TestCaseSupport.Core {
 
@@ -7,7 +6,7 @@ namespace TestCaseSupport.Core {
 
         #region Data
 
-        protected HelperLogReader logReader = new HelperLogReader();
+        protected HelperLogReader logReader = new ();
 
         #endregion
 

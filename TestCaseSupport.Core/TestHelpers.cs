@@ -21,7 +21,7 @@ namespace TestCaseSupport.Core {
         #region Test Wrappers
 
         public static void CatchUnexpected(Action action) {
-            ErrReport err = new ErrReport();
+            ErrReport err = new ();
             WrapErr.ToErrReport(out err, -1, "Unexpected Error running Test", () => {
                 action.Invoke();
             });
@@ -32,7 +32,7 @@ namespace TestCaseSupport.Core {
         }
 
         public static ErrReport CatchExpected(int code, string atClass, string atMethod, string msg, Action action) {
-            ErrReport err = new ErrReport();
+            ErrReport err = new ();
             WrapErr.ToErrReport(out err, -999999, "Unexpected Error running Test", () => {
                 action.Invoke();
             });
