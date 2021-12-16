@@ -1,8 +1,4 @@
 ﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using TestCaseSupport.Core;
 using VariousUtils.Net;
 
@@ -11,6 +7,7 @@ namespace TestCases.Core.VariousUtilsTests.Net {
 
     [TestFixture]
     public class BitToolsTests : TestCaseBase {
+#pragma warning disable CA1822 // Mark members as static
 
         #region Setup
 
@@ -168,18 +165,15 @@ namespace TestCases.Core.VariousUtilsTests.Net {
         /// <param name="values">Byte array to translate</param>
         /// <returns>List of bools least significant first</returns>
         private List<bool> FromVisualArray(byte[] values) {
-            // need to reverse to process the last entered linear as least significant
-            List<bool> arr = new List<bool>(values.Length);
-            for (int i = values.Count() - 1; i >= 0; i--) {
-                arr.Add(values[i] == 0 ? false : true);
+                              // need to reverse to process the last entered linear as least significant
+            List<bool> arr = new (values.Length);
+            for (int i = values.Length - 1; i >= 0; i--) {
+                arr.Add(values[i] != 0);
             }
             return arr;
         }
 
-
-
-
-
+#pragma warning restore CA1822 // Mark members as static
 
     }
 

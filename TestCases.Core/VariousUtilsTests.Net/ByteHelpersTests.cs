@@ -1,7 +1,6 @@
 ﻿using CommunicationStack.Net.Stacks;
 using LogUtils.Net;
 using NUnit.Framework;
-using System;
 using System.Diagnostics;
 using System.Text;
 using TestCaseSupport.Core;
@@ -12,11 +11,11 @@ namespace TestCases.VariousUtilsTests.Net {
     [TestFixture]
     public class ByteHelpersTests : TestCaseBase {
 
-        byte[] newLine = "\n".ToAsciiByteArray();
-        byte[] carReturn = "\r".ToAsciiByteArray();
-        byte[] crln = "\r\n".ToAsciiByteArray();
-        byte[] crlntab = "\r\n\t".ToAsciiByteArray();
-        ClassLog log = new ClassLog("ByteHelpersTests");
+        //private readonly byte[] newLine = "\n".ToAsciiByteArray();
+        private readonly byte[] carReturn = "\r".ToAsciiByteArray();
+        private readonly byte[] crln = "\r\n".ToAsciiByteArray();
+        private readonly byte[] crlntab = "\r\n\t".ToAsciiByteArray();
+        private readonly ClassLog log = new ("ByteHelpersTests");
 
         #region Setup
 
@@ -38,7 +37,7 @@ namespace TestCases.VariousUtilsTests.Net {
 
 
         [Test]
-        public void xBytePatternTests() {
+        public void XBytePatternTests() {
             TestHelpers.CatchUnexpected(() => {
                 this.log.InfoEntry("xBytePatternTests");
 
@@ -198,9 +197,9 @@ namespace TestCases.VariousUtilsTests.Net {
 
         [Test]
         public void ByteQueueTests() {
-            CommCharInByteQueue q = new CommCharInByteQueue(crln);
+            CommCharInByteQueue q = new (crln);
             int count = 0;
-            byte[] msg = new byte[0];
+            byte[] msg = Array.Empty<byte>();
             q.MsgReceived += (sender, data) => {
                 Log.Info("***", "***", () => string.Format("data:{0}", data));
                 count++;
@@ -221,7 +220,7 @@ namespace TestCases.VariousUtilsTests.Net {
             byte[] expected = "This is a new message".ToAsciiByteArray();
             Assert.AreEqual(expected, msg, "Message contents");
             count = 0;
-            msg = new byte[0];
+            msg = Array.Empty<byte>();
 
             q.AddBytes(crln);
             Assert.AreEqual(0, count, "Should not have msg with only terminator pushed");
@@ -261,8 +260,8 @@ namespace TestCases.VariousUtilsTests.Net {
                 // 10 bits = category     - bits 6-15
                 uint uCatMask = 65534; // 1111 1111 1100 0000 
                 uint uSubMask = 63;    // 0000 0000 0011 1111
-                StringBuilder sb = new StringBuilder();
-                sb.Append((raw & uCatMask)).Append(",").Append((raw & uSubMask));
+                StringBuilder sb = new ();
+                sb.Append((raw & uCatMask)).Append(',').Append((raw & uSubMask));
                 string val = sb.ToString();
                 this.log.Info("BitMaskingTest", () => string.Format("{0} ({1})  from bytes {2}", val, raw, data.ToFormatedByteString()));
             });
