@@ -1,6 +1,5 @@
 ﻿using SpStateMachine.Net.Core;
 using SpStateMachine.Net.Interfaces;
-using TestCases.SpStateMachineTests.TestImplementations.States;
 
 namespace TestCases.SpStateMachineTests.TestImplementations.SuperStates.CascadeOnExit {
 
@@ -10,7 +9,7 @@ namespace TestCases.SpStateMachineTests.TestImplementations.SuperStates.CascadeO
             : base(parent, MyStateID.Level2, dataClass) {
 
             MySuperState level3Ss = new Level3Ss(this, dataClass);
-            MyState active = new ActiveSt(this, dataClass);
+            //MyState active = new ActiveSt(this, dataClass);
 
             this.AddSubState(level3Ss);
             //this.AddSubState(active);

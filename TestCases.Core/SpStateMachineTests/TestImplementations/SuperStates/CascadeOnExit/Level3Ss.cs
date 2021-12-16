@@ -2,16 +2,10 @@
 using SpStateMachine.Net.Converters;
 using SpStateMachine.Net.Core;
 using SpStateMachine.Net.Interfaces;
-using System;
 using TestCases.SpStateMachineTests.TestImplementations.Messages;
 using TestCases.SpStateMachineTests.TestImplementations.States;
 
 namespace TestCases.SpStateMachineTests.TestImplementations.SuperStates.CascadeOnExit {
-
-
-
-
-
 
     public class Level3Ss : MySuperState {
 
@@ -86,7 +80,7 @@ namespace TestCases.SpStateMachineTests.TestImplementations.SuperStates.CascadeO
 
     public class Level2Idle : MyState {
 
-        private string className = "Level2Idle";
+        private readonly ClassLog log = new ("Level2Idle");
 //        private int triggerCount = 0;
 
 
@@ -95,22 +89,22 @@ namespace TestCases.SpStateMachineTests.TestImplementations.SuperStates.CascadeO
         }
 
         protected override ISpEventMessage ExecOnEntry(ISpEventMessage msg) {
-            Log.Info(this.className, "ExecOnEntry", "");
+            this.log.Info("ExecOnEntry", "");
             return base.ExecOnEntry(msg);
         }
 
         protected override ISpEventMessage ExecOnTick(ISpEventMessage msg) {
-            Log.Info(this.className, "ExecOnTick", String.Format("With event:{0}", this.GetCachedEventId(msg.EventId)));
+            this.log.Info("ExecOnTick", String.Format("With event:{0}", this.GetCachedEventId(msg.EventId)));
             if (SpConverter.IntToEnum<MyMsgId>(msg.EventId) == MyMsgId.Abort) {
-                Log.Info(this.className, "ExecOnTick", String.Format("Exiting with event {0}", MyMsgId.ExitAborted));
+                this.log.Info("ExecOnTick", String.Format("Exiting with event {0}", MyMsgId.ExitAborted));
                 return ExecOnEntry(new MyBaseMsg(MyMsgType.SimpleResponse, MyMsgId.ExitAborted));
             }
-            Log.Info(this.className, "ExecOnTick", "Exiting with default event");
+            this.log.Info("ExecOnTick", "Exiting with default event");
             return base.ExecOnEntry(msg);
         }
 
         protected override void ExecOnExit() {
-            Log.Info(this.className, "ExecOnExit", "");
+            this.log.Info("ExecOnExit", "");
             base.ExecOnExit();
         }
 

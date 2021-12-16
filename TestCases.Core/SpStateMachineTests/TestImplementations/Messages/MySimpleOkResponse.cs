@@ -32,10 +32,6 @@ namespace TestCases.SpStateMachineTests.TestImplementations.Messages {
                 this.ReturnStatus = status;
                 this.Uid = msg.Uid;
         }
-
-
-
-        
         
     }
 }
