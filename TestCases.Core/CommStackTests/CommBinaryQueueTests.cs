@@ -2,8 +2,6 @@
 using CommunicationStack.Net.interfaces;
 using CommunicationStack.Net.Stacks;
 using NUnit.Framework;
-using System;
-using System.Threading;
 using TestCaseSupport.Core;
 
 namespace TestCases.Core.CommStackTests {
@@ -13,7 +11,7 @@ namespace TestCases.Core.CommStackTests {
 
         #region Data
 
-        int waitMs = 5;
+        private readonly int waitMs = 5;
 
         public class MyComm : ICommStackChannel {
             public event EventHandler<byte[]>? MsgReceivedEvent;
@@ -26,8 +24,8 @@ namespace TestCases.Core.CommStackTests {
 
         }
 
-        ICommStackLevel0 stack = new CommBinaryStackLevel0();
-        MyComm myComm = new MyComm();
+        private readonly ICommStackLevel0 stack = new CommBinaryStackLevel0();
+        private readonly MyComm myComm = new ();
 
         #endregion
 
@@ -57,7 +55,7 @@ namespace TestCases.Core.CommStackTests {
             TestHelpers.CatchUnexpected(() => {
                 bool gotIt = false;
                 int length = 0;
-                BinaryMsgUInt16 msg = new BinaryMsgUInt16(16, 32111);
+                BinaryMsgUInt16 msg = new (16, 32111);
                 byte[] packet = msg.ToByteArray();
                 this.stack.MsgReceived += (sender, data) => {
                     gotIt = true;
@@ -80,7 +78,7 @@ namespace TestCases.Core.CommStackTests {
 
                 bool gotIt = false;
                 int length = 0;
-                BinaryMsgUInt16 msg = new BinaryMsgUInt16(16, 32111);
+                BinaryMsgUInt16 msg = new (16, 32111);
                 byte[] packet = msg.ToByteArray();
                 byte[] part1 = new byte[4];
                 byte[] part2 = new byte[packet.Length - 4];
@@ -109,7 +107,7 @@ namespace TestCases.Core.CommStackTests {
             TestHelpers.CatchUnexpected(() => {
                 bool gotIt = false;
                 int length = 0;
-                BinaryMsgUInt16 msg = new BinaryMsgUInt16(16, 32111);
+                BinaryMsgUInt16 msg = new (16, 32111);
                 byte[] packet = msg.ToByteArray();
                 this.stack.MsgReceived += (sender, data) => {
                     gotIt = true;
@@ -134,9 +132,9 @@ namespace TestCases.Core.CommStackTests {
         [Test]
         public void BinaryMsg01_04PopFromQueue_DoublePacketIn() {
             TestHelpers.CatchUnexpected(() => {
-                BinaryMsgUInt16 msg1 = new BinaryMsgUInt16(16, 32111);
+                BinaryMsgUInt16 msg1 = new (16, 32111);
                 byte[] packet1 = msg1.ToByteArray();
-                BinaryMsgUInt16 msg2 = new BinaryMsgUInt16(16, 311);
+                BinaryMsgUInt16 msg2 = new (16, 311);
                 byte[] packet2 = msg2.ToByteArray();
 
                 byte[] packet = new byte[packet1.Length + packet2.Length];
@@ -172,7 +170,7 @@ namespace TestCases.Core.CommStackTests {
         [Test]
         public void BinaryMsg02_01ObjectFromPacketBool() {
             TestHelpers.CatchUnexpected(() => {
-                BinaryMsgBool msg = new BinaryMsgBool(22, true);
+                BinaryMsgBool msg = new (22, true);
                 byte[] packet = msg.ToByteArray();
                 byte[] returnedPacket = this.GetQueuePopData(packet);
                 BinaryMsgBool? received = returnedPacket.ToBoolMsg();
@@ -183,7 +181,7 @@ namespace TestCases.Core.CommStackTests {
         [Test]
         public void BinaryMsg02_02ObjectFromPacketUInt8() {
             TestHelpers.CatchUnexpected(() => {
-                BinaryMsgUInt8 msg = new BinaryMsgUInt8(16, 202);
+                BinaryMsgUInt8 msg = new (16, 202);
                 byte[] packet = msg.ToByteArray();
                 byte[] returnedPacket = this.GetQueuePopData(packet);
                 BinaryMsgUInt8? received = returnedPacket.ToUInt8Msg();
@@ -194,7 +192,7 @@ namespace TestCases.Core.CommStackTests {
         [Test]
         public void BinaryMsg02_03ObjectFromPacketInt8() {
             TestHelpers.CatchUnexpected(() => {
-                BinaryMsgInt8 msg = new BinaryMsgInt8(6, 122);
+                BinaryMsgInt8 msg = new (6, 122);
                 byte[] packet = msg.ToByteArray();
                 byte[] returnedPacket = this.GetQueuePopData(packet);
                 BinaryMsgInt8? received = returnedPacket.ToInt8Msg();
@@ -206,7 +204,7 @@ namespace TestCases.Core.CommStackTests {
         [Test]
         public void BinaryMsg02_04ObjectFromPacketUInt16() {
             TestHelpers.CatchUnexpected(() => {
-                BinaryMsgUInt16 msg = new BinaryMsgUInt16(16, 32111);
+                BinaryMsgUInt16 msg = new (16, 32111);
                 byte[] packet = msg.ToByteArray();
                 byte[] returnedPacket = this.GetQueuePopData(packet);
                 BinaryMsgUInt16? received = returnedPacket.ToUInt16Msg();
@@ -217,7 +215,7 @@ namespace TestCases.Core.CommStackTests {
         [Test]
         public void BinaryMsg02_05ObjectFromPacketInt16() {
             TestHelpers.CatchUnexpected(() => {
-                BinaryMsgInt16 msg = new BinaryMsgInt16(6, 3211);
+                BinaryMsgInt16 msg = new (6, 3211);
                 byte[] packet = msg.ToByteArray();
                 byte[] returnedPacket = this.GetQueuePopData(packet);
                 BinaryMsgInt16? received = returnedPacket.ToInt16Msg();
@@ -228,7 +226,7 @@ namespace TestCases.Core.CommStackTests {
         [Test]
         public void BinaryMsg02_06ObjectFromPacketUInt32() {
             TestHelpers.CatchUnexpected(() => {
-                BinaryMsgUInt32 msg = new BinaryMsgUInt32(1, 62111);
+                BinaryMsgUInt32 msg = new (1, 62111);
                 byte[] packet = msg.ToByteArray();
                 this.ValidateReturnedObj(msg, this.GetQueuePopData(packet).ToUInt32Msg());
             });
@@ -237,7 +235,7 @@ namespace TestCases.Core.CommStackTests {
         [Test]
         public void BinaryMsg02_07ObjectFromPacketInt32() {
             TestHelpers.CatchUnexpected(() => {
-                BinaryMsgInt32 msg = new BinaryMsgInt32(144, 32111);
+                BinaryMsgInt32 msg = new (144, 32111);
                 byte[] packet = msg.ToByteArray();
                 this.ValidateReturnedObj(msg, this.GetQueuePopData(packet).ToInt32Msg());
             });
@@ -247,7 +245,7 @@ namespace TestCases.Core.CommStackTests {
         [Test]
         public void BinaryMsg02_08ObjectFromPacketFloat32() {
             TestHelpers.CatchUnexpected(() => {
-                BinaryMsgFloat32 msg = new BinaryMsgFloat32(144, 32111);
+                BinaryMsgFloat32 msg = new (144, 32111);
                 byte[] packet = msg.ToByteArray();
                 this.ValidateReturnedObj(msg, this.GetQueuePopData(packet).ToFloat32Msg());
             });
@@ -255,9 +253,9 @@ namespace TestCases.Core.CommStackTests {
 
 
 
+#pragma warning disable CS8602,CS8602,CA1822
         private void ValidateReturnedObj<T>(BinaryMsg<T> expected, BinaryMsg<T>? received) {
             TestHelpers.CatchUnexpected(() => {
-#pragma warning disable CS8602,CS8602
 
                 Assert.NotNull(received, "Failed to build object");
                 Assert.AreEqual(expected.SOH, received.SOH);
@@ -267,13 +265,13 @@ namespace TestCases.Core.CommStackTests {
                 Assert.AreEqual(expected.Value, received.Value);
                 Assert.AreEqual(expected.ETX, received.ETX);
                 Assert.AreEqual(expected.EOT, received.EOT);
-#pragma warning restore CS8602,CS8602
             });
         }
+#pragma warning restore CS8602,CS8602,CA1822
 
 
         private byte[] GetQueuePopData(byte[] inPacket) {
-            byte[] returnedPacket = new byte[0];
+            byte[] returnedPacket = Array.Empty<byte>();
             TestHelpers.CatchUnexpected(() => {
                 bool gotIt = false;
                 int length = 0;

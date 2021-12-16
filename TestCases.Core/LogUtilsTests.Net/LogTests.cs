@@ -3,8 +3,6 @@ using ChkUtils.Net.ErrObjects;
 using ChkUtils.Net.Interfaces;
 using LogUtils.Net;
 using NUnit.Framework;
-using System;
-using System.Threading;
 
 namespace TestCases.LogUtilsTests.Net {
 
@@ -13,9 +11,9 @@ namespace TestCases.LogUtilsTests.Net {
 
         #region Data
 
-        MsgLevel currentLevel = MsgLevel.Off;
-        ErrReport currentReport = new ErrReport();
-        NUnitTraceWriter consoleWriter = new NUnitTraceWriter();
+        private MsgLevel currentLevel = MsgLevel.Off;
+        private ErrReport currentReport = new ();
+        private readonly NUnitTraceWriter consoleWriter = new ();
 
         #endregion
 

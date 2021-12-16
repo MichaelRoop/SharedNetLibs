@@ -1,6 +1,5 @@
 ﻿using LogUtils.Net;
 using NUnit.Framework;
-using System;
 using System.Diagnostics;
 using TestCaseSupport.Core;
 

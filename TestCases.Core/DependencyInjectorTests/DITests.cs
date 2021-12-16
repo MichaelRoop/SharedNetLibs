@@ -1,8 +1,6 @@
 ﻿using DependencyInjectorFactory.Net;
 using DependencyInjectorFactory.Net.interfaces;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
 using TestCaseSupport.Core;
 
 namespace TestCases.DependencyInjectorTests {
@@ -56,7 +54,7 @@ namespace TestCases.DependencyInjectorTests {
 
             public TstSinglWithIns(InstanceFirst? cl) {
                 if (cl == null) {
-                    throw new ArgumentNullException();
+                    throw new ArgumentNullException(nameof(cl));
                 }
                 this.InstClass = cl;
                 this.InstanceID = (InstanceIDCounter++);
@@ -70,7 +68,7 @@ namespace TestCases.DependencyInjectorTests {
 
             public TstInsWithSingl(SingleFirst? cl) {
                 if (cl == null) {
-                    throw new ArgumentNullException();
+                    throw new ArgumentNullException(nameof(cl));
                 }
                 this.SinglClass = cl;
                 this.InstanceID = (InstanceIDCounter++);

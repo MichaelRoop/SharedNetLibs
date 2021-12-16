@@ -3,10 +3,6 @@ using NUnit.Framework;
 using StorageFactory.Net.interfaces;
 using StorageFactory.Net.Serializers;
 using StorageFactory.Net.StorageManagers;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using TestCaseSupport.Core;
 
 namespace TestCases.StorageTests {
@@ -14,16 +10,17 @@ namespace TestCases.StorageTests {
 
     [TestFixture]
     public class StorageTestCases : TestCaseBase {
+#pragma warning disable CA1822 // Mark members as static
 
         #region Setup
 
 #pragma warning disable CS8618
-        private tstData data;
-        private tstData data2;
+        private TstData data;
+        private TstData data2;
 #pragma warning restore CS8618
 
-        private string subDir = "MR_TestCases/Cases";
-        private ClassLog log = new ClassLog("StorageTestCases");
+        private readonly string subDir = "MR_TestCases/Cases";
+        private readonly ClassLog log = new ("StorageTestCases");
 
         [OneTimeSetUp]
         public void TestSetSetup() {
@@ -34,10 +31,10 @@ namespace TestCases.StorageTests {
             //    MyString = "blah blah woof woof and then some",
             //};
 
-            this.data = new tstData("Blah");
+            this.data = new TstData("Blah");
 
 
-            this.data2 = new tstData() {
+            this.data2 = new TstData() {
                 MyInt = 111,
                 MyString = "second object to secondary file, same directory",
             };
@@ -58,17 +55,17 @@ namespace TestCases.StorageTests {
         #endregion
 
 
-        public class tstData {
+        public class TstData {
             public int MyInt { get; set; } = 23;
             public string MyString { get; set; } = "this is a string";
             public int MyPrivateInt { get; private set; } = 9999;
             public string MyPrivateString { get; set; } = "this is a string";
 
-            public tstData() {
+            public TstData() {
                 this.MyPrivateInt = 1234;
                 this.MyPrivateString = "blipo";
             }
-            public tstData(string str) {
+            public TstData(string str) {
                 this.MyPrivateInt = 34;
                 this.MyString = str;
                 this.MyPrivateString = Guid.NewGuid().ToString();
@@ -83,8 +80,8 @@ namespace TestCases.StorageTests {
 
                 #region Data 
 
-                JsonReadWriteSerializer<tstData> serializer = new JsonReadWriteSerializer<tstData>();
-                IStorageManager<tstData> storage = new SimpleStorageManger<tstData>(serializer);
+                JsonReadWriteSerializer<TstData> serializer = new ();
+                IStorageManager<TstData> storage = new SimpleStorageManger<TstData>(serializer);
                 string fileName1 = "MyTestJsonFile.txt";
                 string fileName2 = "secondaryJsonFile.txt";
 
@@ -103,7 +100,7 @@ namespace TestCases.StorageTests {
 
                 storage.WriteObjectToDefaultFile(data);
                 Assert.True(File.Exists(filePath1), "File not there: {0}", filePath1);
-                tstData tmp = storage.ReadObjectFromDefaultFile();
+                TstData tmp = storage.ReadObjectFromDefaultFile();
                 Assert.AreEqual(data.MyInt, tmp.MyInt);
                 Assert.AreEqual(data.MyString, tmp.MyString);
 
@@ -154,8 +151,8 @@ namespace TestCases.StorageTests {
 
                 #region Data 
 
-                JsonReadWriteSerializer<tstData> serializer = new JsonReadWriteSerializerIndented<tstData>();
-                IStorageManager<tstData> storage = new SimpleStorageManger<tstData>(serializer);
+                JsonReadWriteSerializer<TstData> serializer = new JsonReadWriteSerializerIndented<TstData>();
+                IStorageManager<TstData> storage = new SimpleStorageManger<TstData>(serializer);
                 string fileName1 = "MyTestJsonFileIndented.txt";
                 string fileName2 = "secondaryJsonFileIndented.txt";
 
@@ -174,7 +171,7 @@ namespace TestCases.StorageTests {
 
                 storage.WriteObjectToDefaultFile(data);
                 Assert.True(File.Exists(filePath1), "File not there: {0}", filePath1);
-                tstData tmp = storage.ReadObjectFromDefaultFile();
+                TstData tmp = storage.ReadObjectFromDefaultFile();
                 Assert.AreEqual(data.MyInt, tmp.MyInt);
                 Assert.AreEqual(data.MyString, tmp.MyString);
                 Assert.AreEqual(data.MyPrivateInt, tmp.MyPrivateInt);
@@ -206,8 +203,8 @@ namespace TestCases.StorageTests {
         public void DeleteAllFilesPattern() {
             #region Data 
 
-            JsonReadWriteSerializer<tstData> serializer = new JsonReadWriteSerializer<tstData>();
-            IStorageManager<tstData> storage = new SimpleStorageManger<tstData>(serializer);
+            JsonReadWriteSerializer<TstData> serializer = new ();
+            IStorageManager<TstData> storage = new SimpleStorageManger<TstData>(serializer);
             string fileName1 = "MyTestJsonFile.txt";
             string fileName2 = "secondaryJsonFile.txt";
             storage.StorageSubDir = "MR_TestCases/Cases";
@@ -236,8 +233,8 @@ namespace TestCases.StorageTests {
         public void DeleteAllFiles() {
             #region Data 
 
-            JsonReadWriteSerializer<tstData> serializer = new JsonReadWriteSerializer<tstData>();
-            IStorageManager<tstData> storage = new SimpleStorageManger<tstData>(serializer);
+            JsonReadWriteSerializer<TstData> serializer = new ();
+            IStorageManager<TstData> storage = new SimpleStorageManger<TstData>(serializer);
             string fileName1 = "MyTestJsonFile.txt";
             string fileName2 = "secondaryJsonFile.txt";
             storage.StorageSubDir = "MR_TestCases/Cases";
@@ -270,8 +267,8 @@ namespace TestCases.StorageTests {
 
                 #region Data 
 
-                IReadWriteSerializer<tstData> serializer = new EncryptingReadWriteSerializer<tstData>();
-                IStorageManager<tstData> storage = new SimpleStorageManger<tstData>(serializer);
+                IReadWriteSerializer<TstData> serializer = new EncryptingReadWriteSerializer<TstData>();
+                IStorageManager<TstData> storage = new SimpleStorageManger<TstData>(serializer);
                 string fileName1 = "EcryptedFile1.txt";
                 storage.StorageSubDir = this.subDir;
                 storage.DefaultFileName = fileName1;
@@ -285,7 +282,7 @@ namespace TestCases.StorageTests {
 
                 storage.WriteObjectToDefaultFile(this.data);
                 Assert.True(File.Exists(filePath1), "File not there: {0}", filePath1);
-                tstData tmp = storage.ReadObjectFromDefaultFile();
+                TstData tmp = storage.ReadObjectFromDefaultFile();
                 Assert.AreEqual(this.data.MyInt, tmp.MyInt);
                 Assert.AreEqual(this.data.MyString, tmp.MyString);
             });
@@ -298,8 +295,8 @@ namespace TestCases.StorageTests {
 
                 #region Data 
 
-                IReadWriteSerializer<tstData> serializer = new JsonReadWriteSerializer<tstData>();
-                IStorageManager<tstData> storage = new SimpleStorageManger<tstData>(serializer);
+                IReadWriteSerializer<TstData> serializer = new JsonReadWriteSerializer<TstData>();
+                IStorageManager<TstData> storage = new SimpleStorageManger<TstData>(serializer);
                 string fileName1 = "JsonFile1.txt";
                 string fileName2 = "JsonFile2.txt";
 
@@ -338,8 +335,8 @@ namespace TestCases.StorageTests {
 
                 #region Data 
 
-                IReadWriteSerializer<tstData> serializer = new XmlReadWriteSerializer<tstData>();
-                IStorageManager<tstData> storage = new SimpleStorageManger<tstData>(serializer);
+                IReadWriteSerializer<TstData> serializer = new XmlReadWriteSerializer<TstData>();
+                IStorageManager<TstData> storage = new SimpleStorageManger<TstData>(serializer);
                 string fileName1 = "MyTestFileXML.txt";
                 string fileName2 = "secondaryXMLFile.txt";
 
@@ -355,7 +352,7 @@ namespace TestCases.StorageTests {
                 storage.DeleteAllFiles();
                 storage.WriteObjectToDefaultFile(data);
                 Assert.True(File.Exists(filePath1), "File not there: {0}", filePath1);
-                tstData tmp = storage.ReadObjectFromDefaultFile();
+                TstData tmp = storage.ReadObjectFromDefaultFile();
                 Assert.AreEqual(data.MyInt, tmp.MyInt);
                 Assert.AreEqual(data.MyString, tmp.MyString);
 
@@ -390,8 +387,8 @@ namespace TestCases.StorageTests {
                 double[] dBuff = new double[] { 32.445, 12121213443.44234234, 33.45, 1.3465, 234234.45345345435};
                 byte[] buff = dBuff.SelectMany(x => BitConverter.GetBytes(x)).ToArray();
 
-                MemoryStream memStream = new MemoryStream((int)buff.Length);
-                memStream.Write(buff, 0, buff.Count());
+                MemoryStream memStream = new ((int)buff.Length);
+                memStream.Write(buff, 0, buff.Length);
 
                 // Make sure all are gone
                 storage.DeleteAllFiles();
@@ -402,8 +399,8 @@ namespace TestCases.StorageTests {
 
 
                 byte[] buff2 = new byte[] { 0, 1, 2, 3, 4, 5 };
-                MemoryStream memStream2 = new MemoryStream((int)buff2.Length);
-                memStream2.Write(buff2, 0, buff2.Count());
+                MemoryStream memStream2 = new ((int)buff2.Length);
+                memStream2.Write(buff2, 0, buff2.Length);
                 storage.WriteObjectToFile(memStream2, fileName2);
                 Assert.True(File.Exists(filePath2), "File not there: {0}", filePath2);
                 readStream.Dispose();
@@ -416,10 +413,11 @@ namespace TestCases.StorageTests {
 
 
 
-        private string FilePath(IStorageManager<tstData> storage, string fileName) {
+        private string FilePath(IStorageManager<TstData> storage, string fileName) {
             return Path.Combine(storage.StorageRootDir, storage.StorageSubDir, fileName);
         }
 
+#pragma warning restore CA1822 // Mark members as static
 
     }
 }

@@ -3,16 +3,13 @@ using NUnit.Framework;
 using StorageFactory.Net.interfaces;
 using StorageFactory.Net.Serializers;
 using StorageFactory.Net.StorageManagers;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using TestCaseSupport.Core;
 
 namespace TestCases.StorageTests {
 
     [TestFixture]
     class IndexedStorageTestCases : TestCaseBase {
+#pragma warning disable CA1822 // Mark members as static
 
         #region Test classes
 
@@ -94,17 +91,17 @@ namespace TestCases.StorageTests {
         #region Data
 
 #pragma warning disable CS8618
-        private TstData data1;
-        private TstData data2;
-        private TstData data3;
+        //private TstData data1;
+        //private TstData data2;
+        //private TstData data3;
         IIndexedStorageManager<TstData, TstExtraInfo> storage;
 #pragma warning restore CS8618
 
-        private string subDir = "MR_TestCases/Cases";
-        private ClassLog log = new ClassLog("IndexedStorageTestCases");
-        private IReadWriteSerializer<TstData> dataSerializer = 
+        private readonly string subDir = "MR_TestCases/Cases";
+        private readonly ClassLog log = new ("IndexedStorageTestCases");
+        private readonly IReadWriteSerializer<TstData> dataSerializer = 
             new JsonReadWriteSerializerIndented<TstData>();
-        private IReadWriteSerializer<IIndexGroup<TstExtraInfo>> indexSerializer =
+        private readonly IReadWriteSerializer<IIndexGroup<TstExtraInfo>> indexSerializer =
             new JsonReadWriteSerializerIndented<IIndexGroup<TstExtraInfo>>();
 
         #endregion
@@ -114,16 +111,17 @@ namespace TestCases.StorageTests {
                 [OneTimeSetUp]
         public void TestSetSetup() {
             this.OneTimeSetup();
-            this.data1 = new TstData("Blah");
-            this.data2 = new TstData("blip", 7777, 2121);
-            this.data3 = new TstData("blop", 11, 987654321);
+            //this.data1 = new TstData("Blah");
+            //this.data2 = new TstData("blip", 7777, 2121);
+            //this.data3 = new TstData("blop", 11, 987654321);
             // setup the indexed storage manager
             this.storage = new
                     IndexedStorageManager<TstData, TstExtraInfo>(
                     this.dataSerializer,
-                    this.indexSerializer);
-            this.storage.StorageSubDir = this.subDir;
-            this.storage.IndexFileName = "Index1.txt";
+                    this.indexSerializer) {
+                StorageSubDir = this.subDir,
+                IndexFileName = "Index1.txt"
+            };
 
         }
 
@@ -160,7 +158,7 @@ namespace TestCases.StorageTests {
                 Assert.True(Directory.Exists(this.storage.StoragePath), "Directory should be there");
                 using (FileStream fs = File.Create(Path.Combine(this.storage.StoragePath, "File1.txt"))) { };
                 using (FileStream fs = File.Create(Path.Combine(this.storage.StoragePath, "File2.txt"))) { };
-                Assert.AreEqual(2, Directory.GetFiles(this.storage.StoragePath).Count(), "Should be 2 files in directory");
+                Assert.AreEqual(2, Directory.GetFiles(this.storage.StoragePath).Length, "Should be 2 files in directory");
                 this.storage.DeleteStorageDirectory();
                 Assert.False(Directory.Exists(this.storage.StoragePath), "Directory should be gone");
             });
@@ -176,7 +174,7 @@ namespace TestCases.StorageTests {
                 // On next call to IndexedItems it will recreate directory with an empty index
                 Assert.AreEqual(0, this.storage.IndexedItems.Count, "should be 0 after directory deleted");
                 Assert.True(Directory.Exists(this.storage.StoragePath), "Directory should be gone");
-                Assert.True(Directory.GetFiles(this.storage.StoragePath).Count() == 1, "Should only have index file");
+                Assert.True(Directory.GetFiles(this.storage.StoragePath).Length == 1, "Should only have index file");
             });
         }
 
@@ -338,14 +336,14 @@ namespace TestCases.StorageTests {
         #region Private
 
         private Tuple<List<TstData>, List<IIndexItem<TstExtraInfo>>> CreateTestData(int count) {
-            List<IIndexItem<TstExtraInfo>> info = new List<IIndexItem<TstExtraInfo>>();
-            List<TstData> data = new List<TstData>();
+            List<IIndexItem<TstExtraInfo>> info = new ();
+            List<TstData> data = new ();
 
             for (int i = 0; i < count; i++) {
-                TstData obj = new TstData(string.Format("Mine{0}", i), (321 + i), (333356 + i));
-                TstExtraInfo extra = new TstExtraInfo(string.Format("Address:{0}", i), i);
+                TstData obj = new (string.Format("Mine{0}", i), (321 + i), (333356 + i));
+                TstExtraInfo extra = new (string.Format("Address:{0}", i), i);
                 IndexItem<TstExtraInfo> ndx =
-                    new IndexItem<TstExtraInfo>(obj.UId, extra) {
+                    new (obj.UId, extra) {
                         Display = string.Format("Display:{0}", i)
                     };
                 data.Add(obj);
@@ -399,6 +397,7 @@ namespace TestCases.StorageTests {
 
 
         #endregion
+#pragma warning restore CA1822 // Mark members as static
 
 
     }
