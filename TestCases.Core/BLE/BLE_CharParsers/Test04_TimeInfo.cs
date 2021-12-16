@@ -41,47 +41,47 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
         #endregion
 
         [Test]
-        public void TimeZoneUnknown() { this.Test(TIME_ZONE_UNKNOWN_HR, STANDARD_TIME, "UTC[?] Standard Time"); }
+        public void TimeZoneUnknown() { Test(TIME_ZONE_UNKNOWN_HR, STANDARD_TIME, "UTC[?] Standard Time"); }
 
         [Test]
-        public void TimeZoneZero() { this.Test(0, STANDARD_TIME, "UTC[0] Standard Time"); }
+        public void TimeZoneZero() { Test(0, STANDARD_TIME, "UTC[0] Standard Time"); }
 
         [Test]
-        public void TimeZonePlus4() { this.Test(4, STANDARD_TIME, "UTC[4] Standard Time"); }
+        public void TimeZonePlus4() { Test(4, STANDARD_TIME, "UTC[4] Standard Time"); }
 
         [Test]
-        public void TimeZonePlus14() { this.Test(14, STANDARD_TIME, "UTC[14] Standard Time"); }
+        public void TimeZonePlus14() { Test(14, STANDARD_TIME, "UTC[14] Standard Time"); }
         [Test]
-        public void TimeZoneMinus12() { this.Test(-12, STANDARD_TIME, "UTC[-12] Standard Time"); }
+        public void TimeZoneMinus12() { Test(-12, STANDARD_TIME, "UTC[-12] Standard Time"); }
         [Test]
-        public void TimeZoneErr() { this.Test(99, STANDARD_TIME, "UTC[ERR] Standard Time"); }
+        public void TimeZoneErr() { Test(99, STANDARD_TIME, "UTC[ERR] Standard Time"); }
 
-
-        [Test]
-        public void DaylightSavingsUnknown() { this.Test(4, DST_UNKNOWN, "UTC[4] Daylight savings (Unknown)"); }
 
         [Test]
-        public void StandardTime() { this.Test(4, STANDARD_TIME, "UTC[4] Standard Time"); }
+        public void DaylightSavingsUnknown() { Test(4, DST_UNKNOWN, "UTC[4] Daylight savings (Unknown)"); }
 
         [Test]
-        public void DaylightSavings05() { this.Test(4, DST_05, "UTC[4] Daylight savings (+0.5h)"); }
+        public void StandardTime() { Test(4, STANDARD_TIME, "UTC[4] Standard Time"); }
+
         [Test]
-        public void DaylightSavings1() { this.Test(4, DST_1, "UTC[4] Daylight savings (+1h)"); }
+        public void DaylightSavings05() { Test(4, DST_05, "UTC[4] Daylight savings (+0.5h)"); }
         [Test]
-        public void DaylightSavings2() { this.Test(4, DST_2, "UTC[4] Daylight savings (+2h)"); }
+        public void DaylightSavings1() { Test(4, DST_1, "UTC[4] Daylight savings (+1h)"); }
         [Test]
-        public void DaylightSavingsErr() { this.Test(4, 16, "UTC[4] Daylight savings (ERR)"); }
+        public void DaylightSavings2() { Test(4, DST_2, "UTC[4] Daylight savings (+2h)"); }
+        [Test]
+        public void DaylightSavingsErr() { Test(4, 16, "UTC[4] Daylight savings (ERR)"); }
 
 
 
 
 
-        private void Test(int zone, byte st, string expected) {
+        private static void Test(int zone, byte st, string expected) {
             TestHelpers.CatchUnexpected(() => {
                 byte[] data = new byte[2];
                 data[0] = (byte)(zone * 4);
                 data[1] = st;
-                CharParser_LocalTimeInformation parser = new CharParser_LocalTimeInformation();
+                CharParser_LocalTimeInformation parser = new ();
                 string result = parser.Parse(data);
                 Assert.AreEqual(expected, result, "Parse fail");
             });

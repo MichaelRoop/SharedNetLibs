@@ -1,6 +1,5 @@
 ﻿using BluetoothLE.Net.Parsers.Types;
 using NUnit.Framework;
-using System;
 using TestCaseSupport.Core;
 using VariousUtils.Net;
 
@@ -29,27 +28,27 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
 
         [Test]
-        public void ValidAll0() { this.Test(2021, 1, 1, 20, 15, 32, 0); }
+        public void ValidAll0() { Test(2021, 1, 1, 20, 15, 32, 0); }
         [Test]
-        public void ValidAll200() { this.Test(2021, 1, 1, 20, 15, 32, 200); }
+        public void ValidAll200() { Test(2021, 1, 1, 20, 15, 32, 200); }
         [Test]
-        public void ValidAll255() { this.Test(2021, 1, 1, 20, 15, 32, 255); }
+        public void ValidAll255() { Test(2021, 1, 1, 20, 15, 32, 255); }
 
 
 
 
-        private void Test(ushort year, byte month, byte day, byte hour, byte minutes, byte seconds, byte fragment) {
-            DateTime dt = new DateTime(year, month, day, hour, minutes, seconds, DateTimeKind.Local);
+        private static void Test(ushort year, byte month, byte day, byte hour, byte minutes, byte seconds, byte fragment) {
+            DateTime dt = new (year, month, day, hour, minutes, seconds, DateTimeKind.Local);
             string expected = string.Format("{0} {1} {2}.{3}",
                 dt.DayOfWeek.GetDayStr(), dt.ToLongDateString(), dt.ToLongTimeString(), fragment.GetSecond256FragmentAsMs());
-            this.Test(year, month, day, hour, minutes, seconds, fragment, expected);
+            Test(year, month, day, hour, minutes, seconds, fragment, expected);
         }
 
 
-        private void Test(ushort year, byte month, byte day, byte hour, byte minutes, byte seconds, byte fragment, string expected) {
+        private static void Test(ushort year, byte month, byte day, byte hour, byte minutes, byte seconds, byte fragment, string expected) {
             TestHelpers.CatchUnexpected(() => {
-                DateTime dt = new DateTime(year, month, day, hour, minutes, seconds, DateTimeKind.Local);
-                TypeParserExactTime256 parser = new TypeParserExactTime256();
+                DateTime dt = new (year, month, day, hour, minutes, seconds, DateTimeKind.Local);
+                TypeParserExactTime256 parser = new ();
                 byte[] data = new byte[parser.RequiredBytes];
                 int pos = 0;
                 year.WriteToBuffer(data, ref pos);

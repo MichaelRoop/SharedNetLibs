@@ -1,7 +1,6 @@
 ﻿using BluetoothLE.Net.Parsers.Characteristics;
 using LogUtils.Net;
 using NUnit.Framework;
-using System;
 using TestCaseSupport.Core;
 
 namespace TestCases.Core.BLE.BLE_CharParsers {
@@ -9,7 +8,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
     [TestFixture]
     public class Test01_CharParserBase : TestCaseBase {
 
-        ClassLog log = new ClassLog("Test01_CharParserBase");
+        //private readonly ClassLog log = new ("Test01_CharParserBase");
 
         #region Setup
 
@@ -75,8 +74,8 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
         [Test]
         public void Err13618_ParseZeroLength() {
             TestHelpers.CatchUnexpected(() => {
-                CharParser_BatteryLevel bl = new CharParser_BatteryLevel();
-                bl.Parse(new byte[0]);
+                CharParser_BatteryLevel bl = new ();
+                bl.Parse(Array.Empty<byte>());
                 this.logReader.Validate(13618, "BLEParserBase", "CopyToRawData", "byte[] is zero length");
             });
         }
@@ -85,7 +84,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
         [Test]
         public void Err13616_FailParseNull() {
             TestHelpers.CatchUnexpected(() => {
-                CharParser_BatteryLevel bl = new CharParser_BatteryLevel();
+                CharParser_BatteryLevel bl = new ();
                 bl.Parse(null);
                 this.logReader.Validate(13616, "BLEParserBase", "CopyToRawData", "Raw byte[] is null");
             });
@@ -98,7 +97,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
         public void Err13607_FailParseException() {
             TestHelpers.CatchUnexpected(() => {
                 byte[] blah = new byte[5];
-                CharParserFailConstructor1 c = new CharParserFailConstructor1();
+                CharParserFailConstructor1 c = new ();
                 c.Parse(blah);
                 this.logReader.Validate(13607, "BLEParserBase", "Parse", "Failure on Parse");
             });
@@ -110,7 +109,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
             TestHelpers.CatchUnexpected(() => {
                 byte[] data = new byte[2];
                 //CharParserCopyRaw b = new CharParserCopyRaw(data, 5);
-                CharParserCopyRaw b = new CharParserCopyRaw();
+                CharParserCopyRaw b = new ();
                 b.Parse(data);
                 this.logReader.Validate(13615, "BLEParserBase", "CopyToRawData",
                     "Data length:2 smaller than requested:5 Data '0x00,0x00'");

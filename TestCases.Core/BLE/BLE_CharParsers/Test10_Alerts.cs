@@ -37,7 +37,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
                 "Missed Call:Not supported, SMS/MMS arrives:Not supported, " +
                 "Voice Mail:Not supported, Schedule:Not supported, " +
                 "High Prioritized Alert:Not supported, Instant Message:Not supported";
-            this.Test(data, expected);
+            Test(data, expected);
         }
 
 
@@ -51,7 +51,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
                 "Missed Call:Supported, SMS/MMS arrives:Supported, " +
                 "Voice Mail:Supported, Schedule:Supported, " +
                 "High Prioritized Alert:Not supported, Instant Message:Not supported";
-            this.Test(data, expected);
+            Test(data, expected);
         }
 
         [Test]
@@ -64,7 +64,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
                 "Missed Call:Supported, SMS/MMS arrives:Supported, " +
                 "Voice Mail:Supported, Schedule:Supported, " +
                 "High Prioritized Alert:Supported, Instant Message:Supported";
-            this.Test(data, expected);
+            Test(data, expected);
         }
 
 
@@ -83,7 +83,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
                 "Missed Call:Supported, SMS/MMS arrives:Supported, " +
                 "Voice Mail:Supported, Schedule:Supported, " +
                 "High Prioritized Alert:Not supported, Instant Message:Supported";
-            this.Test(data, expected);
+            Test(data, expected);
         }
 
         #endregion
@@ -93,14 +93,14 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
         public void AlertId_SMS() {
             byte[] data = new byte[1];
             data[0] = 5;
-            this.TestAlertId(data, "SMS/MMS arrives");
+            TestAlertId(data, "SMS/MMS arrives");
         }
 
         [Test]
         public void AlertId_Email() {
             byte[] data = new byte[1];
             data[0] = 1;
-            this.TestAlertId(data, "Email");
+            TestAlertId(data, "Email");
         }
 
         #endregion
@@ -108,23 +108,23 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
         [Test]
         public void AlertLevel_None() {
-            this.TestAlertLeve(0, "No Alert");
+            TestAlertLeve(0, "No Alert");
         }
 
 
         [Test]
         public void AlertLevel_Mild() {
-            this.TestAlertLeve(1, "Mild Alert");
+            TestAlertLeve(1, "Mild Alert");
         }
 
         [Test]
         public void AlertLevel_High() {
-            this.TestAlertLeve(2, "High Alert");
+            TestAlertLeve(2, "High Alert");
         }
 
         [Test]
         public void AlertLevel_Err() {
-            this.TestAlertLeve(42, "ERR");
+            TestAlertLeve(42, "ERR");
         }
 
         #endregion
@@ -136,16 +136,16 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
             byte data = 0;
             data = BitTools.SetBit(data, 0, true);
             data = BitTools.SetBit(data, 1, false);
-            this.TestAlertStatus(data, true, false);
+            TestAlertStatus(data, true, false);
         }
 
 
         #endregion
 
 
-        private void Test(byte[] data, string expected) {
+        private static void Test(byte[] data, string expected) {
             TestHelpers.CatchUnexpected(() => {
-                CharParser_AlertCategoryIDBitmask parser = new CharParser_AlertCategoryIDBitmask();
+                CharParser_AlertCategoryIDBitmask parser = new ();
                 string result = parser.Parse(data);
                 LogUtils.Net.Log.Info("Test10_Alerts", "Test", result);
                 Assert.AreEqual(expected, result, "Parse fail");
@@ -153,9 +153,9 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
         }
 
 
-        private void TestAlertId(byte[] data, string expected) {
+        private static void TestAlertId(byte[] data, string expected) {
             TestHelpers.CatchUnexpected(() => {
-                CharParser_AlertCategoryID parser = new CharParser_AlertCategoryID();
+                CharParser_AlertCategoryID parser = new ();
                 string result = parser.Parse(data);
                 LogUtils.Net.Log.Info("Test10_Alerts", "TestAlertId", result);
                 Assert.AreEqual(expected, result, "Parse fail");
@@ -163,11 +163,11 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
         }
 
 
-        private void TestAlertLeve(byte level, string expected) {
+        private static void TestAlertLeve(byte level, string expected) {
             TestHelpers.CatchUnexpected(() => {
                 byte[] data = new byte[1];
                 data[0] = level;
-                CharParser_AlertLevel parser = new CharParser_AlertLevel();
+                CharParser_AlertLevel parser = new ();
                 string result = parser.Parse(data);
                 LogUtils.Net.Log.Info("Test10_Alerts", "TestAlertLeve", result);
                 Assert.AreEqual(expected, result, "Parse fail");
@@ -176,11 +176,11 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
 
 
-        private void TestAlertStatus(byte status, bool ringer, bool vibrate) {
+        private static void TestAlertStatus(byte status, bool ringer, bool vibrate) {
             TestHelpers.CatchUnexpected(() => {
                 byte[] data = new byte[1];
                 data[0] = status;
-                CharParser_AlertStatus parser = new CharParser_AlertStatus();
+                CharParser_AlertStatus parser = new ();
                 string result = parser.Parse(data);
                 LogUtils.Net.Log.Info("TestAlertStatus", "TestAlertStatus", result);
 

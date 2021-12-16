@@ -11,7 +11,7 @@ namespace TestCases.LogUtilsTests.Net {
 
         #region Data
 
-        HelperLogReader logReader = new HelperLogReader();
+        private readonly HelperLogReader logReader = new ();
 
         #endregion
 
@@ -35,9 +35,9 @@ namespace TestCases.LogUtilsTests.Net {
 
         [Test]
         public void Info_Compare_MessageInjection() {
-            this.logReader.SetVerbosity(MsgLevel.Error);
+            HelperLogReader.SetVerbosity(MsgLevel.Error);
 
-            Stopwatch sw = new Stopwatch();
+            Stopwatch sw = new ();
             double dbl = 32.98;
             int i = 99;
             string str1 = "str1";
@@ -85,15 +85,15 @@ namespace TestCases.LogUtilsTests.Net {
 
         [Test]
         public void Info_Compare_MessageInjectionInMethods() {
-            this.logReader.SetVerbosity(MsgLevel.Error);
+            HelperLogReader.SetVerbosity(MsgLevel.Error);
 
-            double ts1 = 0.0;
-            double ts2 = 0.0;
+            double ts1;
+            double ts2;
 
-            Stopwatch sw = new Stopwatch();
+            Stopwatch sw = new ();
             sw.Start();
             for (int j = 0; j < 1000; j++) {
-                this.Method_With_MsgFormating();
+                Method_With_MsgFormating();
             }
             sw.Stop();
             ts1 = sw.Elapsed.TotalMilliseconds;
@@ -102,7 +102,7 @@ namespace TestCases.LogUtilsTests.Net {
 
             sw.Start();
             for (int j = 0; j < 1000; j++) {
-                this.Method_With_MsgFormatingInjected();
+                Method_With_MsgFormatingInjected();
             }
             sw.Stop();
             ts2 = sw.Elapsed.TotalMilliseconds;
@@ -124,12 +124,12 @@ namespace TestCases.LogUtilsTests.Net {
 
         [Test]
         public void Info_Compare_MessageInjectionNoFormating() {
-            this.logReader.SetVerbosity(MsgLevel.Error);
+            HelperLogReader.SetVerbosity(MsgLevel.Error);
 
             double ts1 = 0.0;
             double ts2 = 0.0;
 
-            Stopwatch sw = new Stopwatch();
+            Stopwatch sw = new ();
             sw.Start();
             for (int j = 0; j < 1000; j++) {
                 Log.Info("ThisClass", "ThisMethod", "This a simple fixed length string with no formating whatever");
@@ -163,8 +163,8 @@ namespace TestCases.LogUtilsTests.Net {
         #endregion
 
 
-        private void Method_With_MsgFormating() {
-            this.logReader.SetVerbosity(MsgLevel.Error);
+        private static void Method_With_MsgFormating() {
+            HelperLogReader.SetVerbosity(MsgLevel.Error);
 
             double dbl = 32.98;
             int i = 99;
@@ -177,8 +177,8 @@ namespace TestCases.LogUtilsTests.Net {
         }
 
 
-        private void Method_With_MsgFormatingInjected() {
-            this.logReader.SetVerbosity(MsgLevel.Error);
+        private static void Method_With_MsgFormatingInjected() {
+            HelperLogReader.SetVerbosity(MsgLevel.Error);
 
             double dbl = 32.98;
             int i = 99;

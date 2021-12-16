@@ -2,7 +2,6 @@
 using BluetoothLE.Net.Parsers.Characteristics;
 using BluetoothLE.Net.Parsers.Types;
 using NUnit.Framework;
-using System;
 using TestCaseSupport.Core;
 using VariousUtils.Net;
 
@@ -31,28 +30,28 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
 
         [Test]
-        public void ValidAll() { this.Test(2021, 1, 1, 20, 15, 32); }
+        public void ValidAll() { Test(2021, 1, 1, 20, 15, 32); }
 
         [Test]
-        public void InvalidYear() { this.Test(1021, 1, 1, 20, 15, 32, ((ushort)0).GetYearStr()); }
+        public void InvalidYear() { Test(1021, 1, 1, 20, 15, 32, ((ushort)0).GetYearStr()); }
         [Test]
-        public void InvalidMonth() { this.Test(2021, 13, 1, 20, 15, 32, "Invalid Date Time - 2021 13 1 20:15:32"); }
+        public void InvalidMonth() { Test(2021, 13, 1, 20, 15, 32, "Invalid Date Time - 2021 13 1 20:15:32"); }
         [Test]
-        public void InvalidDay() { this.Test(2021, 1, 41, 20, 15, 32, "Invalid Date Time - 2021 1 41 20:15:32"); }
+        public void InvalidDay() { Test(2021, 1, 41, 20, 15, 32, "Invalid Date Time - 2021 1 41 20:15:32"); }
         [Test]
-        public void InvalidHour() { this.Test(2021, 1, 1, 29, 15, 32, "Invalid Date Time - 2021 1 1 29:15:32"); }
+        public void InvalidHour() { Test(2021, 1, 1, 29, 15, 32, "Invalid Date Time - 2021 1 1 29:15:32"); }
         [Test]
-        public void InvalidMinutes() { this.Test(2021, 1, 1, 20, 75, 32, "Invalid Date Time - 2021 1 1 20:75:32"); }
+        public void InvalidMinutes() { Test(2021, 1, 1, 20, 75, 32, "Invalid Date Time - 2021 1 1 20:75:32"); }
         [Test]
-        public void InvalidSeconds() { this.Test(2021, 1, 1, 20, 15, 132, "Invalid Date Time - 2021 1 1 20:15:132"); }
+        public void InvalidSeconds() { Test(2021, 1, 1, 20, 15, 132, "Invalid Date Time - 2021 1 1 20:15:132"); }
 
         [Test]
-        public void InvalidFebruary() { this.Test(2021, 2, 31, 20, 15, 13, "Invalid Date Time - 2021 2 31 20:15:13"); }
+        public void InvalidFebruary() { Test(2021, 2, 31, 20, 15, 13, "Invalid Date Time - 2021 2 31 20:15:13"); }
 
         [Test]
           public void InsufficientBytes() {
             TestHelpers.CatchUnexpected(() => {
-                TypeParserDateTime parser = new TypeParserDateTime();
+                TypeParserDateTime parser = new ();
                 byte[] data = new byte[4];
                 string result = parser.Parse(data);
                 Assert.AreEqual("", result, "Parse fail");
@@ -61,26 +60,26 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
         [Test]
         public void BirthDayValid() {
-            this.TestDateOfBirth(2020, MonthOfYear.Feb, DayOfWeek.Monday);
+            TestDateOfBirth(2020, MonthOfYear.Feb, DayOfWeek.Monday);
         }
 
         [Test]
         public void BirthDayInValidYear() {
-            this.TestDateOfBirth(120, MonthOfYear.Feb, DayOfWeek.Monday);
+            TestDateOfBirth(120, MonthOfYear.Feb, DayOfWeek.Monday);
         }
 
 
 
-        private void Test(ushort year, byte month, byte day, byte hour, byte minutes, byte seconds) {
-            DateTime dt = new DateTime(year, month, day, hour, minutes, seconds, DateTimeKind.Local);
+        private static void Test(ushort year, byte month, byte day, byte hour, byte minutes, byte seconds) {
+            DateTime dt = new (year, month, day, hour, minutes, seconds, DateTimeKind.Local);
             string expected = string.Format("{0} {1}", dt.ToLongDateString(), dt.ToLongTimeString());
-            this.Test(year, month, day, hour, minutes, seconds, expected);
+            Test(year, month, day, hour, minutes, seconds, expected);
         }
 
 
-        private void Test(ushort year, byte month, byte day, byte hour, byte minutes, byte seconds, string expected) {
+        private static void Test(ushort year, byte month, byte day, byte hour, byte minutes, byte seconds, string expected) {
             TestHelpers.CatchUnexpected(() => {
-                TypeParserDateTime parser = new TypeParserDateTime();
+                TypeParserDateTime parser = new ();
                 byte[] data = new byte[parser.RequiredBytes];
                 int pos = 0;
                 year.WriteToBuffer(data, ref pos);
@@ -95,13 +94,13 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
         }
 
 
-        private void TestDateOfBirth(ushort year, MonthOfYear month, DayOfWeek day) {
+        private static void TestDateOfBirth(ushort year, MonthOfYear month, DayOfWeek day) {
             TestHelpers.CatchUnexpected(() => {
                 string expected = string.Format("{0}, {1}, {2}",
                 year.GetYearStr(), MonthOfYear.Feb.GetMonthStr(),
                 day.GetDayStr());
 
-                CharParser_DateOfBirth parser = new CharParser_DateOfBirth();
+                CharParser_DateOfBirth parser = new ();
                 byte[] data = new byte[parser.RequiredBytes];
                 int pos = 0;
                 year.WriteToBuffer(data, ref pos);

@@ -32,7 +32,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
             TestHelpers.CatchUnexpected(() => {
                 byte[] data = new byte[1];
                 data[0] = 89;
-                CharParser_BatteryLevel b = new CharParser_BatteryLevel();
+                CharParser_BatteryLevel b = new ();
                 string result = b.Parse(data);
                 Assert.AreEqual("89", result, "Parse fail");
             });
@@ -43,7 +43,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
         public void PPnPICParseValue() {
             TestHelpers.CatchUnexpected(() => {
                 byte[] data = new byte[] { 0x02, 0x5E, 0x04, 0x17, 0x08, 0x31, 0x01 };
-                CharParser_PPnPID b = new CharParser_PPnPID();
+                CharParser_PPnPID b = new ();
                 string result = b.Parse(data);
                 string expected = "Vendor ID:2, Vendor Namespace:1118, Manufacturer ID:2071, Manufacturer Namespace:305";
                 Assert.AreEqual(expected, result, "Parse fail");
@@ -56,7 +56,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
             TestHelpers.CatchUnexpected(() => {
                 string value = "Blah blah woof woof";
                 byte[] data = Encoding.UTF8.GetBytes(value);
-                CharParser_String b = new CharParser_String();
+                CharParser_String b = new ();
                 string result = b.Parse(data);
                 Assert.AreEqual(value, result, "Parse fail");
             });

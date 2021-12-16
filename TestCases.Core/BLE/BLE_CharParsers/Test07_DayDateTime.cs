@@ -1,6 +1,5 @@
 ﻿using BluetoothLE.Net.Parsers.Types;
 using NUnit.Framework;
-using System;
 using TestCaseSupport.Core;
 using VariousUtils.Net;
 
@@ -29,38 +28,38 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
 
         [Test]
-        public void ValidAll() { this.Test(2021, 1, 1, 20, 15, 32); }
+        public void ValidAll() { Test(2021, 1, 1, 20, 15, 32); }
 
         [Test]
-        public void ValidFriday() { this.Test(2021, 1, 1, 20, 15, 32); }
+        public void ValidFriday() { Test(2021, 1, 1, 20, 15, 32); }
         [Test]
-        public void ValidSaturday() { this.Test(2021, 1, 2, 20, 15, 32); }
+        public void ValidSaturday() { Test(2021, 1, 2, 20, 15, 32); }
         [Test]
-        public void ValidSunday() { this.Test(2021, 1, 3, 20, 15, 32); }
+        public void ValidSunday() { Test(2021, 1, 3, 20, 15, 32); }
         [Test]
-        public void ValidMonday() { this.Test(2021, 1, 4, 20, 15, 32); }
+        public void ValidMonday() { Test(2021, 1, 4, 20, 15, 32); }
         [Test]
-        public void ValidTuesday() { this.Test(2021, 1, 5, 20, 15, 32); }
+        public void ValidTuesday() { Test(2021, 1, 5, 20, 15, 32); }
         [Test]
-        public void ValidWednesday() { this.Test(2021, 1, 6, 20, 15, 32); }
+        public void ValidWednesday() { Test(2021, 1, 6, 20, 15, 32); }
         [Test]
-        public void ValidThursday() { this.Test(2021, 1, 7, 20, 15, 32); }
+        public void ValidThursday() { Test(2021, 1, 7, 20, 15, 32); }
 
 
 
 
-        private void Test(ushort year, byte month, byte day, byte hour, byte minutes, byte seconds) {
-            DateTime dt = new DateTime(year, month, day, hour, minutes, seconds, DateTimeKind.Local);
+        private static void Test(ushort year, byte month, byte day, byte hour, byte minutes, byte seconds) {
+            DateTime dt = new (year, month, day, hour, minutes, seconds, DateTimeKind.Local);
             string expected = string.Format("{0} {1} {2}", 
                 dt.DayOfWeek.GetDayStr(), dt.ToLongDateString(), dt.ToLongTimeString());
-            this.Test(year, month, day, hour, minutes, seconds, expected);
+            Test(year, month, day, hour, minutes, seconds, expected);
         }
 
 
-        private void Test(ushort year, byte month, byte day, byte hour, byte minutes, byte seconds, string expected) {
+        private static void Test(ushort year, byte month, byte day, byte hour, byte minutes, byte seconds, string expected) {
             TestHelpers.CatchUnexpected(() => {
-                DateTime dt = new DateTime(year, month, day, hour, minutes, seconds, DateTimeKind.Local);
-                TypeParserDayDateTime parser = new TypeParserDayDateTime();
+                DateTime dt = new (year, month, day, hour, minutes, seconds, DateTimeKind.Local);
+                TypeParserDayDateTime parser = new ();
                 byte[] data = new byte[parser.RequiredBytes];
                 int pos = 0;
                 year.WriteToBuffer(data, ref pos);

@@ -1,7 +1,6 @@
 ﻿using BluetoothLE.Net.Parsers.Characteristics;
 using BluetoothLE.Net.Parsers.Types;
 using NUnit.Framework;
-using System;
 using TestCaseSupport.Core;
 using VariousUtils.Net;
 
@@ -31,33 +30,33 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
         [Test]
         public void AllAdjustEnabled() {
-            this.Test(2021, 1, 1, 20, 15, 32, 200, this.SetBits(true, true, true, true)); 
+            Test(2021, 1, 1, 20, 15, 32, 200, SetBits(true, true, true, true)); 
         }
 
         [Test]
         public void AllAdjustDisabled() {
-            this.Test(2021, 1, 1, 20, 15, 32, 200, this.SetBits(false, false, false, false));
+            Test(2021, 1, 1, 20, 15, 32, 200, SetBits(false, false, false, false));
         }
 
         [Test]
         public void AllAdjustZeroThreeEnabled() {
-            this.Test(2021, 1, 1, 20, 15, 32, 200, this.SetBits(true, false, false, true));
+            Test(2021, 1, 1, 20, 15, 32, 200, SetBits(true, false, false, true));
         }
 
 
 
-        private void Test(ushort year, byte month, byte day, byte hour, byte minutes, byte seconds, byte fragment, byte adjustBitmask) {
-            DateTime dt = new DateTime(year, month, day, hour, minutes, seconds, DateTimeKind.Local);
+        private static void Test(ushort year, byte month, byte day, byte hour, byte minutes, byte seconds, byte fragment, byte adjustBitmask) {
+            DateTime dt = new (year, month, day, hour, minutes, seconds, DateTimeKind.Local);
             string expected = string.Format("{0} {1} {2}.{3} {4}",
                 dt.DayOfWeek.GetDayStr(), dt.ToLongDateString(), dt.ToLongTimeString(), fragment.GetSecond256FragmentAsMs(), adjustBitmask.CurrentTimeAdjustReasonStr());
-            this.Test(year, month, day, hour, minutes, seconds, fragment, adjustBitmask, expected);
+            Test(year, month, day, hour, minutes, seconds, fragment, adjustBitmask, expected);
         }
 
 
-        private void Test(ushort year, byte month, byte day, byte hour, byte minutes, byte seconds, byte fragment, byte adjustBitmask, string expected) {
+        private static void Test(ushort year, byte month, byte day, byte hour, byte minutes, byte seconds, byte fragment, byte adjustBitmask, string expected) {
             TestHelpers.CatchUnexpected(() => {
-                DateTime dt = new DateTime(year, month, day, hour, minutes, seconds, DateTimeKind.Local);
-                CharParser_CurrentTime parser = new CharParser_CurrentTime();
+                DateTime dt = new (year, month, day, hour, minutes, seconds, DateTimeKind.Local);
+                CharParser_CurrentTime parser = new ();
                 byte[] data = new byte[parser.RequiredBytes];
                 int pos = 0;
                 year.WriteToBuffer(data, ref pos);
@@ -76,7 +75,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
         }
 
 
-        private byte SetBits(bool zero, bool one, bool two, bool three) {
+        private static byte SetBits(bool zero, bool one, bool two, bool three) {
             byte adjust = 0;
             BitTools.SetBit(adjust, 0, zero);
             BitTools.SetBit(adjust, 1, one);

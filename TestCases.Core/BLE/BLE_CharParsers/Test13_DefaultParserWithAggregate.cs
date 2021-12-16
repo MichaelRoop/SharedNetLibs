@@ -4,8 +4,6 @@ using BluetoothLE.Net.Parsers.Characteristics;
 using BluetoothLE.Net.Parsers.Descriptor;
 using LogUtils.Net;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
 using System.Text;
 using TestCaseSupport.Core;
 using VariousUtils.Net;
@@ -49,9 +47,9 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
         }
 
 
-        private ClassLog log = new ClassLog("Test13_DefaultParserWithAggregate");
-        private ICharParser defaultCharParser = new CharParser_Default();
-        private BLE_TestTools tools = new BLE_TestTools();
+        private readonly ClassLog log = new ("Test13_DefaultParserWithAggregate");
+        private readonly ICharParser defaultCharParser = new CharParser_Default();
+        private readonly BLE_TestTools tools = new ();
 
         #endregion
 
@@ -60,8 +58,8 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
         [Test]
         public void T01_ValidFormatCount() {
             TestHelpers.CatchUnexpected(() => {
-                DescParser_CharacteristicAggregateFormat agg = new DescParser_CharacteristicAggregateFormat();
-                List<IDescParser> descriptors = new List<IDescParser>();
+                DescParser_CharacteristicAggregateFormat agg = new ();
+                List<IDescParser> descriptors = new ();
                 // Need to calculate size with all data 
                 this.AddFormat(tools.GetBlock(DataFormatEnum.UInt_8bit), descriptors, agg);
                 this.AddFormat(tools.GetBlock(DataFormatEnum.UInt_16bit), descriptors, agg);
@@ -80,8 +78,8 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
         [Test]
         public void T02_MissingFormat() {
             TestHelpers.CatchUnexpected(() => {
-                DescParser_CharacteristicAggregateFormat agg = new DescParser_CharacteristicAggregateFormat();
-                List<IDescParser> descriptors = new List<IDescParser>();
+                DescParser_CharacteristicAggregateFormat agg = new ();
+                List<IDescParser> descriptors = new ();
                 this.AddFormat(tools.GetBlock(DataFormatEnum.UInt_8bit), descriptors, agg);
                 this.AddFormat(tools.GetBlock(DataFormatEnum.UInt_16bit), descriptors, agg);
                 agg.AttributeHandles.Add(0xF000);
@@ -95,13 +93,13 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
         [Test]
         public void T03_HandleNotFormat() {
             TestHelpers.CatchUnexpected(() => {
-                DescParser_CharacteristicAggregateFormat agg = new DescParser_CharacteristicAggregateFormat();
-                List<IDescParser> descriptors = new List<IDescParser>();
+                DescParser_CharacteristicAggregateFormat agg = new ();
+                List<IDescParser> descriptors = new ();
                 this.AddFormat(tools.GetBlock(DataFormatEnum.UInt_8bit), descriptors, agg);
                 this.AddFormat(tools.GetBlock(DataFormatEnum.UInt_16bit), descriptors, agg);
                 // this will be number 3
                 byte[] data = new byte[] { 1 };
-                DescParser_Default def = new DescParser_Default() { AttributeHandle = 0x3 };
+                DescParser_Default def = new () { AttributeHandle = 0x3 };
                 def.Parse(data);
                 descriptors.Add(def);
                 agg.AttributeHandles.Add(def.AttributeHandle);
@@ -115,8 +113,8 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
         [Test]
         public void T04_DuplicateFormat() {
             TestHelpers.CatchUnexpected(() => {
-                DescParser_CharacteristicAggregateFormat agg = new DescParser_CharacteristicAggregateFormat();
-                List<IDescParser> descriptors = new List<IDescParser>();
+                DescParser_CharacteristicAggregateFormat agg = new ();
+                List<IDescParser> descriptors = new ();
                 this.AddFormat(tools.GetBlock(DataFormatEnum.UInt_8bit), descriptors, agg);
                 this.AddFormat(tools.GetBlock(DataFormatEnum.UInt_16bit), descriptors, agg);
                 descriptors[1].AttributeHandle = descriptors[0].AttributeHandle;
@@ -129,7 +127,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
         [Test]
         public void T10_MultiUints() {
-            List<TestData> td = new List<TestData>();
+            List<TestData> td = new ();
             td.Add(new TestData(DataFormatEnum.UInt_8bit, (byte)25, "25"));
             td.Add(new TestData(DataFormatEnum.UInt_16bit, (UInt16)12555, "12555"));
             td.Add(new TestData(DataFormatEnum.UInt_32bit, (UInt32)3453453425, "3453453425"));
@@ -139,7 +137,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
         [Test]
         public void T11_MultiInts() {
-            List<TestData> td = new List<TestData>();
+            List<TestData> td = new ();
             td.Add(new TestData(DataFormatEnum.Int_8bit, (sbyte)25, "25"));
             td.Add(new TestData(DataFormatEnum.Int_16bit, (Int16)(12555), "12555"));
             td.Add(new TestData(DataFormatEnum.Int_32bit, (Int32)(34426565), "34426565"));
@@ -154,7 +152,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
         [Test]
         public void T12_Floats() {
-            List<TestData> td = new List<TestData>();
+            List<TestData> td = new ();
             td.Add(new TestData(DataFormatEnum.IEEE_754_32bit_floating_point, (float)25.5, "25.5"));
             td.Add(new TestData(DataFormatEnum.IEEE_754_64bit_floating_point, (double)12555.324, "12555.324"));
             this.ProcessMultiple(td);
@@ -165,7 +163,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
         [Test]
         public void T15_NumericMinMax() {
-            List<TestData> td = new List<TestData>();
+            List<TestData> td = new ();
             td.Add(new TestData(DataFormatEnum.UInt_8bit, Byte.MinValue, Byte.MinValue.ToString()));
             td.Add(new TestData(DataFormatEnum.UInt_8bit, Byte.MaxValue, Byte.MaxValue.ToString()));
             td.Add(new TestData(DataFormatEnum.UInt_16bit, UInt16.MinValue, UInt16.MinValue.ToString()));
@@ -193,7 +191,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
         private void AddFormat(byte[] data, List<IDescParser> descriptors, DescParser_CharacteristicAggregateFormat agg) {
             UInt16 handle = 1;
             if (agg.AttributeHandles.Count > 0) {
-                handle = (UInt16)(agg.AttributeHandles[agg.AttributeHandles.Count - 1] + 1);
+                handle = (UInt16)(agg.AttributeHandles[^1] + 1);
             }
             IDescParser formatParser = new DescParser_PresentationFormat() {
                 AttributeHandle = handle,
@@ -208,9 +206,9 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
         private void ProcessMultiple(List<TestData> testData) {
             UInt16 handle = 1;
-            List<IDescParser> descriptors = new List<IDescParser>();
+            List<IDescParser> descriptors = new ();
             DescParser_CharacteristicAggregateFormat agg = 
-                new DescParser_CharacteristicAggregateFormat();
+                new ();
 
             int bytesRequired = 0;
             foreach (TestData td in testData) {
@@ -224,7 +222,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
             // Create block for Descriptor to parse
             byte[] data = new byte[bytesRequired];
-            string expected = this.BuildResults(data, testData);
+            string expected = BuildResults(data, testData);
             string result = this.defaultCharParser.Parse(data);
             Assert.AreEqual(expected, result);
         }
@@ -240,9 +238,9 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
         }
 
 
-        private string BuildResults(byte[] data, List<TestData> testData) {
+        private static string BuildResults(byte[] data, List<TestData> testData) {
             int pos = 0;
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new ();
             foreach(var td in testData) {
                 if (pos > 0) {
                     sb.Append("  |  ");
@@ -255,7 +253,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
 
         #region PopulateByteArray
 
-        void Write(TestData testData, byte[] data, ref int pos) {
+        static void Write(TestData testData, byte[] data, ref int pos) {
             switch (testData.DataType) {
                 #region Uint
                 case DataFormatEnum.Boolean:
@@ -265,54 +263,54 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
                 case DataFormatEnum.UInt_4bit:
                     break;
                 case DataFormatEnum.UInt_8bit:
-                    this.Write((byte)testData.Value, data, ref pos);
+                    Write((byte)testData.Value, data, ref pos);
                     break;
                 case DataFormatEnum.UInt_12bit:
                     break;
                 case DataFormatEnum.UInt_16bit:
-                    this.Write((UInt16)testData.Value, data, ref pos);
+                    Write((UInt16)testData.Value, data, ref pos);
                     break;
                 case DataFormatEnum.UInt_24bit:
                     break;
                 case DataFormatEnum.UInt_32bit:
-                    this.Write((UInt32)testData.Value, data, ref pos);
+                    Write((UInt32)testData.Value, data, ref pos);
                     break;
                 case DataFormatEnum.UInt_48bit:
                     break;
                 case DataFormatEnum.UInt_64bit:
-                    this.Write((UInt64)(testData.Value), data, ref pos);
+                    Write((UInt64)(testData.Value), data, ref pos);
                     break;
                 case DataFormatEnum.UInt_128bit:
                     break;
                 #endregion
                 #region Int
                 case DataFormatEnum.Int_8bit:
-                    this.Write((sbyte)testData.Value, data, ref pos);
+                    Write((sbyte)testData.Value, data, ref pos);
                     break;
                 case DataFormatEnum.Int_12bit:
                     break;
                 case DataFormatEnum.Int_16bit:
-                    this.Write((Int16)testData.Value, data, ref pos);
+                    Write((Int16)testData.Value, data, ref pos);
                     break;
                 case DataFormatEnum.Int_24bit:
                     break;
                 case DataFormatEnum.Int_32bit:
-                    this.Write((Int32)testData.Value, data, ref pos);
+                    Write((Int32)testData.Value, data, ref pos);
                     break;
                 case DataFormatEnum.Int_48bit:
                     break;
                 case DataFormatEnum.Int_64bit:
-                    this.Write((Int64)testData.Value, data, ref pos);
+                    Write((Int64)testData.Value, data, ref pos);
                     break;
                 case DataFormatEnum.Int_128bit:
                     break;
                 #endregion
                 #region Float
                 case DataFormatEnum.IEEE_754_32bit_floating_point:
-                    this.Write((float)testData.Value, data, ref pos);
+                    Write((float)testData.Value, data, ref pos);
                     break;
                 case DataFormatEnum.IEEE_754_64bit_floating_point:
-                    this.Write((double)testData.Value, data, ref pos);
+                    Write((double)testData.Value, data, ref pos);
                     break;
                 case DataFormatEnum.IEEE_11073_16bit_SFLOAT:
                     break;
@@ -337,30 +335,27 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
             }
         }
 
-
-
-
-        void Write(byte value, byte[] data, ref int pos) {
+        static void Write(byte value, byte[] data, ref int pos) {
             value.WriteToBuffer(data, ref pos);
         }
 
-        void Write(sbyte value, byte[] data, ref int pos) {
+        static void Write(sbyte value, byte[] data, ref int pos) {
             value.WriteToBuffer(data, ref pos);
         }
 
-        void Write(ushort value, byte[] data, ref int pos) {
+        static void Write(ushort value, byte[] data, ref int pos) {
             value.WriteToBuffer(data, ref pos);
         }
 
-        void Write(short value, byte[] data, ref int pos) {
+        static void Write(short value, byte[] data, ref int pos) {
             value.WriteToBuffer(data, ref pos);
         }
 
-        void Write(uint value, byte[] data, ref int pos) {
+        static void Write(uint value, byte[] data, ref int pos) {
             value.WriteToBuffer(data, ref pos);
         }
 
-        void Write(int value, byte[] data, ref int pos) {
+        static void Write(int value, byte[] data, ref int pos) {
             value.WriteToBuffer(data, ref pos);
         }
 
@@ -419,20 +414,19 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
         //}
 
 
-        void Write(ulong value, byte[] data, ref int pos) {
+        static void Write(ulong value, byte[] data, ref int pos) {
             value.WriteToBuffer(data, ref pos);
         }
 
-        void Write(long value, byte[] data, ref int pos) {
+        static void Write(long value, byte[] data, ref int pos) {
             value.WriteToBuffer(data, ref pos);
         }
 
-
-        void Write(float value, byte[] data, ref int pos) {
+        static void Write(float value, byte[] data, ref int pos) {
             value.WriteToBuffer(data, ref pos);
         }
 
-        void Write(double value, byte[] data, ref int pos) {
+        static void Write(double value, byte[] data, ref int pos) {
             value.WriteToBuffer(data, ref pos);
         }
 
