@@ -1,13 +1,13 @@
 ﻿using ChkUtils.Net;
 using ChkUtils.Net.ErrObjects;
 using NUnit.Framework;
-using System;
 using TestCaseSupport.Core;
 
 namespace TestCases.ChkUtilsTests.Net {
 
     [TestFixture]
     public class ToErrorReportExceptionTests {
+#pragma warning disable CA1822 // Mark members as static
 
         #region Data
 
@@ -40,8 +40,7 @@ namespace TestCases.ChkUtilsTests.Net {
 
         [Test]
         public void OnAction_NoException() {
-            ErrReport err;
-            WrapErr.ToErrReport(out err, 1111, "Validate arg", () => {
+            WrapErr.ToErrReport(out ErrReport err, 1111, "Validate arg", () => {
                 WrapErr.ToErrorReportException(12345, "Unexpected Error Processing Block", () => {
                     Console.WriteLine("This is a non exception throwing block");
                 });
@@ -52,8 +51,7 @@ namespace TestCases.ChkUtilsTests.Net {
 
         [Test]
         public void OnAction_NoException_MsgFormatInvoked() {
-            ErrReport err;
-            WrapErr.ToErrReport(out err, 1111, "Validate arg", () => {
+            WrapErr.ToErrReport(out ErrReport err, 1111, "Validate arg", () => {
                 WrapErr.ToErrorReportException(12345, () => { this.msgFormated = true; return "blah"; }, () => {
                     Console.WriteLine("This is a non exception throwing block");
                 });
@@ -65,11 +63,10 @@ namespace TestCases.ChkUtilsTests.Net {
 
         [Test]
         public void OnAction_NoException_FinallyInvoked() {
-            ErrReport err;
-            WrapErr.ToErrReport(out err, 1111, "Validate arg", () => {
+            WrapErr.ToErrReport(out ErrReport err, 1111, "Validate arg", () => {
                 WrapErr.ToErrorReportException(12345, "Unexpected Error Processing Block", () => {
                     Console.WriteLine("This is a non exception throwing block");
-                },                
+                },
                 delegate {
                     this.finallyInvoked = true;
 
@@ -86,8 +83,7 @@ namespace TestCases.ChkUtilsTests.Net {
 
         [Test]
         public void OnAction_Exception() {
-            ErrReport err;
-            WrapErr.ToErrReport(out err, 1111, "Validate arg", () => {
+            WrapErr.ToErrReport(out ErrReport err, 1111, "Validate arg", () => {
                 WrapErr.ToErrorReportException(12345, "Unexpected Error Processing Block", () => {
                     new ChkUtilsTestHelpers.OuterClass().DoNestedException();
                 });
@@ -98,8 +94,7 @@ namespace TestCases.ChkUtilsTests.Net {
 
         [Test]
         public void OnAction_Exception_MsgFormatInvoked() {
-            ErrReport err;
-            WrapErr.ToErrReport(out err, 1111, "Validate arg", () => {
+            WrapErr.ToErrReport(out ErrReport err, 1111, "Validate arg", () => {
                 WrapErr.ToErrorReportException(12345, () => { this.msgFormated = true; return "Unexpected Error Processing Block"; }, () => {
                     new ChkUtilsTestHelpers.OuterClass().DoNestedException();
                 });
@@ -111,8 +106,7 @@ namespace TestCases.ChkUtilsTests.Net {
 
         [Test]
         public void OnAction_Exception_FinallyInvoked() {
-            ErrReport err;
-            WrapErr.ToErrReport(out err, 1111, "Validate arg", () => {
+            WrapErr.ToErrReport(out ErrReport err, 1111, "Validate arg", () => {
                 WrapErr.ToErrorReportException(12345, "Unexpected Error Processing Block",
                     delegate {
                         new ChkUtilsTestHelpers.OuterClass().DoNestedException();
@@ -135,8 +129,7 @@ namespace TestCases.ChkUtilsTests.Net {
         [Test]
         public void OnFunction_NoException() {
             string s = "";
-            ErrReport err;
-            WrapErr.ToErrReport(out err, 1111, "Validate arg", () => {
+            WrapErr.ToErrReport(out ErrReport err, 1111, "Validate arg", () => {
                 s = WrapErr.ToErrorReportException(12345, "Unexpected Error Processing Block", () => {
                     return "This is a non exception throwing block";
                 });
@@ -149,9 +142,8 @@ namespace TestCases.ChkUtilsTests.Net {
         [Test]
         public void OnFunction_NoException_MsgFormatInvoked() {
             string s = "";
-            ErrReport err;
             bool formatInvoked = false;
-            WrapErr.ToErrReport(out err, 1111, "Validate arg", () => {
+            WrapErr.ToErrReport(out ErrReport err, 1111, "Validate arg", () => {
                 s = WrapErr.ToErrorReportException(12345, () => { formatInvoked = true; return "blah"; }, () => {
                     return "This is a non exception throwing block";
                 });
@@ -165,17 +157,16 @@ namespace TestCases.ChkUtilsTests.Net {
         [Test]
         public void OnFunction_NoException_FinallyInvoked() {
             string s = "";
-            ErrReport err;
-            WrapErr.ToErrReport(out err, 1111, "Validate arg", 
+            WrapErr.ToErrReport(out ErrReport err, 1111, "Validate arg",
                 delegate {
-                s = WrapErr.ToErrorReportException(12345, "Unexpected Error Processing Block", () => {
-                    return "This is a non exception throwing block";
-                },
-                delegate {
-                    this.finallyInvoked = true;
+                    s = WrapErr.ToErrorReportException(12345, "Unexpected Error Processing Block", () => {
+                        return "This is a non exception throwing block";
+                    },
+                    delegate {
+                        this.finallyInvoked = true;
 
+                    });
                 });
-            });
             Assert.AreEqual(0, err.Code);
             Assert.IsTrue(this.finallyInvoked, "Finally block was not executed");
             Assert.AreEqual("This is a non exception throwing block", s);
@@ -191,8 +182,7 @@ namespace TestCases.ChkUtilsTests.Net {
         [Test]
         public void OnFunction_Exception() {
             string s = "lalala";
-            ErrReport err;
-            WrapErr.ToErrReport(out err, 1111, "Validate arg", () => {
+            WrapErr.ToErrReport(out ErrReport err, 1111, "Validate arg", () => {
                 s = WrapErr.ToErrorReportException(12345, "Unexpected Error Processing Block", () => {
                     new ChkUtilsTestHelpers.OuterClass().DoNestedException();
                     return "This should not be";
@@ -206,8 +196,7 @@ namespace TestCases.ChkUtilsTests.Net {
         [Test]
         public void OnFunction_Exception_MsgFormatInvoked() {
             string s = "lalala";
-            ErrReport err;
-            WrapErr.ToErrReport(out err, 1111, "Validate arg", () => {
+            WrapErr.ToErrReport(out ErrReport err, 1111, "Validate arg", () => {
                 s = WrapErr.ToErrorReportException(12345, () => { this.msgFormated = true; return "Unexpected Error Processing Block"; }, () => {
                     new ChkUtilsTestHelpers.OuterClass().DoNestedException();
                     return "This should not be";
@@ -222,8 +211,7 @@ namespace TestCases.ChkUtilsTests.Net {
         [Test]
         public void OnFunction_Exception_FinallyInvoked() {
             string s = "lalala";
-            ErrReport err;
-            WrapErr.ToErrReport(out err, 1111, "Validate arg", () => {
+            WrapErr.ToErrReport(out ErrReport err, 1111, "Validate arg", () => {
                 s = WrapErr.ToErrorReportException(12345, "Unexpected Error Processing Block",
                     delegate {
                         new ChkUtilsTestHelpers.OuterClass().DoNestedException();
@@ -244,8 +232,7 @@ namespace TestCases.ChkUtilsTests.Net {
         public void OnFunction_Exception_NoLogging() {
             WrapErr.InitialiseOnExceptionLogDelegate(null);
             string s = "lalala";
-            ErrReport err;
-            WrapErr.ToErrReport(out err, 1111, "Validate arg", () => {
+            WrapErr.ToErrReport(out ErrReport err, 1111, "Validate arg", () => {
                 s = WrapErr.ToErrorReportException(12345, "Unexpected Error Processing Block", () => {
                     new ChkUtilsTestHelpers.OuterClass().DoNestedException();
                     return "This should not be";
@@ -272,6 +259,7 @@ namespace TestCases.ChkUtilsTests.Net {
 
 
         #endregion
+#pragma warning restore CA1822 // Mark members as static
 
     }
 

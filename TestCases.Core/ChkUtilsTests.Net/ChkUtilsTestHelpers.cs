@@ -1,9 +1,9 @@
 ﻿using ChkUtils.Net;
-using System;
 
 namespace TestCases.ChkUtilsTests.Net {
 
     public class ChkUtilsTestHelpers {
+#pragma warning disable CA1822 // Mark members as static
 
 
         #region Recursive Inner Exception test classes
@@ -88,6 +88,7 @@ namespace TestCases.ChkUtilsTests.Net {
         }
 
         #endregion
+        #pragma warning restore CA1822 // Mark members as static
 
     }
 }

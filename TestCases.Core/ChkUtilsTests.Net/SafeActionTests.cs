@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using ChkUtils.Net;
 using NUnit.Framework;
-using ChkUtils.Net;
 
 namespace TestCases.ChkUtilsTests.Net {
 
@@ -21,23 +17,23 @@ namespace TestCases.ChkUtilsTests.Net {
         }
 
 
-        class obj1 {
+        class Obj1 {
         }
 
         [Test]
         public void DefaultObjectOnThrow() {
             // The safe wrapper should overwrite the valid object with default(obj1)
-            obj1 o1 = new obj1();
+            Obj1 o1 = new ();
             Assert.DoesNotThrow(() => {
                 o1= WrapErr.SafeAction(() => {
 #pragma warning disable CS8600,CS8602
                     string s2 = null;
-                    string s3 = s2.Substring(0, 10);
+                    string s3 = s2[..10];
 #pragma warning restore CS8600,CS8602
-                    return new obj1();
+                    return new Obj1();
                 });
             });
-            Assert.AreEqual(o1, default(obj1));
+            Assert.AreEqual(o1, default(Obj1));
             Assert.IsNull(o1);
         }
 
@@ -45,10 +41,10 @@ namespace TestCases.ChkUtilsTests.Net {
         [Test]
         public void ReturnsValidObj() {
             // The safe wrapper should overwrite the valid object with default(obj1)
-            obj1? o1 = null;
+            Obj1? o1 = null;
             Assert.DoesNotThrow(() => {
                 o1 = WrapErr.SafeAction(() => {
-                    return new obj1();
+                    return new Obj1();
                 });
             });
             Assert.IsNotNull(o1);

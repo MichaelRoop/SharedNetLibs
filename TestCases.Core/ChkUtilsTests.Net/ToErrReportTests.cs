@@ -1,13 +1,13 @@
 ﻿using ChkUtils.Net;
 using ChkUtils.Net.ErrObjects;
-using TestCaseSupport.Core;
 using NUnit.Framework;
-using System;
+using TestCaseSupport.Core;
 
 namespace TestCases.ChkUtilsTests.Net {
 
     [TestFixture]
     public class ToErrReportTests {
+#pragma warning disable CA1822 // Mark members as static
 
         #region Setup
 
@@ -27,8 +27,7 @@ namespace TestCases.ChkUtilsTests.Net {
         [Test]
         public void Action_Valid() {
             // Confirms that the error message formating section is not invoked unless there is actually an error
-            ErrReport err;
-            WrapErr.ToErrReport(out err, 1111, () => { return "The error formating has been invoked"; }, () => {
+            WrapErr.ToErrReport(out ErrReport err, 1111, () => { return "The error formating has been invoked"; }, () => {
                 TestHelpers.NonExceptionAction();
             });
             Assert.AreEqual(0, err.Code, String.Format("Encountered error '{0}'", err.Msg));
@@ -37,8 +36,7 @@ namespace TestCases.ChkUtilsTests.Net {
         [Test]
         public void Action_Valid_FinallyExceptionCaught() {
             // Confirms that the error message formating section is not invoked unless there is actually an error
-            ErrReport err;
-            WrapErr.ToErrReport(out err, 1111, () => { return "The error formating has been invoked"; },
+            WrapErr.ToErrReport(out ErrReport err, 1111, () => { return "The error formating has been invoked"; },
                 delegate {
                     TestHelpers.NonExceptionAction();
                 },
@@ -51,8 +49,7 @@ namespace TestCases.ChkUtilsTests.Net {
         [Test]
         public void Action_Valid_ConfirmMsgFormaterNotInvoked() {
             // Confirms that the error message formating section is not invoked unless there is actually an error
-            ErrReport err;
-            WrapErr.ToErrReport(out err, 1111,
+            WrapErr.ToErrReport(out ErrReport err, 1111,
                 () => {
                     Assert.Fail("The error formating should not have been invoked");
                     return "this error";
@@ -63,8 +60,7 @@ namespace TestCases.ChkUtilsTests.Net {
         [Test]
         public void Action_Caught_Exception_SimpleString() {
             // Confirms that the error message formating section is not invoked unless there is actually an error
-            ErrReport err;
-            WrapErr.ToErrReport(out err, 1111, "Woka woka error", () => {
+            WrapErr.ToErrReport(out ErrReport err, 1111, "Woka woka error", () => {
                 new ChkUtilsTestHelpers.OuterClass().DoNestedException();
             });
             Validate(err, 1111, "Action_Caught_Exception_SimpleString", "Woka woka error");
@@ -74,8 +70,7 @@ namespace TestCases.ChkUtilsTests.Net {
         [Test]
         public void Action_Caught_Exception_ErrorFormater() {
             // Confirms that the error message formating section is not invoked unless there is actually an error
-            ErrReport err;
-            WrapErr.ToErrReport(out err, 1111, () => { return "The error formating has been invoked"; }, () => {
+            WrapErr.ToErrReport(out ErrReport err, 1111, () => { return "The error formating has been invoked"; }, () => {
                 new ChkUtilsTestHelpers.OuterClass().DoNestedException();
             });
             Validate(err, 1111, "Action_Caught_Exception_ErrorFormater", "The error formating has been invoked");
@@ -84,8 +79,7 @@ namespace TestCases.ChkUtilsTests.Net {
 
         [Test]
         public void Action_Caught_ErrReportException() {
-            ErrReport err;
-            WrapErr.ToErrReport(out err, 1111, "Unexpected error", () => {
+            WrapErr.ToErrReport(out ErrReport err, 1111, "Unexpected error", () => {
                 new ChkUtilsTestHelpers.OuterClass().DoNestedErrReportException();
             });
             Assert.AreEqual(9292, err.Code);
@@ -105,8 +99,7 @@ namespace TestCases.ChkUtilsTests.Net {
         [Test]
         public void Func_Valid() {
             // Confirms that the error message formating section is not invoked unless there is actually an error
-            ErrReport err;
-            int ret = WrapErr.ToErrReport(out err, 1111, () => { return "The error formating has been invoked"; }, () => {
+            int ret = WrapErr.ToErrReport(out ErrReport err, 1111, () => { return "The error formating has been invoked"; }, () => {
                 return TestHelpers.NonExceptionFunc();
             });
             Assert.AreEqual(0, err.Code, String.Format("Encountered error '{0}'", err.Msg));
@@ -115,10 +108,9 @@ namespace TestCases.ChkUtilsTests.Net {
         [Test]
         public void Func_Valid_FinallyExceptionCaught() {
             // Confirms that the error message formating section is not invoked unless there is actually an error
-            ErrReport err;
-            int ret = WrapErr.ToErrReport(out err, 1111, () => { return "The error formating has been invoked"; },
+            int ret = WrapErr.ToErrReport(out ErrReport err, 1111, () => { return "The error formating has been invoked"; },
                 delegate {
-                return TestHelpers.NonExceptionFunc();
+                    return TestHelpers.NonExceptionFunc();
                 },
                 delegate {
                     throw new Exception("This should be ignored");
@@ -129,8 +121,7 @@ namespace TestCases.ChkUtilsTests.Net {
         [Test]
         public void Func_Valid_ConfirmMsgFormaterNotInvoked() {
             // Confirms that the error message formating section is not invoked unless there is actually an error
-            ErrReport err;
-            int ret = WrapErr.ToErrReport(out err, 1111,
+            int ret = WrapErr.ToErrReport(out ErrReport err, 1111,
                 () => {
                     Assert.Fail("The error formating should not have been invoked");
                     return "this error";
@@ -141,8 +132,7 @@ namespace TestCases.ChkUtilsTests.Net {
         [Test]
         public void Func_Caught_Exception_SimpleString() {
             // Confirms that the error message formating section is not invoked unless there is actually an error
-            ErrReport err;
-            int ret = WrapErr.ToErrReport(out err, 1111, "Woka woka error", () => {
+            int ret = WrapErr.ToErrReport(out ErrReport err, 1111, "Woka woka error", () => {
                 new ChkUtilsTestHelpers.OuterClass().DoNestedException();
                 return 1;
             });
@@ -153,8 +143,7 @@ namespace TestCases.ChkUtilsTests.Net {
         [Test]
         public void Func_Caught_Exception_ErrorFormater() {
             // Confirms that the error message formating section is not invoked unless there is actually an error
-            ErrReport err;
-            int ret = WrapErr.ToErrReport(out err, 1111, () => { return "The error formating has been invoked"; }, () => {
+            int ret = WrapErr.ToErrReport(out ErrReport err, 1111, () => { return "The error formating has been invoked"; }, () => {
                 new ChkUtilsTestHelpers.OuterClass().DoNestedException();
                 return 1;
             });
@@ -163,8 +152,7 @@ namespace TestCases.ChkUtilsTests.Net {
 
         [Test]
         public void Func_Caught_ErrReportException() {
-            ErrReport err;
-            int ret = WrapErr.ToErrReport(out err, 1111, "Unexpected error", () => {
+            int ret = WrapErr.ToErrReport(out ErrReport err, 1111, "Unexpected error", () => {
                 return new ChkUtilsTestHelpers.OuterClass().RetDoNestedErrReportException();
             });
             Assert.AreEqual(9292, err.Code);
@@ -189,7 +177,7 @@ namespace TestCases.ChkUtilsTests.Net {
         }
 
         #endregion
-
+#pragma warning restore CA1822 // Mark members as static
 
     }
 }

@@ -1,6 +1,5 @@
 ﻿using ChkUtils.Net.ExceptionParsers;
 using NUnit.Framework;
-using System;
 using System.Xml;
 
 namespace TestCases.ChkUtilsTests.Net {
@@ -33,7 +32,9 @@ namespace TestCases.ChkUtilsTests.Net {
 
 
 
+#pragma warning disable CA1822 // Mark members as static
         private void TestParserFetch(Type expected, Action action) {
+#pragma warning restore CA1822 // Mark members as static
             try {
                 action.Invoke();
             }

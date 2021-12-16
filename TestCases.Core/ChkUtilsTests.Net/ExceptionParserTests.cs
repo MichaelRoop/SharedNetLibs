@@ -1,6 +1,5 @@
 ﻿using ChkUtils.Net.ExceptionParsers;
 using NUnit.Framework;
-using System;
 using System.Text;
 using System.Xml;
 
@@ -12,7 +11,7 @@ namespace TestCases.ChkUtilsTests.Net {
         [Test]
         public void XmlExceptionParserTest() {
             try {
-                XmlException x = new XmlException("Blah Error", null, 25, 100);
+                XmlException x = new ("Blah Error", null, 25, 100);
                 x.Data.Add("User Key 1", "User Value 1");
                 throw x;
             }
@@ -31,7 +30,7 @@ namespace TestCases.ChkUtilsTests.Net {
         [Test]
         public void ExceptionParserTest() {
             try {
-                Exception x = new Exception("Default Blah Error");
+                Exception x = new ("Default Blah Error");
                 x.Data.Add("DefaultUserKey1", "DefaultUserValue1");
                 throw x;
             }
@@ -64,7 +63,7 @@ namespace TestCases.ChkUtilsTests.Net {
             catch (Exception e) {
                 IExceptionParser? parser = ExceptionParserFactory.Get(e);
 
-                StringBuilder stackTrace = new StringBuilder();
+                StringBuilder stackTrace = new ();
 
                 int index = 1;
                 while (parser != null) {
@@ -100,24 +99,22 @@ namespace TestCases.ChkUtilsTests.Net {
 
         #region Private Methods
 
+#pragma warning disable CS8600,CS8602,CA1822
         private void ValidateExtraInfo(IExceptionParser? parser, string key, string value) {
             Assert.NotNull(parser);
-#pragma warning disable CS8600,CS8602
             ExceptionExtraInfo i = parser.ExtraInfo.Find((item) => item.Name == key);
             Assert.IsNotNull(i);
             Assert.AreEqual(value, i.Value);
-#pragma warning restore CS8602,CS8602
         }
 
         private void TestRegularFields(IExceptionParser? parser, int extraCount, string name, string msg) {
             Assert.IsNotNull(parser);
-#pragma warning disable CS8600,CS8602
             Assert.AreEqual(extraCount, parser.ExtraInfo.Count, "The count of extra info items is off");
             Assert.AreEqual(name, parser.Info.Name);
             Assert.AreEqual(msg, parser.Info.Msg);
-#pragma warning restore CS8602,CS8602
         }
 
+#pragma warning restore CS8602,CS8602,CA1822
         #endregion
 
 
