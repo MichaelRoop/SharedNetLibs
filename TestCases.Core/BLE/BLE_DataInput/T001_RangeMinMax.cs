@@ -1,8 +1,6 @@
 ﻿using BluetoothLE.Net.Enumerations;
 using BluetoothLE.Net.Tools;
-using LogUtils.Net;
 using NUnit.Framework;
-using System;
 using TestCaseSupport.Core;
 using VariousUtils.Net;
 
@@ -11,8 +9,8 @@ namespace TestCases.Core.BLE.BLE_DataInput {
     [TestFixture]
     public class T001_RangeMinMax : TestCaseBase {
 
-        ClassLog log = new ClassLog("DescParserBaseTests");
-        private BLERangeValidator validator = new BLERangeValidator();
+        //private readonly ClassLog log = new ("DescParserBaseTests");
+        private readonly BLERangeValidator validator = new ();
 
         #region Setup
 

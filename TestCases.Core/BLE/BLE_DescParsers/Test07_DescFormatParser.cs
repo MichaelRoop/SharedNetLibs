@@ -1,11 +1,8 @@
 ﻿using BluetoothLE.Net.Enumerations;
 using BluetoothLE.Net.interfaces;
-using BluetoothLE.Net.Parsers.Characteristics;
 using BluetoothLE.Net.Parsers.Descriptor;
 using LogUtils.Net;
 using NUnit.Framework;
-using System.Collections.Generic;
-using System.Text;
 using TestCaseSupport.Core;
 using VariousUtils.Net;
 
@@ -14,7 +11,7 @@ namespace TestCases.Core.BLE.BLE_DescParsers {
     [TestFixture]
     public class Test07_DescFormatParser : TestCaseBase {
 
-        ClassLog log = new ClassLog("DescFormatParserTest");
+        private readonly ClassLog log = new ("DescFormatParserTest");
 
         #region Setup
 
@@ -72,7 +69,7 @@ namespace TestCases.Core.BLE.BLE_DescParsers {
         public void Err13340_FormatParseDataBadFormat() {
             TestHelpers.CatchUnexpected(() => {
                 IDescParser parser = new DescParser_PresentationFormat();
-                byte[] data = this.GetBlock();
+                byte[] data = GetBlock();
                 // Bogus format
                 data[0] = 245;  // Bogus Format at position 0
                 string result = parser.Parse(data);
@@ -86,7 +83,7 @@ namespace TestCases.Core.BLE.BLE_DescParsers {
         public void Err13341_FormatParseDataBadUnit() {
             TestHelpers.CatchUnexpected(() => {
                 IDescParser parser = new DescParser_PresentationFormat();
-                byte[] data = this.GetBlock();
+                byte[] data = GetBlock();
                 int pos = 2;
                 ((ushort)0xFFF0).WriteToBuffer(data, ref pos); // Bogus measurement unit at pos 2,3
                 string result = parser.Parse(data);
@@ -99,38 +96,38 @@ namespace TestCases.Core.BLE.BLE_DescParsers {
 
         #region GetBlock
 
-        private byte[] GetBlock() {
-            return this.GetBlock(DataFormatEnum.UInt_32bit, UnitsOfMeasurement.LengthMetre);
+        private static byte[] GetBlock() {
+            return GetBlock(DataFormatEnum.UInt_32bit, UnitsOfMeasurement.LengthMetre);
         }
 
 
-        private byte[] GetBlock(DataFormatEnum formatEnum) {
-            return this.GetBlock(formatEnum, UnitsOfMeasurement.LengthMetre, 0);
+        //private static byte[] GetBlock(DataFormatEnum formatEnum) {
+        //    return GetBlock(formatEnum, UnitsOfMeasurement.LengthMetre, 0);
+        //}
+
+
+        private static byte[] GetBlock(DataFormatEnum formatEnum, UnitsOfMeasurement units) {
+            return GetBlock(formatEnum, units, 0);
         }
 
 
-        private byte[] GetBlock(DataFormatEnum formatEnum, UnitsOfMeasurement units) {
-            return this.GetBlock(formatEnum, units, 0);
+        private static byte[] GetBlock(DataFormatEnum formatEnum, UnitsOfMeasurement units, byte exponent) {
+            return GetBlock(formatEnum, units, exponent, 1, 0x221A);
         }
 
 
-        private byte[] GetBlock(DataFormatEnum formatEnum, UnitsOfMeasurement units, byte exponent) {
-            return this.GetBlock(formatEnum, units, exponent, 1, 0x221A);
-        }
+        //private static byte[] GetBlock(DataFormatEnum formatEnum, UnitsOfMeasurement units, byte exponent, byte nameSpace) {
+        //    return GetBlock(formatEnum, units, exponent, nameSpace, 0x221A);
+        //}
 
-
-        private byte[] GetBlock(DataFormatEnum formatEnum, UnitsOfMeasurement units, byte exponent, byte nameSpace) {
-            return this.GetBlock(formatEnum, units, exponent, nameSpace, 0x221A);
-        }
-
-        private byte[] GetBlock(DataFormatEnum formatEnum, UnitsOfMeasurement units, byte exponent, byte nameSpace, ushort description) {
+        private static byte[] GetBlock(DataFormatEnum formatEnum, UnitsOfMeasurement units, byte exponent, byte nameSpace, ushort description) {
             byte[] data = new byte[7];
             //ushort description = 0x221A;
 
             int pos = 0;
             formatEnum.ToByte().WriteToBuffer(data, ref pos);
             exponent.WriteToBuffer(data, ref pos);
-            UnitsOfMeasurement.LengthMetre.ToUint16().WriteToBuffer(data, ref pos);
+            units.ToUint16().WriteToBuffer(data, ref pos);
             nameSpace.WriteToBuffer(data, ref pos); // namespace
             description.WriteToBuffer(data, ref pos);
             return data;

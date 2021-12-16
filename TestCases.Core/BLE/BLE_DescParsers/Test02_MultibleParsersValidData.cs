@@ -1,7 +1,6 @@
 ﻿using BluetoothLE.Net.Enumerations;
 using BluetoothLE.Net.Parsers.Descriptor;
 using NUnit.Framework;
-using System.Collections.Generic;
 using TestCaseSupport.Core;
 using VariousUtils.Net;
 
@@ -32,8 +31,8 @@ namespace TestCases.Core.BLE.BLE_DescParsers {
         [Test]
         public void AggregateFormat_ParseValid() {
             TestHelpers.CatchUnexpected(() => {
-                DescParser_CharacteristicAggregateFormat parser = new DescParser_CharacteristicAggregateFormat();
-                List<ushort> attributes = new List<ushort>();
+                DescParser_CharacteristicAggregateFormat parser = new ();
+                List<ushort> attributes = new ();
                 byte[] data = new byte[10 * sizeof(ushort)];
                 int pos = 0;
                 for (ushort i = 0; i < 10; i++) {
@@ -44,7 +43,7 @@ namespace TestCases.Core.BLE.BLE_DescParsers {
                 for (ushort i = 0; i < 10; i++) {
                     Assert.AreEqual(i, parser.AttributeHandles[i]);
                 }
-                Assert.True(parser is DescParser_CharacteristicAggregateFormat);
+                //Assert.True(parser is DescParser_CharacteristicAggregateFormat);
             });
         }
 
@@ -52,9 +51,8 @@ namespace TestCases.Core.BLE.BLE_DescParsers {
         [Test]
         public void ExtendedProperties_ParseValid() {
             TestHelpers.CatchUnexpected(() => {
-                DescParser_CharacteristicExtendedProperties parser = 
-                    new DescParser_CharacteristicExtendedProperties();
-                Assert.True(parser is DescParser_CharacteristicExtendedProperties);
+                DescParser_CharacteristicExtendedProperties parser = new ();
+                //Assert.True(parser is DescParser_CharacteristicExtendedProperties);
 
                 int pos = 0;
                 ushort value = 0;
@@ -98,22 +96,18 @@ namespace TestCases.Core.BLE.BLE_DescParsers {
 
 
 
-        private void TestExtendedProperties(
-            DescParser_CharacteristicExtendedProperties parser,
-            byte[] data,
-            ushort value,
-            EnabledDisabled write,
-            EnabledDisabled aux) {
-            int pos = 0;
-            value.WriteToBuffer(data, ref pos);
-            parser.Parse(data);
-            Assert.AreEqual(EnabledDisabled.Enabled, parser.ReliableWrite);
-            Assert.AreEqual(EnabledDisabled.Disabled, parser.ReliableAuxiliary);
-
-
-
-
-        }
+        //private static void TestExtendedProperties(
+        //    DescParser_CharacteristicExtendedProperties parser,
+        //    byte[] data,
+        //    ushort value,
+        //    EnabledDisabled write,
+        //    EnabledDisabled aux) {
+        //    int pos = 0;
+        //    value.WriteToBuffer(data, ref pos);
+        //    parser.Parse(data);
+        //    Assert.AreEqual(EnabledDisabled.Enabled, parser.ReliableWrite);
+        //    Assert.AreEqual(EnabledDisabled.Disabled, parser.ReliableAuxiliary);
+        //}
 
 
     }

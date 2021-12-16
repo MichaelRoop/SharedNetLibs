@@ -1,8 +1,6 @@
 ﻿using BluetoothLE.Net.interfaces;
 using BluetoothLE.Net.Parsers.Descriptor;
-using LogUtils.Net;
 using NUnit.Framework;
-using System;
 using TestCaseSupport.Core;
 
 namespace TestCases.Core.BLE.BLE_DescParsers {
@@ -10,7 +8,7 @@ namespace TestCases.Core.BLE.BLE_DescParsers {
     [TestFixture]
     public class Test01_DescParserBase : TestCaseBase {
 
-        ClassLog log = new ClassLog("DescParserBaseTests");
+        //private readonly ClassLog log = new ("DescParserBaseTests");
 
         #region Setup
 
@@ -75,7 +73,7 @@ namespace TestCases.Core.BLE.BLE_DescParsers {
         public void Err13618_DataZeroLength() {
             TestHelpers.CatchUnexpected(() => {
                 IDescParser parser = new DescParser_PresentationFormat();
-                byte[] data = new byte[0];
+                byte[] data = Array.Empty<byte>();
                 parser.Parse(data);
                 this.logReader.Validate(13618, "BLEParserBase", "CopyToRawData", "byte[] is zero length");
             });

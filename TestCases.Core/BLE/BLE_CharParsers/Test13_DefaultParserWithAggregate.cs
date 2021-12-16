@@ -61,9 +61,9 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
                 DescParser_CharacteristicAggregateFormat agg = new ();
                 List<IDescParser> descriptors = new ();
                 // Need to calculate size with all data 
-                this.AddFormat(tools.GetBlock(DataFormatEnum.UInt_8bit), descriptors, agg);
-                this.AddFormat(tools.GetBlock(DataFormatEnum.UInt_16bit), descriptors, agg);
-                this.AddFormat(tools.GetBlock(DataFormatEnum.UInt_32bit), descriptors, agg);
+                this.AddFormat(BLE_TestTools.GetBlock(DataFormatEnum.UInt_8bit), descriptors, agg);
+                this.AddFormat(BLE_TestTools.GetBlock(DataFormatEnum.UInt_16bit), descriptors, agg);
+                this.AddFormat(BLE_TestTools.GetBlock(DataFormatEnum.UInt_32bit), descriptors, agg);
                 //int size = 0;
                 //foreach (var f in descriptors) {
                 //    size += f.RequiredBytes;
@@ -80,8 +80,8 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
             TestHelpers.CatchUnexpected(() => {
                 DescParser_CharacteristicAggregateFormat agg = new ();
                 List<IDescParser> descriptors = new ();
-                this.AddFormat(tools.GetBlock(DataFormatEnum.UInt_8bit), descriptors, agg);
-                this.AddFormat(tools.GetBlock(DataFormatEnum.UInt_16bit), descriptors, agg);
+                this.AddFormat(BLE_TestTools.GetBlock(DataFormatEnum.UInt_8bit), descriptors, agg);
+                this.AddFormat(BLE_TestTools.GetBlock(DataFormatEnum.UInt_16bit), descriptors, agg);
                 agg.AttributeHandles.Add(0xF000);
                 descriptors.Add(agg);
                 var status = this.defaultCharParser.SetDescriptorParsers(descriptors);
@@ -95,8 +95,8 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
             TestHelpers.CatchUnexpected(() => {
                 DescParser_CharacteristicAggregateFormat agg = new ();
                 List<IDescParser> descriptors = new ();
-                this.AddFormat(tools.GetBlock(DataFormatEnum.UInt_8bit), descriptors, agg);
-                this.AddFormat(tools.GetBlock(DataFormatEnum.UInt_16bit), descriptors, agg);
+                this.AddFormat(BLE_TestTools.GetBlock(DataFormatEnum.UInt_8bit), descriptors, agg);
+                this.AddFormat(BLE_TestTools.GetBlock(DataFormatEnum.UInt_16bit), descriptors, agg);
                 // this will be number 3
                 byte[] data = new byte[] { 1 };
                 DescParser_Default def = new () { AttributeHandle = 0x3 };
@@ -115,8 +115,8 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
             TestHelpers.CatchUnexpected(() => {
                 DescParser_CharacteristicAggregateFormat agg = new ();
                 List<IDescParser> descriptors = new ();
-                this.AddFormat(tools.GetBlock(DataFormatEnum.UInt_8bit), descriptors, agg);
-                this.AddFormat(tools.GetBlock(DataFormatEnum.UInt_16bit), descriptors, agg);
+                this.AddFormat(BLE_TestTools.GetBlock(DataFormatEnum.UInt_8bit), descriptors, agg);
+                this.AddFormat(BLE_TestTools.GetBlock(DataFormatEnum.UInt_16bit), descriptors, agg);
                 descriptors[1].AttributeHandle = descriptors[0].AttributeHandle;
                 descriptors.Add(agg);
                 var status = this.defaultCharParser.SetDescriptorParsers(descriptors);
@@ -232,7 +232,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
             IDescParser p = new DescParser_PresentationFormat() {
                 AttributeHandle = handle,
             };
-            p.Parse(tools.GetBlock(dataType));
+            p.Parse(BLE_TestTools.GetBlock(dataType));
             agg.AttributeHandles.Add(p.AttributeHandle);
             return p;
         }

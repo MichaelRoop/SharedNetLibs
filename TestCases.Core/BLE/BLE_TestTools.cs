@@ -1,7 +1,4 @@
 ﻿using BluetoothLE.Net.Enumerations;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using VariousUtils.Net;
 
 namespace TestCases.Core.BLE {
@@ -9,31 +6,31 @@ namespace TestCases.Core.BLE {
 
         #region GetBlock
 
-        public byte[] GetBlock() {
-            return this.GetBlock(DataFormatEnum.UInt_32bit, UnitsOfMeasurement.Unitless);
+        public static byte[] GetBlock() {
+            return GetBlock(DataFormatEnum.UInt_32bit, UnitsOfMeasurement.Unitless);
         }
 
 
-        public byte[] GetBlock(DataFormatEnum formatEnum) {
-            return this.GetBlock(formatEnum, UnitsOfMeasurement.Unitless);
+        public static byte[] GetBlock(DataFormatEnum formatEnum) {
+            return GetBlock(formatEnum, UnitsOfMeasurement.Unitless);
         }
 
 
-        public byte[] GetBlock(DataFormatEnum formatEnum, UnitsOfMeasurement units) {
-            return this.GetBlock(formatEnum, units, 0);
+        public static byte[] GetBlock(DataFormatEnum formatEnum, UnitsOfMeasurement units) {
+            return GetBlock(formatEnum, units, 0);
         }
 
 
-        public byte[] GetBlock(DataFormatEnum formatEnum, UnitsOfMeasurement units, sbyte exponent) {
-            return this.GetBlock(formatEnum, units, exponent, 1, 0x221A);
+        public static byte[] GetBlock(DataFormatEnum formatEnum, UnitsOfMeasurement units, sbyte exponent) {
+            return GetBlock(formatEnum, units, exponent, 1, 0x221A);
         }
 
 
-        public byte[] GetBlock(DataFormatEnum formatEnum, UnitsOfMeasurement units, sbyte exponent, byte nameSpace) {
-            return this.GetBlock(formatEnum, units, exponent, nameSpace, 0x221A);
+        public static byte[] GetBlock(DataFormatEnum formatEnum, UnitsOfMeasurement units, sbyte exponent, byte nameSpace) {
+            return GetBlock(formatEnum, units, exponent, nameSpace, 0x221A);
         }
 
-        public byte[] GetBlock(DataFormatEnum formatEnum, UnitsOfMeasurement units, sbyte exponent, byte nameSpace, ushort description) {
+        public static byte[] GetBlock(DataFormatEnum formatEnum, UnitsOfMeasurement units, sbyte exponent, byte nameSpace, ushort description) {
             byte[] data = new byte[7];
             int pos = 0;
             formatEnum.ToByte().WriteToBuffer(data, ref pos);   // 0
@@ -46,11 +43,11 @@ namespace TestCases.Core.BLE {
 
         #endregion
 
-        public void SetExponent(byte[] data, sbyte exp) {
+        public static void SetExponent(byte[] data, sbyte exp) {
             exp.WriteToBuffer(data, 1);
         }
 
-        public void SetUnits(byte[] data, UnitsOfMeasurement units) {
+        public static void SetUnits(byte[] data, UnitsOfMeasurement units) {
             units.ToUint16().WriteToBuffer(data, 2);
         }
 
