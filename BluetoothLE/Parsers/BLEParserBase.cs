@@ -33,7 +33,7 @@ namespace BluetoothLE.Net.Parsers {
 
         public string DisplayString { get; protected set; } = string.Empty;
 
-        public virtual BLE_DataType DataType { get; protected set; } = BLE_DataType.Reserved;
+        public virtual BLE_DataType DataType { get; protected set; } = BLE_DataType.Unhandled;
 
         /// <summary>We ranslate boolean which differs from all other values</summary>
         public bool BoolValue { get; set; } = false;

@@ -60,7 +60,7 @@ namespace BluetoothLE.Net.Tools {
                     BLE_DataType.IEEE_20601_format => ValidateIEEE20601(result),
                     BLE_DataType.UTF8_String => ValidateUTF8String(result),
                     BLE_DataType.UTF16_String => ValidateUTF16String(result),
-                    BLE_DataType.OpaqueStructure or BLE_DataType.Reserved => RangeNotHandled(result),
+                    BLE_DataType.OpaqueStructure or BLE_DataType.Reserved0x00 or BLE_DataType.Unhandled => RangeNotHandled(result),
                     _ => RangeNotHandled(result),
                 };
             }
@@ -69,7 +69,7 @@ namespace BluetoothLE.Net.Tools {
                 return new RangeValidationResult() {
                     UserEntryString = value,
                     Message = BLE_DataValidationStatus.UnhandledError.ToString(),
-                    Range = new DataTypeDisplay(BLE_DataType.Reserved, "0", "0"),
+                    Range = new DataTypeDisplay(BLE_DataType.Unhandled, "0", "0"),
                     Payload = Array.Empty<byte>(),
                     Status = BLE_DataValidationStatus.UnhandledError,
                 };

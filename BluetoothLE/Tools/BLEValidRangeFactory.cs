@@ -39,10 +39,11 @@ namespace BluetoothLE.Net.Tools {
                                                         string.Format("{0}|{0}", UInt16.MaxValue)),// this is 2 Uint16 in one Uint32 block need to handle both pieces as UINT16
                         BLE_DataType.UTF8_String => new DataTypeDisplay(BLE_DataType.UTF8_String, "1", "VAR"),
                         BLE_DataType.UTF16_String => new DataTypeDisplay(BLE_DataType.UTF16_String, "1", "VAR"),
-                        _ => new DataTypeDisplay(BLE_DataType.Reserved, "0", "0"),
+                        BLE_DataType.Reserved0x00 => new DataTypeDisplay(BLE_DataType.Reserved0x00, "0", "0"),
+                        _ => new DataTypeDisplay(BLE_DataType.Unhandled, "0", "0"),
                     };
                 });
-            return (report.Code == 0) ? result : new DataTypeDisplay(BLE_DataType.Reserved, "ERR", "ERR");
+            return (report.Code == 0) ? result : new DataTypeDisplay(BLE_DataType.Unhandled, "ERR", "ERR");
         }
 
     }
