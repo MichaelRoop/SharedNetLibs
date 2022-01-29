@@ -7,7 +7,7 @@ namespace BluetoothLE.Net.Enumerations {
     /// </remarks>
     public enum DataFormatEnum : byte {
         // Do * NOT * change order. Lines up with spec
-        Reserved = 0x00,  // No exponent
+        Reserved0x00 = 0x00,  // No exponent
         Boolean = 0x01,   // No exponent
         UInt_2bit = 0x02, // No exponent
         UInt_4bit = 0x03, // No exponent
@@ -54,7 +54,7 @@ namespace BluetoothLE.Net.Enumerations {
 
         public static bool IsHandled(this DataFormatEnum value) {
             return value switch {
-                DataFormatEnum.Reserved or 
+                DataFormatEnum.Reserved0x00 or 
                 DataFormatEnum.OpaqueStructure or 
                 DataFormatEnum.Int_128bit or 
                 DataFormatEnum.UInt_128bit or 
@@ -68,7 +68,7 @@ namespace BluetoothLE.Net.Enumerations {
 
         public static bool HasLengthRequirement(this DataFormatEnum value) {
             return value switch {
-                DataFormatEnum.Reserved or 
+                DataFormatEnum.Reserved0x00 or 
                 DataFormatEnum.UTF8_String or 
                 DataFormatEnum.UTF16_String or 
                 DataFormatEnum.OpaqueStructure or 

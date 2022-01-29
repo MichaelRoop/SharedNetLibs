@@ -8,7 +8,7 @@ namespace BluetoothLE.Net.Tools {
     public class DataTypeDisplay {
 
         /// <summary>To use higher up for any language conversion</summary>
-        public BLE_DataType DataTypeEnum { get; set; } = BLE_DataType.Reserved;
+        public BLE_DataType DataTypeEnum { get; set; } = BLE_DataType.Unhandled;
 
         /// <summary>Type evaluated</summary>
         public string DataType { get; set; } = string.Empty;

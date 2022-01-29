@@ -108,6 +108,8 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                                 return new CharParser_Uint8();
                             #endregion
 
+                            case GattNativeCharacteristicUuid.ServiceChanged:
+                                return new CharParser_ServiceChanged();
 
                             // TODO create parsers
                             case GattNativeCharacteristicUuid.AlertNotificationControlPoint:
@@ -171,7 +173,6 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                             //case GattNativeCharacteristicUuid.ScientificTemperatureinCelsius:
                             //case GattNativeCharacteristicUuid.SecondaryTimeZone:
                             case GattNativeCharacteristicUuid.SensorLocation:
-                            case GattNativeCharacteristicUuid.ServiceChanged:
                             case GattNativeCharacteristicUuid.SimpleKeyState:
                             case GattNativeCharacteristicUuid.SupportedNewAlertCategory:
                             case GattNativeCharacteristicUuid.SupportedUnreadAlertCategory:
@@ -421,12 +422,18 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
                             case GattNativeCharacteristicUuid.None:
                             default:
+
+                                this.log.Error(9009, "GetParser", () =>
+                                    string.Format("Data Type not handled:{0}", characteristicUuid.ToString()));
+
+
+
                                 return new CharParser_Default();
                         }
                     }
                     else {
                         this.log.Error(9999, "GetParser", () =>
-                            string.Format("Failed to parse out Guid:{0}", characteristicUuid.ToString()));
+                            string.Format("Not on GUID list - Failed to parse out Guid:{0}", characteristicUuid.ToString()));
                         return new CharParser_Default();
                     }
                 });

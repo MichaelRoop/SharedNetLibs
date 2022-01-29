@@ -63,8 +63,8 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                 // Now validate the total count if no other error
                 if (status == BLEOperationStatus.Success) {
                     this.DataType = this.formats.Count switch {
-                        0 => BLE_DataType.Reserved,// According to spec 0 Format Desc is legal
-                                                   // Mark as Reserved to display byte hex values
+                        0 => BLE_DataType.Reserved0x00,// According to spec 0 Format Desc is legal
+                                                   // Mark as Reserved0x00 to display byte hex values
                         1 => this.formats[0].DataType,// Just assume the type of the one data type present
                         _ => BLE_DataType.OpaqueStructure,// We will display the results in a comma delimited string
                     };
@@ -411,7 +411,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                 // Not handled
                 case Enumerations.DataFormatEnum.OpaqueStructure:
                 case Enumerations.DataFormatEnum.Unhandled:
-                case Enumerations.DataFormatEnum.Reserved:
+                case Enumerations.DataFormatEnum.Reserved0x00:
                 default:
                     return data.ToFormatedByteString();
 

@@ -6,7 +6,7 @@ namespace BluetoothLE.Net.Enumerations {
 
         // First entries are taken from the descriptor data type. Do not change
         // -----  No Exponents  -----
-        Reserved = DataFormatEnum.Reserved,
+        Reserved0x00 = DataFormatEnum.Reserved0x00,
         Bool = DataFormatEnum.Boolean,
         UInt_2bit = DataFormatEnum.UInt_2bit,
         UInt_4bit = DataFormatEnum.UInt_4bit,
@@ -47,7 +47,7 @@ namespace BluetoothLE.Net.Enumerations {
         // Can add different structure types
 
 
-
+        Unhandled = DataFormatEnum.Unhandled,
         // End of Descriptor Format data type
 
 
@@ -84,8 +84,10 @@ namespace BluetoothLE.Net.Enumerations {
                 BLE_DataType.IEEE_20601_format => "TwoUInt16",
                 BLE_DataType.UTF8_String => "UTF8 String",
                 BLE_DataType.UTF16_String => "UTF 16 String (Unicode)",
-                _ => "Not handled",
+                BLE_DataType.OpaqueStructure => "OpaqueStructure - Not Handled",
+                _ => string.Format("{0} - Not handled", dataType.ToString()),
             };
+            
         }
 
 
@@ -120,7 +122,7 @@ namespace BluetoothLE.Net.Enumerations {
 
         //public static uint Size(this BLE_DataType dataType) {
         //    switch (dataType) {
-        //        case BLE_DataType.Reserved:
+        //        case BLE_DataType.Reserved0x00:
         //            break;
         //        case BLE_DataType.Bool:
         //            break;

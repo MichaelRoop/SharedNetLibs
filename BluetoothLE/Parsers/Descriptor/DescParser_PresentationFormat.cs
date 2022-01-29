@@ -121,7 +121,7 @@ namespace BluetoothLE.Net.Parsers.Descriptor {
 
 
         protected override void ResetMembers() {
-            this.Format = DataFormatEnum.Reserved;
+            this.Format = DataFormatEnum.Reserved0x00;
             this.Exponent = 0;
             this.MeasurementUnitUShort = 0;
             this.Namespace = 0;
