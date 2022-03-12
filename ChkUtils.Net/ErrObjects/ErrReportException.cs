@@ -13,7 +13,7 @@ namespace ChkUtils.Net.ErrObjects {
 
         #region Data
 
-        ErrReport report = new ErrReport();
+         private readonly ErrReport report = new ();
 
         #endregion
 

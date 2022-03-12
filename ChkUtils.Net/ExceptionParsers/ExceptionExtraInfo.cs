@@ -10,9 +10,9 @@ namespace ChkUtils.Net.ExceptionParsers {
 
         #region Data
 
-        private string name = "";
+        private readonly string name = "";
 
-        private string value = "";
+        private readonly string value = "";
 
         #endregion
 
