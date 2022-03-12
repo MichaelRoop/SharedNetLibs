@@ -13,7 +13,7 @@ namespace ChkUtils.Net.ExceptionFormating {
         private static IExceptionOutputFormater defaultFormater = new MultiLineExceptionFormater();
         //private static IExceptionOutputFormater defaultFormater = new SingleLineExceptionFormater(); 
 
-        private static object formaterLock = new object();
+        private static readonly object formaterLock = new ();
 
         #endregion
 
