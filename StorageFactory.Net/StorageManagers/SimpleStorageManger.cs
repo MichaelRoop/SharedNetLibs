@@ -16,7 +16,7 @@ namespace StorageFactory.Net.StorageManagers {
         private string root = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         private string subDir = "DEFAULT_SUB_DIR";
         private string file = "DEFAULT_FILE_NAME.TXT";
-        IReadWriteSerializer<T> serializer;
+        private readonly IReadWriteSerializer<T> serializer;
 
         #endregion
 
@@ -156,18 +156,16 @@ namespace StorageFactory.Net.StorageManagers {
         /// <returns>The T class or null</returns>
         public T ReadObjectFromFile(string filename) {
             lock (this) {
-                ErrReport report;
                 string name = FileHelpers.GetFullFileName(this.StoragePath, filename);
-                T? ret = WrapErr.ToErrReport(out report, 9999,
+                T? ret = WrapErr.ToErrReport(out ErrReport report, 9999,
                     () => string.Format("Failed to read: {0}", name),
                     () => {
                         DirectoryHelpers.CreateStorageDir(this.StoragePath);
                         if (File.Exists(name)) {
-                            using (FileStream fs = File.OpenRead(name)) {
-                                return this.serializer.Deserialize(fs);
-                            }
+                            using FileStream fs = File.OpenRead(name);
+                            return this.serializer.Deserialize(fs);
                         }
-                        return default(T);
+                        return default;
                     });
                 return report.Code == 0 ? ret??new T() : new T();
             }
@@ -187,19 +185,17 @@ namespace StorageFactory.Net.StorageManagers {
         /// <returns>true on success, otherwise false</returns>
         public bool WriteObjectToFile(T obj, string filename) {
             lock (this) {
-                ErrReport report;
                 string name = FileHelpers.GetFullFileName(this.StoragePath, filename);
-                bool ret = WrapErr.ToErrReport(out report, 9999,
+                bool ret = WrapErr.ToErrReport(out ErrReport report, 9999,
                     () => string.Format("Failed to write: {0}", name),
                     () => {
-                        Log.Info("SimpleStorageManager", "WriteObjectToFile", 
+                        Log.Info("SimpleStorageManager", "WriteObjectToFile",
                             () => string.Format("Write File:{0}", name));
                         DirectoryHelpers.CreateStorageDir(this.StoragePath);
-                        using (FileStream fs = File.Create(name)) {
-                            return this.serializer.Serialize(obj, fs);
-                        }
+                        using FileStream fs = File.Create(name);
+                        return this.serializer.Serialize(obj, fs);
                     });
-                return report.Code == 0 ? ret : false;
+                return report.Code == 0 && ret;
             }
         }
 

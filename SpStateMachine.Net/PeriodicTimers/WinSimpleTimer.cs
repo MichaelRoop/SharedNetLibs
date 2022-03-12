@@ -19,10 +19,10 @@ namespace SpStateMachine.PeriodicTimers {
         private System.Timers.Timer? timer = null;
 
         /// <summary>Access lock to the timer object</summary>
-        private object timerLock = new object();
+        private object timerLock = new ();
 
         /// <summary>Interval object with default 1 second pulse</summary>
-        private TimeSpan timespan = new TimeSpan(0, 0, 1);
+        private TimeSpan timespan = new (0, 0, 1);
 
         /// <summary>The handler for the timer Elapsed event</summary>
         private ElapsedEventHandler? onTimerWakeup = null;
@@ -173,7 +173,7 @@ namespace SpStateMachine.PeriodicTimers {
         /// <param name="e"></param>
         private void timer_Elapsed(object? sender, ElapsedEventArgs e) {
             // Trap any exceptions using the OnWakeup event handler
-            ErrReport err = new ErrReport();
+            ErrReport err = new ();
             WrapErr.ToErrReport(out err, 9999, "", () => {
                 this.OnWakeup?.Invoke();
             });

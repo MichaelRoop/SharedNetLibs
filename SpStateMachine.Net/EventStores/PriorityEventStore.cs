@@ -18,16 +18,16 @@ namespace SpStateMachine.Net.EventStores {
         #region Data
 
         /// <summary>Low Priority Event queue</summary>
-        private Queue<ISpEventMessage> lowPriorityQueue = new Queue<ISpEventMessage>();
+        private Queue<ISpEventMessage> lowPriorityQueue = new ();
 
         /// <summary>Normal Priority Event queue</summary>
-        private Queue<ISpEventMessage> NormalPriorityQueue = new Queue<ISpEventMessage>();
+        private Queue<ISpEventMessage> NormalPriorityQueue = new ();
 
         /// <summary>Hight Priority Event queue</summary>
-        private Queue<ISpEventMessage> HighPriorityQueue = new Queue<ISpEventMessage>();
+        private Queue<ISpEventMessage> HighPriorityQueue = new ();
 
         /// <summary>Urgent Priority Event queue</summary>
-        private Queue<ISpEventMessage> UrgentPriorityQueue = new Queue<ISpEventMessage>();
+        private Queue<ISpEventMessage> UrgentPriorityQueue = new ();
         
         #endregion
         

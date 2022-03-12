@@ -34,7 +34,7 @@ namespace SpStateMachine.Net.Core {
 
         private readonly CancellationTokenSource cancelToken;
 
-        ClassLog log = new ClassLog(typeof(SpStateMachineEngine).Name);
+        ClassLog log = new (typeof(SpStateMachineEngine).Name);
 
         #endregion
 

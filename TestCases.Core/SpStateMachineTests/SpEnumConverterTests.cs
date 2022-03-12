@@ -25,7 +25,7 @@ namespace TestCases.SpStateMachineTests {
 
         #region Data
 
-        HelperLogReader logReader = new HelperLogReader();
+        HelperLogReader logReader = new ();
 
         #endregion
 

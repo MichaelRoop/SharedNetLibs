@@ -31,7 +31,7 @@ namespace SpStateMachine.Net.States {
         ISpState<TMsgId>? entryState = null;
 
         /// <summary>List of this state's substates</summary>
-        List<ISpState<TMsgId>> substates = new List<ISpState<TMsgId>>();
+        List<ISpState<TMsgId>> substates = new ();
 
         private readonly string className = "SpSuperState";
 

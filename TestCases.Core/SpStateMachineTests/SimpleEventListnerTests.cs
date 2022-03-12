@@ -15,11 +15,11 @@ namespace TestCases.SpStateMachineTests {
 
         #region Data
 
-        HelperLogReader logReader = new HelperLogReader();
+        HelperLogReader logReader = new ();
 #pragma warning disable CS8618
         private ISpEventListner listner;
 #pragma warning restore CS8600
-        private ClassLog log = new ClassLog("SimpleEventListnerTests");
+        private ClassLog log = new ("SimpleEventListnerTests");
 
         #endregion
 

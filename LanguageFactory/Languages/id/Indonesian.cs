@@ -154,6 +154,7 @@ namespace LanguageFactory.Net.Languages.id {
             this.AddMsg(MsgCode.Row, "Mendayung");
             this.AddMsg(MsgCode.Column, "Kolom");
             this.AddMsg(MsgCode.Build, "Build");
+            this.AddMsg(MsgCode.Unknown, "Tidak Diketahui");
 
         }
     }

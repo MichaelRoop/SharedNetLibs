@@ -17,7 +17,7 @@ namespace SpStateMachineDemo.Net.DemoMachine.IO {
 
     public class DemoOutputs : IDemoOutputs<OutputId> {
 
-        List<DemoOutput> outputs = new List<DemoOutput>();
+        List<DemoOutput> outputs = new ();
 
 
         public event EventHandler StateChange;

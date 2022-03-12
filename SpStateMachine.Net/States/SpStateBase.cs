@@ -28,13 +28,13 @@ namespace SpStateMachine.Net.States {
         private bool isEntered = false;
 
         /// <summary>List that contains the state id chain built on construction</summary>
-        List<int> idChain = new List<int>();
+        List<int> idChain = new ();
 
         /// <summary>List of transitions provoqued by incoming events directly</summary>
-        private Dictionary<int, ISpStateTransition<TMsgId>> onEventTransitions = new Dictionary<int, ISpStateTransition<TMsgId>>();
+        private Dictionary<int, ISpStateTransition<TMsgId>> onEventTransitions = new ();
 
         /// <summary>List of transitions provoqued by the results of state processing</summary>
-        private Dictionary<int, ISpStateTransition<TMsgId>> onResultTransitions = new Dictionary<int, ISpStateTransition<TMsgId>>();
+        private Dictionary<int, ISpStateTransition<TMsgId>> onResultTransitions = new ();
 
         /// <summary>state name without reference to ancestors</summary>
         private string name = string.Empty;
@@ -43,19 +43,19 @@ namespace SpStateMachine.Net.States {
         private string fullName = string.Empty;
 
         /// <summary>Name cache for state int Id lookups</summary>
-        private Dictionary<int,string> stateIdCache = new Dictionary<int, string>();
+        private Dictionary<int,string> stateIdCache = new ();
 
         /// <summary>Name cache for event int Id lookups</summary>
-        private Dictionary<int,string> eventIdCache = new Dictionary<int, string>();
+        private Dictionary<int,string> eventIdCache = new ();
 
         /// <summary>Name cache for msg int Id lookups</summary>
-        private Dictionary<int,string> msgIdCache = new Dictionary<int, string>();
+        private Dictionary<int,string> msgIdCache = new ();
 
 
         /// <summary>Convert the id integers to implementation level string equivalents</summary>
         private ISpIdConverter<TState,TMsgId,TMsgType> idConverter;
 
-        private ClassLog log = new ClassLog("SpStateBase");
+        private ClassLog log = new ("SpStateBase");
 
         #endregion
 
@@ -513,7 +513,7 @@ namespace SpStateMachine.Net.States {
         /// <summary>Builds fully resolved name by iterating through names based on Ids</summary>
         private void BuildName() {
             WrapErr.ToErrorReportException(9999, () => {
-                StringBuilder sb = new StringBuilder(75);
+                StringBuilder sb = new (75);
                 this.IdChain.ForEach((item) => {
                     sb.Append(String.Format(".{0}", this.GetCachedStateId(item)));
                 });

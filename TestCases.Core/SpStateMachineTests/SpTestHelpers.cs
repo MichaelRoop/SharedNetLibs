@@ -11,7 +11,7 @@ namespace TestCases.SpStateMachineTests {
 
     public class SpTestHelpers {
 
-        private ClassLog log = new ClassLog("SpTestHelpers");
+        private ClassLog log = new ("SpTestHelpers");
 
 
 

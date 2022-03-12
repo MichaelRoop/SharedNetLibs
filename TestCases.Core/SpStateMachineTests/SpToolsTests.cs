@@ -17,7 +17,7 @@ namespace TestCases.SpStateMachineTests {
 
         #region Data
 
-        HelperLogReader logReader = new HelperLogReader();
+        HelperLogReader logReader = new ();
 
         #endregion
 
@@ -47,7 +47,7 @@ namespace TestCases.SpStateMachineTests {
         [Test]
         public void _0_GetIdString_OkFromCache() {
 
-            Dictionary<int, string> cache = new Dictionary<int, string>();
+            Dictionary<int, string> cache = new ();
             cache.Add(0, "Zero State");
             cache.Add(100, "One Hundred State");
             cache.Add(1000, "One Thousand State");
@@ -65,7 +65,7 @@ namespace TestCases.SpStateMachineTests {
         [Test]
         public void _0_GetIdString_OkAddedToCache() {
 
-            Dictionary<int, string> cache = new Dictionary<int, string>();
+            Dictionary<int, string> cache = new ();
             cache.Add(0, "Zero State");
             cache.Add(1000, "One Thousand State");
 
@@ -128,7 +128,7 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _0_RegisterTransition_Recoverable() {
-            Dictionary<int,ISpStateTransition<MyMsgId>> store = new Dictionary<int, ISpStateTransition<MyMsgId>>();
+            Dictionary<int,ISpStateTransition<MyMsgId>> store = new ();
             TestHelpers.CatchUnexpected(() => {
                 SpTools.RegisterTransition("OnResult", MyMsgId.Start, this.validTransition, store);
                 SpTools.RegisterTransition("OnResult", MyMsgId.Stop, this.validTransition2, store);
@@ -158,7 +158,7 @@ namespace TestCases.SpStateMachineTests {
         [Test]
         public void _51008_RegisterTransition_AlreadyRegistered() {
             int evVal = (int)MyMsgId.Start;
-            Dictionary<int, ISpStateTransition<MyMsgId>> store = new Dictionary<int, ISpStateTransition<MyMsgId>>();
+            Dictionary<int, ISpStateTransition<MyMsgId>> store = new ();
             store.Add(evVal, this.validTransition);
 
             TestHelpers.CatchExpected(51008, this.className, "RegisterTransition", string.Format("Already Contain a 'OnResult' Transition for Id:{0}", evVal), () => {
@@ -172,7 +172,7 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _0_GetTransitionCloneFromStore_Ok() {
-            Dictionary<int,ISpStateTransition<MyMsgId>> store = new Dictionary<int, ISpStateTransition<MyMsgId>>();
+            Dictionary<int,ISpStateTransition<MyMsgId>> store = new ();
             TestHelpers.CatchUnexpected(() => {
                 SpTools.RegisterTransition("OnResult", MyMsgId.Tick, this.validTransition, store);
                 SpTools.RegisterTransition("OnResult", MyMsgId.Start, this.validTransition2, store);
@@ -188,7 +188,7 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _0_GetTransitionCloneFromStore_CloneIsGood() {
-            Dictionary<int,ISpStateTransition<MyMsgId>> store = new Dictionary<int, ISpStateTransition<MyMsgId>>();
+            Dictionary<int,ISpStateTransition<MyMsgId>> store = new ();
             TestHelpers.CatchUnexpected(() => {
                 SpTools.RegisterTransition("OnResult", MyMsgId.Tick, this.validTransition, store);
                 SpTools.RegisterTransition("OnResult", MyMsgId.Start, this.validTransition2, store);
@@ -219,7 +219,7 @@ namespace TestCases.SpStateMachineTests {
         [Test]
         public void _51010_GetTransitionCloneFromStore_NullEventMsg() {
             TestHelpers.CatchExpected(51010, this.className, "GetTransitionCloneFromStore", "Null eventMsg Argument", () => {
-                Dictionary<int,ISpStateTransition<MyMsgId>> store = new Dictionary<int, ISpStateTransition<MyMsgId>>();
+                Dictionary<int,ISpStateTransition<MyMsgId>> store = new ();
                 //SpTools.RegisterTransition("OnResult", new SpIntToInt(22), this.validTransition, store);
                 SpTools.RegisterTransition("OnResult", MyMsgId.Tick, this.validTransition, store);
                 SpTools.GetTransitionCloneFromStore(store, null);
@@ -233,7 +233,7 @@ namespace TestCases.SpStateMachineTests {
                 ISpStateTransition<MyMsgId> tr = A.Fake<ISpStateTransition<MyMsgId>>();
                 A.CallTo(() => tr.Clone()).Throws(new Exception("Clone Exception"));
 
-                Dictionary<int,ISpStateTransition<MyMsgId>> store = new Dictionary<int, ISpStateTransition<MyMsgId>>();
+                Dictionary<int,ISpStateTransition<MyMsgId>> store = new ();
                 SpTools.RegisterTransition("OnResult", MyMsgId.Tick, tr, store);
                 SpTools.RegisterTransition("OnResult", MyMsgId.Start, this.validTransition, store);
                 SpTools.GetTransitionCloneFromStore(store, this.validMsg);

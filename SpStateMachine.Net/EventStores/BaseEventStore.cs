@@ -16,7 +16,7 @@ namespace SpStateMachine.Net.EventStores {
         #region Data
 
         /// <summary>Thread safe lock for the queue</summary>
-        private object queueLock = new object();
+        private object queueLock = new ();
 
         /// <summary>Used to hold the tick event when there are no queued event objects</summary>
         private ISpEventMessage defaultTick;

@@ -156,6 +156,7 @@ namespace LanguageFactory.Net.Languages.ca {
             this.AddMsg(MsgCode.Row, "Fila");
             this.AddMsg(MsgCode.Column, "Columna");
             this.AddMsg(MsgCode.Build, "Versió");
+            this.AddMsg(MsgCode.Unknown, "Desconegut");
 
             //this.AddMsg(MsgCode., "");
         }

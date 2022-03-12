@@ -157,6 +157,7 @@ namespace LanguageFactory.Net.Languages.bn {
             this.AddMsg(MsgCode.Row, "সারি");
             this.AddMsg(MsgCode.Column, "স্তম্ভ");
             this.AddMsg(MsgCode.Build, "বিল্ড");
+            this.AddMsg(MsgCode.Unknown, "অজানা");
 
         }
 

@@ -155,6 +155,7 @@ namespace LanguageFactory.Net.Languages.pr {
             this.AddMsg(MsgCode.Row, "ਕਤਾਰ");
             this.AddMsg(MsgCode.Column, "ਥੰਮ੍ਹ");
             this.AddMsg(MsgCode.Build, "ਸੰਸਕਰਣ");
+            this.AddMsg(MsgCode.Unknown, "ਅਗਿਆਤ");
 
             //this.AddMsg(MsgCode., "");
         }

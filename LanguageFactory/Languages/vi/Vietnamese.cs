@@ -155,6 +155,7 @@ namespace LanguageFactory.Net.Languages.vi {
             this.AddMsg(MsgCode.Row, "Hàng");
             this.AddMsg(MsgCode.Column, "Cột");
             this.AddMsg(MsgCode.Build, "Bản dựng");
+            this.AddMsg(MsgCode.Unknown, "Không xác định");
 
         }
 

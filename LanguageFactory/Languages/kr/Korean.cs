@@ -154,6 +154,7 @@ namespace LanguageFactory.Net.Languages.kr {
             this.AddMsg(MsgCode.Row, "행");
             this.AddMsg(MsgCode.Column, "열");
             this.AddMsg(MsgCode.Build, "빌드");
+            this.AddMsg(MsgCode.Unknown, "알 수 없음");
 
         }
 

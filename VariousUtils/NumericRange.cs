@@ -16,6 +16,8 @@
 
     public static class NumericRangeExtensions {
 
+#pragma warning disable IDE0079 // Remove unnecessary suppression
+#pragma warning disable IDE0060 // Remove unused parameter
         public static NumericRange GetRange(this bool value) {
             return new NumericRange(0, 1);
         }
@@ -59,6 +61,8 @@
         public static NumericRange GetRange(this double value) {
             return new NumericRange(double.MinValue, double.MaxValue);
         }
+#pragma warning restore IDE0060 // Remove unused parameter
+#pragma warning restore IDE0079 // Remove unnecessary suppression
 
     }
 

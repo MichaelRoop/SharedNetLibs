@@ -14,15 +14,12 @@ namespace SerialCommon.Net.Enumerations {
 
     public static class SerialStopBitsExtensions {
         public static string Display(this SerialStopBits sb) {
-            switch (sb) {
-                case SerialStopBits.One:
-                    return "1";
-                case SerialStopBits.OnePointFive:
-                    return "1.5";
-                case SerialStopBits.Two:
-                    return "2";
-                default: return "1";
-            }
+            return sb switch {
+                SerialStopBits.One => "1",
+                SerialStopBits.OnePointFive => "1.5",
+                SerialStopBits.Two => "2",
+                _ => "1",
+            };
         }
     }
 

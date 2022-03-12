@@ -15,8 +15,8 @@ namespace SerialCommon.Net6.Helpers {
 
         private static Dictionary<ushort, string>? vendors;
         private static Dictionary<ushort, Dictionary<ushort, string>>? products;
-        private static ushort ARDUINO_ID = 0x2341;
-        private static ushort ATMEL_ID = 0x3EB;
+        private readonly static ushort ARDUINO_ID = 0x2341;
+        private readonly static ushort ATMEL_ID = 0x3EB;
 
         public static Tuple<string, string> Get(ushort vendeorId, ushort productId) {
             // Just in time initialization to speed start up
@@ -24,8 +24,11 @@ namespace SerialCommon.Net6.Helpers {
                 Init();
             }
             try {
-                if (vendors == null || products == null) {
-                    throw new ArgumentNullException("Null product or vendor");
+                if (vendors == null) {
+                    throw new NullReferenceException("vendors");
+                }
+                if (products == null) {
+                    throw new NullReferenceException("products");
                 }
 
                 string v = vendors.ContainsKey(vendeorId)
@@ -51,9 +54,10 @@ namespace SerialCommon.Net6.Helpers {
 
 
         private static void Init() {
-            vendors = new Dictionary<ushort, string>();
-            vendors.Add(ARDUINO_ID, "Arduino");
-            vendors.Add(ATMEL_ID, "Atmel");
+            vendors = new Dictionary<ushort, string> {
+                { ARDUINO_ID, "Arduino" },
+                { ATMEL_ID, "Atmel" }
+            };
 
             products = new Dictionary<ushort, Dictionary<ushort, string>>();
             BuildArduinoProducts(products);
@@ -61,7 +65,7 @@ namespace SerialCommon.Net6.Helpers {
         }
 
         private static void BuildArduinoProducts(Dictionary<ushort, Dictionary<ushort, string>> target) {
-            Dictionary<ushort, string> tmp = new Dictionary<ushort, string>();
+            Dictionary<ushort, string> tmp = new ();
             tmp.Add(0x8036, "Leonardo(CDC ACM, HID)");
             tmp.Add(0x8038, "Robot Control Board(CDC ACM, HID)");
             tmp.Add(0x8039, "Robot Motor Board(CDC ACM, HID)");
@@ -82,7 +86,7 @@ namespace SerialCommon.Net6.Helpers {
 
 
         private static void BuildAtmelProducts(Dictionary<ushort, Dictionary<ushort, string>> target) {
-            Dictionary<ushort, string> tmp = new Dictionary<ushort, string>();
+            Dictionary<ushort, string> tmp = new ();
 
             tmp.Add(0x7617, "AT76C505AS Wireless Adapter");
             tmp.Add(0x7800, "Mini Album");

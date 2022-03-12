@@ -155,6 +155,7 @@ namespace LanguageFactory.Net.Languages.mr {
             this.AddMsg(MsgCode.Row, "पंक्ति");
             this.AddMsg(MsgCode.Column, "स्तंभ");
             this.AddMsg(MsgCode.Build, "आवृत्ती");
+            this.AddMsg(MsgCode.Unknown, "अज्ञात");
 
             //this.AddMsg(MsgCode., "");
         }
