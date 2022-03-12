@@ -154,6 +154,7 @@ namespace LanguageFactory.Net.Languages.cn {
             this.AddMsg(MsgCode.Row, "排");
             this.AddMsg(MsgCode.Column, "列");
             this.AddMsg(MsgCode.Build, "版本");
+            this.AddMsg(MsgCode.Unknown, "未知");
 
         }
 

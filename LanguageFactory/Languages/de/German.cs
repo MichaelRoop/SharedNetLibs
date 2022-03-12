@@ -157,6 +157,7 @@ namespace LanguageFactory.Net.Languages.de {
             this.AddMsg(MsgCode.Row, "Rudern");
             this.AddMsg(MsgCode.Column, "Spalte");
             this.AddMsg(MsgCode.Build, "Build");
+            this.AddMsg(MsgCode.Unknown, "Unbekannt");
 
         }
 

@@ -167,6 +167,7 @@
         Row,
         Column,
         Build,
+        Unknown,
 
         // Composite - no direct lookup
         ReadTimeout,
@@ -179,5 +180,6 @@
         EmptyHostName,
         EmptyPort,
         EmptyPwd,
+        DataTypeUnhandled,
     }
 }

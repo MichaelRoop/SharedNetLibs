@@ -156,6 +156,7 @@ namespace LanguageFactory.Net.Languages.tr {
             this.AddMsg(MsgCode.Row, "Sıra");
             this.AddMsg(MsgCode.Column, "Sütun");
             this.AddMsg(MsgCode.Build, "Derleme");
+            this.AddMsg(MsgCode.Unknown, "Bilinmiyor");
 
         }
 

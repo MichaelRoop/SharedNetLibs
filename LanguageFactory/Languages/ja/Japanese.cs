@@ -154,6 +154,7 @@ namespace LanguageFactory.Net.Languages.ja {
             this.AddMsg(MsgCode.Row, "漕ぐ");
             this.AddMsg(MsgCode.Column, "列");
             this.AddMsg(MsgCode.Build, "ビルド");
+            this.AddMsg(MsgCode.Unknown, "不明");
 
         }
 

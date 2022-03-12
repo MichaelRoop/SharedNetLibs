@@ -156,6 +156,7 @@ namespace LanguageFactory.Net.Languages.it {
             this.AddMsg(MsgCode.Row, "Fila");
             this.AddMsg(MsgCode.Column, "Colonna");
             this.AddMsg(MsgCode.Build, "Build");
+            this.AddMsg(MsgCode.Unknown, "Sconosciuto");
 
         }
 

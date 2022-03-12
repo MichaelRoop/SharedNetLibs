@@ -95,6 +95,8 @@ namespace LanguageFactory.Net.Messaging {
                 MsgCode.EmptyHostName => string.Format("{0} ({1})", this.GetMsg(MsgCode.EmptyParameter), this.GetMsg(MsgCode.HostName)),
                 MsgCode.EmptyPort => string.Format("{0} ({1})", this.GetMsg(MsgCode.EmptyParameter), this.GetMsg(MsgCode.Port)),
                 MsgCode.EmptyPwd => string.Format("{0} ({1})", this.GetMsg(MsgCode.EmptyParameter), this.GetMsg(MsgCode.Password)),
+                MsgCode.DataTypeUnhandled => string.Format("{0} ({1})", this.GetMsg(MsgCode.Unknown), this.GetMsg(MsgCode.DataType)),
+
                 _ => this.GetMsg(code),
             };
         }

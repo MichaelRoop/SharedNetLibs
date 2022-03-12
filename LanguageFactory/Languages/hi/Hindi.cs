@@ -158,6 +158,7 @@ namespace LanguageFactory.Net.Languages.hi {
             this.AddMsg(MsgCode.Row, "पंक्ति");
             this.AddMsg(MsgCode.Column, "स्तम्भ");
             this.AddMsg(MsgCode.Build, "बिल्ड");
+            this.AddMsg(MsgCode.Unknown, "अज्ञात");
 
         }
 
