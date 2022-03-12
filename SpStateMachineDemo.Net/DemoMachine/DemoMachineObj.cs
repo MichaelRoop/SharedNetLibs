@@ -6,7 +6,8 @@ namespace SpStateMachineDemo.Net.DemoMachine {
         public DemoMachineObj() { }
 
         public void Dispose() {
-            throw new NotImplementedException();
+            GC.SuppressFinalize(this);
+            //throw new NotImplementedException();
         }
     }
 }

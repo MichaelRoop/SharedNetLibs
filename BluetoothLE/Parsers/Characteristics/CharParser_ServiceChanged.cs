@@ -5,7 +5,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
     public class CharParser_ServiceChanged : CharParser_Base {
 
-        private ClassLog log = new ClassLog("CharParser_ServiceChanged");
+        private readonly ClassLog log = new ("CharParser_ServiceChanged");
 
         public UInt16 StartHandle { get; private set; } = 0;
         public UInt16 EndHandle { get; private set; } = 0;

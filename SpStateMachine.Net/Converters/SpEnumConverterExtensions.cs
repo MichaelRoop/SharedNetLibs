@@ -26,7 +26,7 @@ namespace SpStateMachine.Net.Converters {
         /// <param name="value">The integer value to convert from</param>
         /// <returns>The Enum or an exception on failure to convert</returns>
         public static T ToEnum<T>(this int value) where T : struct {
-            T enumType = default(T);
+            T enumType = default;
             T ret = WrapErr.ToErrorReportException(9999, 
                 () => { 
                     return String.Format(

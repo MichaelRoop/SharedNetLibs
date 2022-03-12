@@ -22,6 +22,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
                 () => {
                     if (BLE_ParseHelpers.IsSigDefinedUuid(characteristicUuid)) {
                         GattNativeCharacteristicUuid charEnum = BLE_ParseHelpers.GetCharacteristicEnum(characteristicUuid, "");
+#pragma warning disable IDE0079 // Remove unnecessary suppression
 #pragma warning disable IDE0066 // Convert switch statement to expression
                         switch (charEnum) {
 #pragma warning restore IDE0066 // Convert switch statement to expression
@@ -430,6 +431,7 @@ namespace BluetoothLE.Net.Parsers.Characteristics {
 
                                 return new CharParser_Default();
                         }
+#pragma warning restore IDE0079 // Remove unnecessary suppression
                     }
                     else {
                         this.log.Error(9999, "GetParser", () =>

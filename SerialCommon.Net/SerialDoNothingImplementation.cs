@@ -2,8 +2,6 @@
 using CommunicationStack.Net.Enumerations;
 using SerialCommon.Net.DataModels;
 using SerialCommon.Net.interfaces;
-using System;
-using System.Collections.Generic;
 
 namespace SerialCommon.Net {
 
@@ -26,7 +24,7 @@ namespace SerialCommon.Net {
         }
 
         public void DiscoverSerialDevicesAsync() {
-            List<SerialDeviceInfo> infos = new List<SerialDeviceInfo>();
+            List<SerialDeviceInfo> infos = new ();
             this.DiscoveredDevices?.Invoke(this, infos);
         }
 
@@ -35,10 +33,12 @@ namespace SerialCommon.Net {
         }
 
 
+#pragma warning disable IDE0051 // Remove unused private members
         private void ToSatisfyCompiler() {
             this.OnError?.Invoke(this, new SerialUsbError());
-            this.MsgReceivedEvent?.Invoke(this, new byte[0]);
+            this.MsgReceivedEvent?.Invoke(this, Array.Empty<byte>());
         }
+#pragma warning restore IDE0051 // Remove unused private members
 
     }
 }

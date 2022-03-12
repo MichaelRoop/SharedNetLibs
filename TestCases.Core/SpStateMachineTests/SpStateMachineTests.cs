@@ -36,14 +36,14 @@ namespace TestCases.SpStateMachineTests {
 
         #region Data
 
-        HelperLogReader logReader = new HelperLogReader();
+        HelperLogReader logReader = new ();
 
         public class smParams {
             public ISpState<MyMsgId> st { get; set; } = A.Fake<ISpState<MyMsgId>>();
             public IDisposable wo { get; set; } = A.Fake<IDisposable>();
         }
 
-        smParams p = new smParams();
+        smParams p = new ();
 
         #endregion
 
@@ -93,7 +93,7 @@ namespace TestCases.SpStateMachineTests {
         
         [Test]
         public void _50175_Dispose_ManagedResources_Error() {
-            smParams sp = new smParams();
+            smParams sp = new ();
             A.CallTo(() => sp.wo.Dispose()).Throws(() => new Exception("Wrapped Object Threw Exception on Dispose"));
 
             TestHelpers.CatchExpected(50175, "SpMachine`2", "DisposeManagedResources", "Wrapped Object Threw Exception on Dispose", () => {
@@ -128,7 +128,7 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _0_Tick_Ok() {
-            smParams sp = new smParams();
+            smParams sp = new ();
             A.CallTo(() => sp.st.FullName).Returns("Main.FirstState.Init");
             A.CallTo(() => sp.st.OnEntry(null)).WithAnyArguments().Returns(
                  new SpStateTransition<MyMsgId>(

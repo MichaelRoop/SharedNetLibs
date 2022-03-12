@@ -34,7 +34,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
         #region Data
 
         class TestData {
-            public DataFormatEnum DataType { get; set; } = DataFormatEnum.Reserved;
+            public DataFormatEnum DataType { get; set; } = DataFormatEnum.Reserved0x00;
             public object Value { get; set; } = new object();
             public string Expected { get; set; } = string.Empty;
 
@@ -326,7 +326,7 @@ namespace TestCases.Core.BLE.BLE_CharParsers {
                     break;
                 #endregion
                 #region Not handled
-                case DataFormatEnum.Reserved:
+                case DataFormatEnum.Reserved0x00:
                 case DataFormatEnum.OpaqueStructure:
                 case DataFormatEnum.Unhandled:
                     break;

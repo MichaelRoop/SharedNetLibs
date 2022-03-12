@@ -13,7 +13,7 @@ namespace TestCases.SpStateMachineTests {
 
         #region Data
 
-        HelperLogReader logReader = new HelperLogReader();
+        HelperLogReader logReader = new ();
 
         public class engineParams {
             public ISpEventListner listner { get; set; } = A.Fake<ISpEventListner>();
@@ -23,7 +23,7 @@ namespace TestCases.SpStateMachineTests {
             public ISpPeriodicTimer tm { get; set; } = A.Fake<ISpPeriodicTimer>();
         }
 
-        engineParams p = new engineParams();
+        engineParams p = new ();
 
         #endregion
 
@@ -46,11 +46,11 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _50056_StartDisposed() {
-            engineParams ep = new engineParams();
+            engineParams ep = new ();
             A.CallTo(() => ep.listner.Dispose()).Throws(new Exception("Listner exception"));
 
             TestHelpers.CatchExpected(50056, "SpStateMachineEngine", "Start", "Attempting to use Disposed Object", () => {
-                SpStateMachineEngine engine = new SpStateMachineEngine(ep.listner, ep.st, ep.be, ep.sm, ep.tm);
+                SpStateMachineEngine engine = new (ep.listner, ep.st, ep.be, ep.sm, ep.tm);
                 Console.WriteLine("Test: Disposing");
                 engine.Dispose();
                 Thread.Sleep(500); // Nothing stopping the thead internaly with mocks
@@ -65,11 +65,11 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _50057_StopDisposed() {
-            engineParams ep = new engineParams();
+            engineParams ep = new ();
             A.CallTo(() => ep.listner.Dispose()).Throws(new Exception("Listner exception"));
 
             TestHelpers.CatchExpected(50057, "SpStateMachineEngine", "Stop", "Attempting to use Disposed Object", () => {
-                SpStateMachineEngine engine = new SpStateMachineEngine(ep.listner, ep.st, ep.be, ep.sm, ep.tm);
+                SpStateMachineEngine engine = new (ep.listner, ep.st, ep.be, ep.sm, ep.tm);
                 Console.WriteLine("Test: Disposing");
                 engine.Dispose();
                 Thread.Sleep(500); // Nothing stopping the thead internaly with mocks
@@ -84,11 +84,11 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _0_Dispose_MultiDisposeSafe() {
-            engineParams ep = new engineParams();
+            engineParams ep = new ();
             A.CallTo(() => ep.listner.Dispose()).Throws(new Exception("Listner exception"));
 
             TestHelpers.CatchUnexpected(() => {
-                SpStateMachineEngine engine = new SpStateMachineEngine(ep.listner, ep.st, ep.be, ep.sm, ep.tm);
+                SpStateMachineEngine engine = new (ep.listner, ep.st, ep.be, ep.sm, ep.tm);
                 Console.WriteLine("Test: Disposing");
                 engine.Dispose();
                 engine.Dispose();
@@ -108,10 +108,10 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _50060_DisposeObject_ErrorDisposingInternalObjects() {
-            engineParams ep = new engineParams();
+            engineParams ep = new ();
             A.CallTo(() => ep.listner.Dispose()).Throws(() => new Exception("Listner exception"));
             TestHelpers.CatchUnexpected(() => {
-                SpStateMachineEngine engine = new SpStateMachineEngine(ep.listner, ep.st, ep.be, ep.sm, ep.tm);
+                SpStateMachineEngine engine = new (ep.listner, ep.st, ep.be, ep.sm, ep.tm);
                 Console.WriteLine("Test: Disposing");
                 engine.Dispose();
                 Thread.Sleep(500); // Nothing stopping the thead internaly with mocks
@@ -125,7 +125,7 @@ namespace TestCases.SpStateMachineTests {
         [Test]
         public void _0_DisposeObject_Success() {
             TestHelpers.CatchUnexpected(() => {
-                SpStateMachineEngine engine = new SpStateMachineEngine(p.listner, p.st, p.be, p.sm, p.tm);
+                SpStateMachineEngine engine = new (p.listner, p.st, p.be, p.sm, p.tm);
                 engine.Dispose();
             });
         }
@@ -137,7 +137,7 @@ namespace TestCases.SpStateMachineTests {
         [Test]
         public void _50050_SpStateMachineEngine_nullListner() {
             TestHelpers.CatchExpected(50050, "SpStateMachineEngine", ".ctor", "Null msgListner Argument", () => {
-                SpStateMachineEngine engine = new SpStateMachineEngine(null, p.st, p.be, p.sm, p.tm);
+                SpStateMachineEngine engine = new (null, p.st, p.be, p.sm, p.tm);
                 engine.Dispose();
             });
 
@@ -147,7 +147,7 @@ namespace TestCases.SpStateMachineTests {
         [Test]
         public void _50051_SpStateMachineEngine_nullStore() {
             TestHelpers.CatchExpected(50051, "SpStateMachineEngine", ".ctor", "Null msgStore Argument", () => {
-                SpStateMachineEngine engine = new SpStateMachineEngine(p.listner, null, p.be, p.sm, p.tm);
+                SpStateMachineEngine engine = new (p.listner, null, p.be, p.sm, p.tm);
                 engine.Dispose();
             });
         }
@@ -155,7 +155,7 @@ namespace TestCases.SpStateMachineTests {
         [Test]
         public void _50052_SpStateMachineEngine_nullBehavior() {
             TestHelpers.CatchExpected(50052, "SpStateMachineEngine", ".ctor", "Null eventBehavior Argument", () => {
-                SpStateMachineEngine engine = new SpStateMachineEngine(p.listner, p.st, null, p.sm, p.tm);
+                SpStateMachineEngine engine = new (p.listner, p.st, null, p.sm, p.tm);
                 engine.Dispose();
             });
         }
@@ -163,7 +163,7 @@ namespace TestCases.SpStateMachineTests {
         [Test]
         public void _50053_SpStateMachineEngine_nullStateMachine() {
             TestHelpers.CatchExpected(50053, "SpStateMachineEngine", ".ctor", "Null stateMachine Argument", () => {
-                SpStateMachineEngine engine = new SpStateMachineEngine(p.listner, p.st, p.be, null, p.tm);
+                SpStateMachineEngine engine = new (p.listner, p.st, p.be, null, p.tm);
                 engine.Dispose();
             });
         }
@@ -171,7 +171,7 @@ namespace TestCases.SpStateMachineTests {
         [Test]
         public void _50054_SpStateMachineEngine_nullTimer() {
             TestHelpers.CatchExpected(50054, "SpStateMachineEngine", ".ctor", "Null timer Argument", () => {
-                SpStateMachineEngine engine = new SpStateMachineEngine(p.listner, p.st, p.be, p.sm, null);
+                SpStateMachineEngine engine = new (p.listner, p.st, p.be, p.sm, null);
                 engine.Dispose();
             });
         }
@@ -183,12 +183,12 @@ namespace TestCases.SpStateMachineTests {
 
         [Test]
         public void _50058_DriverThreadUnexpectedError() {
-            engineParams ep = new engineParams();
+            engineParams ep = new ();
             A.CallTo(() => ep.listner.Dispose()).Throws(new Exception("Listner exception"));
             A.CallTo(() => ep.be.WaitOnEvent()).Throws(() => new Exception("Behavior WaitOn Exception"));
 
             TestHelpers.CatchUnexpected(() => {
-                SpStateMachineEngine engine = new SpStateMachineEngine(ep.listner, ep.st, ep.be, ep.sm, ep.tm);
+                SpStateMachineEngine engine = new (ep.listner, ep.st, ep.be, ep.sm, ep.tm);
                 Console.WriteLine("Test: Disposing");
                 engine.Dispose();
                 Thread.Sleep(500); // Nothing stopping the thead internaly with mocks

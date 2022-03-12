@@ -12,10 +12,10 @@ namespace SpStateMachine.Net.Behaviours {
 
         #region Data
 
-        ManualResetEvent wakeEvent = new ManualResetEvent(false);
+        ManualResetEvent wakeEvent = new (false);
 
         /// <summary>Protect the isBusy status lock</summary>
-        object busyLock = new object();
+        object busyLock = new ();
 
         /// <summary>Busy state flag</summary>
         bool isBusy =  false;

@@ -13,7 +13,7 @@ namespace SpStateMachine.Net.EventStores {
         #region Data
 
         /// <summary>Event queue</summary>
-        private Queue<ISpEventMessage> queue = new Queue<ISpEventMessage>();
+        private Queue<ISpEventMessage> queue = new ();
 
         #endregion
 

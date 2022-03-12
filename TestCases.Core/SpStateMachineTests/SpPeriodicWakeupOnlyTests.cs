@@ -11,7 +11,7 @@ namespace TestCases.SpStateMachineTests {
 
         #region Data
 
-        HelperLogReader logReader = new HelperLogReader();
+        HelperLogReader logReader = new ();
 
         #endregion
 
@@ -35,7 +35,7 @@ namespace TestCases.SpStateMachineTests {
         [Test]
         public void _50080_EventReceived_Disposed() {
             TestHelpers.CatchExpected(50080, "SpPeriodicWakeupOnly", "EventReceived", "Attempting to use Disposed Object", () => {
-                SpPeriodicWakeupOnly w = new SpPeriodicWakeupOnly();
+                SpPeriodicWakeupOnly w = new ();
                 w.Dispose();
                 Thread.Sleep(100);
                 w.EventReceived(BehaviorResponseEventType.MsgArrived);
@@ -45,7 +45,7 @@ namespace TestCases.SpStateMachineTests {
         [Test]
         public void _50081_EventReceived_UnhandledType() {
             TestHelpers.CatchUnexpected(() => {
-                SpPeriodicWakeupOnly w = new SpPeriodicWakeupOnly();
+                SpPeriodicWakeupOnly w = new ();
                 w.EventReceived(BehaviorResponseEventType.Undefined);
                 w.Dispose();
                 Thread.Sleep(100);
@@ -60,7 +60,7 @@ namespace TestCases.SpStateMachineTests {
         [Test]
         public void _50082_WaitOnEvent_Disposed() {
             TestHelpers.CatchExpected(50082, "SpPeriodicWakeupOnly", "WaitOnEvent", "Attempting to use Disposed Object", () => {
-                SpPeriodicWakeupOnly w = new SpPeriodicWakeupOnly();
+                SpPeriodicWakeupOnly w = new ();
                 w.Dispose();
                 Thread.Sleep(100);
                 w.WaitOnEvent();
@@ -74,7 +74,7 @@ namespace TestCases.SpStateMachineTests {
         [Test]
         public void _50084_OnPeriodicTimer_Busy() {
             TestHelpers.CatchUnexpected(() => {
-                SpPeriodicWakeupOnly w = new SpPeriodicWakeupOnly();
+                SpPeriodicWakeupOnly w = new ();
 
                 // setting terminate allows it to drop through the waitOnEvent
                 w.EventReceived(BehaviorResponseEventType.TerminateRequest);

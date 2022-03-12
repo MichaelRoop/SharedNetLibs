@@ -59,6 +59,7 @@ namespace TestCases.SpStateMachineTests.TestImplementations {
 
         public void Dispose() {
             // Nothing to do. Provided for compatibility
+            GC.SuppressFinalize(this);
         }
 
         #endregion

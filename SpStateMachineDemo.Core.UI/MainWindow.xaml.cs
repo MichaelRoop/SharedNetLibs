@@ -22,7 +22,7 @@ namespace SpStateMachineDemo.Core.UI {
     /// </summary>
     public partial class MainWindow : Window {
 
-        DemoMachineWrapper machineWrapper = new DemoMachineWrapper();
+        DemoMachineWrapper machineWrapper = new ();
 
         public MainWindow() {
             InitializeComponent();
