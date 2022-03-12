@@ -195,7 +195,7 @@ namespace StorageFactory.Net.StorageManagers {
                         using FileStream fs = File.Create(name);
                         return this.serializer.Serialize(obj, fs);
                     });
-                return report.Code == 0 ? ret : false;
+                return report.Code == 0 && ret;
             }
         }
 

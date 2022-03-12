@@ -116,7 +116,7 @@ namespace StorageFactory.Net.StorageManagers {
                         return FileHelpers.DeleteFile(this.FullFileName(fileInfo));
                     }
                 });
-                return report.Code == 0 ? result : false;
+                return report.Code == 0 && result;
             }
         }
 
@@ -133,7 +133,7 @@ namespace StorageFactory.Net.StorageManagers {
                     }
                     return false;
                 });
-                return report.Code == 0 ? result : false;
+                return report.Code == 0 && result;
             }
         }
 
@@ -152,7 +152,7 @@ namespace StorageFactory.Net.StorageManagers {
                     }
                     return tmp;
                 });
-                return report.Code == 0 ? result : false;
+                return report.Code == 0 && result;
             }
         }
 
@@ -251,7 +251,7 @@ namespace StorageFactory.Net.StorageManagers {
                     using FileStream fs = File.Create(name);
                     return this.dataSerializer.Serialize(obj, fs);
                 });
-            return report.Code == 0 ? ret : false;
+            return report.Code == 0 && ret;
         }
 
 
@@ -274,7 +274,7 @@ namespace StorageFactory.Net.StorageManagers {
                     //fs.Flush();
                     return tmp;
                 });
-            return report.Code == 0 ? ret : false;
+            return report.Code == 0 && ret;
         }
 
 
