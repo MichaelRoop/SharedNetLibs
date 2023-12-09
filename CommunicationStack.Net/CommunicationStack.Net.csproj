@@ -11,6 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ChkUtils.Net\ChkUtils.Net.csproj" />
     <ProjectReference Include="..\Common.Net\Common.Net.csproj" />
     <ProjectReference Include="..\LogUtils.Net\LogUtils.Net.csproj" />
