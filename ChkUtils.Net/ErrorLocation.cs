@@ -2,7 +2,7 @@
 
     /// <summary>
     /// Cross platform object to store type and method location of error location
-    /// </summary>
+    /// </summary>  
     public class ErrorLocation {
 
         /// <summary>Class name where error originated</summary>
