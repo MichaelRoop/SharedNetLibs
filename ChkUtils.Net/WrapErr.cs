@@ -782,7 +782,7 @@ namespace ChkUtils.Net {
                 }
                 else {
                     err = new ErrReport(code, "NA", "NA", msg);
-                    stackFrames = new List<string>();
+                    stackFrames = [];
                 }
 
                 StringBuilder sb = new (100);
