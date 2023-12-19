@@ -19,7 +19,7 @@ namespace TestCases.SpStateMachineTests {
 
         #region Data
 
-        HelperLogReader logReader = new HelperLogReader();
+        readonly HelperLogReader logReader = new();
 
         #endregion
 
@@ -45,17 +45,17 @@ namespace TestCases.SpStateMachineTests {
             TestHelpers.CatchUnexpected(() => {
 
                 // Setting flip count will cause back and fourth between active and idle
-                MyDataClass dataClass = new MyDataClass();
+                MyDataClass dataClass = new ();
                 MySuperState notStartedSs = new NotStartedSs(null, dataClass);
                 ISpStateMachine sm = new MyStateMachine(dataClass, notStartedSs);
 
                 //this.TickAndValidateState(new MyTickMsg(), sm, "NotStarted.Idle");
                 //this.TickAndValidateState(new MyTickMsg(), sm, "NotStarted.Idle");
 
-                this.TickAndValidateState(this.GetMsg(MyMsgId.Tick), sm, "NotStarted.Idle");
-                this.TickAndValidateState(this.GetMsg(MyMsgId.Start), sm, "NotStarted.Active");
-                this.TickAndValidateState(this.GetMsg(MyMsgId.Abort), sm, "NotStarted.Idle");
-                this.TickAndValidateState(this.GetMsg(MyMsgId.Tick), sm, "NotStarted.Idle");
+                TickAndValidateState(GetMsg(MyMsgId.Tick), sm, "NotStarted.Idle");
+                TickAndValidateState(GetMsg(MyMsgId.Start), sm, "NotStarted.Active");
+                TickAndValidateState(GetMsg(MyMsgId.Abort), sm, "NotStarted.Idle");
+                TickAndValidateState(GetMsg(MyMsgId.Tick), sm, "NotStarted.Idle");
             });
         }
 
@@ -66,16 +66,16 @@ namespace TestCases.SpStateMachineTests {
             TestHelpers.CatchUnexpected(() => {
 
                 // Setting flip count will cause back and fourth between active and idle
-                MyDataClass dataClass = new MyDataClass();
+                MyDataClass dataClass = new ();
                 MySuperState mainSs = new MainSs(dataClass);
                 ISpStateMachine sm = new MyStateMachine(dataClass, mainSs);
 
                 //this.TickAndValidateState(new MyTickMsg(), sm, "Main.NotStarted");
                 //this.TickAndValidateState(new MyTickMsg(), sm, "Main.NotStarted.Idle");
-                this.TickAndValidateState(this.GetMsg(MyMsgId.Tick), sm, "Main.NotStarted.Idle");
-                this.TickAndValidateState(this.GetMsg(MyMsgId.Start), sm, "Main.NotStarted.Active");
-                this.TickAndValidateState(this.GetMsg(MyMsgId.Stop), sm, "Main.NotStarted.Idle");
-                this.TickAndValidateState(this.GetMsg(MyMsgId.Abort), sm, "Main.Recovery.Idle");
+                TickAndValidateState(GetMsg(MyMsgId.Tick), sm, "Main.NotStarted.Idle");
+                TickAndValidateState(GetMsg(MyMsgId.Start), sm, "Main.NotStarted.Active");
+                TickAndValidateState(GetMsg(MyMsgId.Stop), sm, "Main.NotStarted.Idle");
+                TickAndValidateState(GetMsg(MyMsgId.Abort), sm, "Main.Recovery.Idle");
                 //this.TickAndValidateState(this.GetMsg(MyEventType.Tick), sm, "Main.Recovery.Idle");
 
                 //Thread.Sleep(500);
@@ -89,19 +89,19 @@ namespace TestCases.SpStateMachineTests {
             //TestHelpers.CatchUnexpected(() => {
 
             // Setting flip count will cause back and fourth between active and idle
-            MyDataClass dataClass = new MyDataClass();
+            MyDataClass dataClass = new();
                 MySuperState mainSs = new LevelMainSs(dataClass);
                 ISpStateMachine sm = new MyStateMachine(dataClass, mainSs);
 
-                this.ValidateState(sm, "Main.Level2.Level3.Idle");
-                this.TickAndValidateState(this.GetMsg(MyMsgId.Tick), sm, "Main.Level2.Level3.Idle");
+                ValidateState(sm, "Main.Level2.Level3.Idle");
+                TickAndValidateState(GetMsg(MyMsgId.Tick), sm, "Main.Level2.Level3.Idle");
                 //this.TickAndValidateState(new MyTickMsg(), sm, "Main.Level2.Level3.Idle");
-                this.TickAndValidateState(this.GetMsg(MyMsgId.Start), sm, "Main.Level2.Level3.Active");
+                TickAndValidateState(GetMsg(MyMsgId.Start), sm, "Main.Level2.Level3.Active");
 
                 Console.WriteLine("**********************************");
                 //this.Tick(this.GetMsg(MyEventType.Abort), sm);
-                this.TickAndValidateState(this.GetMsg(MyMsgId.Abort), sm, "Main.Recovery.Idle");
-                this.TickAndValidateState(this.GetMsg(MyMsgId.Tick), sm, "Main.Recovery.Idle");
+                TickAndValidateState(GetMsg(MyMsgId.Abort), sm, "Main.Recovery.Idle");
+                TickAndValidateState(GetMsg(MyMsgId.Tick), sm, "Main.Recovery.Idle");
 
 
 
@@ -125,7 +125,7 @@ namespace TestCases.SpStateMachineTests {
 
         #region Private Methods
 
-        private ISpEventMessage GetMsg(MyMsgId eventId) {
+        private static MyBaseMsg GetMsg(MyMsgId eventId) {
             //Console.WriteLine("-- Sending msg:{0}", eventId.ToString());
 
             Log.Info("","", String.Format("---------------------- Sending msg:{0}", eventId));
@@ -133,20 +133,22 @@ namespace TestCases.SpStateMachineTests {
         }
 
 
-        private ISpEventMessage GetStartMsg() {
+#pragma warning disable IDE0051 // Remove unused private members
+        private static MyBaseMsg GetStartMsg() {
             return new MyBaseMsg(MyMsgType.SimpleMsg, MyMsgId.Start);
         }
 
-        private ISpEventMessage GetStopMsg() {
+        private static MyBaseMsg GetStopMsg() {
             return new MyBaseMsg(MyMsgType.SimpleMsg, MyMsgId.Stop);
         }
 
-        private ISpEventMessage GetAbortMsg() {
+        private static MyBaseMsg GetAbortMsg() {
             return new MyBaseMsg(MyMsgType.SimpleMsg, MyMsgId.Abort);
         }
+#pragma warning restore IDE0051 // Remove unused private members
 
         [return:MaybeNull]
-        private ISpEventMessage Tick(ISpEventMessage msg, ISpStateMachine sm) {
+        private static ISpEventMessage Tick(ISpEventMessage msg, ISpStateMachine sm) {
             ISpEventMessage? ret = null;
             TestHelpers.CatchUnexpected(() => {
                 ret = sm.Tick(msg);
@@ -156,20 +158,20 @@ namespace TestCases.SpStateMachineTests {
 
 
 
-        private void TickAndValidateState(ISpEventMessage msg, ISpStateMachine sm, string expected) {
-            ISpEventMessage? ret = this.Tick(msg, sm);
+        private static void TickAndValidateState(ISpEventMessage msg, ISpStateMachine sm, string expected) {
+            ISpEventMessage? ret = Tick(msg, sm);
             Thread.Sleep(0);
-            this.ValidateState(sm, expected);
+            ValidateState(sm, expected);
             WrapErr.ChkVar(ret, 9999, "");
-            this.ValidateReturn(msg, ret);
+            ValidateReturn(msg, ret);
         }
 
-        private void ValidateReturn(ISpEventMessage msg, ISpEventMessage ret) {
+        private static void ValidateReturn(ISpEventMessage msg, ISpEventMessage ret) {
             Assert.AreEqual(msg.Uid, ret.Uid, "Mismatch in GUIDs on return");
         }
 
 
-        private void ValidateState(ISpStateMachine sm, string expected) {
+        private static void ValidateState(ISpStateMachine sm, string expected) {
             Log.Info("", "", String.Format("---------------------- Validate that state is:{0}", expected));
 
             //Console.WriteLine("-- Validate that state is:{0}", expected);

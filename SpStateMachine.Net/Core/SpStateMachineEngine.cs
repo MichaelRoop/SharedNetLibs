@@ -16,25 +16,25 @@ namespace SpStateMachine.Net.Core {
 
         #region Data
 
-        ISpPeriodicTimer timer;
+        readonly ISpPeriodicTimer timer;
 
-        ISpStateMachine stateMachine;
+        readonly ISpStateMachine stateMachine;
 
-        ISpEventStore msgStore;
+        readonly ISpEventStore msgStore;
 
-        ISpEventListner msgListner;
+        readonly ISpEventListner msgListner;
 
-        ISpBehaviorOnEvent eventBehavior;
+        readonly ISpBehaviorOnEvent eventBehavior;
 
-        Action wakeUpAction;
+        readonly Action wakeUpAction;
 
         private bool terminateThread = false;
 
-        private Thread driverThread;
+        private readonly Thread driverThread;
 
         private readonly CancellationTokenSource cancelToken;
 
-        ClassLog log = new (typeof(SpStateMachineEngine).Name);
+        readonly ClassLog log = new (typeof(SpStateMachineEngine).Name);
 
         #endregion
 
@@ -77,8 +77,8 @@ namespace SpStateMachine.Net.Core {
                 this.driverThread.Start();
 
                 // Initalise events that will be raised and connect them to objects that will raise them
-                this.wakeUpAction = new Action(this.timer_OnWakeup);
-                this.msgListner.MsgReceived += this.eventListner_MsgReceived;
+                this.wakeUpAction = new Action(this.Timer_OnWakeup);
+                this.msgListner.MsgReceived += this.EventListner_MsgReceived;
                 this.timer.OnWakeup += this.wakeUpAction;
             }
             catch (Exception ex) {
@@ -90,7 +90,7 @@ namespace SpStateMachine.Net.Core {
 
         /// <summary>Finalizer</summary>
         ~SpStateMachineEngine() {
-            this.Dispose(false);
+            Dispose(false);
         }
 
         #endregion
@@ -142,14 +142,14 @@ namespace SpStateMachine.Net.Core {
         #region Private Methods
 
         /// <summary>Action fired on timer wakeup</summary>
-        void timer_OnWakeup() {
+        void Timer_OnWakeup() {
             this.eventBehavior.EventReceived(BehaviorResponseEventType.PeriodicWakeup);
         }
 
 
         /// <summary>Event from the event listner gets stuffed in the store</summary>
         /// <param name="msg"></param>
-        void eventListner_MsgReceived(object? sender, EventArgs e) {
+        void EventListner_MsgReceived(object? sender, EventArgs e) {
             this.msgStore.Add(((SpMessagingArgs)e).Payload);
             this.eventBehavior.EventReceived(BehaviorResponseEventType.MsgArrived);
         }
@@ -160,10 +160,14 @@ namespace SpStateMachine.Net.Core {
             this.log.DebugEntry("ShutDownThread");
 
             WrapErr.ToErrReport(50059, () => {
-                WrapErr.SafeAction(() => this.timer.Stop());
+                if (this.timer != null) {
+                    WrapErr.SafeAction(() => this.timer.Stop());
+                }
                 this.terminateThread = true;
-                WrapErr.SafeAction(() =>
-                    this.eventBehavior.EventReceived(BehaviorResponseEventType.TerminateRequest));
+                if (this.eventBehavior != null) {
+                    WrapErr.SafeAction(() =>
+                        this.eventBehavior.EventReceived(BehaviorResponseEventType.TerminateRequest));
+                }
 
                 if (this.driverThread != null) {
                     if (this.driverThread.IsAlive) {
@@ -183,7 +187,7 @@ namespace SpStateMachine.Net.Core {
         private bool disposed = false;
 
         public void Dispose() {
-            this.Dispose(true);
+            Dispose(true);
 
             // Prevent finalizer call if already released
             GC.SuppressFinalize(this);
@@ -200,12 +204,12 @@ namespace SpStateMachine.Net.Core {
             this.log.Info("Dispose", String.Format("Disposed:{0} diposeManagedResources:{1}", this.disposed, disposeManagedResources));
 
             if (!disposed) {
-                this.ShutDownThread();
+                ShutDownThread();
 
                 if (disposeManagedResources) {
-                    this.DisposeManagedResources();
+                    DisposeManagedResources();
                 }
-                this.DisposeNativeResources();
+                DisposeNativeResources();
             }
             this.disposed = true;
         }
@@ -216,31 +220,29 @@ namespace SpStateMachine.Net.Core {
             this.log.DebugEntry("DisposeManagedResources");
 
             // Disconnect event handling
-            WrapErr.SafeAction(() => { this.msgListner.MsgReceived -= this.eventListner_MsgReceived; });
+            WrapErr.SafeAction(() => { this.msgListner.MsgReceived -= this.EventListner_MsgReceived; });
             WrapErr.SafeAction(() => { this.timer.OnWakeup -= this.wakeUpAction; });
 
-            this.DisposeObject(this.timer, "timer");
-            this.DisposeObject(this.eventBehavior, "eventBehavior");
-            this.DisposeObject(this.stateMachine, "stateMachine");
-            this.DisposeObject(this.msgStore, "msgStore");
-            this.DisposeObject(this.msgListner, "msgListner");
+            DisposeObject(this.timer, "timer");
+            DisposeObject(this.eventBehavior, "eventBehavior");
+            DisposeObject(this.stateMachine, "stateMachine");
+            DisposeObject(this.msgStore, "msgStore");
+            DisposeObject(this.msgListner, "msgListner");
         }
 
 
         /// <summary>Factor out the disposal of objects</summary>
         /// <param name="disposableObject">object to dispose</param>
         /// <param name="name">Name of object for error logging</param>
-        private void DisposeObject(IDisposable disposableObject, string name) {
+        private static void DisposeObject(IDisposable disposableObject, string name) {
             WrapErr.ToErrReport(50060, String.Format("Error Disposing Object:{0}", name), () => {
-                if (disposableObject != null) {
-                    disposableObject.Dispose();
-                }
+                disposableObject?.Dispose();
             });
         }
 
 
         /// <summary>Dispose unmanaged native resources (InPtr, file handles)</summary>
-        private void DisposeNativeResources() {
+        private static void DisposeNativeResources() {
             // Nothing to cleanup
         }
 

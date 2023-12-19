@@ -121,14 +121,14 @@ namespace TestCases.Core.BLE.BLE_Types {
 
         [Test]
         public void T09_Int24_CompareTo_Sorted() {
-            Int24[] array = new Int24[6] {
+            Int24[] array = [
                     new Int24(25),
                     new Int24(4),
                     new Int24(-400),
                     new Int24(3222),
                     new Int24(0),
                     new Int24(25)
-                };
+                ];
 
             Assert.AreEqual(25, array[0].Value);
             Assert.AreEqual(4, array[1].Value);

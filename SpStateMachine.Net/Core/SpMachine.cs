@@ -17,10 +17,10 @@ namespace SpStateMachine.Net.Core {
         #region Data
 
         /// <summary>The main state for the State Machine</summary>
-        ISpState<TMsgId> state;
+        readonly ISpState<TMsgId> state;
 
         /// <summary>The object that the State Machine represents</summary>
-        TMachine wrappedObject;
+        readonly TMachine wrappedObject;
 
         /// <summary>Flag to indicate if the first 'OnEntry' has been called</summary>
         private bool isStarted = false;
@@ -122,7 +122,10 @@ namespace SpStateMachine.Net.Core {
                 if (disposeManagedResources) {
                     WrapErr.ToErrorReportException(50173, () => this.DisposeManagedResources());
                 }
-                WrapErr.ToErrorReportException(50174, () => this.DisposeNativeResources());
+                try {
+                    WrapErr.ToErrorReportException(50174, () => this.DisposeNativeResources());
+                }
+                catch { }
             }
             this.disposed = true;
         }
