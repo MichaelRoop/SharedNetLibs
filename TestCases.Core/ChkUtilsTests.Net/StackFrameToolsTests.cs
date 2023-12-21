@@ -9,6 +9,21 @@ namespace TestCases.ChkUtilsTests.Net {
 
         StackTools stackTools = new StackTools();
 
+        #region LineNumber
+        // Region put at top of file to avoid having expected line number changed
+
+        [Test]
+        public void LineNumber_nullFrame() {
+            Assert.AreEqual(0, StackTools.Line(null));
+        }
+
+        /// <summary>MAKE SURE YOU ADJUST EXPECTED FILE LINE AFTER FILE MODIFIED</summary>
+        [Test]
+        public void LineNumber_withNumber() {
+            Assert.AreEqual(23, StackTools.Line(new StackTrace(true).GetFrame(0)));
+        }
+
+        #endregion
 
         #region ClassName
 
@@ -58,32 +73,17 @@ namespace TestCases.ChkUtilsTests.Net {
 
         #endregion
 
-        #region LineNumber
-
-        [Test]
-        public void LineNumber_nullFrame() {
-            Assert.AreEqual(0, StackTools.Line(null));
-        }
-
-        /// <summary>MAKE SURE YOU ADJUST EXPECTED FILE LINE AFTER FILE MODIFIED</summary>
-        [Test]
-        public void LineNumber_withNumber() {
-            Assert.AreEqual(79, StackTools.Line(new StackTrace(true).GetFrame(0)));
-        }
-
-        #endregion
-
         #region ColumnNumber
 
         /// <summary>Column is start of Assert method. Don´t change spacing</summary>
         [Test]
-        public void ColumnNumber_withNumber() {
+        public void Column_withNumber() {
             Assert.AreEqual(13, StackTools.Column(new StackTrace(true).GetFrame(0)));
         }
 
         /// <summary>Always return 0 column on failure</summary>
         [Test]
-        public void ColumnNumber_nullFrame() {
+        public void Column_nullFrame() {
             Assert.AreEqual(0, StackTools.Column(null));
         }
 
@@ -94,15 +94,23 @@ namespace TestCases.ChkUtilsTests.Net {
 
         [Test]
         public void FirstNonWrappedMethod_valid() {
-            this.TestMethodBase("FirstNonWrappedMethod_valid",
-                this.stackTools.FirstNonWrappedMethod(typeof(WrapErr)));
+            WrapErr.SafeAction(() => {
+                this.TestMethodBase("FirstNonWrappedMethod_valid",
+                    this.stackTools.FirstNonWrappedMethod(typeof(WrapErr)));
+            });
         }
 
         [Test]
         public void FirstNonWrappedMethod_multiTypes() {
-            Type[] types = new Type[] { typeof(WrapErr), typeof(ErrorLocation) };
-            this.TestMethodBase("FirstNonWrappedMethod_multiTypes",
-                this.stackTools.FirstNonWrappedMethod(types));
+            // Need to wrap the call into other classes to test the ignore of those classes on stack
+            WrapErr.SafeAction(() => {
+                WrappingClass1 t1 = new WrappingClass1();
+                t1.DoIt(() => {
+                    Type[] types = new Type[] { typeof(WrapErr), typeof(WrappingClass1) };
+                    this.TestMethodBase("FirstNonWrappedMethod_multiTypes",
+                        this.stackTools.FirstNonWrappedMethod(types));
+                    });
+                });
         }
 
 
@@ -115,61 +123,9 @@ namespace TestCases.ChkUtilsTests.Net {
 
 
         private void TestMethodBase(string method, ErrorLocation loc) {
-            //Assert.NotNull(mb);
-            //if (mb != null) {
-            //Console.WriteLine("{0}.{1}", mb.DeclaringType.Name, mb.Name);
-            //Assert.AreEqual(method, mb.Name);
-            //Assert.NotNull(((MethodBase)mb).DeclaringType);
-            //if (mb.DeclaringType != null) {
-            //    Assert.AreEqual("StackFrameToolsTests", mb.DeclaringType.Name);
-            //}
             Assert.AreEqual(method, loc.MethodName);
             Assert.AreEqual("StackFrameToolsTests", loc.ClassName);
-
-
-
-            //}
         }
-
-
-
-        //private void TestMethodBase(string method, MethodBase mb) {
-        //    Assert.NotNull(mb);
-        //    if (mb != null) {
-        //        //Console.WriteLine("{0}.{1}", mb.DeclaringType.Name, mb.Name);
-        //        Assert.AreEqual(method, mb.Name);
-        //        Assert.NotNull(((MethodBase)mb).DeclaringType);
-        //        if (mb.DeclaringType != null) { 
-        //            Assert.AreEqual("StackFrameToolsTests", mb.DeclaringType.Name);
-        //        }
-        //    }
-        //}
-
-        public class ExceptionThrower {
-            public void DoIt() {
-                throw new Exception("Blah");
-            }
-        }
-
-        public class ExceptionCatcher {
-
-            public ErrorLocation DoIt3() {
-                StackTools s = new StackTools();
-                try {
-                    new ExceptionThrower().DoIt();
-                    Assert.Fail("It should not have gotten here - exception not thrown");
-                    return s.FirstNonWrappedMethod(this.GetType());
-                }
-                catch (Exception) {
-                    // Ignore all methods from this type to get the first method above it
-                    return  s.FirstNonWrappedMethod(this.GetType());
-                }
-            }
-
-            public ErrorLocation DoIt2() { return this.DoIt3(); }
-            public ErrorLocation DoIt() { return this.DoIt2(); }
-        }
-
 
         #endregion
 
@@ -192,6 +148,52 @@ namespace TestCases.ChkUtilsTests.Net {
         }
 
 
+
+
+        #endregion
+
+        #region TODO
+
+        //List<string> FirstNonWrappedTraceStack(Type typeToIgnore, int fromLevel);
+        //List<string> FirstNonWrappedTraceStack(Type typeToIgnore, Exception ex, int fromLevel);
+        //void FindNestedExceptionType<T>(Exception e, Action<bool, T?> onComplete) where T : Exception;
+
+        #endregion
+
+        #region Helper classes
+
+        public class WrappingClass1 {
+            public WrappingClass1() { }
+            public void DoIt(Action action) { 
+                action();
+            }
+        }
+
+
+        public class ExceptionThrower {
+            public void DoIt() {
+                throw new Exception("Blah");
+            }
+        }
+
+        public class ExceptionCatcher {
+
+            public ErrorLocation DoIt3() {
+                StackTools s = new StackTools();
+                try {
+                    new ExceptionThrower().DoIt();
+                    Assert.Fail("It should not have gotten here - exception not thrown");
+                    return s.FirstNonWrappedMethod(this.GetType());
+                }
+                catch (Exception) {
+                    // Ignore all methods from this type to get the first method above it
+                    return s.FirstNonWrappedMethod(this.GetType());
+                }
+            }
+
+            public ErrorLocation DoIt2() { return this.DoIt3(); }
+            public ErrorLocation DoIt() { return this.DoIt2(); }
+        }
 
 
         #endregion
