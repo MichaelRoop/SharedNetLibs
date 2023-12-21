@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using ChkUtils.Net;
 using NUnit.Framework;
-using ChkUtils;
 using System.Diagnostics;
-using System.Reflection;
-using ChkUtils.Net;
-using Microsoft.VisualStudio.TestPlatform.ObjectModel;
-using Microsoft.VisualBasic;
 
-namespace TestCases.ChkUtilsTests {
+namespace TestCases.ChkUtilsTests.Net {
 
     [TestFixture]
     public class StackFrameToolsTests {
