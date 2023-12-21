@@ -114,7 +114,7 @@ namespace TestCases.Core.CommStackTests {
                     length = data.Length;
                 };
                 for (int i = 0; i < packet.Length; i++) {
-                    byte[] part = new byte[1] { packet[i] };
+                    byte[] part = [packet[i]];
                     this.myComm.SendOutMsg(part);
                     Thread.Sleep(waitMs);
                     if (i == (packet.Length - 1)) {
@@ -271,7 +271,7 @@ namespace TestCases.Core.CommStackTests {
 
 
         private byte[] GetQueuePopData(byte[] inPacket) {
-            byte[] returnedPacket = Array.Empty<byte>();
+            byte[] returnedPacket = [];
             TestHelpers.CatchUnexpected(() => {
                 bool gotIt = false;
                 int length = 0;

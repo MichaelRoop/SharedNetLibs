@@ -71,7 +71,9 @@ namespace TestCaseSupport.Core {
 
         public static void ValidateErrReportStack(ErrReport err, List<string> msgs) {
             msgs.ForEach(
-                item => Assert.IsTrue(err.StackTrace.Contains(item.ToString()), String.Format("ErrReport in Stack Does not contain:{0}", item.ToString())));
+                item => Assert.IsTrue(
+                    err.StackTrace.Contains(item.ToString()), 
+                    String.Format("ErrReport in Stack Does not contain:{0}", item.ToString())));
         }
 
         #endregion

@@ -1,7 +1,39 @@
-﻿namespace ChkUtils.Net.Interfaces {
+﻿using System.Diagnostics;
+
+namespace ChkUtils.Net.Interfaces {
 
     /// <summary>Interface to calls that must be compiled in OS specific libraries for parsing the stack</summary>
     public interface IStackTools {
+
+        /// <summary>Get the file name</summary>
+        /// <param name="frame">the stack frame</param>
+        /// <returns>NoFileName on failure, or the file name</returns>
+        static string FileName(StackFrame? frame) => "";
+
+
+        /// <summary>Safe call to get method name from frame</summary>
+        /// <param name="frame">The frame with the information</param>
+        /// <returns>The method name</returns>
+        static string MethodName(StackFrame? frame) => "";
+
+
+        /// <summary>Get the line number from the stack frame</summary>
+        /// <param name="frame">The frame with the information</param>
+        /// <returns>0 if not found, or the line number</returns>
+        static int Line(StackFrame? frame) => 0;
+
+
+        /// <summary>Get the column number</summary>
+        /// <param name="frame">The stack frame</param>
+        /// <returns>0 on failure or the column number in the stack</returns>
+        static int Column(StackFrame? frame) => 0;
+
+
+        /// <summary>Allow safe call from outside</summary>
+        /// <param name="frame">The stack frame</param>
+        /// <returns>Empty string if null or class name in frame</returns>
+        static string ClassName(StackFrame? frame) => "";
+
 
         /// <summary>Walk through stack until first class that is not to be ignored and whose method does not have the <>
         /// </summary>

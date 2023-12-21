@@ -22,6 +22,46 @@ namespace ChkUtils.Net {
 
         #region IStackTools Implementations
 
+        /// <summary>Get the file name</summary>
+        /// <param name="frame">the stack frame</param>
+        /// <returns>NoFileName on failure, or the file name</returns>
+        public static string FileName(StackFrame? frame) {
+            return frame == null ? "NoFileName" : FileNameInternal(frame);
+        }
+
+
+        /// <summary>Safe call to get method name from frame</summary>
+        /// <param name="frame">The frame with the information</param>
+        /// <returns>The method name</returns>
+        public static string MethodName(StackFrame? frame) {
+            return frame == null ? "NoMethodName" : MethodNameInternal(frame);
+        }
+
+
+        /// <summary>Get the line number from the stack frame</summary>
+        /// <param name="frame">The frame with the information</param>
+        /// <returns>0 if not found, or the line number</returns>
+        public static int Line(StackFrame? frame) {
+            return frame == null ? 0 : LineInternal(frame);
+        }
+
+
+        /// <summary>Get the column number</summary>
+        /// <param name="frame">The stack frame</param>
+        /// <returns>0 on failure or the column number in the stack</returns>
+        public static int Column(StackFrame? frame) {
+            return frame == null ? 0 : ColumnInternal(frame);
+        }
+
+
+        /// <summary>Allow safe call from outside</summary>
+        /// <param name="frame">The stack frame</param>
+        /// <returns>Empty string if null or class name in frame</returns>
+        public static string ClassName(StackFrame? frame) {
+            return frame == null ? "NoClassName" : ClassNameInternal(frame);
+        }
+
+
         /// <summary>
         /// Walk through stack until you encounter the first class that is not to be ignored and
         /// whose method does not have the <>
@@ -153,7 +193,7 @@ namespace ChkUtils.Net {
                 }
 
                 // Skip over all entries until you hit the first not to ignore
-                string frameClass = ClassName(sf);
+                string frameClass = ClassNameInternal(sf);
                 if (!firstNonWrapErr) {
                     if (frameClass != ignoreTypeName && !IsInternalClass(frameClass)) {
                         firstNonWrapErr = true;
@@ -166,11 +206,11 @@ namespace ChkUtils.Net {
                 if (frameClass != ignoreTypeName && !IsInternalClass(frameClass)) {
                     stackFrames.Add(
                     // Also ignore all instances of type to ignore
-                    String.Format("     {0} : Line:{1} - {2}.{3}",
-                        FileName(sf),
-                        Line(sf),
+                    String.Format("     {0} : LineInternal:{1} - {2}.{3}",
+                        FileNameInternal(sf),
+                        LineInternal(sf),
                         frameClass,
-                        MethodName(sf)));
+                        MethodNameInternal(sf)));
                 }
             }
             return stackFrames;
@@ -195,7 +235,7 @@ namespace ChkUtils.Net {
                     if (sf == null) {
                         return stackFrames;
                     }
-                    string frameClass = ClassName(sf);
+                    string frameClass = ClassNameInternal(sf);
 
                     // Skip over all entries until you hit the first not to ignore
                     if (!firstNonWrapErr) {
@@ -210,11 +250,11 @@ namespace ChkUtils.Net {
                     if (frameClass != ignoreTypeName && !IsInternalClass(frameClass)) {
                         stackFrames.Add(
                         // Also ignore all instances of type to ignore
-                        String.Format("     {0} : Line:{1} - {2}.{3}",
-                            FileName(sf),
-                            Line(sf),
+                        String.Format("     {0} : LineInternal:{1} - {2}.{3}",
+                            FileNameInternal(sf),
+                            LineInternal(sf),
                             frameClass,
-                            MethodName(sf)));
+                            MethodNameInternal(sf)));
                     }
                 }
                 return stackFrames;
@@ -262,7 +302,7 @@ namespace ChkUtils.Net {
         /// </summary>
         /// <param name="frame">The frame with the information</param>
         /// <returns>The file name</returns>
-        private static string FileName(StackFrame frame) {
+        private static string FileNameInternal(StackFrame frame) {
             if (frame == null) {
                 //Debug.WriteLine("StackFrameTools.GetFileName : Null frame");
                 return "NoFileName";
@@ -290,7 +330,7 @@ namespace ChkUtils.Net {
         /// </summary>
         /// <param name="frame">The frame with the information</param>
         /// <returns>The method name</returns>
-        private static string MethodName(StackFrame frame) {
+        private static string MethodNameInternal(StackFrame frame) {
             try {
                 MethodBase? mb = frame.GetMethod();
                 if (mb != null) {
@@ -305,12 +345,10 @@ namespace ChkUtils.Net {
         }
 
 
-        /// <summary>
-        /// Get the line number from the stack frame
-        /// </summary>
+        /// <summary>Get the line number from the stack frame</summary>
         /// <param name="frame">The frame with the information</param>
-        /// <returns>The method name</returns>
-        private static int Line(StackFrame frame) {
+        /// <returns>0 if not found, or the line number</returns>
+        private static int LineInternal(StackFrame frame) {
             try {
                 return frame.GetFileLineNumber();
             }
@@ -321,12 +359,26 @@ namespace ChkUtils.Net {
         }
 
 
+        /// <summary>Get the column number from the stack frame</summary>
+        /// <param name="frame">The frame with the information</param>
+        /// <returns>0 if not found, or the column number</returns>
+        private static int ColumnInternal(StackFrame frame) {
+            try {
+                return frame.GetFileColumnNumber();
+            }
+            catch (Exception e) {
+                Debug.WriteLine(String.Format("WrapErr.GetLine : Exception {0} getting column number:{1}", e.GetType().Name, e.Message));
+                return 0;
+            }
+        }
+
+
         /// <summary>
         /// Get the class name from the stack frame
         /// </summary>
         /// <param name="frame">The frame with the information</param>
         /// <returns>The class name</returns>
-        private static string ClassName(StackFrame frame) {
+        private static string ClassNameInternal(StackFrame frame) {
             try {
                 MethodBase? mb = frame.GetMethod();
                 if (mb != null && mb.DeclaringType != null) {
