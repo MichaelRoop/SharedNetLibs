@@ -23,6 +23,12 @@ namespace ChkUtils.Net.Interfaces {
         static int Line(StackFrame? frame) => 0;
 
 
+        /// <summary>Get the column number</summary>
+        /// <param name="frame">The stack frame</param>
+        /// <returns>0 on failure or the column number in the stack</returns>
+        static int Column(StackFrame? frame) => 0;
+
+
         /// <summary>Allow safe call from outside</summary>
         /// <param name="frame">The stack frame</param>
         /// <returns>Empty string if null or class name in frame</returns>

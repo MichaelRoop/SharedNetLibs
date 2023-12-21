@@ -79,6 +79,21 @@ namespace TestCases.ChkUtilsTests {
             Assert.AreEqual(79, StackTools.Line(new StackTrace(true).GetFrame(0)));
         }
 
+        #endregion
+
+        #region ColumnNumber
+
+        /// <summary>Column is start of Assert method. Don´t change spacing</summary>
+        [Test]
+        public void ColumnNumber_withNumber() {
+            Assert.AreEqual(13, StackTools.Column(new StackTrace(true).GetFrame(0)));
+        }
+
+        /// <summary>Always return 0 column on failure</summary>
+        [Test]
+        public void ColumnNumber_nullFrame() {
+            Assert.AreEqual(0, StackTools.Column(null));
+        }
 
 
         #endregion

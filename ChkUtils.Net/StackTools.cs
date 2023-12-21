@@ -46,6 +46,14 @@ namespace ChkUtils.Net {
         }
 
 
+        /// <summary>Get the column number</summary>
+        /// <param name="frame">The stack frame</param>
+        /// <returns>0 on failure or the column number in the stack</returns>
+        public static int Column(StackFrame? frame) {
+            return frame == null ? 0 : ColumnInternal(frame);
+        }
+
+
         /// <summary>Allow safe call from outside</summary>
         /// <param name="frame">The stack frame</param>
         /// <returns>Empty string if null or class name in frame</returns>
@@ -346,6 +354,20 @@ namespace ChkUtils.Net {
             }
             catch (Exception e) {
                 Debug.WriteLine(String.Format("WrapErr.GetLine : Exception {0} getting line number:{1}", e.GetType().Name, e.Message));
+                return 0;
+            }
+        }
+
+
+        /// <summary>Get the column number from the stack frame</summary>
+        /// <param name="frame">The frame with the information</param>
+        /// <returns>0 if not found, or the column number</returns>
+        private static int ColumnInternal(StackFrame frame) {
+            try {
+                return frame.GetFileColumnNumber();
+            }
+            catch (Exception e) {
+                Debug.WriteLine(String.Format("WrapErr.GetLine : Exception {0} getting column number:{1}", e.GetType().Name, e.Message));
                 return 0;
             }
         }
