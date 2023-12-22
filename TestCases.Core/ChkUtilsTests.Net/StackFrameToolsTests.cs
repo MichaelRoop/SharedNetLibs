@@ -152,6 +152,54 @@ namespace TestCases.ChkUtilsTests.Net {
 
         #endregion
 
+        [Test]
+        public void FirstNonWrappedTraceStack_caught() {
+            // The catcher calls the FirstNonWrappedMethod and tells it to ignore any of its class
+            // methods in order to retrieve the first method beyond it
+            //this.TestMethodBase("FirstNonWrappedMethod_caught", new ExceptionCatcher().DoIt());
+
+            //StackTools s = new StackTools();
+
+            List<string> ss = new();
+
+            try {
+                new ExceptionThrower3().DoIt();
+                Assert.Fail("It should not have gotten here - exception not thrown");
+                //could return a ErrorLocation to parse in common method
+                //this.stackTools.FirstNonWrappedMethod(this.GetType());
+
+
+
+            }
+            catch (Exception ex) {
+                // this will list 1 and 2 and this method name
+                //List<string> ss = this.stackTools.FirstNonWrappedTraceStack(typeof (ExceptionThrower3), ex, 0);
+
+                // gets all 3 levels and this calling method name since it ignores something not in the stack
+                ss = this.stackTools.FirstNonWrappedTraceStack(typeof (WrapErr), ex, 0);
+
+                // this method does not get the names of class etc
+                //List<string> ss = this.stackTools.FirstNonWrappedTraceStack(typeof(WrapErr), 0);
+
+
+                //Assert.AreEqual("", )
+                foreach (string s in ss) {
+                    Debug.Write("");
+                    Debug.Write(s);
+                    Debug.WriteLine("");
+                }
+
+                //// Ignore all methods from this type to get the first method above it
+                //return s.FirstNonWrappedMethod(this.GetType());
+            }
+
+            Assert.True(Array.Find(ss.ToArray(), s => s.Contains("ExceptionThrower.DoIt")) != null, "Not found ExceptionThrower.DoIt");
+            Assert.True(Array.Find(ss.ToArray(), s => s.Contains("ExceptionThrower2.DoIt")) != null, "Not found ExceptionThrower.DoIt2");
+            Assert.True(Array.Find(ss.ToArray(), s => s.Contains("ExceptionThrower3.DoIt")) != null, "Not found ExceptionThrower.DoIt3");
+        }
+
+
+
         #region TODO
 
         //List<string> FirstNonWrappedTraceStack(Type typeToIgnore, int fromLevel);
@@ -175,6 +223,33 @@ namespace TestCases.ChkUtilsTests.Net {
                 throw new Exception("Blah");
             }
         }
+
+        public class ExceptionThrower2 {
+            public void DoIt() {
+                try {
+                    new ExceptionThrower().DoIt();
+                }
+                catch (Exception) {
+                    //throw new Exception("Nested 2 exception");
+                    throw;
+                }
+            }
+        }
+
+
+        public class ExceptionThrower3 {
+            public void DoIt() {
+                try {
+                    new ExceptionThrower2().DoIt();
+                }
+                catch (Exception) {
+                    throw;
+                    //throw new Exception("Nested 3 exception");
+                }
+            }
+        }
+
+
 
         public class ExceptionCatcher {
 

@@ -206,9 +206,10 @@ namespace ChkUtils.Net {
                 if (frameClass != ignoreTypeName && !IsInternalClass(frameClass)) {
                     stackFrames.Add(
                     // Also ignore all instances of type to ignore
-                    String.Format("     {0} : LineInternal:{1} - {2}.{3}",
+                    String.Format("     {0} : Line:{1} Column:{2} - {3}.{4}",
                         FileNameInternal(sf),
                         LineInternal(sf),
+                        ColumnInternal(sf),
                         frameClass,
                         MethodNameInternal(sf)));
                 }
@@ -250,11 +251,14 @@ namespace ChkUtils.Net {
                     if (frameClass != ignoreTypeName && !IsInternalClass(frameClass)) {
                         stackFrames.Add(
                         // Also ignore all instances of type to ignore
-                        String.Format("     {0} : LineInternal:{1} - {2}.{3}",
+                        String.Format("     {0} : Line:{1} Column:{2} - {3}.{4}",
                             FileNameInternal(sf),
                             LineInternal(sf),
+                            ColumnInternal(sf),
                             frameClass,
                             MethodNameInternal(sf)));
+
+                        // TODO - add stack info for each nested exception?
                     }
                 }
                 return stackFrames;
